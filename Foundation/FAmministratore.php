@@ -1,7 +1,7 @@
 <?php
 
 //require_once '../utility/autoload.php';
-
+//Questo è un commento banale
 class FAmministratore {
     /** nome della classe */
     private static $class = "FAmministratore";
