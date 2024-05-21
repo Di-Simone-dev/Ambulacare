@@ -11,7 +11,7 @@ class FPersistentManager{
         return self::$instance;
     }
 
-    //END SINGLETON
+    //FINE DESIGN PATTERN SINGLETON
 
     public static function createObj($obj){
         $class = "F" . substr(get_class($obj), 1);
@@ -37,11 +37,11 @@ class FPersistentManager{
         return $result;
     }
 
-    //END CRUD
+    //FINE CRUD
 
 
-    public static function verifyUserEmail($email){
-        $result = FUser::verify('email', $email);
+    public static function verifyEmailPaziente($email){
+        $result = FPaziente::verify('email', $email);
         return $result;
     }
 }
