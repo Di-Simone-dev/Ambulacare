@@ -8,12 +8,30 @@
  * @package Foundation
  */
 
+/*PAZIENTE CHE INTERAGISCE CON IL DB:
+1)CREARE UN APPUNTAMENTO (CREATE)
+2)MODIFICARE UN APPUNTAMENTO (UPDATE)
+3)VISUALIZZARE UN REFERTO (RETRIEVE)
+4)POSTARE UNA RECENSIONE (CREATE)
+
+metodi già esistenti che teniamo:
+__construct()
+bind($stmt, EPaziente $cli)
+getClass()  ritorna la classe
+getTable()  ritorna la table
+getValues() ritorna la stringa degli attributi
+store($cli) salva sul db un oggetto
+
+
+*/
 class FPaziente  {
     /** classe foundation */
     private static $class="FPaziente";
+
 	/** tabella con la quale opera */
     private static $table="Paziente";
-    /** valori della tabella */
+
+    /** I CAMPI DELLA TABLE PAZIENTE*/
     private static $values="(:IdPaz,:nome,:cognome,:email,:password,:Codice_Fiscale,:Data_nascita,:Luogo_nascita,:residenza,:Numero_telefono,:attivo)";
 
     /** costruttore*/ 
@@ -37,6 +55,7 @@ class FPaziente  {
             $stmt->bindValue(':Numero_telefono',$cli->getNumero_telefono(), PDO::PARAM_STR);
             $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
         }
+
 
     /**
     * questo metodo restituisce il nome della classe per la costruzione delle Query

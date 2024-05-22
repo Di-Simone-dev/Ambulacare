@@ -32,16 +32,18 @@ if(file_exists('config.inc.php')) require_once 'config.inc.php';
 
 */
 
-//ELENCO DI METODI CHE RISULTANO NECESSARI FINORA
-//COSTRUTTORE DELLA CLASSE FDataBase=__construct
-//ACCESSO AL DB = getInstance
-//STORE DI UN ELEMENTO GENERICO SUL DB = storeDB(classe,oggetto)
-//LOAD DI UN ELEMENTO SINGOLO SUL DB = loadDB(classe,oggetto,id)
+/*ELENCO DI METODI CHE RISULTANO NECESSARI FINORA DA METTERE IN QUESTO FILE
+COSTRUTTORE DELLA CLASSE FDataBase=__construct()
+ACCESSO AL DB = getInstance() QUESTI DUE PER IL PATTERN SINGLETON
+STORE DI UN ELEMENTO GENERICO SUL DB = storeDB(classe,oggetto)
+LOAD DI UN ELEMENTO SINGOLO SUL DB = loadDB(classe,oggetto,id)
 
 
 
 
 
+
+*/
 
 class FDataBase
 {
@@ -54,11 +56,11 @@ class FDataBase
 	/** costruttore privato, l'unico accesso è dato dal metodo getInstance() per il pattern singleton*/
 	private function __construct ()
 	{
-		//global $host, $database, $username, $password;
-		/*$host = "127.0.0.1"; //localhost
+		global $host, $database, $username, $password;
+		$host = "127.0.0.1"; //localhost
 		$database = "AmbulaCare";
 		$username = "root";
-		$password = ""; */
+		$password = "";
 
 		try {
 			//$this->db = new PDO("mysql:host=$host; dbname=$database", $username, $password);
