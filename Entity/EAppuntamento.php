@@ -6,6 +6,15 @@ class EAppuntamento
 
     private $stato;
 
+    private static $entity = EAppuntamento::class;
+    //costruttore
+    public function __construct($IdApp, $stato)
+    {
+        $this->$IdApp=0;
+        $this->stato=$stato;
+
+    }
+    //metodi
     public function getIdApp()
     {
         return $this->IdApp;
