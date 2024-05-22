@@ -1,95 +1,85 @@
 <?php
 
-namespace App\Entity;
-
-use App\Repository\EAmministratoreRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: EAmministratoreRepository::class)]
 class EAmministratore
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+ 
+    private $IdAdm;
 
-    #[ORM\Column]
-    private ?int $IdAdm = null;
+    private $nome;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nome = null;
+    private $cognome;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cognome = null;
+    private $email;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private $password;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    private static $entity = EAmministratore::class;
 
-    public function getId(): ?int
+    //costruttore
+    public function __construct($IdAdm, $nome, $cognome, $email,$password)
     {
-        return $this->id;
+        $this->IdAdm = $IdAdm;
+        $this->nome = $nome;
+        $this->cognome = $cognome;
+        $this->email = $email;
+        $this->password = $password;
     }
 
-    public function getIdAdm(): ?int
+    //metodi
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    public function getIdAdm()
     {
         return $this->IdAdm;
     }
 
-    public function setIdAdm(int $IdAdm): static
+    public function setIdAdm($IdAdm)
     {
         $this->IdAdm = $IdAdm;
 
-        return $this;
     }
 
-    public function getNome(): ?string
+    public function getNome()
     {
         return $this->nome;
     }
 
-    public function setNome(string $nome): static
+    public function setNome($nome)
     {
         $this->nome = $nome;
-
-        return $this;
     }
 
-    public function getCognome(): ?string
+    public function getCognome()
     {
         return $this->cognome;
     }
 
-    public function setCognome(string $cognome): static
+    public function setCognome($cognome)
     {
         $this->cognome = $cognome;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
     }
+    
 }
