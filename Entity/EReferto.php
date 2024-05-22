@@ -1,70 +1,50 @@
 <?php
-
-namespace App\Entity;
-
-use App\Repository\ERefertoRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ERefertoRepository::class)]
 class EReferto
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    private $IdReferto;
+    private $oggetto;
+    private $contenuto;
+    private $file;
 
-    #[ORM\Column]
-    private ?int $IdReferto = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $oggetto = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $contenuto = null;
-
-    #[ORM\Column(type: Types::BLOB)]
-    private $file = null;
-
-    public function getId(): ?int
+    private static $entity = EReferto::class;
+    //costruttore
+    public function __construct($IdReferto,$oggetto,$contenuto,$file)
     {
-        return $this->id;
-    }
+        $this->IdReferto=0;
+        $this->oggetto=$oggetto;
+        $this->contenuto=$contenuto;
+        $this->file=0;
 
-    public function getIdReferto(): ?int
+    }
+    //metodi
+    public function getIdReferto()
     {
         return $this->IdReferto;
     }
 
-    public function setIdReferto(int $IdReferto): static
+    public function setIdReferto($IdReferto)
     {
         $this->IdReferto = $IdReferto;
-
-        return $this;
     }
 
-    public function getOggetto(): ?string
+    public function getOggetto()
     {
         return $this->oggetto;
     }
 
-    public function setOggetto(string $oggetto): static
+    public function setOggetto($oggetto)
     {
         $this->oggetto = $oggetto;
-
-        return $this;
     }
 
-    public function getContenuto(): ?string
+    public function getContenuto()
     {
         return $this->contenuto;
     }
 
-    public function setContenuto(string $contenuto): static
+    public function setContenuto($contenuto)
     {
         $this->contenuto = $contenuto;
-
-        return $this;
     }
 
     public function getFile()
@@ -72,10 +52,8 @@ class EReferto
         return $this->file;
     }
 
-    public function setFile($file): static
+    public function setFile($file)
     {
         $this->file = $file;
-
-        return $this;
     }
 }

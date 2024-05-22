@@ -1,50 +1,34 @@
 <?php
-
-namespace App\Entity;
-
-use App\Repository\ETipologiaRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ETipologiaRepository::class)]
 class ETipologia
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $IdTipologia = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nome_tipologia = null;
-
-    public function getId(): ?int
+    private $IdTipologia;
+    private $nome_tipologia;
+    private static $entity = ETipologia::class;
+    //costruttore
+    public function __construct($IdTipologia,$nome_tipologia)
     {
-        return $this->id;
-    }
+        $this->IdTipologia=0;
+        $this->nome_tipologia=$nome_tipologia;
 
-    public function getIdTipologia(): ?int
+    }
+    //metodi
+    public function getIdTipologia()
     {
         return $this->IdTipologia;
     }
 
-    public function setIdTipologia(int $IdTipologia): static
+    public function setIdTipologia($IdTipologia)
     {
         $this->IdTipologia = $IdTipologia;
-
-        return $this;
     }
 
-    public function getNomeTipologia(): ?string
+    public function getNomeTipologia()
     {
         return $this->nome_tipologia;
     }
 
-    public function setNomeTipologia(string $nome_tipologia): static
+    public function setNomeTipologia($nome_tipologia)
     {
         $this->nome_tipologia = $nome_tipologia;
-
-        return $this;
     }
 }

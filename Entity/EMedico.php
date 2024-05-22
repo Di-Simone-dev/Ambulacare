@@ -15,6 +15,8 @@ class EMedico
     private $attivo=true;
 
     private float $costo;
+
+    private static $entity = EMedico::class;
     //costruttore
     public function __construct($IdMed,$nome,$cognome,$email, $password, $attivo, $tipologia)
     {
