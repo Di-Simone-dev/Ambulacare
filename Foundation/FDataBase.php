@@ -32,6 +32,17 @@ if(file_exists('config.inc.php')) require_once 'config.inc.php';
 
 */
 
+//ELENCO DI METODI CHE RISULTANO NECESSARI FINORA
+//COSTRUTTORE DELLA CLASSE FDataBase=__construct
+//ACCESSO AL DB = getInstance
+//STORE DI UN ELEMENTO GENERICO SUL DB = storeDB(classe,oggetto)
+//LOAD DI UN ELEMENTO SINGOLO SUL DB = loadDB(classe,oggetto,id)
+
+
+
+
+
+
 class FDataBase
 {
 	/** l'unica istanza della classe */
@@ -40,7 +51,7 @@ class FDataBase
 	private $db;
 
 
-	/** costruttore privato, l'unico accesso è dato dal metodo getInstance() */
+	/** costruttore privato, l'unico accesso è dato dal metodo getInstance() per il pattern singleton*/
 	private function __construct ()
 	{
 		//global $host, $database, $username, $password;
@@ -59,13 +70,15 @@ class FDataBase
 		}
 
 	}
+	//con questo facciamo l'accesso al db in generale che riutilizziamo
+
 
 	/**
 	 * Metodo che restituisce l'unica istanza dell'oggetto.
 	 * @return FDataBase l'istanza dell'oggetto.
 	 */
 	public static function getInstance ()
-	{ //restituisce l'unica istanza (creandola se non esiste gia')
+	{ //restituisce l'unica istanza (creandola se non esiste gia')  PATTERN SINGLETON
 		if (self::$instance == null) {
 			self::$instance = new FDatabase();
 		}
@@ -77,7 +90,7 @@ class FDataBase
 	 * @param class classe da passare
 	 * @param obj oggetto da salvare
 	 */
-
+	
 	public function storeDB ($class, $obj)
 	{
 		try {
@@ -102,7 +115,7 @@ class FDataBase
 	 *
 	 * @param $query query da eseguire
 	 */
-	public function loadDB ($class, $field, $id)
+	public function loadDB ($class, $field, $id) //PRENDE IN INPUT LA CLASSE, IL FIELD(CHE è) ED L'ID
 	{
 		try {
 			// $this->db->beginTransaction();
