@@ -1,7 +1,6 @@
 <?php
 
 //require_once '../utility/autoload.php';
-//prova scrittura github emanuele
 class FAmministratore {
     /** nome della classe */
     private static $class = "FAmministratore";
