@@ -10,10 +10,10 @@ class ERecensione
     //costruttore
     public function __construct($IdRecensione,$oggetto,$contenuto,$valutazione)
     {
-        $this->IdRecensione=0;
+        //$this->IdRecensione=0; ????
         $this->oggetto=$oggetto;
         $this->contenuto=$contenuto;
-        $this->valutazione=$valutazione
+        $this->valutazione=$valutazione;
 
     }
     //metodi

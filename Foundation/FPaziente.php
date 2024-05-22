@@ -92,7 +92,7 @@ class FPaziente  {
     }
 
     /**
-     * Permette la load sul db
+     * Permette la load dal db
      * @param $id valore da ricercare nel campo $field
      * @param $field valore del campo della ricerca
      * @return object $cli l'oggetto paziente se presente
