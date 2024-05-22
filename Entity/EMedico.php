@@ -1,125 +1,114 @@
 <?php
-
-namespace App\Entity;
-
-use App\Repository\EMedicoRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: EMedicoRepository::class)]
 class EMedico
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $IdMed = null;
+    private $IdMed;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nome = null;
+    private $nome;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cognome = null;
+    private $cognome;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private $email;
+    private $password;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    private $tipologia;
+    private $attivo=true;
 
-    #[ORM\Column(length: 5)]
-    private ?string $attivo = null;
+    private float $costo;
 
-    #[ORM\Column]
-    private ?float $costo = null;
-
-    public function getId(): ?int
+    private static $entity = EMedico::class;
+    //costruttore
+    public function __construct($IdMed,$nome,$cognome,$email, $password, $attivo, $tipologia)
     {
-        return $this->id;
+        $this->IdMed= $IdMed;
+        $this->nome=$nome;
+        $this->cognome=$cognome;
+        $this->email=$email;
+        $this->password=$password;
+        $this->attivo=true;
+        $this->tipologia=$tipologia;
+
     }
 
-    public function getIdMed(): ?int
+    //metodi
+    public function getIdMed()
     {
         return $this->IdMed;
     }
 
-    public function setIdMed(int $IdMed): static
+    public function setIdMed($IdMed)
     {
         $this->IdMed = $IdMed;
 
-        return $this;
     }
 
-    public function getNome(): ?string
+    public function getNome()
     {
         return $this->nome;
     }
 
-    public function setNome(string $nome): static
+    public function setNome($nome)
     {
         $this->nome = $nome;
-
-        return $this;
     }
 
-    public function getCognome(): ?string
+    public function getCognome()
     {
         return $this->cognome;
     }
 
-    public function setCognome(string $cognome): static
+    public function setCognome($cognome)
     {
         $this->cognome = $cognome;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    public function getAttivo(): ?string
+    public function isAttivo()
     {
         return $this->attivo;
     }
 
-    public function setAttivo(string $attivo): static
+    public function setAttivo($bool)
     {
-        $this->attivo = $attivo;
-
-        return $this;
+        $this->attivo = $bool;
     }
 
-    public function getCosto(): ?float
+    public function getCosto()
     {
         return $this->costo;
     }
 
-    public function setCosto(float $costo): static
+    public function setCosto(float $costo)
     {
         $this->costo = $costo;
+    }
 
-        return $this;
+    public function getTipologia()
+    {
+        return $this->tipologia;
+    }
+
+    public function setTipologia($tipologia)
+    {
+        $this->tipologia = $tipologia;
     }
 }

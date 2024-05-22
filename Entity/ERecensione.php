@@ -1,81 +1,60 @@
 <?php
-
-namespace App\Entity;
-
-use App\Repository\ERecensioneRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ERecensioneRepository::class)]
 class ERecensione
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    private $IdRecensione;
+    private $oggetto;
+    private $contenuto;
+    private float $valutazione;
 
-    #[ORM\Column]
-    private ?int $IdRecensione = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $oggetto = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $contenuto = null;
-
-    #[ORM\Column]
-    private ?float $valutazione = null;
-
-    public function getId(): ?int
+    private static $entity = ERecensione::class;
+    //costruttore
+    public function __construct($IdRecensione,$oggetto,$contenuto,$valutazione)
     {
-        return $this->id;
-    }
+        $this->IdRecensione=0;
+        $this->oggetto=$oggetto;
+        $this->contenuto=$contenuto;
+        $this->valutazione=$valutazione
 
-    public function getIdRecensione(): ?int
+    }
+    //metodi
+
+    public function getIdRecensione()
     {
         return $this->IdRecensione;
     }
 
-    public function setIdRecensione(int $IdRecensione): static
+    public function setIdRecensione($IdRecensione)
     {
         $this->IdRecensione = $IdRecensione;
-
-        return $this;
     }
 
-    public function getOggetto(): ?string
+    public function getOggetto()
     {
         return $this->oggetto;
     }
 
-    public function setOggetto(string $oggetto): static
+    public function setOggetto($oggetto)
     {
         $this->oggetto = $oggetto;
-
-        return $this;
     }
 
-    public function getContenuto(): ?string
+    public function getContenuto()
     {
         return $this->contenuto;
     }
 
-    public function setContenuto(string $contenuto): static
+    public function setContenuto($contenuto)
     {
         $this->contenuto = $contenuto;
-
-        return $this;
     }
 
-    public function getValutazione(): ?float
+    public function getValutazione()
     {
         return $this->valutazione;
     }
 
-    public function setValutazione(float $valutazione): static
+    public function setValutazione(float $valutazione)
     {
         $this->valutazione = $valutazione;
-
-        return $this;
     }
 }

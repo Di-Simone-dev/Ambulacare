@@ -1,186 +1,144 @@
 <?php
 
-namespace App\Entity;
-
-use App\Repository\EPazienteRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: EPazienteRepository::class)]
 class EPaziente
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    private $IdPaz;
+    private $nome;
 
-    #[ORM\Column]
-    private ?int $IdPaz = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nome = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $cognome = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 16)]
-    private ?string $codice_fiscale = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $data_nascita = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $luogo_nascita = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $residenza = null;
-
-    #[ORM\Column(length: 10)]
-    private ?string $numero_telefono = null;
-
-    #[ORM\Column(length: 5)]
-    private ?string $attivo = null;
-
-    public function getId(): ?int
+    private $cognome;
+    private $email;
+    private $password;
+    private $codice_fiscale;
+    private DateTime $data_nascita;
+    private $luogo_nascita;
+    private $residenza;
+    private $numero_telefono;
+    private $attivo=true;
+    private static $entity = EPaziente::class;
+    //costruttore
+    public function __construct($IdPaz,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {
-        return $this->id;
-    }
+        $this->IdPaz= $IdPaz;
+        $this->nome=$nome;
+        $this->cognome=$cognome;
+        $this->email=$email;
+        $this->password=$password;
+        $this->codice_fiscale=$codice_fiscale;
+        $this->data_nascita=$data_nascita;
+        $this->luogo_nascita=$luogo_nascita;
+        $this->residenza=$residenza;
+        $this->numero_telefono=$numero_telefono;
+        $this->attivo=true;
 
-    public function getIdPaz(): ?int
+    }
+    //metodi
+    public function getIdPaz()
     {
         return $this->IdPaz;
     }
 
-    public function setIdPaz(int $IdPaz): static
+    public function setIdPaz($IdPaz)
     {
         $this->IdPaz = $IdPaz;
-
-        return $this;
     }
 
-    public function getNome(): ?string
+    public function getNome()
     {
         return $this->nome;
     }
 
-    public function setNome(string $nome): static
+    public function setNome($nome)
     {
         $this->nome = $nome;
-
-        return $this;
     }
 
-    public function getCognome(): ?string
+    public function getCognome()
     {
         return $this->cognome;
     }
 
-    public function setCognome(string $cognome): static
+    public function setCognome($cognome)
     {
         $this->cognome = $cognome;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    public function getCodiceFiscale(): ?string
+    public function getCodiceFiscale()
     {
         return $this->codice_fiscale;
     }
 
-    public function setCodiceFiscale(string $codice_fiscale): static
+    public function setCodiceFiscale($codice_fiscale)
     {
         $this->codice_fiscale = $codice_fiscale;
-
-        return $this;
     }
 
-    public function getDataNascita(): ?\DateTimeInterface
+    public function getDataNascita()
     {
         return $this->data_nascita;
     }
 
-    public function setDataNascita(\DateTimeInterface $data_nascita): static
+    public function setDataNascita(DateTime $data_nascita)
     {
         $this->data_nascita = $data_nascita;
-
-        return $this;
     }
 
-    public function getLuogoNascita(): ?string
+    public function getLuogoNascita()
     {
         return $this->luogo_nascita;
     }
 
-    public function setLuogoNascita(string $luogo_nascita): static
+    public function setLuogoNascita(string $luogo_nascita)
     {
         $this->luogo_nascita = $luogo_nascita;
-
-        return $this;
     }
 
-    public function getResidenza(): ?string
+    public function getResidenza()
     {
         return $this->residenza;
     }
 
-    public function setResidenza(string $residenza): static
+    public function setResidenza(string $residenza)
     {
         $this->residenza = $residenza;
-
-        return $this;
     }
 
-    public function getNumeroTelefono(): ?string
+    public function getNumeroTelefono()
     {
         return $this->numero_telefono;
     }
 
-    public function setNumeroTelefono(string $numero_telefono): static
+    public function setNumeroTelefono($numero_telefono)
     {
         $this->numero_telefono = $numero_telefono;
-
-        return $this;
     }
 
-    public function getAttivo(): ?string
+    public function isAttivo()
     {
         return $this->attivo;
     }
 
-    public function setAttivo(string $attivo): static
+    public function setAttivo($bool)
     {
-        $this->attivo = $attivo;
-
-        return $this;
+        $this->attivo = $bool;
     }
 }

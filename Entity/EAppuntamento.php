@@ -1,50 +1,37 @@
 <?php
 
-namespace App\Entity;
-
-use App\Repository\EAppuntamentoRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: EAppuntamentoRepository::class)]
 class EAppuntamento
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    private $IdApp;
 
-    #[ORM\Column]
-    private ?int $IdApp = null;
+    private $stato;
 
-    #[ORM\Column(length: 5)]
-    private ?string $stato = null;
-
-    public function getId(): ?int
+    private static $entity = EAppuntamento::class;
+    //costruttore
+    public function __construct($IdApp, $stato)
     {
-        return $this->id;
-    }
+        $this->$IdApp=0;
+        $this->stato=$stato;
 
-    public function getIdApp(): ?int
+    }
+    //metodi
+    public function getIdApp()
     {
         return $this->IdApp;
     }
 
-    public function setIdApp(int $IdApp): static
+    public function setIdApp($IdApp)
     {
         $this->IdApp = $IdApp;
-
-        return $this;
     }
 
-    public function getStato(): ?string
+    public function getStato()
     {
         return $this->stato;
     }
 
-    public function setStato(string $stato): static
+    public function setStato($stato)
     {
         $this->stato = $stato;
-
-        return $this;
     }
 }

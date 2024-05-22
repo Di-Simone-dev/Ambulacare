@@ -1,50 +1,34 @@
 <?php
-
-namespace App\Entity;
-
-use App\Repository\ERispostaRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ERispostaRepository::class)]
 class ERisposta
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $IdRisposta = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $contenuto = null;
-
-    public function getId(): ?int
+    private $IdRisposta;
+    private $contenuto;
+    private static $entity = ERisposta::class;
+    //constructor
+    public function __construct($IdRisposta,$contenuto)
     {
-        return $this->id;
-    }
+        $this->IdRisposta=0;
+        $this->contenuto=$contenuto;
 
-    public function getIdRisposta(): ?int
+    }
+    //metodi
+    public function getIdRisposta()
     {
         return $this->IdRisposta;
     }
 
-    public function setIdRisposta(int $IdRisposta): static
+    public function setIdRisposta($IdRisposta)
     {
         $this->IdRisposta = $IdRisposta;
-
-        return $this;
     }
 
-    public function getContenuto(): ?string
+    public function getContenuto()
     {
         return $this->contenuto;
     }
 
-    public function setContenuto(string $contenuto): static
+    public function setContenuto($contenuto)
     {
         $this->contenuto = $contenuto;
-
-        return $this;
     }
 }

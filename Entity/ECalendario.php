@@ -1,35 +1,25 @@
 <?php
 
-namespace App\Entity;
-
-use App\Repository\ECalendarioRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ECalendarioRepository::class)]
 class ECalendario
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $IdCalendario = null;
+    private int $IdCalendario;
 
-    public function getId(): ?int
+    private static $entity = ECalendario::class;
+    //costruttore
+    public function __construct($IdCalendario)
     {
-        return $this->id;
-    }
+        $this->$IdCalendario=0;
 
-    public function getIdCalendario(): ?int
+    }
+    //metodi
+    public function getIdCalendario()
     {
         return $this->IdCalendario;
     }
 
-    public function setIdCalendario(int $IdCalendario): static
+    public function setIdCalendario($IdCalendario)
     {
         $this->IdCalendario = $IdCalendario;
-
-        return $this;
     }
 }
