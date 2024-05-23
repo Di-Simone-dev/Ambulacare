@@ -2,7 +2,7 @@
 
 class EPaziente
 {
-    private $IdPaz;
+    private $IdPaziente;
     private $nome;
 
     private $cognome;
@@ -13,12 +13,12 @@ class EPaziente
     private $luogo_nascita;
     private $residenza;
     private $numero_telefono;
-    private $attivo=true;
+    private $attivo;
     private static $entity = EPaziente::class;
     //costruttore
-    public function __construct($IdPaz,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+    public function __construct($IdPaziente,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {
-        $this->IdPaz= $IdPaz;
+        $this->IdPaz= $IdPaziente;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
@@ -32,14 +32,14 @@ class EPaziente
 
     }
     //metodi
-    public function getIdPaz()
+    public function getIdPaziente()
     {
-        return $this->IdPaz;
+        return $this->IdPaziente;
     }
 
-    public function setIdPaz($IdPaz)
+    public function setIdPaziente($IdPaziente)
     {
-        $this->IdPaz = $IdPaz;
+        $this->IdPaziente = $IdPaziente;
     }
 
     public function getNome()
@@ -122,17 +122,17 @@ class EPaziente
         $this->residenza = $residenza;
     }
 
-    public function getNumeroTelefono()
+    public function getNumerotelefono()
     {
         return $this->numero_telefono;
     }
 
-    public function setNumeroTelefono($numero_telefono)
+    public function setNumerotelefono($numero_telefono)
     {
         $this->numero_telefono = $numero_telefono;
     }
 
-    public function isAttivo()
+    public function isAttivo()       //ricordiamoci che non è un get
     {
         return $this->attivo;
     }

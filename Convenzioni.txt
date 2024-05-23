@@ -1,0 +1,14 @@
+1)Valido per Entity
+L'ATTRIBUTO CHE FA DA Primary Key INIZIA CON IL MAIUSCOLO E GLI ALTRI IN MINUSCOLO (ma la lettera iniziale del nome della classe deve essere maiuscola "IdMedico")
+
+2)Valido per Entity 
+Nei metodi getter e setter il nome del metodo ha in caps solo l'iniziale dell'attributo (ad esempio getNome())
+
+3)Valido per Entity
+Nei metodi non si usa "_" come spazio tra le parole del nome del metodo
+
+4)Valido per Entity 
+Negli attributi si usa "_" come spazio (pochi casi)
+
+5)Valido per Entity
+Nelle classi non vanno settati le corrispettive primary key e foreign key nei costruttori ma i metodi per gettarli e settarli devono essere presenti

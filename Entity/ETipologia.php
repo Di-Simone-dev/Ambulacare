@@ -7,7 +7,7 @@ class ETipologia
     //costruttore
     public function __construct($IdTipologia,$nome_tipologia)
     {
-        $this->IdTipologia=0;
+        //$this->IdTipologia=0; non va messo nel costruttore
         $this->nome_tipologia=$nome_tipologia;
 
     }
@@ -22,12 +22,12 @@ class ETipologia
         $this->IdTipologia = $IdTipologia;
     }
 
-    public function getNomeTipologia()
+    public function getNometipologia()
     {
         return $this->nome_tipologia;
     }
 
-    public function setNomeTipologia($nome_tipologia)
+    public function setNometipologia($nome_tipologia)
     {
         $this->nome_tipologia = $nome_tipologia;
     }

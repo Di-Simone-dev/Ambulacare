@@ -6,11 +6,12 @@ class EReferto
     private $contenuto;
     private $file;
 
+    private $appuntamento;
     private static $entity = EReferto::class;
     //costruttore
     public function __construct($IdReferto,$oggetto,$contenuto,$file)
     {
-        $this->IdReferto=0;
+        //$this->IdReferto=0;  non ci va l'id nel costruttore
         $this->oggetto=$oggetto;
         $this->contenuto=$contenuto;
         $this->file=0;
@@ -56,4 +57,16 @@ class EReferto
     {
         $this->file = $file;
     }
+
+    public function getAppuntamento()
+    {
+        return $this->appuntamento;
+    }
+
+    public function setAppuntamento($appuntamento)
+    {
+        $this->appuntamento = $appuntamento;
+    }
+
+
 }

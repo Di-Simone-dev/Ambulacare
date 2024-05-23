@@ -6,11 +6,15 @@ class ERecensione
     private $contenuto;
     private float $valutazione;
 
+    private $medico;
+    
+    private $paziente;
+
     private static $entity = ERecensione::class;
     //costruttore
     public function __construct($IdRecensione,$oggetto,$contenuto,$valutazione)
     {
-        //$this->IdRecensione=0; ????
+        //$this->IdRecensione=0; //l'id non va nel costruttore
         $this->oggetto=$oggetto;
         $this->contenuto=$contenuto;
         $this->valutazione=$valutazione;
@@ -57,4 +61,33 @@ class ERecensione
     {
         $this->valutazione = $valutazione;
     }
+
+    public function getMedico()
+    {
+        return $this->medico;
+    }
+
+    public function setMedico($medico)
+    {
+        $this->medico = $medico;
+    }
+
+    public function getPaziente()
+    {
+        return $this->medico;
+    }
+
+    public function setPaziente($paziente)
+    {
+        $this->paziente = $paziente;
+    }
+
+
+
+
+
+
+
+
+
 }

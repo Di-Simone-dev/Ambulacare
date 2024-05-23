@@ -2,27 +2,29 @@
 
 class EAppuntamento
 {
-    private $IdApp;
+    private $IdAppuntamento;
 
     private $stato;
+    
+    private $paziente;
 
     private static $entity = EAppuntamento::class;
     //costruttore
-    public function __construct($IdApp, $stato)
+    public function __construct($IdAppuntamento, $stato)
     {
-        $this->$IdApp=0;
+        //$this->$IdAppuntamento=$IdAppuntamento; questo non dovrebbe essere strettamente necessario(guardare i post nell'altro progetto)
         $this->stato=$stato;
 
     }
-    //metodi
-    public function getIdApp()
+    //metodi get e set 
+    public function getIdAppuntamento()
     {
-        return $this->IdApp;
+        return $this->IdAppuntamento;
     }
 
-    public function setIdApp($IdApp)
+    public function setIdAppuntamento($IdAppuntamento)
     {
-        $this->IdApp = $IdApp;
+        $this->IdAppuntamento = $IdAppuntamento;
     }
 
     public function getStato()
@@ -34,4 +36,15 @@ class EAppuntamento
     {
         $this->stato = $stato;
     }
+
+    public function getPaziente()
+    {
+        return $this->paziente;
+    }
+
+    public function setpaziente($paziente)
+    {
+        $this->stato = $paziente;
+    }
+
 }

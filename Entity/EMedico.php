@@ -2,43 +2,45 @@
 class EMedico
 {
 
-    private $IdMed;
+    private $IdMedico;
 
     private $nome;
 
     private $cognome;
 
     private $email;
+
     private $password;
 
     private $tipologia;
+
     private $attivo=true;
 
-    private float $costo;
+    private float $costo;    //Un int è più semplice ma possiamo tenere float
 
     private static $entity = EMedico::class;
     //costruttore
-    public function __construct($IdMed,$nome,$cognome,$email, $password, $attivo, $tipologia)
+    public function __construct($IdMedico,$nome,$cognome,$email, $password, $attivo, $tipologia)
     {
-        $this->IdMed= $IdMed;
+        $this->IdMed= $IdMedico;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
-        $this->attivo=true;
+        $this->attivo=true;  
         $this->tipologia=$tipologia;
 
     }
 
     //metodi
-    public function getIdMed()
+    public function getIdMedico()
     {
-        return $this->IdMed;
+        return $this->IdMedico;
     }
 
-    public function setIdMed($IdMed)
+    public function setIdMed($IdMedico)
     {
-        $this->IdMed = $IdMed;
+        $this->IdMedico = $IdMedico;
 
     }
 
@@ -82,7 +84,7 @@ class EMedico
         $this->password = $password;
     }
 
-    public function isAttivo()
+    public function isAttivo()   //potrebbe essere cambiato a get ma bisogna ricordarsene (sarebbe meglio per uniformare il tutto)
     {
         return $this->attivo;
     }

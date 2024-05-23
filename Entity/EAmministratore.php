@@ -1,9 +1,9 @@
 <?php
-
+//CONVENZIONE: L'ATTRIBUTO CHE FA DA PK INIZIA CON IL MAIUSCOLO E GLI ALTRI IN MINUSCOLO
 class EAmministratore
 {
  
-    private $IdAdm;
+    private $IdAdmin;
 
     private $nome;
 
@@ -16,24 +16,24 @@ class EAmministratore
     private static $entity = EAmministratore::class;
 
     //costruttore
-    public function __construct($IdAdm, $nome, $cognome, $email,$password)
+    public function __construct($IdAdmin, $nome, $cognome, $email,$password)
     {
-        $this->IdAdm = $IdAdm;
+        $this->IdAdmin = $IdAdmin;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->email = $email;
         $this->password = $password;
     }
 
-    //metodi
+    //metodi GET e SET di tutti gli attributi
     public static function getEntity(): string
     {
         return self::$entity;
     }
 
-    public function getIdAdm()
+    public function getIdAdmin()
     {
-        return $this->IdAdm;
+        return $this->IdAdmin;
     }
 
     public function setIdAdm($IdAdm)
