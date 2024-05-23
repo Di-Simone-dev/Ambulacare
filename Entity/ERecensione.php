@@ -13,7 +13,7 @@ class ERecensione
         $this->IdRecensione=0;
         $this->oggetto=$oggetto;
         $this->contenuto=$contenuto;
-        $this->valutazione=$valutazione
+        $this->valutazione=$valutazione;
 
     }
     //metodi
