@@ -42,8 +42,9 @@ if (isset($_POST['register'])) {
             $msg = 'email già in uso %s';
         } else {
             $query = "
-                INSERT INTO Paziente
-                VALUES (0, :email, :password)
+                INSERT INTO Paziente 
+                (IdPaz,nome,cognome,email,password,Codice_Fiscale,Data_nascita,Luogo_nascita,residenza,Numero_telefono)
+                VALUES ()
             ";
         
             $check = $pdo->prepare($query);

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>REGISTRATI</title>
+        <title>REGISTRAZIONE</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
         <link rel="stylesheet" href="logregstyle.css">
     </head>
     <body>
         <form method="post" action="register.php">
-            <h1>REGISTRATI</h1>
-            <input type="text" id="email" placeholder="Email" name="email" maxlength="50" required>
+            <h1>REGISTRAZIONE</h1>
+            <input type="text" id="nome" placeholder="Nome" name="nome" required>
+            <input type="text" id="cognome" placeholder="Cognome" name="cognome" required>
+            <input type="text" id="email" placeholder="E-mail" name="email" required>
+            <input type="text" id="codice_fiscale" placeholder="Codice Fiscale" name="codice fiscale" required>
+            <input type="date" id="data_nascita" placeholder="Data di Nascita" name="data di nascita" required>
+            <input type="text" id="luogo_nascita" placeholder="Luogo di Nascita" name="luogo di nascita" required>
+            <input type="text" id="residenza" placeholder="Residenza" name="residenza" required>
+            <input type="text" id="numero_telefono" placeholder="Telefono/Cellulare" name="numero di telefono" required>
             <input type="password" id="password" placeholder="Password" name="password" required>
             <button type="submit" name="register">REGISTRATI</button>
         </form>
