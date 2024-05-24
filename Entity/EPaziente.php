@@ -18,7 +18,7 @@ class EPaziente
     //costruttore
     public function __construct($IdPaziente,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {
-        $this->IdPaz= $IdPaziente;
+        //$this->IdPaz= $IdPaziente;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;

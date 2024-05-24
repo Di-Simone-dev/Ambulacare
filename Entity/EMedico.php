@@ -12,23 +12,23 @@ class EMedico
 
     private $password;
 
-    private $tipologia;
-
     private $attivo=true;
 
     private float $costo;    //Un int è più semplice ma possiamo tenere float
+
+    private $tipologia;
 
     private static $entity = EMedico::class;
     //costruttore
     public function __construct($IdMedico,$nome,$cognome,$email, $password, $attivo, $tipologia)
     {
-        $this->IdMed= $IdMedico;
+        //$this->IdMed= $IdMedico;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
         $this->attivo=true;  
-        $this->tipologia=$tipologia;
+        //$this->tipologia=$tipologia; questa sarebbe una foreign key non va nel costruttore
 
     }
 
