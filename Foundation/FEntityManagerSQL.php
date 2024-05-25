@@ -89,10 +89,10 @@ class FEntityManagerSQL{
 
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields 
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field1  Refers to a field of the table (1st field)
+     * @param $table Refers to the table of the Database
+     * @param $field1  Refers to a field of the table (1st field)
      * @param mixed $id1 Refers to the value in the where clause (1st value)
-     * @param String $field2  Refers to a field of the table (1st field)
+     * @param $field2  Refers to a field of the table (1st field)
      * @param mixed $id2 Refers to the value in the where clause (1st value)
      * @return array
      */
@@ -135,10 +135,10 @@ class FEntityManagerSQL{
 
     /**
      * Method to update rows with UPDATE @table SET @field = @fieldValue WHERE @cond = @condvalue
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field  Refers to the field to update
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to the field to update
      * @param mixed $fieldvalue Refers to the value to update
-     * @param String  $cond Refers to the Where condition
+     * @param $cond Refers to the Where condition
      * @param mixed $condvalue Refers to the value of the condition
      * @return bool
      */
@@ -158,8 +158,8 @@ class FEntityManagerSQL{
 
     /**
      * Method to save an object in the Database using the INSERT TO query
-     * @param String $foundClass Refers to the name of the foundation class, so you can get the table and the value
-     * @param Object $obj Refers to an Entity Object to save in the Database
+     * @param $foundClass Refers to the name of the foundation class, so you can get the table and the value
+     * @param $obj Refers to an Entity Object to save in the Database
      * @return int | null
      */
     public static function saveObject($foundClass, $obj)
@@ -179,7 +179,7 @@ class FEntityManagerSQL{
 
     /**
      * Method to store an object in the Database if we only have the id and we need to store only the id
-     * @param String $foundClass Refers to the name of the foundation class, so you can get the table and the value
+     * @param $foundClass Refers to the name of the foundation class, so you can get the table and the value
      * @param int $id Refers to an Entity Object id to save in the Database
      * @return bool
      */
@@ -200,8 +200,8 @@ class FEntityManagerSQL{
 
     /**
      * Method to return rows from a SELECT FROM WHERE but removed is = 0 (so it's not banned)
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field  Refers to a field of the table
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
@@ -231,8 +231,8 @@ class FEntityManagerSQL{
 
     /**
      * Method to delete a row from the Database with query DELETE FROM WHERE
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field  Refers to a field of the table
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
      * @param mixed $id Refers to the value in the where clause
      * @return boolean
      */
@@ -264,9 +264,9 @@ class FEntityManagerSQL{
 
     /**
      * Method to retrun rows from a SELECT FROM WHERE, but the @str is a string so search a row using LIKE % @str %
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field  Refers to a field of the table
-     * @param String $str Refers to a string to serach on a field
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
+     * @param $str Refers to a string to serach on a field
      * @return array 
      */
     public static function getSearchedItem($table, $field, $str){
@@ -294,8 +294,8 @@ class FEntityManagerSQL{
 
     /**
      * Method to return rows from a SELECT FROM WHERE but the @field is NULL
-     * @param Sring $table Refers to the table of the Database
-     * @param String $field  Refers to a field of the table
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
      * @return array
      */
     public static function objectListOnNull($table, $field){
