@@ -25,44 +25,23 @@ store($cli) salva sul db un oggetto
 
 */
 class FPaziente  {
-    /** classe foundation */
-    private static $class="FPaziente";
-
 	/** tabella con la quale opera */
     private static $table="Paziente";
 
     /** I CAMPI DELLA TABLE PAZIENTE*/
-    private static $values="(:IdPaz,:nome,:cognome,:email,:password,:Codice_Fiscale,:Data_nascita,:Luogo_nascita,:residenza,:Numero_telefono,:attivo)";
+    private static $values="(:IdPaziente,:nome,:cognome,:email,:password,:codice_fiscale,:data_nascita,:luogo_nascita,:residenza,:numero_telefono,:attivo)";
+
+    private static $key = "idPaziente";
 
     /** costruttore*/ 
     public function __construct(){}
-
-    /**
-    * Questo metodo lega gli attributi del Paziente da inserire con i parametri della INSERT
-    * @param PDOStatement $stmt
-    * @param EPaziente $paz Paziente in cui i dati devono essere inseriti nel DB
-    */
-    public static function bind($stmt, EPaziente $cli){
-            $stmt->bindValue(':IdPaz',$cli->getIdPaz(), PDO::PARAM_STR);
-            $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
-            $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
-            $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
-            $stmt->bindValue(':password',$cli->getPassword(), PDO::PARAM_STR);
-            $stmt->bindValue(':Codice_Fiscale',$cli->getCodice_Fiscale(), PDO::PARAM_STR);
-            $stmt->bindValue(':Data_nascita',$cli->getData_nascita(), PDO::PARAM_STR);
-            $stmt->bindValue(':Luogo_nascita',$cli->getLuogo_nascita(), PDO::PARAM_STR);
-            $stmt->bindValue(':residenza',$cli->getResidenza(), PDO::PARAM_STR);
-            $stmt->bindValue(':Numero_telefono',$cli->getNumero_telefono(), PDO::PARAM_STR);
-            $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
-        }
-
 
     /**
     * questo metodo restituisce il nome della classe per la costruzione delle Query
     * @return string $class nome della classe
     */
     public static function getClass(){
-        return self::$class;
+        return self::class;
     }
 
     /**
@@ -81,65 +60,112 @@ class FPaziente  {
         return self::$values;
     }
 
+    public static function getKey(){
+        return self::$key;
+    }
+
     /**
-    * Permette la store sul db
+    * Questo metodo lega gli attributi del Paziente da inserire con i parametri della INSERT
+    * @param PDOStatement $stmt
+    * @param EPaziente $paz Paziente in cui i dati devono essere inseriti nel DB
+    */
+    public static function bind($stmt, EPaziente $cli){
+            $stmt->bindValue(':IdPaz',$cli->getIdPaziente(), PDO::PARAM_STR);
+            $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
+            $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
+            $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
+            $stmt->bindValue(':password',$cli->getPassword(), PDO::PARAM_STR);
+            $stmt->bindValue(':codice_fiscale',$cli->getCodiceFiscale(), PDO::PARAM_STR);
+            $stmt->bindValue(':data_nascita',$cli->getDatanascita(), PDO::PARAM_STR);
+            $stmt->bindValue(':luogo_nascita',$cli->getLuogonascita(), PDO::PARAM_STR);
+            $stmt->bindValue(':residenza',$cli->getResidenza(), PDO::PARAM_STR);
+            $stmt->bindValue(':numero_telefono',$cli->getNumerotelefono(), PDO::PARAM_STR);
+            $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
+    }
+
+    //MALLOPPONE CHE SERVE AD ISTANZIARE GLI UTENTI
+    //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
+    //queryresult è quindi un array associativo bidimensionale
+    public static function creapaziente($queryResult){
+        if(count($queryResult) == 1){
+            //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
+            $paziente = new EPaziente($queryResult[0]['IdPaziente'], $queryResult[0]['nome'],$queryResult[0]['cognome'],
+                                    $queryResult[0]['email'], $queryResult[0]['password'],$queryResult[0]['codice_fiscale'],
+                                    $queryResult[0]['data_nascita'],$queryResult[0]['luogo_nascita'],$queryResult[0]['residenza'],
+                                    $queryResult[0]['numero_telefono'],$queryResult[0]['attivo']);
+            return $paziente;
+        }
+        //Questo nel caso di più utenti in output dalla query
+        elseif(count($queryResult) > 1){
+            $pazienti = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                
+
+                $paziente = new EPaziente($queryResult[$i]['IdPaziente'], $queryResult[$i]['nome'],$queryResult[$i]['cognome'],
+                                        $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['codice_fiscale'],
+                                        $queryResult[$i]['data_nascita'],$queryResult[$i]['luogo_nascita'],$queryResult[$i]['residenza'],
+                                        $queryResult[$i]['numero_telefono'],$queryResult[$i]['attivo']);
+               
+                $pazienti[] = $paziente;   //AGGIUNGE L'ELEMENTO ALL'ARRAY PAZIENTI
+            }
+            return $pazienti;
+        }else{
+            return array();
+        }
+        
+    }
+
+
+
+        
+    /**
+    * Permette la store sul db del PAZIENTE 
     * @param EPaziente $cli oggetto da salvare
     */
     public static function store($cli){
         $db=FDatabase::getInstance();
-        $id = $db->storeDB("FUtenteloggato" , $cli);
-        $id1 = $db->storeDB(static::getClass(), $cli );
+        $db->storeDB("FPaziente" , $cli);
+        //$id1 = $db->storeDB(self::getClass(), $cli );
     }
 
     /**
-     * Permette la load dal db
+     * Permette la load dal db di un paziente mettendo il suo ID come argomento
      * @param $id valore da ricercare nel campo $field
-     * @param $field valore del campo della ricerca
-     * @return object $cli l'oggetto paziente se presente
+     * @return $user l'oggetto paziente se presente
      */
-    public static function loadByField($field, $id)
-    {
-		$cli = null;
-        $tra = null;
-        $db = FDatabase::getInstance();
-        $result = $db->loadDB(static::getClass(), $field, $id);
-        $rows_number = $db->interestedRows(static::getClass(), $field, $id);
-        if (($result != null) && ($rows_number == 1)) {
-            $ute = FUtenteloggato::loadByField("email", $result["email"]);
-            $cli = new EPaziente($ute->getNome(), $ute->getCognome(), $ute->getEmail(), $ute->getPassword(), $ute->getCodice_Fiscale(), $ute->getData_nascita(), $ute->getLuogo_nascita(), $ute->getResidenza(), $ute->getNumero_telefono(),$ute->getAttivo());
-        } else {
-            if (($result != null) && ($rows_number > 1)) {
-                $tra = array();
-                for ($i = 0; $i < count($result); $i++) {
-                    $ute[] = FUtenteloggato::loadByField("email", $result[$i]["email"]);
-                    $cli[] = new EPaziente($ute[$i]->getNome(), $ute[$i]->getCognome(), $ute[$i]->getEmail(), $ute[$i]->getPassword(), $ute[$i]->getCodice_Fiscale(), $ute[$i]->getData_nascita(), $ute[$i]->getLuogo_nascita(), $ute[$i]->getResidenza(), $ute[$i]->getNumero_telefono(), $ute[$i]->getAttivo());
-                }
-            }
+    public static function getpaziente($id){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
+        //var_dump($result);
+        if(count($result) > 0){
+            $user = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $user;
+        }else{
+            return null;
         }
-        return $cli;
+
     }
 
 
     /**
-     * Metodo che verifica se esiste un medico con un dato valore in uno dei campi
+     * Metodo che verifica se esiste un paziente con un dato valore in uno dei campi  (FIELD=CAMPO,ID=VALORE)
      * @param $id valore da usare come ricerca
      * @param $field campo da usare come ricerca
-     * @return true se esiste il cliente, altrimenti false
+     * @return true se esiste il paziente, altrimenti false
      */
-    /*
-    public static function exist ($field, $id) {
+    
+    public static function esistepaziente ($field, $id) {
         $ris = false;
         $db = FDatabase::getInstance();
-        $result = $db->existDB(static::getClass(), $field, $id);
+        $result = $db->existDB(self::getClass(), $field, $id);
         if($result!=null)
             $ris = true;
         return $ris;
     }
-*/
+
     /** Metodo che permette l'aggiornamento del valore di un attributo passato come parametro   */
 
 	public static function update($field, $newvalue, $pk, $id){
-		$result = FUtenteloggato::update($field,$newvalue,$pk,$id);
+		$result = FPaziente::update($field,$newvalue,$pk,$id);
 		if($result) return true;
 		else return false;
 	}
@@ -147,5 +173,3 @@ class FPaziente  {
 
 
     }
-
-?>

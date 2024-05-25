@@ -4,7 +4,6 @@ class EPaziente
 {
     private $IdPaziente;
     private $nome;
-
     private $cognome;
     private $email;
     private $password;
@@ -18,7 +17,7 @@ class EPaziente
     //costruttore
     public function __construct($IdPaziente,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {
-        //$this->IdPaz= $IdPaziente;
+        $this->IdPaziente= $IdPaziente;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
@@ -132,7 +131,7 @@ class EPaziente
         $this->numero_telefono = $numero_telefono;
     }
 
-    public function isAttivo()       //ricordiamoci che non è un get
+    public function getAttivo()       //ricordiamoci che non è un get
     {
         return $this->attivo;
     }
