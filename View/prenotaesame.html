@@ -40,7 +40,7 @@ https://templatemo.com/tm-566-medic-care
 
 <body id="top">
     <main>
-        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+        <nav class="navbar navbar-expand-lg mx-auto bg-light fixed-top shadow-lg">
             <div class="container">
                 <div class="navbar-brand mx-auto d-lg-none">
                     AmbulaCare
@@ -68,10 +68,10 @@ https://templatemo.com/tm-566-medic-care
                                 <a class="nav-link" href="#timeline">Timeline</a>
                             </li>-->
 
-                        <div class="navbar-brand d-none d-lg-block">
+                        <li class="navbar-brand d-lg-block">
                             AmbulaCare
                             <strong class="d-block">HEALTH SPECIALISTS</strong>
-                        </div>
+                        </li>
 
                         <!--<li class="nav-item">
                                 <a class="nav-link" href="#reviews">Testimonials</a>
@@ -98,24 +98,67 @@ https://templatemo.com/tm-566-medic-care
             </div>
         </nav>
     </main>
-    <form action="#">
-        <div class="form-group">
-            <h3><label for="categ">Tipologia</label></h3>
-            <select name="languages" id="categ" class="form-select">
-                <option value="select">Seleziona una tipologia</option>
-                <option value="dentista">dentista</option>
-                <option value="oculista">oculista</option>
-                <option value="otorino">otorino</option>
-                <option value="cardiologo">cardiologo</option>
-                <option value="radiologo">radiologo</option>
-                <option value="neurologo">neurologo</option>
-                <option value="urologo">urologo</option>
-                <option value="neurofisiopatologo">neurofisiopatologo</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Cerca</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="#">
+                    <div class="form-group">
+                        <h3><label for="categ">Tipologia</label></h3>
+                        <select name="languages" id="categ" class="form-select">
+                            <option value="select">Seleziona una tipologia</option>
+                            <option value="dentista">dentista</option>
+                            <option value="oculista">oculista</option>
+                            <option value="otorino">otorino</option>
+                            <option value="cardiologo">cardiologo</option>
+                            <option value="radiologo">radiologo</option>
+                            <option value="neurologo">neurologo</option>
+                            <option value="urologo">urologo</option>
+                            <option value="neurofisiopatologo">neurofisiopatologo</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cerca</button>
+                </form>
 
+            </div>
+            <div class="col-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Medico</th>
+                            <th scope="col">Tipologia</th>
+                            <th scope="col">Costo</th>
+                            <th scope="col">Recensioni</th>
+                            <th scope="col">Azione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Pippo</th>
+                            <td>Oculista</td>
+                            <td>10€</td>
+                            <td>5/5</td>
+                            <td><button class="btn btn-primary">Prenota</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pluto</th>
+                            <td>cardiologo</td>
+                            <td>20€</td>
+                            <td>4.8/5</td>
+                            <td><button class="btn btn-primary">Prenota</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pasquale</th>
+                            <td>dentista</td>
+                            <td>60€</td>
+                            <td>4.7/5</td>
+                            <td><button class="btn btn-primary">Prenota</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
     <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
