@@ -83,7 +83,7 @@ class FPaziente  {
             $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
     }
 
-    //MALLOPPONE CHE SERVE AD ISTANZIARE GLI UTENTI
+    //MALLOPPONE CHE SERVE AD ISTANZIARE I PAZIENTI
     //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
     //queryresult è quindi un array associativo bidimensionale
     public static function creapaziente($queryResult){
@@ -115,8 +115,6 @@ class FPaziente  {
         
     }
 
-
-
         
     /**
     * Permette la store sul db del PAZIENTE 
@@ -133,8 +131,23 @@ class FPaziente  {
      * @param $id valore da ricercare nel campo $field
      * @return $user l'oggetto paziente se presente
      */
-    public static function getpaziente($id){
+    public static function getpazientefromid($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
+        //var_dump($result);
+        if(count($result) > 0){
+            $user = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $user;
+        }else{
+            return null;
+        }
+
+    }
+
+    //QUESTA QUERY PUò ESSERE COMODA PER LA RICERCA
+    //MA BISOGNA CAPIRE BENE COME IMPLEMENTARLA (SOLO NOME,SOLO COGNOME O ENTRAMBI)
+    //SERVE USARE getObjOnAttributes, per ora è implementato per prendere entrambi gli input
+    public static function getpazientefromnome_cognome($nome,$cognome){
+        $result = FEntityManagerSQL::getInstance()->getObjOnAttributes(FPaziente::getTable(), "nome", $nome,"cognome", $cognome);
         //var_dump($result);
         if(count($result) > 0){
             $user = self::creapaziente($result);  //va bene anche per un array di pazienti
@@ -162,13 +175,53 @@ class FPaziente  {
         return $ris;
     }
 
-    /** Metodo che permette l'aggiornamento del valore di un attributo passato come parametro   */
+    //if field null salva, sennò deve updetare la table
+    //fieldArray è un array che deve contere array aventi nome del field e valore 
+    //ALTRO MALLOPPONE CHE SERVE A SALVARE UN PAZIENTE o AD AGGIORNARNE I DATI
 
-	public static function update($field, $newvalue, $pk, $id){
-		$result = FPaziente::update($field,$newvalue,$pk,$id);
-		if($result) return true;
-		else return false;
-	}
+    public static function saveObj($obj, $fieldArray = null){
+        if($fieldArray === null){   
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FPerson::getClass(), $obj);
+                if($savePersonAndLastInsertedID !== null){
+                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    FEntityManagerSQL::getInstance()->getDb()->commit();
+                    if($saveUser){
+                        return $savePersonAndLastInsertedID;
+                    }
+                }else{
+                    return false;
+                }
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }else{   //QUA è NEL CASO DI UPDATE $fieldarray contiene i campi da updatare
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                //var_dump($fieldArray);
+                foreach($fieldArray as $fv){   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
+                    if($fv[0] != "email" && $fv[0] != "password"){   //non deve essere un cambiamento di queste (sicurezza)
+                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    }else{
+                        FEntityManagerSQL::getInstance()->updateObj(FPerson::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    }
+                }
+                FEntityManagerSQL::getInstance()->getDb()->commit();
+                return true;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }
+    }
 
 
 

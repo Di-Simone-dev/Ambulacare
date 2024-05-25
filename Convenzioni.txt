@@ -3,10 +3,10 @@ ENTITY
 2)Nei metodi getter e setter il nome del metodo ha in caps solo l'iniziale dell'attributo (ad esempio getNome())
 3)Nei metodi non si usa "_" come spazio tra le parole del nome del metodo
 4)Negli attributi si usa "_" come spazio (pochi casi)
-5)Nelle classi non vanno settati le corrispettive primary key e foreign key nei costruttori ma i metodi per gettarli e settarli devono essere presenti
 
 FOUNDATION
 1)Nelle classi, l'ordine è attributi->metodi get/set->bind->altri metodi
+2)Nei metodi get si può usare "_" come spazio
 
 DATABASE
 1)solo le primary key vanno con le maiuscole per le iniziali delle parole (IdPaziente) e si usano gli "_" come separatori negli altri campi.
