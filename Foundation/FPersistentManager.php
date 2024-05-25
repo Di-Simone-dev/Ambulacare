@@ -32,7 +32,7 @@ class FPersistentManager{
     //------------------------------Directly with EntityManager---------------------------
     /**
      * return an object specifying the class and the id 
-     * @param String $class Refers to the Entity class of the object
+     * @param string $class Refers to the Entity class of the object
      * @param int $id Refers to the id o the object
      * @return mixed
      */
@@ -48,7 +48,7 @@ class FPersistentManager{
 
     /**
      * upload any Object in the database
-     * @param Object $obj Rfers to the object to store
+     * @param object $obj Rfers to the object to store
      * @return mixed
      */
     public static function uploadObj($obj){
@@ -76,7 +76,7 @@ class FPersistentManager{
 
     /**
      * return a User findig it not on the id but on it's username
-     * @param String $username Refers to the username of the user to get
+     * @param string $username Refers to the username of the user to get
      */
     public static function retriveUserOnUsername($username)
     {
@@ -87,7 +87,7 @@ class FPersistentManager{
 
     /**
      * return a Moderator finding it not on the id but on it's username
-     * @param String $username Refers to the username of the user to get
+     * @param string $username Refers to the username of the user to get
      */
     public static function retriveModOnUsername($username){
 
@@ -163,7 +163,7 @@ class FPersistentManager{
     /**
      * Method to delete a report, if $field is nul delete the report on the id, else delete the report referd to a comment or a post so the $field can be idPost or idComment
      * @param int $id Refers to report if $fiedl == null, else refers to a field of report like idPost or idComment
-     * @param String | null $field Refers to the field in which we are deleting the report 
+     * @param string | null $field Refers to the field in which we are deleting the report 
      */
     public static function deleteRelatedReports($id, $field = null){
 
@@ -299,7 +299,7 @@ class FPersistentManager{
 
     /**
      * Method to return alist of post serached with the title using $keyword
-     * @param String $keyword 
+     * @param string $keyword 
      */
     public static function getSearchedPost($keyword){
         //ritorna una lista di post con settati gli utenti
@@ -318,7 +318,7 @@ class FPersistentManager{
 
     /**
      * return a list of Users that have the $keyword in their Username
-     * @param String $keyword
+     * @param string $keyword
      */
     public static function getSearchedUsers($keyword)
     {
@@ -570,7 +570,7 @@ public static function loadHomePage($id){
 
     /**
      * verify if exist a user with this email (also mod)
-     * @param String $email
+     * @param string $email
      */
     public static function verifyUserEmail($email){
         $result = FPerson::verify('email', $email);
@@ -580,7 +580,7 @@ public static function loadHomePage($id){
 
     /**
      * verify if exist a user with this username (also mod)
-     * @param String $username
+     * @param string $username
      */
     public static function verifyUserUsername($username){
         $result = FPerson::verify('username', $username);
@@ -610,7 +610,7 @@ public static function loadHomePage($id){
 
     /**
      * return all post that are not banned finded on a specific category
-     * @param String $category Refers to the category serched
+     * @param string $category Refers to the category serched
      */
     public static function loadPostPerCategory($category)
     {
@@ -827,13 +827,13 @@ public static function validateImage($file){
         return [false, $error];
     }
 
-    if(!in_array($file['type'], ALLOWED_IMAGE_TYPE)){
+    if(!in_array($file['type'], ALLOWED_IMAGE_TYPE)){    //QUESTA ANCHE
         $error = 'TYPE_ERROR';
 
         return [false, $error];
     }
 
-    if($file['size'] > MAX_IMAGE_SIZE){
+    if($file['size'] > MAX_IMAGE_SIZE){       //QUESTA è DA DEFINIRE
         $error = 'SIZE_ERROR';
 
         return [false, $error];
