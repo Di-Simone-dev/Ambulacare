@@ -3,14 +3,45 @@
 //require_once '../utility/autoload.php';
 //Questo è un commento banale
 class FAmministratore {
-    /** nome della classe */
-    private static $class = "FAmministratore";
     /** tabella con la quale opera */
     private static $table = "Amministratore";
     /** valori della tabella */
     private static $values="(:IdAdm,:nome,:cognome,:email,:password)";
-    /** costruttore */
-    public function __construct() { }
+    //Primary key della tabella
+    private static $key = "idAdmin";
+
+    /**
+    * questo metodo restituisce il nome della tabella per la costruzione delle Query
+    * @return string $table nome della tabella
+    */
+    public static function getTable(){
+        return self::$table;
+    }
+
+     /**
+    * questo metodo restituisce l'insieme dei valori per la costruzione delle Query
+    * @return string $values nomi delle colonne della tabella
+    */
+    public static function getValues(){
+        return self::$values;
+    }
+
+     /**
+    * questo metodo restituisce il nome della classe per la costruzione delle Query
+    * @return string $class nome della classe
+    */
+    public static function getClass(){
+        return self::class;
+    }
+
+     /**
+    * questo metodo restituisce la primary key per la costruzione delle Query
+    * @return string $class nome della classe
+    */
+    public static function getKey(){
+        return self::$key;
+    }
+
 
     /**
     * Questo metodo lega gli attributi del Luogo da inserire con i parametri della INSERT
@@ -25,29 +56,8 @@ class FAmministratore {
         $stmt->bindValue(':password', $admin->getPassword(), PDO::PARAM_STR); 
     }
 
-    /**
-    * questo metodo restituisce il nome della classe per la costruzione delle Query
-    * @return string $class nome della classe
-    */
-    public static function getClass(){
-        return self::$class;
-    }
 
-    /**
-    * questo metodo restituisce il nome della tabella per la costruzione delle Query
-    * @return string $table nome della tabella
-    */
-    public static function getTable(){
-        return self::$table;
-    }
-
-    /**
-    * questo metodo restituisce l'insieme dei valori per la costruzione delle Query
-    * @return string $values nomi delle colonne della tabella
-    */
-    public static function getValues(){
-        return self::$values;
-    }
+    
 
     /**
     * Permette la load sul db avendo come parametro di ricerca un campo passato in input alla funzione

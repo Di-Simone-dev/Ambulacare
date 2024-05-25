@@ -827,13 +827,13 @@ public static function validateImage($file){
         return [false, $error];
     }
 
-    if(!in_array($file['type'], ALLOWED_IMAGE_TYPE)){    //QUESTA ANCHE
+    if(!in_array($file['type'],['image/jpeg', 'image/png', 'image/jpg'])){    //QUESTA PUò ESSERE RITOCCATA
         $error = 'TYPE_ERROR';
 
         return [false, $error];
     }
 
-    if($file['size'] > MAX_IMAGE_SIZE){       //QUESTA è DA DEFINIRE
+    if($file['size'] > 5242880){       //QUESTA è DA DEFINIRE, QUESTO EQUIVALE A 5 MEGABYTE
         $error = 'SIZE_ERROR';
 
         return [false, $error];

@@ -12,3 +12,6 @@ Negli attributi si usa "_" come spazio (pochi casi)
 
 5)Valido per Entity
 Nelle classi non vanno settati le corrispettive primary key e foreign key nei costruttori ma i metodi per gettarli e settarli devono essere presenti
+
+6)Valido per Foundation 
+Nelle classi, l'ordine è attributi->metodi get/set->altri metodi
