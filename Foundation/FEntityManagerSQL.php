@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../../../../config/config.php');
+//require_once(__DIR__ . '/../../../../config/config.php');
 
 class FEntityManagerSQL{
     /**
@@ -13,8 +13,16 @@ class FEntityManagerSQL{
 
 
      private function __construct(){
+
+        //global $host, $database, $username, $password;
+		$host = "127.0.0.1"; //localhost
+		$database = "AmbulaCare";
+		$username = "root";
+		$password = "";
+
+
         try{
-            self::$db = new PDO("mysql:dbname=".DB_NAME.";host=".DB_HOST."; charset=utf8;", DB_USER, DB_PASS);
+            self::$db = new PDO("mysql:host=$host; dbname=$database", $username, $password);
         }catch(PDOException $e){
             echo "ERROR". $e->getMessage();
             die;
@@ -51,8 +59,8 @@ class FEntityManagerSQL{
 
     /**
      * Method to return rows from a query SELECT FROM @table WHERE @field = @id
-     * @param String $table Refers to the table of the Database
-     * @param String $field  Refers to a field of the table
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
