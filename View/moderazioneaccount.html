@@ -25,6 +25,8 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="casiadmin.css">
 <!--
 
 TemplateMo 566 Medic Care
@@ -52,13 +54,13 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexpaziente.html">Home</a>
+                                <a class="nav-link" href="indexadmin.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="prenotaesame.html">Prenota esame</a>
+                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaesamiprenotati.html">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="#about">Visualizza appuntamenti</a>
                             </li>
 
                             <!--<li class="nav-item">
@@ -79,10 +81,13 @@ https://templatemo.com/tm-566-medic-care
                             </li>-->
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#contact">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="#contact">Visualizza esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                                <a class="nav-link" href="#contact">Visualizza recensioni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
                             </li>
                             <!--<li class="nav-item" >
                                 <a class="nav-link" href="register.html">REGISTRATI</a>
@@ -164,21 +169,21 @@ https://templatemo.com/tm-566-medic-care
                 </div>
             </section>-->
 
-            <section class="gallery">
+            <!--<section class="gallery">
                 <div class="container">
                     <div class="row">
 
                         <div class="col-lg-12 col-12 ps-0">
-                            <img src="images/gallery/pexels-rdne-6129507.jpg" class="img-fluid galleryImage" alt="img home page" title="img home page">
+                            <img src="images/gallery/pexels-tima-miroshnichenko-5452223.jpg" class="img-fluid galleryImage" alt="img home page" title="img home page">
                         </div>
 
-                        <!--<div class="col-lg-6 col-6 pe-0">
+                        <div class="col-lg-6 col-6 pe-0">
                             <img src="images/gallery/female-doctor-with-presenting-hand-gesture.jpg" class="img-fluid galleryImage" alt="wear a mask" title="wear a mask to protect yourself">
-                        </div>-->
+                        </div>
 
                     </div>
                 </div>
-            </section>
+            </section>-->
 
             <!--<section class="section-padding pb-0" id="timeline">
                 <div class="container">
@@ -424,8 +429,26 @@ https://templatemo.com/tm-566-medic-care
             </section>-->
 
         </main>
-
-        <footer class="site-footer section-padding" id="contact">
+        <form action="#" id="tendina">
+            <div class="form-group">
+                <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" required>
+                </input>
+                <br><br>
+                <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" required>
+                </input>
+                </div>
+                <br>
+            <div class="form-group">
+                <select name="languages" id="categ" class="form-select">
+                    <option value="select">Seleziona categ utente</option>
+                    <option value="paziente">paziente</option>
+                    <option value="medico">medico</option>
+                </select>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
+        </form>
+        <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
 
@@ -481,7 +504,7 @@ https://templatemo.com/tm-566-medic-care
 
                 </div>
             </section>
-        </footer>
+        </footer>-->
 
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>

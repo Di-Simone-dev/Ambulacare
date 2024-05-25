@@ -43,8 +43,8 @@ if (isset($_POST['register'])) {
         } else {
             $query = "
                 INSERT INTO Paziente 
-                (IdPaz,nome,cognome,email,password,Codice_Fiscale,Data_nascita,Luogo_nascita,residenza,Numero_telefono,attivo) VALUES 
-                ('0001','".$_POST['nome']."','".$_POST['cognome']."','".$_POST['email']."','".$password_hash."','".$_POST['codicefiscale']."','".$_POST['datanascita']."','".$_POST['luogonascita']."','".$_POST['residenza']."','".$_POST['numerotelefono']."','1')
+                (nome,cognome,email,password,Codice_Fiscale,Data_nascita,Luogo_nascita,residenza,Numero_telefono,attivo) VALUES 
+                ('".$_POST['nome']."','".$_POST['cognome']."','".$_POST['email']."','".$password_hash."','".$_POST['codicefiscale']."','".$_POST['datanascita']."','".$_POST['luogonascita']."','".$_POST['residenza']."','".$_POST['numerotelefono']."','1')
             ";
         
             $check = $pdo->prepare($query);

@@ -27,6 +27,8 @@
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
 
         <link rel="stylesheet" href="casipaziente.css">
+
+
 <!--
 
 TemplateMo 566 Medic Care
@@ -81,7 +83,7 @@ https://templatemo.com/tm-566-medic-care
                             </li>-->
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#contact">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="visualizzaesamiprenotati.html">Visualizza Storico Esami</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
@@ -99,22 +101,29 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
         </main>
-        <form action="#">
-            <h3><label for="lang">Tipologia</label></h3>
-            <select name="languages" id="lang">
-              <option value="select">Seleziona una tipologia</option>
-              <option value="dentista">dentista</option>
-              <option value="oculista">oculista</option>
-              <option value="otorino">otorino</option>
-              <option value="cardiologo">cardiologo</option>
-              <option value="radiologo">radiologo</option>
-              <option value="neurologo">neurologo</option>
-              <option value="urologo">urologo</option>
-              <option value="neurofisiopatologo">neurofisiopatologo</option>
-            </select>
-            
-      </form>
-
+        <form action="#" id="tendina">
+            <div class="form-group" >
+                <h4><label for="categ">Tipologia</label></h4>
+                <select name="languages" id="categ" class="form-select">
+                    <option value="select">Seleziona una tipologia</option>
+                    <option value="dentista">dentista</option>
+                    <option value="oculista">oculista</option>
+                    <option value="otorino">otorino</option>
+                    <option value="cardiologo">cardiologo</option>
+                    <option value="radiologo">radiologo</option>
+                    <option value="neurologo">neurologo</option>
+                    <option value="urologo">urologo</option>
+                    <option value="neurofisiopatologo">neurofisiopatologo</option>
+                </select>
+            </div>
+            <br>
+            <div>
+            <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
+            </input>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-primary">Cerca</button>
+        </form>
        <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
