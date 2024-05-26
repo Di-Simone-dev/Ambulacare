@@ -116,15 +116,17 @@ class FPaziente  {
     }
 
         
-    /**
+    /*  STA ROBA NON DOVREBBE SERVIRE
     * Permette la store sul db del PAZIENTE 
     * @param EPaziente $cli oggetto da salvare
-    */
+    
     public static function store($cli){
-        $db=FDatabase::getInstance();
+        $db=FEntityManagerSQL::getInstance();
         $db->storeDB("FPaziente" , $cli);
         //$id1 = $db->storeDB(self::getClass(), $cli );
     }
+    */
+
 
     /**
      * Permette la load dal db di un paziente mettendo il suo ID come argomento
@@ -165,15 +167,16 @@ class FPaziente  {
      * @param $field campo da usare come ricerca
      * @return true se esiste il paziente, altrimenti false
      */
-    
+    /*
     public static function esistepaziente ($field, $id) {
         $ris = false;
-        $db = FDatabase::getInstance();
+        $db = FEntityManagerSQL::getInstance();
         $result = $db->existDB(self::getClass(), $field, $id);
         if($result!=null)
             $ris = true;
         return $ris;
     }
+    */
 
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
