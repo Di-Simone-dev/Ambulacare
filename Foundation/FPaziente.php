@@ -31,7 +31,7 @@ class FPaziente  {
     /** I CAMPI DELLA TABLE PAZIENTE*/
     private static $values="(:IdPaziente,:nome,:cognome,:email,:password,:codice_fiscale,:data_nascita,:luogo_nascita,:residenza,:numero_telefono,:attivo)";
 
-    private static $key = "idPaziente";
+    private static $key = "IdPaziente";
 
     /** costruttore*/ 
     public function __construct(){}
@@ -186,7 +186,7 @@ class FPaziente  {
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FPerson::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
                 if($savePersonAndLastInsertedID !== null){
                     $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
@@ -207,12 +207,9 @@ class FPaziente  {
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 //var_dump($fieldArray);
-                foreach($fieldArray as $fv){   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    if($fv[0] != "email" && $fv[0] != "password"){   //non deve essere un cambiamento di queste (sicurezza)
-                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    }else{
-                        FEntityManagerSQL::getInstance()->updateObj(FPerson::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    }
+                foreach($fieldArray as $fv)
+                {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
+                    FEntityManagerSQL::getInstance()->updateObj(FPaziente::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;

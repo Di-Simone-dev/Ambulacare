@@ -6,9 +6,20 @@ class FAmministratore {
     /** tabella con la quale opera */
     private static $table = "Amministratore";
     /** valori della tabella */
-    private static $values="(:IdAdm,:nome,:cognome,:email,:password)";
+    private static $values="(:IdAdmin,:nome,:cognome,:email,:password)";
     //Primary key della tabella
-    private static $key = "idAdmin";
+    private static $key = "IdAdmin";
+
+    /** costruttore*/ 
+    public function __construct(){}
+
+        /**
+    * questo metodo restituisce il nome della classe per la costruzione delle Query
+    * @return string $class nome della classe
+    */
+    public static function getClass(){
+        return self::class;
+    }
 
     /**
     * questo metodo restituisce il nome della tabella per la costruzione delle Query
@@ -18,7 +29,7 @@ class FAmministratore {
         return self::$table;
     }
 
-     /**
+    /**
     * questo metodo restituisce l'insieme dei valori per la costruzione delle Query
     * @return string $values nomi delle colonne della tabella
     */
@@ -26,22 +37,9 @@ class FAmministratore {
         return self::$values;
     }
 
-     /**
-    * questo metodo restituisce il nome della classe per la costruzione delle Query
-    * @return string $class nome della classe
-    */
-    public static function getClass(){
-        return self::class;
-    }
-
-     /**
-    * questo metodo restituisce la primary key per la costruzione delle Query
-    * @return string $class nome della classe
-    */
     public static function getKey(){
         return self::$key;
     }
-
 
     /**
     * Questo metodo lega gli attributi del Luogo da inserire con i parametri della INSERT
@@ -57,104 +55,60 @@ class FAmministratore {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-    /**
-    * Permette la load sul db avendo come parametro di ricerca un campo passato in input alla funzione
-    * @param $id campo da confrontare per trovare l'oggetto
-    * @return object $admin Amministratore
-    */
-    public static function loadByField($field, $id){
-        $admin = null;
-        $db = FDatabase::getInstance();
-        $result = $db->loadDB(static::getClass(), $field, $id);
-        $rows_number = $db->interestedRows(self::getClass(), $field, $id);  //questo warning non dovrebbe dare problemi
-        if(($result != null) && ($rows_number == 1)) {
-            $admin = new EAmministratore($result['IdAdm'], $result['nome'],$result['cognome'],$result['email'],$result['password']);
+    public static function creaamministratore($queryResult){
+        if(count($queryResult) > 0){
+            $admin = new EAmministratore($queryResult[0]['IdAdmin'], $queryResult[0]['nome'],$queryResult[0]['cognome'],
+                                    $queryResult[0]['email'], $queryResult[0]['password']);
+            return $admin;
+        }else{
+            return array();
         }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $admin = array();
-                for($i = 0; $i < count($result); $i++){
-                    $admin[] = new EAmministratore($result[$i]['IdAdm'], $result[$i]['nome'], $result[$i]['cognome'], $result[$i]['email'], $result[$i]['password']);
-                }
-            }
-        }
-        return $admin;
     }
 
-    /**
-     * Metodo che permette il saalavtaggio di un Luogo nel db
-     * @param $admin Amministratore da salvare
-     * @return $id dell'amministratore salvato
-     */
-    public static function store(EAmministratore $admin) {
-        $db = FDatabase::getInstance();
-        $id = $db->storeDB(static::getClass(), $admin);
-        if($id) 
-            return $id;
-        else 
+
+
+    /* STA ROBA NON DOVREBBE SERVIRE
+    public static function bind($stmt, $id){
+        $stmt->bindValue(":idUser", $id, PDO::PARAM_INT);
+        //var_dump($id);
+    }
+    */ 
+
+    public static function getObj($id){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), FModerator::getKey(), $id);
+        //var_dump($result);
+        if(count($result) > 0){
+            $mod = self::creaamministratore($result);
+            return $mod;
+        }else{
             return null;
+        }
+
     }
 
-    /** 
-    * Funzione che permette di verificare se esiste un Luogo nel database
-    * @param  $id valore della riga di cui si vuo erificare l'esistenza
-    * @param  string $field colonna su ci eseguire la verifica
-    * @return bool $ris
-    */
-    /*
-    public static function exist($field, $id) {
-        $ris = false;
-        $db = FDatabase::getInstance();
-        $result = $db->existDB(static::getClass(), $field, $id);
-        if($result!=null) 
-            $ris = true;
-        return $ris;
-    }
-    */
-    /**
-     * Restituisce tutti i nomi dei luoghi presenti sul db
-     * @param $id campo da confrontare per trovare l'oggetto
-     * @return array di nomi di luoghi
-     */
-    /*
-    public static function loadNames($input){
-        $place = null;
-        $db = FDatabase::getInstance();
-        list ($result, $rows_number)=$db->ricercaLuogo($input);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = ($result['name']);
+    public static function saveObj($obj){
+
+        $savePerson = FEntityManagerSQL::getInstance()->saveObject(FPerson::getClass(), $obj);
+        //var_dump($savePerson);
+        if($savePerson !== null){
+            $saveMod = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePerson);
+            return $saveMod;
+        }else{
+            return false;
         }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = ($result[$i]['name']);
-                }
-            }
-        }
-        return $place;
     }
-    */
+
+    public static function getModByUsername($username){
+
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), 'username', $username);
+        //var_dump($result);
+
+        if($result !== null && count($result) > 0){
+            $user = self::createModeratorObj($result);
+            return $user;
+        }else{
+            return null;
+        }
+    }
 
 }
-
-?>

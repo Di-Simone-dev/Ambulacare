@@ -18,7 +18,7 @@ class EAmministratore
     //costruttore
     public function __construct($IdAdmin, $nome, $cognome, $email,$password)
     {
-        //$this->IdAdmin = $IdAdmin;
+        $this->IdAdmin = $IdAdmin;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->email = $email;
