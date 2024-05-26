@@ -51,7 +51,7 @@ class FCalendario {
         
     }
 
-        /**  PER FARE LA LOAD DAL DB ED INSTANZIARE IL CALENDARIO 
+    /**  PER FARE LA LOAD DAL DB ED INSTANZIARE IL CALENDARIO 
      * Proxy obj 
      */
     public static function creacalendario($queryResult){
@@ -73,6 +73,20 @@ class FCalendario {
         }else{
             return null;
         }
+    }
+
+    //OTTENIAMO E LOADDIAMO DAL DB UN CALENDARIO USANDO IL SUO MEDICO CON L'ID
+    //RISULTA NECESSARIA PER SODDISFARE LE SPECIFICHE
+    public static function getcalendariofromidmedico($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FCalendario::getTable(),"IdMedico", $IdMedico);
+        //var_dump($result);
+        if(count($result) > 0){
+            $calendario = self::creacalendario($result);  //va bene anche per un array
+            return $calendario;
+        }else{
+            return null;
+        }
+
     }
 
     //if field null salva, sennò deve updetare la table
