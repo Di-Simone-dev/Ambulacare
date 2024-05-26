@@ -8,6 +8,9 @@ class EFasciaoraria
     private DateTime $data;
 
     private $ora_inizio;   //questa non sarebbe una datetime ma una stringa nella pratica (solo ora scritta)
+                            //QUESTA SAREBBE RICAVABILE DA $DATA, QUESTA è UNA RIDONDANZA ma probabilmente conviene tenerla
+
+    private $calendario;
 
     private static $entity = EFasciaoraria::class;
     //costruttore
@@ -48,4 +51,15 @@ class EFasciaoraria
     {
         $this->ora_inizio = $ora_inizio;
     }
+
+    public function getcalendario()
+    {
+        return $this->calendario;
+    }
+
+    public function setpaziente(ECalendario $calendario)
+    {
+        $this->calendario = $calendario;
+    }
+
 }

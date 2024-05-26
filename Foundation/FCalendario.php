@@ -47,7 +47,7 @@ class FCalendario {
     */
     public static function bind($stmt, $calendario){
         $stmt->bindValue(":IdCalendario", $calendario->getIdCalendario(), PDO::PARAM_STR);
-        $stmt->bindValue(":medico", $calendario->getMedico(), PDO::PARAM_STR);
+        $stmt->bindValue(":medico", $calendario->getMedico()->getId(), PDO::PARAM_STR);    //ATTENZIONE QUI CON LE FOREIGN KEY (2 GET)
         
     }
 

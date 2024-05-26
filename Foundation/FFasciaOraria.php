@@ -3,12 +3,10 @@
 //require_once '../utility/autoload.php';
 
 class FFasciaOraria{
-    /** nome della classe */
-    private static $class = "FFasciaOraria";
     /** tabella con la quale opera */
     private static $table = "Fascia_Oraria";
     /** valori della tabella */
-    private static $values="(:IdFasciaOraria,:data,:ora_inizio,:Calendario,:Appuntamento)";
+    private static $values="(:NULL,:data,:ora_inizio,:Calendario,:Appuntamento)";  //per l'autoincrement si fa così
     /** costruttore */
     public function __construct() { }
 
@@ -18,11 +16,10 @@ class FFasciaOraria{
     * @param EFasciaoraria $fascor fascia oraria in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt,EFasciaoraria $fascor) {
-    	$stmt->bindValue(':IdFasciaOraria',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
+    	//$stmt->bindValue(':IdFasciaOraria',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':data', $fascor->getData(), PDO::PARAM_STR); 
         $stmt->bindValue(':ora_inizio', $fascor->getOraInizio(), PDO::PARAM_STR); 
-        $stmt->bindValue(':Calendario', $fascor->getCalendario(), PDO::PARAM_STR);
-        $stmt->bindValue(':Appuntamento', $fascor->getAppuntamento(), PDO::PARAM_STR);
+        $stmt->bindValue(':Calendario', $fascor->getCalendario()->getIdCalendario(), PDO::PARAM_STR); //ATTENZIO ALLE FOREIGN KEY
     }
 
     /**
@@ -30,7 +27,7 @@ class FFasciaOraria{
     * @return string $class nome della classe
     */
     public static function getClass(){
-        return self::$class;
+        return self::class;
     }
 
     /**

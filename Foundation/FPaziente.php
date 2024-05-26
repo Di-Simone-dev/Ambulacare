@@ -70,7 +70,7 @@ class FPaziente  {
     * @param EPaziente $paz Paziente in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt, EPaziente $cli){
-            $stmt->bindValue(':IdPaz',$cli->getIdPaziente(), PDO::PARAM_STR);
+            $stmt->bindValue(':IdPaziente',$cli->getIdPaziente(), PDO::PARAM_STR);
             $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
             $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
             $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
