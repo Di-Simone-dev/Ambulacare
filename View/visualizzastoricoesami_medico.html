@@ -25,9 +25,6 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="casipaziente.css">
-
 <!--
 
 TemplateMo 566 Medic Care
@@ -55,18 +52,18 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexpaziente.html">Home</a>
+                                <a class="nav-link" href="indexmedico.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="prenotaesame.html">Prenota esame</a>
+                                <a class="nav-link" href="visualizzastoricoesami_medico.html">Storico esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaesamiprenotati.html">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="#about">Visualizza agenda</a>
                             </li>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#timeline">Carica slot per appuntamento</a>
+                            </li>
 
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
@@ -77,15 +74,21 @@ https://templatemo.com/tm-566-medic-care
                                 <a class="nav-link" href="#reviews">Testimonials</a>
                             </li>-->
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#booking">Recensioni</a>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzastoricoesami.html">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="#contact">Statistiche</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                                <a class="nav-link" href="#contact">Ricerca pazienti</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#booking">Recensioni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
                             </li>
                             <!--<li class="nav-item" >
                                 <a class="nav-link" href="register.html">REGISTRATI</a>
@@ -100,12 +103,13 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
         </main>
+        <br><br>
         <div class="container">
             <div class="row">
                 <div class="col">
                     <form action="#">
                         <div class="form-group" >
-                            <h3><label for="categ">Tipologia</label></h3>
+                            <!--<h3><label for="categ">Tipologia</label></h3>
                             <select name="languages" id="categ" class="form-select">
                                 <option value="select">Seleziona una tipologia</option>
                                 <option value="dentista">dentista</option>
@@ -116,7 +120,7 @@ https://templatemo.com/tm-566-medic-care
                                 <option value="neurologo">neurologo</option>
                                 <option value="urologo">urologo</option>
                                 <option value="neurofisiopatologo">neurofisiopatologo</option>
-                            </select>
+                            </select>-->
                         </div>
                             <br>
                                 <div>
@@ -133,41 +137,40 @@ https://templatemo.com/tm-566-medic-care
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Nome Paziente</th>
+                        <th scope="col">Cognome Paziente</th>
                         <th scope="col">Data</th>
                         <th scope="col">Ora</th>
-                        <th scope="col">Medico</th>
                         <th scope="col">Tipologia</th>
-                        <th scope="col">Costo</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>01/06/2024</td>
+                        <td>Giacomo</td>
+                        <td>Giannini</td>
+                        <td>24/05/2024</td>
                         <td>10:00</td>
-                        <td>Papile</td>
-                        <td>Cardiologo</td>
-                        <td>50€</td>
-                        <td><button class="btn btn-primary">Aggiungi Recensione</button></td>
-                        <td><button class="btn btn-primary">Visualizza Referto</button></td>
+                        <td>Urologia</td>
+                        <td><button class="btn btn-primary">Carica Referto</button></td>
                     </tr>
                     <tr>
-                        <td>10/08/2024</td>
-                        <td>12:00</td>
-                        <td>Iannotti</td>
-                        <td>Neurologo</td>
-                        <td>80€</td>
-                        <td><button class="btn btn-primary">Aggiungi Recensione</button></td>
+                        <td>Piero</td>
+                        <td>Marcozzi</td>
+                        <td>01/01/2024</td>
+                        <td>08:30</td>
+                        <td>Neurologia</td>
                         <td><button class="btn btn-primary">Visualizza Referto</button></td>
+                        <td><button class="btn btn-primary">Cancella Referto</button></td>
                     </tr>
                     <tr>
-                        <td>11/12/2024</td>
-                        <td>09:00</td>
-                        <td>Di Simone</td>
-                        <td>Oculistica</td>
-                        <td>50€</td>
-                        <td><button class="btn btn-primary">Aggiungi Recensione</button></td>
+                        <td>Elisabetta</td>
+                        <td>Mecozzi</td>
+                        <td>05/03/2024</td>
+                        <td>11:20</td>
+                        <td>Cardiologia</td>
                         <td><button class="btn btn-primary">Visualizza Referto</button></td>
+                        <td><button class="btn btn-primary">Elimina Referto</button></td>
                     </tr>
                 </tbody>
             </table>
