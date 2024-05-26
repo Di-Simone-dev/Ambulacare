@@ -9,7 +9,7 @@ class ECalendario
 
     private static $entity = ECalendario::class;
     //costruttore
-    public function __construct($IdCalendario)
+    public function __construct($IdCalendario,$Idmedico)
     {
         //$this->$IdCalendario=$IdCalendario;  QUI BISOGNA CAPIRE COSA FARE PERCHè NEL COSTRUTTORE NON CI VANNO NE' IL MEDICO NE' L'ID
 

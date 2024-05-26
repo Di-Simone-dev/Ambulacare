@@ -9,4 +9,4 @@ FOUNDATION
 2)Nei metodi get si può usare "_" come spazio
 
 DATABASE
-1)solo le primary key vanno con le maiuscole per le iniziali delle parole (IdPaziente) e si usano gli "_" come separatori negli altri campi.
+1)SOLO le primary key e le foreign key vanno con le maiuscole per le iniziali delle parole (IdPaziente) e si usano gli "_" come separatori negli altri campi.
