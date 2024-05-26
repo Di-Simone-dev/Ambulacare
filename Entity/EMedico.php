@@ -84,7 +84,7 @@ class EMedico
         $this->password = $password;
     }
 
-    public function isAttivo()   //potrebbe essere cambiato a get ma bisogna ricordarsene (sarebbe meglio per uniformare il tutto)
+    public function getAttivo()   //potrebbe essere cambiato a get ma bisogna ricordarsene (sarebbe meglio per uniformare il tutto)
     {
         return $this->attivo;
     }
