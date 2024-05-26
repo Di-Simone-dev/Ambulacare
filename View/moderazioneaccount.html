@@ -25,9 +25,9 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="casiadmin.css">
 <!--
+        <link rel="stylesheet" href="casiadmin.css">
+
 
 TemplateMo 566 Medic Care
 
@@ -429,25 +429,71 @@ https://templatemo.com/tm-566-medic-care
             </section>-->
 
         </main>
-        <form action="#" id="tendina">
-            <div class="form-group">
-                <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" required>
-                </input>
-                <br><br>
-                <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" required>
-                </input>
+        <br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form action="#" id="tendina">
+                        <div class="form-group">
+                            <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" required>
+                            </input>
+                            <br><br>
+                            <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" required>
+                            </input>
+                            </div>
+                            <br>
+                        <div class="form-group">
+                            <select name="languages" id="categ" class="form-select">
+                                <option value="select">Seleziona categoria utente</option>
+                                <option value="paziente">paziente</option>
+                                <option value="medico">medico</option>
+                            </select>
+                        </div>
+                        <br><br>
+                        <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
+                    </form>
                 </div>
-                <br>
-            <div class="form-group">
-                <select name="languages" id="categ" class="form-select">
-                    <option value="select">Seleziona categ utente</option>
-                    <option value="paziente">paziente</option>
-                    <option value="medico">medico</option>
-                </select>
             </div>
-            <br><br>
-            <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
-        </form>
+        </div>
+        <div class="col-9" id="elenco">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome Utente</th>
+                        <th scope="col">Cognome Utente</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Stato</th>
+                        <th scope="col">Azione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emanuele</td>
+                        <td>Papile</td>
+                        <td>Medico</td>
+                        <td>Sbloccato</td>
+                        <td><button class="btn btn-primary">Blocca</button></td>
+                    </tr>
+                    <tr>
+                        <td>Andrea</td>
+                        <td>Iannotti</td>
+                        <td>Medico</td>
+                        <td>Bloccato</td>
+                        <td><button class="btn btn-primary">Sblocca</button></td>
+                    </tr>
+                    <tr>
+                        <td>Andrea Luca</td>
+                        <td>Di Simone</td>
+                        <td>Paziente</td>
+                        <td>Sbloccato</td>
+                        <td><button class="btn btn-primary">Blocca</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
         <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
