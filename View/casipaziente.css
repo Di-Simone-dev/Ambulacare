@@ -39,9 +39,15 @@ h4, label {
     padding: 4px;
     border-radius: 9px;
   } */
-  #elenco{
-    position: relative;
-    margin-left: 100px;
-    margin-top: 400px;
-    left: 100px;
-  }
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    }
+    th, td {
+        text-align: center ;
+        padding: 8px;
+    }
+    label{
+        font-size: xx-large;
+        font-weight: bold;
+    }
