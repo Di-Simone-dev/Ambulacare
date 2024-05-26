@@ -65,8 +65,6 @@ class FAmministratore {
         }
     }
 
-
-
     /* STA ROBA NON DOVREBBE SERVIRE
     public static function bind($stmt, $id){
         $stmt->bindValue(":idUser", $id, PDO::PARAM_INT);
@@ -74,8 +72,8 @@ class FAmministratore {
     }
     */ 
 
-    public static function getObj($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), FModerator::getKey(), $id);
+    public static function getadminfromid($id){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $mod = self::creaamministratore($result);
@@ -88,24 +86,24 @@ class FAmministratore {
 
     public static function saveObj($obj){
 
-        $savePerson = FEntityManagerSQL::getInstance()->saveObject(FPerson::getClass(), $obj);
+        $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $obj);
         //var_dump($savePerson);
-        if($savePerson !== null){
-            $saveMod = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePerson);
-            return $saveMod;
+        if($saveAmministratore !== null){
+            $saveAmministratore = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $saveAmministratore);
+            return $saveAmministratore;
         }else{
             return false;
         }
     }
 
-    public static function getModByUsername($username){
+    public static function getadminbyemail($email){
 
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), 'username', $username);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), 'email', $email);
         //var_dump($result);
 
         if($result !== null && count($result) > 0){
-            $user = self::createModeratorObj($result);
-            return $user;
+            $admin = self::creaamministratore($result);
+            return $admin;
         }else{
             return null;
         }
