@@ -53,7 +53,7 @@ class FMedico  {
     * @param EMedico $rec Medico in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt, EMedico $cli){
-        $stmt->bindValue(':IdMed',$cli->getIdMedico(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdMedico',$cli->getIdMedico(), PDO::PARAM_STR);
         $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
         $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
