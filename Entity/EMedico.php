@@ -20,15 +20,16 @@ class EMedico
 
     private static $entity = EMedico::class;
     //costruttore
-    public function __construct($IdMedico,$nome,$cognome,$email, $password, $attivo, $tipologia)
+    public function __construct($IdMedico,$nome,$cognome,$email, $password, $attivo,$costo, $tipologia)
     {
-        //$this->IdMed= $IdMedico;
+        $this->IdMedico= $IdMedico;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
-        $this->attivo=true;  
-        //$this->tipologia=$tipologia; questa sarebbe una foreign key non va nel costruttore
+        $this->attivo=true;
+        $this->costo=$costo;
+        //$this->tipologia=$tipologia; questa sarebbe una foreign key (non va nel costruttore? da rivedere)
 
     }
 

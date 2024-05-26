@@ -186,7 +186,7 @@ class FPaziente  {
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FPaziente::getClass(), $obj);
                 if($savePersonAndLastInsertedID !== null){
                     $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
