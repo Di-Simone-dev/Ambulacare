@@ -14,9 +14,9 @@ class EFasciaoraria
 
     private static $entity = EFasciaoraria::class;
     //costruttore
-    public function __construct($IdFascia_oraria,$data,$ora_inizio)
+    public function __construct($data,$ora_inizio)
     {
-        //$this->IdFascia_oraria=0;  l'id non va nel costruttore
+        //$this->IdFascia_oraria;  l'id non va nel costruttore, perchè si mette con il metodo setIdFasciaOraria()
         $this->data=$data;
         $this->ora_inizio=$ora_inizio;
 
@@ -27,7 +27,7 @@ class EFasciaoraria
         return $this->IdFascia_oraria;
     }
 
-    public function setIdFasciaOraria($IdFascia_oraria)
+    public function setIdFasciaOraria($IdFascia_oraria): void
     {
         $this->IdFascia_oraria = $IdFascia_oraria;
     }
@@ -37,7 +37,7 @@ class EFasciaoraria
         return $this->data;
     }
 
-    public function setData(DateTime $data)
+    public function setData(DateTime $data): void
     {
         $this->data = $data;
     }
@@ -47,17 +47,17 @@ class EFasciaoraria
         return $this->ora_inizio;
     }
 
-    public function setOrainizio(DateTime $ora_inizio)
+    public function setOrainizio(DateTime $ora_inizio): void
     {
         $this->ora_inizio = $ora_inizio;
     }
 
-    public function getcalendario()
+    public function getCalendario()
     {
         return $this->calendario;
     }
 
-    public function setpaziente(ECalendario $calendario)
+    public function setCalendario(ECalendario $calendario): void
     {
         $this->calendario = $calendario;
     }
