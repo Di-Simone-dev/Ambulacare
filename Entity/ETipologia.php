@@ -5,7 +5,7 @@ class ETipologia
     private $nome_tipologia;
     private static $entity = ETipologia::class;
     //costruttore
-    public function __construct($IdTipologia,$nome_tipologia)
+    public function __construct($nome_tipologia)
     {
         //$this->IdTipologia=0; non va messo nel costruttore
         $this->nome_tipologia=$nome_tipologia;

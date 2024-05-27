@@ -165,7 +165,7 @@ class FEntityManagerSQL{
     public static function saveObject($foundClass, $obj)
     {
         try{
-            $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValue();
+            $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValues();
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt, $obj);
             $stmt->execute();
@@ -186,7 +186,7 @@ class FEntityManagerSQL{
     public static function saveObjectFromId($foundClass, $obj, $id)
     {
         try{
-            $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValue();
+            $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValues();
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt,$obj, $id);
             //var_dump($stmt);

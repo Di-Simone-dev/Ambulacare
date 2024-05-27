@@ -52,7 +52,7 @@ class FFasciaOraria{
         $stmt->bindValue(':Calendario', $fascor->getCalendario()->getIdCalendario(), PDO::PARAM_STR); //ATTENZIONE ALLE FOREIGN KEY
     }
 
-   /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE FASCE ORARIE data query risult l'array con le fasce orarie da istanziare
+    /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE FASCE ORARIE data query risult l'array con le fasce orarie da istanziare
      * Proxy obj
      */
     public static function creafasciaoraria($queryResult){

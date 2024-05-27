@@ -15,9 +15,9 @@ class EPaziente
     private $attivo;
     private static $entity = EPaziente::class;
     //costruttore
-    public function __construct($IdPaziente,$nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+    public function __construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {
-        $this->IdPaziente= $IdPaziente;
+        //$this->IdPaziente= $IdPaziente;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;

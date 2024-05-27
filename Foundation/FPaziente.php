@@ -28,9 +28,10 @@ class FPaziente  {
 	/** tabella con la quale opera */
     private static $table="Paziente";
 
-    /** I CAMPI DELLA TABLE PAZIENTE*/
-    private static $values="(:IdPaziente,:nome,:cognome,:email,:password,:codice_fiscale,:data_nascita,:luogo_nascita,:residenza,:numero_telefono,:attivo)";
+    /** campi della table paziente (escluso il primo*/
+    private static $values="(NULL,:nome,:cognome,:email,:password,:codice_fiscale,:data_nascita,:luogo_nascita,:residenza,:numero_telefono,:attivo)";
 
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdPaziente";
 
     /** costruttore*/ 
@@ -52,14 +53,18 @@ class FPaziente  {
         return self::$table;
     }
 
-    /**
+     /**
     * questo metodo restituisce l'insieme dei valori per la costruzione delle Query
-    * @return string $values nomi delle colonne della tabella
+    * @return $values nomi delle colonne della tabella
     */
     public static function getValues(){
         return self::$values;
     }
 
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
@@ -70,7 +75,7 @@ class FPaziente  {
     * @param EPaziente $paz Paziente in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt, EPaziente $cli){
-            $stmt->bindValue(':IdPaziente',$cli->getIdPaziente(), PDO::PARAM_STR);
+            //$stmt->bindValue(':IdPaziente',$cli->getIdPaziente(), PDO::PARAM_STR);
             $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
             $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
             $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
@@ -89,10 +94,11 @@ class FPaziente  {
     public static function creapaziente($queryResult){
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
-            $paziente = new EPaziente($queryResult[0]['IdPaziente'], $queryResult[0]['nome'],$queryResult[0]['cognome'],
+            $paziente = new EPaziente($queryResult[0]['nome'],$queryResult[0]['cognome'],
                                     $queryResult[0]['email'], $queryResult[0]['password'],$queryResult[0]['codice_fiscale'],
                                     $queryResult[0]['data_nascita'],$queryResult[0]['luogo_nascita'],$queryResult[0]['residenza'],
                                     $queryResult[0]['numero_telefono'],$queryResult[0]['attivo']);
+            $paziente -> setIdPaziente($queryResult[0]['IdPaziente']);   //IMPORTANTE SETTARE LA PRIMARY KEY
             return $paziente;
         }
         //Questo nel caso di più utenti in output dalla query
@@ -101,11 +107,11 @@ class FPaziente  {
             for($i = 0; $i < count($queryResult); $i++){
                 
 
-                $paziente = new EPaziente($queryResult[$i]['IdPaziente'], $queryResult[$i]['nome'],$queryResult[$i]['cognome'],
+                $paziente = new EPaziente($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
                                         $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['codice_fiscale'],
                                         $queryResult[$i]['data_nascita'],$queryResult[$i]['luogo_nascita'],$queryResult[$i]['residenza'],
                                         $queryResult[$i]['numero_telefono'],$queryResult[$i]['attivo']);
-               
+                $paziente -> setIdPaziente($queryResult[0]['IdPaziente']);   //IMPORTANTE SETTARE LA PRIMARY KEY
                 $pazienti[] = $paziente;   //AGGIUNGE L'ELEMENTO ALL'ARRAY PAZIENTI
             }
             return $pazienti;
@@ -114,19 +120,6 @@ class FPaziente  {
         }
         
     }
-
-        
-    /*  STA ROBA NON DOVREBBE SERVIRE
-    * Permette la store sul db del PAZIENTE 
-    * @param EPaziente $cli oggetto da salvare
-    
-    public static function store($cli){
-        $db=FEntityManagerSQL::getInstance();
-        $db->storeDB("FPaziente" , $cli);
-        //$id1 = $db->storeDB(self::getClass(), $cli );
-    }
-    */
-
 
     /**
      * Permette la load dal db di un paziente mettendo il suo ID come argomento
