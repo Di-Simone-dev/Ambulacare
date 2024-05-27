@@ -6,8 +6,9 @@ class FCalendario {
     /** tabella con la quale opera */
     private static $table = "Calendario";
     /** valori della tabella */
-    private static $values="(:IdCalendario,:IdMedico)";
+    private static $values="(NULL,:IdMedico)";
 
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdCalendario";
     /** costruttore */
     public function __construct() { }
@@ -36,6 +37,10 @@ class FCalendario {
         return self::$values;
     }
     
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
@@ -46,7 +51,7 @@ class FCalendario {
     * @param ECalendario $cal calendario in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt, $calendario){
-        $stmt->bindValue(":IdCalendario", $calendario->getIdCalendario(), PDO::PARAM_STR);
+        //$stmt->bindValue(":IdCalendario", $calendario->getIdCalendario(), PDO::PARAM_STR);
         $stmt->bindValue(":medico", $calendario->getMedico()->getId(), PDO::PARAM_STR);    //ATTENZIONE QUI CON LE FOREIGN KEY (2 GET)
         
     }
@@ -56,7 +61,14 @@ class FCalendario {
      */
     public static function creacalendario($queryResult){
         if(count($queryResult) > 0){
-            $calendario = new ECalendario($queryResult[0]['IdCalendario'], $queryResult[0]['IdMedico']);
+            $calendario = new ECalendario();
+            $calendario -> setIdCalendario($queryResult[0]['IdCalendario']);
+            //come si mette il medico? (FOREIGN KEY)
+            //DA TESTARE
+            $medico = FMedico::getmedicofromid($queryResult[0]['Medico']);  //il campo calendario è proprio l'id
+            $calendario->setMedico($medico);
+
+            //ispirazione presa da FReport
             return $calendario;
         }else{
             return array();
