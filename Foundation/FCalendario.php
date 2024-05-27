@@ -68,8 +68,8 @@ class FCalendario {
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdCalendario);
         //var_dump($result);
         if(count($result) > 0){
-            $post = self::creacalendario($result);
-            return $post;
+            $calendario = self::creacalendario($result);
+            return $calendario;
         }else{
             return null;
         }
