@@ -3,12 +3,13 @@
 //require_once '../utility/autoload.php';
 
 class FRisposta {
-    /** nome della classe */
-    private static $class = "FRisposta";
     /** tabella con la quale opera */
     private static $table = "Risposta";
     /** valori della tabella */
-    private static $values="(:IdRisposta,:contenuto,:Recensione,:Medico)";
+    private static $values="(NULL,:contenuto,:Recensione,:Medico)";
+
+    /** nome del campo della primary key della tabella*/
+    private static $key = "IdRisposta";
     /** costruttore */
     public function __construct() {}
 
