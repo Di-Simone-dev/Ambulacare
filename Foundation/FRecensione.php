@@ -6,7 +6,7 @@ class FRecensione {
     /** tabella con la quale opera */
     private static $table = "Recensione";
     /** valori della tabella */
-    private static $values="(NULL,:oggetto,:contenuto,:valutazione,:medico,:paziente)";
+    private static $values="(NULL,:titolo,:contenuto,:valutazione,:medico,:paziente)";
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdRecensione";
@@ -52,7 +52,7 @@ class FRecensione {
     */
     public static function bind($stmt,ERecensione $rec) {
     	//$stmt->bindValue(':IdRecensione',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
-        $stmt->bindValue(':oggetto', $rec->getOggetto(), PDO::PARAM_STR); 
+        $stmt->bindValue(':titolo', $rec->getTitolo(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $rec->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':valutazione', $rec->getValutazione(), PDO::PARAM_STR); //float o INT
         $stmt->bindValue(':medico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FOREIGN KEY=>DOPPIO GET
@@ -61,45 +61,51 @@ class FRecensione {
 
 
 
-    /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE FASCE ORARIE data query risult l'array con le fasce orarie da istanziare
+    /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE RECENSIONI data query risult l'array con le fasce orarie da istanziare
      * Proxy obj
      */
-    public static function creafasciaoraria($queryResult){
+    public static function crearecensione($queryResult){
         if(count($queryResult) > 0){
-            $orario = array();
+            $recensioni = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $fasciaoraria = new EFasciaoraria($queryResult[$i]['data'],$queryResult[$i]['ora_inizio']);
-                $fasciaoraria->setIdFasciaOraria($queryResult[$i]['idFasciaoraria']);  //PER LA PK AUTOINCREMENT
-                //come si mette il calendario? (FOREIGN KEY)
+                $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
+                $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
+                //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $calendario = FCalendario::getcalendariofromid($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id
-                $fasciaoraria->setCalendario($calendario);
+                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
+                $recensione->setPaziente($paziente);
 
                 //ispirazione presa da FReport
-                $orario[] = $fasciaoraria;
+                //come si mette il medico? (FOREIGN KEY)
+                //DA TESTARE
+                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
+                $recensione->setMedico($medico);
+
+                //ispirazione presa da FReport
+                $recensioni[] = $recensione;
             }
-            return $orario;   //ARRAY DELLE FASCE ORARIE LOADDATE
+            return $recensioni;   //ARRAY DELLE RECENSIONI
         }else{
             return array();
         }
     }
 
-    //PER LOADDARE UNA FASCIA ORARIA DAL SUO ID
-    public static function getfasciaorariafromid($IdFascia_oraria){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdFascia_oraria);
+    //PER LOADDARE UNA RECENSIONE DAL SUO ID
+    public static function getrecensionefromid($IdRecensione){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
         if(count($result) > 0){
-            $post = self::creafasciaoraria($result);
-            return $post;
+            $recensione = self::crearecensione($result);
+            return $recensione;
         }else{
             return null;
         }
     }
 
 
-    //CON QUESTO UPDATEIAMO LE FASCE ORARIE (SERVIREBBE ANCHE UNA DELETE, LE MODIFICHE NON HANNO TROPPO SENSO)
-    public static function salvafasciaoraria($fasciaoraria){
-            $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $fasciaoraria);
+    //CON QUESTO SALVIAMO LE RECENSIONI (SERVIREBBE ANCHE UNA DELETE, LE MODIFICHE NON HANNO TROPPO SENSO)
+    public static function salvarecensione($recensione){
+            $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
             if($saveFasciaOraria !== null){
                 return $saveFasciaOraria;
             }else{
@@ -108,13 +114,13 @@ class FRecensione {
     }
 
     /**
-     * QUESTO SERVE PER CANCELLARE UNA FASCIA ORARIA con La sua PK COME ARGOMENTO(EVENTUALE CAMBIO DI DISPONIBILITà DI UN MEDICO)
+     * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
      * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA FASCIA
      */
-    public static function eliminafasciaoraria($IdFascia_oraria){        
-        $eliminaFasciaOraria = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), "IdFasciaOraria", $IdFascia_oraria);
-        if($eliminaFasciaOraria !== null){
-            return $eliminaFasciaOraria;
+    public static function eliminarecensione($IdRecensione){        
+        $eliminaRecensione = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdRecensione);
+        if($eliminaRecensione !== null){
+            return $eliminaRecensione;
         }else{
             return false;
         }

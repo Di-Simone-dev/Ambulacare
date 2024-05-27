@@ -2,7 +2,7 @@
 class ERecensione
 {
     private $IdRecensione;
-    private $oggetto;
+    private $titolo;
     private $contenuto;
     private float $valutazione;
 
@@ -12,10 +12,10 @@ class ERecensione
 
     private static $entity = ERecensione::class;
     //costruttore
-    public function __construct($IdRecensione,$oggetto,$contenuto,$valutazione)
+    public function __construct($titolo,$contenuto,$valutazione)
     {
         //$this->IdRecensione=0; //l'id non va nel costruttore
-        $this->oggetto=$oggetto;
+        $this->titolo=$titolo;
         $this->contenuto=$contenuto;
         $this->valutazione=$valutazione;
 
@@ -32,14 +32,14 @@ class ERecensione
         $this->IdRecensione = $IdRecensione;
     }
 
-    public function getOggetto()
+    public function getTitolo()
     {
-        return $this->oggetto;
+        return $this->titolo;
     }
 
-    public function setOggetto($oggetto)
+    public function setTitolo($titolo)
     {
-        $this->oggetto = $oggetto;
+        $this->titolo = $titolo;
     }
 
     public function getContenuto()
