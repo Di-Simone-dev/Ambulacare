@@ -16,9 +16,9 @@ class EAmministratore
     private static $entity = EAmministratore::class;
 
     //costruttore
-    public function __construct($IdAdmin, $nome, $cognome, $email,$password)
+    public function __construct($nome, $cognome, $email,$password)
     {
-        $this->IdAdmin = $IdAdmin;
+        //$this->IdAdmin = $IdAdmin;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->email = $email;
@@ -36,7 +36,7 @@ class EAmministratore
         return $this->IdAdmin;
     }
 
-    public function setIdAdm($IdAdm)
+    public function setIdAdmin($IdAdm)
     {
         $this->IdAdm = $IdAdm;
 

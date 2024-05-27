@@ -6,8 +6,8 @@ class FAmministratore {
     /** tabella con la quale opera */
     private static $table = "Amministratore";
     /** valori della tabella */
-    private static $values="(:IdAdmin,:nome,:cognome,:email,:password)";
-    //Primary key della tabella
+    private static $values="(NULL,:nome,:cognome,:email,:password)";
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdAdmin";
 
     /** costruttore*/ 
@@ -37,6 +37,10 @@ class FAmministratore {
         return self::$values;
     }
 
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
@@ -47,7 +51,7 @@ class FAmministratore {
     * @param EAmministratore $admin amministratore in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt,EAmministratore $admin) {
-    	$stmt->bindValue(':IdAdm',$admin->getIdAdmin(), PDO::PARAM_INT); 
+    	//$stmt->bindValue(':IdAdm',$admin->getIdAdmin(), PDO::PARAM_INT); PK NON VA MESSA NEL BIND
         $stmt->bindValue(':nome', $admin->getNome(), PDO::PARAM_STR); 
         $stmt->bindValue(':cognome', $admin->getCognome(), PDO::PARAM_STR); 
         $stmt->bindValue(':email', $admin->getEmail(), PDO::PARAM_STR); 
@@ -57,8 +61,9 @@ class FAmministratore {
 
     public static function creaamministratore($queryResult){
         if(count($queryResult) > 0){
-            $admin = new EAmministratore($queryResult[0]['IdAdmin'], $queryResult[0]['nome'],$queryResult[0]['cognome'],
+            $admin = new EAmministratore($queryResult[0]['nome'],$queryResult[0]['cognome'],
                                     $queryResult[0]['email'], $queryResult[0]['password']);
+            $admin -> setIdAdmin($queryResult[0]['IdAdmin']);
             return $admin;
         }else{
             return array();
