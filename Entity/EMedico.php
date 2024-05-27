@@ -20,16 +20,16 @@ class EMedico
 
     private static $entity = EMedico::class;
     //costruttore
-    public function __construct($IdMedico,$nome,$cognome,$email, $password, $attivo,$costo, $tipologia)
+    public function __construct($nome,$cognome,$email, $password, $attivo,$costo)
     {
-        $this->IdMedico= $IdMedico;
+        //$this->IdMedico= $IdMedico; PRIMARY KEY AUTO INCREMENT=> NON VA MESSA NEL COSTRUTTORE
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
         $this->attivo=true;
         $this->costo=$costo;
-        //$this->tipologia=$tipologia; questa sarebbe una foreign key (non va nel costruttore? da rivedere)
+        //$this->tipologia=$tipologia; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
 
     }
 
@@ -39,7 +39,7 @@ class EMedico
         return $this->IdMedico;
     }
 
-    public function setIdMed($IdMedico)
+    public function setIdMedico($IdMedico)
     {
         $this->IdMedico = $IdMedico;
 

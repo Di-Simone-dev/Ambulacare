@@ -124,14 +124,14 @@ class FPaziente  {
     /**
      * Permette la load dal db di un paziente mettendo il suo ID come argomento
      * @param $id valore da ricercare nel campo $field
-     * @return $user l'oggetto paziente se presente
+     * @return $paziente l'oggetto paziente se presente
      */
     public static function getpazientefromid($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
-            $user = self::creapaziente($result);  //va bene anche per un array di pazienti
-            return $user;
+            $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $paziente;
         }else{
             return null;
         }

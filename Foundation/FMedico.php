@@ -12,8 +12,9 @@ class FMedico  {
 	/** tabella con la quale opera */
     private static $table="Medico";
     /** valori della tabella */
-    private static $values="(:IdMed,:nome,:cognome,:email,:password,:attivo,:costo:tipologia)";
+    private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo:tipologia)";
 
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdMedico";
     /** costruttore*/ 
     public function __construct(){}
@@ -42,7 +43,10 @@ class FMedico  {
         return self::$values;
     }
 
-    
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
@@ -53,14 +57,14 @@ class FMedico  {
     * @param EMedico $rec Medico in cui i dati devono essere inseriti nel DB
     */
     public static function bind($stmt, EMedico $cli){
-        $stmt->bindValue(':IdMedico',$cli->getIdMedico(), PDO::PARAM_STR);
+        //$stmt->bindValue(':IdMedico',$cli->getIdMedico(), PDO::PARAM_STR);  //PK NON VA MESSA NEL BIND
         $stmt->bindValue(':nome',$cli->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
         $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(':password',$cli->getPassword(), PDO::PARAM_STR);
         $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
         $stmt->bindValue(':costo',$cli->getCosto(), PDO::PARAM_STR);
-        $stmt->bindValue(':tipologia',$cli->getTipologia(), PDO::PARAM_STR);
+        $stmt->bindValue(':tipologia',$cli->getTipologia()->getIdTipologia(), PDO::PARAM_STR); //LA FK VA MESSA NEL BIND
     }
 
     //MALLOPPONE CHE SERVE AD ISTANZIARE I MEDICI
@@ -69,9 +73,15 @@ class FMedico  {
     public static function creamedico($queryResult){
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
-            $medico = new EMedico($queryResult[0]['IdMedico'], $queryResult[0]['nome'],$queryResult[0]['cognome'],
+            $medico = new EMedico($queryResult[0]['nome'],$queryResult[0]['cognome'],
                                     $queryResult[0]['email'], $queryResult[0]['password'],$queryResult[0]['attivo'],
-                                    $queryResult[0]['costo'],$queryResult[0]['tipologia']);
+                                    $queryResult[0]['costo']);
+            $medico -> setIdMedico($queryResult[0]['IdMedico']);
+            //come si mette LA TIPOLOGIA? (FOREIGN KEY)
+            //DA TESTARE
+            $tipologia = FTipologia::gettipologiafromid($queryResult[0]['Tipologia']);  //il campo calendario è proprio l'id
+            $medico->setTipologia($tipologia);
+            //ispirazione presa da FReport
             return $medico;
         }
         //Questo nel caso di più utenti in output dalla query
@@ -80,10 +90,16 @@ class FMedico  {
             for($i = 0; $i < count($queryResult); $i++){
                 
 
-                $medico =  new EMedico($queryResult[$i]['IdMedico'], $queryResult[$i]['nome'],$queryResult[$i]['cognome'],
+                $medico =  new EMedico($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
                                         $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['attivo'],
-                                        $queryResult[$i]['costo'],$queryResult[$i]['tipologia']);
-               
+                                        $queryResult[$i]['costo']);
+                $medico -> setIdMedico($queryResult[$i]['IdMedico']);
+                 //come si mette LA TIPOLOGIA? (FOREIGN KEY)
+                //DA TESTARE
+                $tipologia = FTipologia::gettipologiafromid($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
+                $medico->setTipologia($tipologia);
+                //ispirazione presa da FReport
+                
                 $medici[] = $medico;   //AGGIUNGE L'ELEMENTO ALL'ARRAY MEDICI
             }
             return $medici;
