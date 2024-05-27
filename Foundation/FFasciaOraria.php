@@ -6,8 +6,9 @@ class FFasciaOraria{
     /** tabella con la quale opera */
     private static $table = "Fascia_Oraria";
     /** valori della tabella */
-    private static $values="(:NULL,:data,:ora_inizio,:Calendario,:Appuntamento)";  //per l'autoincrement si fa così
+    private static $values="(NULL,:data,:ora_inizio,:Calendario,:Appuntamento)";  //per l'autoincrement si fa così
 
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdFasciaOraria";
     /** costruttore */
     public function __construct() { }
@@ -36,6 +37,10 @@ class FFasciaOraria{
         return self::$values;
     }
 
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
@@ -61,7 +66,7 @@ class FFasciaOraria{
             for($i = 0; $i < count($queryResult); $i++){
                 $fasciaoraria = new EFasciaoraria($queryResult[$i]['data'],$queryResult[$i]['ora_inizio']);
                 $fasciaoraria->setIdFasciaOraria($queryResult[$i]['idFasciaoraria']);  //PER LA PK AUTOINCREMENT
-                //come si mette il calendario?
+                //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE
                 $calendario = FCalendario::getcalendariofromid($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id
                 $fasciaoraria->setCalendario($calendario);

@@ -6,8 +6,9 @@ class FTipologia {
     /** tabella con la quale opera */
     private static $table = "Tipologia";
     /** valori della tabella */
-    private static $values="(:IdTipologia,:Nome_Tipologia)";
+    private static $values="(NULL,:Nome_Tipologia)";
 
+    /** nome del campo della primary key della tabella*/
     private static $key = "IdTipologia";
     /** costruttore */
     public function __construct() { }
@@ -35,6 +36,11 @@ class FTipologia {
     public static function getValues(){
         return self::$values;
     }
+
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
     public static function getKey(){
         return self::$key;
     }
