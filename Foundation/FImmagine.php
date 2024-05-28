@@ -1,8 +1,8 @@
 <?php
 
-class FImage{
+class FImmagine{
 
-    private static $table = "image";
+    private static $table = "immagine";
 
     private static $value = "(NULL,:nome,:dimonesioni,:tipo,:dati,:IdMedico_Referto)";
 

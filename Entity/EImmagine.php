@@ -1,6 +1,6 @@
 <?php
 
-class EImage{
+class EImmagine{
 
     //attributes
     private $Idimmagine;
@@ -17,7 +17,7 @@ class EImage{
                               // O SI AGGIUNGE UN ALTRO CAMPO PER INDICARE A QUALE CI REFERIAMO, OPPURE VANNO FATTI DUE CAMPI DOVE
                               //UNO SI LASCIA NULL
 
-    private static $entity = EImage::class;
+    private static $entity = EImmagine::class;
 
     //constructor
     public function __construct($name, $size, $type, $imageData){
