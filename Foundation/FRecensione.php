@@ -6,7 +6,7 @@ class FRecensione {
     /** tabella con la quale opera */
     private static $table = "Recensione";
     /** valori della tabella */
-    private static $values="(NULL,:titolo,:contenuto,:valutazione,:medico,:paziente)";
+    private static $values="(NULL,:titolo,:contenuto,:valutazione,:IdMedico,:IdPaziente)";
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdRecensione";
@@ -55,8 +55,8 @@ class FRecensione {
         $stmt->bindValue(':titolo', $rec->getTitolo(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $rec->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':valutazione', $rec->getValutazione(), PDO::PARAM_STR); //float o INT
-        $stmt->bindValue(':medico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FOREIGN KEY=>DOPPIO GET
-        $stmt->bindValue(':paziente', $rec->getPaziente()->getIdPaziente(), PDO::PARAM_STR);  //FOREIGN KEY=>DOPPIO GET
+        $stmt->bindValue(':IdMedico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FOREIGN KEY=>DOPPIO GET
+        $stmt->bindValue(':IdPaziente', $rec->getPaziente()->getIdPaziente(), PDO::PARAM_STR);  //FOREIGN KEY=>DOPPIO GET
     }
 
 
@@ -103,7 +103,7 @@ class FRecensione {
     }
 
 
-    //CON QUESTO SALVIAMO LE RECENSIONI (SERVIREBBE ANCHE UNA DELETE, LE MODIFICHE NON HANNO TROPPO SENSO)
+    //CON QUESTO SALVIAMO LE RECENSIONI
     public static function salvarecensione($recensione){
             $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
             if($saveFasciaOraria !== null){
@@ -115,7 +115,7 @@ class FRecensione {
 
     /**
      * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
-     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA FASCIA
+     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RECENSIONE
      */
     public static function eliminarecensione($IdRecensione){        
         $eliminaRecensione = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdRecensione);
