@@ -37,7 +37,15 @@ class FRisposta {
         return self::$values;
     }
 
-        /**
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
+    public static function getKey(){
+        return self::$key;
+    }
+
+    /**
     * Questo metodo lega gli attributi della Risposta da inserire con i parametri della INSERT
     * @param PDOStatement $stmt 
     * @param ERisposta $risp Risposta in cui i dati devono essere inseriti nel DB
@@ -46,9 +54,108 @@ class FRisposta {
     	//$stmt->bindValue(':IdRisposta',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':contenuto', $risp->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':data_creazione', $risp->getData_creazione(), PDO::PARAM_STR);
-        $stmt->bindValue(':IdRecensione', $risp->getRecensione(), PDO::PARAM_STR);
-        $stmt->bindValue(':IdMedico', $risp->getMedico(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdRecensione', $risp->getRecensione()->getIdRecensione(), PDO::PARAM_STR); //FK
+        $stmt->bindValue(':IdMedico', $risp->getMedico()->getIdMedico(), PDO::PARAM_STR);  //FK
     }
     
+    public static function crearisposta($queryResult){
+        if(count($queryResult) == 1){
+            $risposta = new ERisposta($queryResult[0]['contenuto']);
+            $risposta->setIdRisposta($queryResult[0]['IdRisposta']);
+            $data_creazione = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['data_creazione']);
+            $risposta->setData_creazione($data_creazione);
+            //metto la recensione (FOREIGN KEY)
+            //DA TESTARE
+            $recensione = FRecensione::getrecensionefromid($queryResult[0]['IdRecensione']);  //il campo calendario è proprio l'id
+            $risposta->setRecensione($recensione);
 
+            //ispirazione presa da FReport
+            //metto il medico (FOREIGN KEY)
+            //DA TESTARE
+            $medico = FMedico::getmedicofromid($queryResult[0]['IdMedico']);  //il campo calendario è proprio l'id
+            $risposta->setMedico($medico);
+
+            //ispirazione presa da FReport
+            return $risposta;
+        }elseif(count($queryResult) > 1){
+            $risposte = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                $risposta = new ERisposta($queryResult[$i]['contenuto']);
+                $risposta->setIdRisposta($queryResult[$i]['IdRisposta']);
+                $data_creazione = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['data_creazione']);
+                $risposta->setData_creazione($data_creazione);
+                //metto la recensione (FOREIGN KEY)
+                //DA TESTARE
+                $recensione = FRecensione::getrecensionefromid($queryResult[$i]['IdRecensione']);  //il campo calendario è proprio l'id
+                $risposta->setRecensione($recensione);
+
+                //ispirazione presa da FReport
+                //metto il medico (FOREIGN KEY)
+                //DA TESTARE
+                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo calendario è proprio l'id
+                $risposta->setMedico($medico);
+
+                //ispirazione presa da FReport
+                $risposte[] = $risposta;
+            }
+            return $risposte;
+        }else{
+            return array();
+        }
+    }
+
+    public static function getrispostafromid($IdRisposta){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRisposta);
+        //var_dump($result);
+        if(count($result) > 0){
+            $risposta = self::crearisposta($result);
+            return $risposta;
+        }else{
+            return null;
+        }
+
+    }
+
+    public static function salvarisposta($risposta){
+        $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $risposta);
+        if($saveFasciaOraria !== null){
+            return $saveFasciaOraria;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * QUESTO SERVE PER CANCELLARE UNA RISPOSTA con La sua PK COME ARGOMENTO
+     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RISPOSTA
+     */
+    public static function eliminarisposta($IdRisposta){        
+        $eliminaRisposta = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), "IdFasciaOraria", $IdRisposta);
+        if($eliminaRisposta !== null){
+            return $eliminaRisposta;
+        }else{
+            return false;
+        }
+    }
+
+    //QUESTO DOVREBBE ESSERE IMPLEMENTATO PER MOSTRARE LE RISPOSTE DI MEDICI ATTIVI (NON BANNATI)
+    /*
+    public static function getCommentListNotBanned($idPost)
+    {
+
+        $result = FEntityManagerSQL::getInstance()->objectListNotRemoved(self::getTable(), FPost::getKey(), $idPost);
+
+        if(count($result) == 1){
+            $comment = array();
+            $c = self::crateCommentObj($result);
+            $comment[] = $c;
+            return $comment;
+        }elseif(count($result) > 1){
+            return self::crateCommentObj($result);
+        }else{
+            return $result;
+        }
+        
+    }
+    */
 }

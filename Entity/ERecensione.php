@@ -5,6 +5,7 @@ class ERecensione
     private $titolo;
     private $contenuto;
     private float $valutazione;
+    private DateTime $data_creazione;
 
     private $medico;
     
@@ -18,6 +19,7 @@ class ERecensione
         $this->titolo=$titolo;
         $this->contenuto=$contenuto;
         $this->valutazione=$valutazione;
+        $this->setTime();
 
     }
     //metodi
@@ -60,6 +62,24 @@ class ERecensione
     public function setValutazione(float $valutazione)
     {
         $this->valutazione = $valutazione;
+    }
+
+    //4 METODI PER LA DATA
+    public function getTime()
+    {
+        return $this->data_creazione;
+    }
+    private function setTime(){
+        $this->data_creazione = new DateTime("now");  //in teoria dovrebbe settare un valore sensato
+    }
+
+    public function getTimetostring()   //ritorna una stringa
+    {
+        return $this->data_creazione->format('Y-m-d H:i:s');
+    }
+
+    public function setData_creazione($data_creazione){
+        $this->data_creazione = $data_creazione;
     }
 
     public function getMedico()

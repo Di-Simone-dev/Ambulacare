@@ -8,10 +8,11 @@ class ERisposta
     private $medico;
     private static $entity = ERisposta::class;
     //constructor
-    public function __construct($IdRisposta,$contenuto)
+    public function __construct($contenuto)
     {
         //$this->IdRisposta=0; non va messo nel costruttore
         $this->contenuto=$contenuto;
+        $this->setData_creazionenow();
 
     }
     //metodi
@@ -35,16 +36,23 @@ class ERisposta
         $this->contenuto = $contenuto;
     }
 
+    //4 METODI PER LA DATA
     public function getData_creazione()
     {
         return $this->data_creazione;
     }
-
-    public function setData_creazione($data_creazione)
-    {
-        $this->data_creazione = $data_creazione;
+    private function setData_creazionenow(){
+        $this->data_creazione = new DateTime("now");  //in teoria dovrebbe settare un valore sensato
     }
 
+    public function getData_creazionestringa()   //ritorna una stringa
+    {
+        return $this->data_creazione->format('Y-m-d H:i:s');
+    }
+
+    public function setData_creazione($data_creazione){
+        $this->data_creazione = $data_creazione;
+    }
     public function getRecensione()
     {
         return $this->recensione;
