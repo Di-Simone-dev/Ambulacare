@@ -124,13 +124,13 @@ class FRisposta {
             return false;
         }
     }
-
+    
     /**
      * QUESTO SERVE PER CANCELLARE UNA RISPOSTA con La sua PK COME ARGOMENTO
      * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RISPOSTA
      */
     public static function eliminarisposta($IdRisposta){        
-        $eliminaRisposta = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), "IdFasciaOraria", $IdRisposta);
+        $eliminaRisposta = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdRisposta);
         if($eliminaRisposta !== null){
             return $eliminaRisposta;
         }else{
