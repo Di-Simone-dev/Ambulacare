@@ -4,7 +4,7 @@ class FImmagine{
 
     private static $table = "immagine";
 
-    private static $value = "(NULL,:nome,:dimonesioni,:tipo,:dati,:IdMedico_Referto)";
+    private static $value = "(NULL,:nome,:dimonesioni,:tipo,:dati)";
 
     private static $key = "IdImmagine";
 
@@ -24,50 +24,47 @@ class FImmagine{
         return self::$key;
     }
 
-    public static function createImageObj($queryResult){
-        if(count($queryResult) > 0){
-            $images = array();
-            for($i = 0; $i < count($queryResult); $i++){
-                $im = new EImage($queryResult[$i]['name'], $queryResult[$i]['size'],$queryResult[$i]['types'],$queryResult[$i]['imageData']);
-                $im->setId($queryResult[$i]['idImage']);
-                $images[] = $im;
-            }
-            return $images;
-        }else{
-            return array();
-        }
+    //POSSIAMO SUPPORRE DI CARICARE SOLO UNA IMMAGINE ALLA VOLTA
+    public static function creaimmagine($queryResult){
+        $immagine = new EImmagine($queryResult[0]['nome'], $queryResult[0]['dimensione'],$queryResult[0]['tipo'],$queryResult[0]['dati']);
+        $immagine->setIdImmagine($queryResult[0]['IdImmagine']);
+              
+        return $immagine;
+        
     }
 
-    public static function bind($stmt, $image){
-        $stmt->bindValue(":name", $image->getName(), PDO::PARAM_STR);
-        $stmt->bindValue(":size", $image->getSize(), PDO::PARAM_INT);
-        $stmt->bindValue(":types",$image->getType(), PDO::PARAM_STR);
-        $stmt->bindValue(":imageData", $image->getImageData(), PDO::PARAM_LOB);
+
+    public static function bind($stmt, $immagine){
+        $stmt->bindValue(":nome", $immagine->getNome(), PDO::PARAM_STR);
+        $stmt->bindValue(":dimensione", $immagine->getDimensione(), PDO::PARAM_INT);
+        $stmt->bindValue(":tipo",$immagine->getTipo(), PDO::PARAM_STR);
+        $stmt->bindValue(":dati", $immagine->getDati(), PDO::PARAM_LOB);
+
+        //QUESTA STRUTTURA POTREBBE ESSERE UTILE IN ALTRE CLASSI=> MEGLIO TENERLA
+        /*
         if($image->getPost() !== null){
             $stmt->bindValue(":idPost", $image->getPost()->getId(), PDO::PARAM_INT);
         }else{
             $stmt->bindValue(":idPost", null, PDO::PARAM_NULL);
         }
-        
+        */
     }
 
-    public static function getObj($id){
+    public static function getimmaginefromid($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
-            $image = self::createImageObj($result);
-            if(count($image) == 1){
-                return $image[0];
-            }
-            return $image;
+            $immagine = self::creaimmagine($result);
+            return $immagine;
         }else{
             return null;
         }
     }
 
-    public static function saveObj($obj){
+    //SALVIAMO UNA IMMAGINE DANDO IN PASTO L'OGGETTO IMMAGINE DA SALVARE
+    public static function salvaimmagine($immagine){
 
-        $saveImage = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
+        $saveImage = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $immagine);
         if($saveImage !== null){
             return $saveImage;
         }else{
@@ -75,14 +72,34 @@ class FImmagine{
         }
     }
 
-    public static function getObjOnPostId($idPost){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FPost::getKey(), $idPost);
+
+    //QUESTA IMPLEMENTAZIONE PUò FARCI MOLTO COMODO NEL CASO DI PROPIC DEL MEDICO O DEL REFERTO
+    public static function getimmaginefromidmedico($IdMedico){
+        //andiamo a prendere 
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FMedico::getKey(), $IdMedico);
+        //$result contiene la riga del medico che contiene anche l'id dell'immagine che vogliamo ottenere
 
         if(count($result) > 0){
-            $image = self::createImageObj($result);
-            return $image;
+            $immagine = self::creaimmagine($result['IdImmagine']);  //DOVREBBE FUNZIONARE
+            return $immagine;
         }else{
             return null;
         }
     }
+
+    public static function getimmaginefromidreferto($IdReferto){
+        //andiamo a prendere 
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FReferto::getKey(), $IdReferto);
+        //$result contiene la riga del medico che contiene anche l'id dell'immagine che vogliamo ottenere
+
+        if(count($result) > 0){
+            $immagine = self::creaimmagine($result['IdImmagine']);  //DOVREBBE FUNZIONARE
+            return $immagine;
+        }else{
+            return null;
+        }
+    }
+
+
+
 }

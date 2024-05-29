@@ -79,8 +79,8 @@ class FMedico  {
             $medico -> setIdMedico($queryResult[0]['IdMedico']);
             //come si mette LA TIPOLOGIA? (FOREIGN KEY)
             //DA TESTARE
-            $tipologia = FTipologia::gettipologiafromid($queryResult[0]['Tipologia']);  //il campo calendario è proprio l'id
-            $medico->setTipologia($tipologia);
+            $tipologia = FTipologia::gettipologiafromid($queryResult[0]['IdTipologia']);  //PRENDO L'OGGETTO TIPOLOGIA
+            $medico->setTipologia($tipologia);  //GLI METTO PROPRIO L'OGGETTO NEL SETTER
             //ispirazione presa da FReport
             return $medico;
         }

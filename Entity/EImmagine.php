@@ -35,12 +35,17 @@ class EImmagine{
     }
 
     public function setIdImmagine($IdImmagine){
-        $this->idImmagine = $IdImmagine;
+        $this->IdImmaginedImmagine = $IdImmagine;
     }
 
     public function getNome()
     {
         return $this->nome;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
     }
 
     public function getDimensione()

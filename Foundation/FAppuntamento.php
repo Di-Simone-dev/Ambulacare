@@ -105,7 +105,7 @@ class FAppuntamento{
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN APPUNTAMENTO o AD AGGIORNARNE I DATI
 
-    public static function saveObj($obj, $fieldArray = null){
+    public static function salvaappuntamento($obj, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
