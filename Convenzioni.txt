@@ -1,3 +1,20 @@
+METODO DI CONVERSIONE DEL MODELLO
+
+ENTITY
+1)NON devono essere presenti PRIMARY KEY e FOREIGN KEY nel COSTRUTTORE della CLASSE, ma devono avere i get/set
+
+
+
+FOUNDATION
+1)Nell'array values[] il campo della PK è scritto null, si scrive invece dentro la variabile $key
+2)Nel bind non compare la PK, mentre per le FK le mettiamo con il DOPPIO GET()  (1 GET OGGETTO DELL'FK,2GET ID)
+3)Nel metodo crea****() di un oggetto la PK si setta con il metodo setter (di entity) subito dopo aver usato il costruttore, successivamente settiamo anche altri 
+	attributi non presenti nel costruttore e le FK se necessarie (altrimenti serve un altro metodo per mettere le FK come in FPOST)
+
+
+
+
+
 ENTITY
 1)L'ATTRIBUTO CHE FA DA Primary Key INIZIA CON IL MAIUSCOLO E GLI ALTRI IN MINUSCOLO (ma la lettera iniziale del nome della classe deve essere maiuscola "IdMedico")
 2)Nei metodi getter e setter il nome del metodo ha in caps solo l'iniziale dell'attributo (ad esempio getNome())

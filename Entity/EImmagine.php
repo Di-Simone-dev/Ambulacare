@@ -3,7 +3,7 @@
 class EImmagine{
 
     //attributes
-    private $Idimmagine;
+    private $IdImmagine;
 
     private $nome;
 
@@ -12,10 +12,6 @@ class EImmagine{
     private $tipo;
 
     private $dati;
-
-    private $medico_referto;  //QUESTA POTREBBE DARE DEI PROBLEMI NEL PARADIGMA OOP, MAGARI SERVE RIVEDERE LA STRUTTURA DEL DB
-                              // O SI AGGIUNGE UN ALTRO CAMPO PER INDICARE A QUALE CI REFERIAMO, OPPURE VANNO FATTI DUE CAMPI DOVE
-                              //UNO SI LASCIA NULL
 
     private static $entity = EImmagine::class;
 
@@ -33,46 +29,37 @@ class EImmagine{
         return self::$entity;
     }
 
-    public function getId()
+    public function getIdImmagine()
     {
-        return $this->idImage;
+        return $this->IdImmagine;
     }
 
-    public function setId($id){
-        $this->idImage = $id;
+    public function setIdImmagine($IdImmagine){
+        $this->idImmagine = $IdImmagine;
     }
 
-    public function getName()
+    public function getNome()
     {
-        return $this->name;
+        return $this->nome;
     }
 
-    public function getSize()
+    public function getDimensione()
     {
-        return $this->size;
+        return $this->dimensione;
     }
 
-    public function getType()
+    public function getTipo()
     {
-        return $this->types;
+        return $this->tipo;
     }
 
-    public function getImageData()
+    public function getDati()
     {
-        return $this->imageData;
+        return $this->dati;
     }
 
     public function getEncodedData(){
-        return base64_encode($this->imageData);
+        return base64_encode($this->dati);  //bisogna capire un attimo come funziona
     }
 
-    public function getPost(): ?EPost
-    {
-        return $this->post;
-    } 
-
-    public function setPost(EPost $post): void
-    {
-        $this->post = $post;
-    }
 }

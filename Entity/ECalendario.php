@@ -11,7 +11,8 @@ class ECalendario
     //costruttore
     public function __construct()
     {
-        //$this->$IdCalendario=$IdCalendario;  NON CI VA NULLA, I CAMPI SONO PK O FK
+        //$this->$IdCalendario=$IdCalendario;  PK
+        //$this->$medico=$medico; FK 
 
     }
     //metodi get e set

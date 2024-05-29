@@ -4,17 +4,17 @@ class EReferto
     private $IdReferto;
     private $oggetto;
     private $contenuto;
-    private $file;
+    private $immagine;
 
     private $appuntamento;
     private static $entity = EReferto::class;
     //costruttore
-    public function __construct($IdReferto,$oggetto,$contenuto,$file)
+    public function __construct($oggetto,$contenuto)
     {
         //$this->IdReferto=0;  non ci va l'id nel costruttore
         $this->oggetto=$oggetto;
         $this->contenuto=$contenuto;
-        $this->file=0;
+        //$this->immagine=immagine;  //FK 
 
     }
     //metodi

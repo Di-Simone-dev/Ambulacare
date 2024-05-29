@@ -6,14 +6,18 @@ class EAppuntamento
 
     private $stato;
     
-    private $paziente;
+    private $paziente;  //FK
+
+    private $fascia_oraria;   //FK
 
     private static $entity = EAppuntamento::class;
     //costruttore
     public function __construct($IdAppuntamento, $stato)
     {
-        //$this->$IdAppuntamento=$IdAppuntamento; questo non dovrebbe essere strettamente necessario(guardare i post nell'altro progetto)
+        //$this->$IdAppuntamento=$IdAppuntamento; PK
         $this->stato=$stato;
+        //$this->$paziente=$paziente; PK
+        //$this->$fascia_oraria=$fascia_oraria; PK
 
     }
     //metodi get e set 
@@ -45,6 +49,15 @@ class EAppuntamento
     public function setpaziente($paziente)
     {
         $this->stato = $paziente;
+    }
+    public function getFascia_Oraria()
+    {
+        return $this->paziente;
+    }
+
+    public function setFascia_Oraria($IdFascia_oraria)
+    {
+        $this->fascia_oraria = $IdFascia_oraria;
     }
 
 }

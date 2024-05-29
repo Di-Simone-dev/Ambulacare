@@ -30,6 +30,7 @@ class EMedico
         $this->attivo=true;
         $this->costo=$costo;
         //$this->tipologia=$tipologia; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
+        //$this->immagine=$immagine; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
 
     }
 
@@ -113,5 +114,15 @@ class EMedico
     public function setTipologia($tipologia)
     {
         $this->tipologia = $tipologia;
+    }
+
+    public function getImmagine()
+    {
+        return $this->tipologia;
+    }
+
+    public function setImmagine($IdImmagine)
+    {
+        $this->tipologia = $IdImmagine;
     }
 }
