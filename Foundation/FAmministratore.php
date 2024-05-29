@@ -4,7 +4,7 @@
 //Questo è un commento banale
 class FAmministratore {
     /** tabella con la quale opera */
-    private static $table = "Amministratore";
+    private static $table = "amministratore";
     /** valori della tabella */
     private static $values="(NULL,:nome,:cognome,:email,:password)";
     /** nome del campo della primary key della tabella*/
@@ -70,13 +70,6 @@ class FAmministratore {
         }
     }
 
-    /* STA ROBA NON DOVREBBE SERVIRE
-    public static function bind($stmt, $id){
-        $stmt->bindValue(":idUser", $id, PDO::PARAM_INT);
-        //var_dump($id);
-    }
-    */ 
-
     public static function getadminfromid($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
         //var_dump($result);
@@ -89,12 +82,12 @@ class FAmministratore {
 
     }
 
-    public static function saveObj($obj){
+    public static function salvaamministratore($admin){
 
-        $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $obj);
+        $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $admin);
         //var_dump($savePerson);
         if($saveAmministratore !== null){
-            $saveAmministratore = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $saveAmministratore);
+            $saveAmministratore = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $admin, $saveAmministratore);
             return $saveAmministratore;
         }else{
             return false;

@@ -8,25 +8,9 @@
  * @package Foundation
  */
 
-/*PAZIENTE CHE INTERAGISCE CON IL DB:
-1)CREARE UN APPUNTAMENTO (CREATE)
-2)MODIFICARE UN APPUNTAMENTO (UPDATE)
-3)VISUALIZZARE UN REFERTO (RETRIEVE)
-4)POSTARE UNA RECENSIONE (CREATE)
-
-metodi già esistenti che teniamo:
-__construct()
-bind($stmt, EPaziente $cli)
-getClass()  ritorna la classe
-getTable()  ritorna la table
-getValues() ritorna la stringa degli attributi
-store($cli) salva sul db un oggetto
-
-
-*/
 class FPaziente  {
 	/** tabella con la quale opera */
-    private static $table="Paziente";
+    private static $table="paziente";
 
     /** campi della table paziente (escluso il primo*/
     private static $values="(NULL,:nome,:cognome,:email,:password,:codice_fiscale,:data_nascita,:luogo_nascita,:residenza,:numero_telefono,:attivo)";
@@ -111,7 +95,7 @@ class FPaziente  {
                                         $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['codice_fiscale'],
                                         $queryResult[$i]['data_nascita'],$queryResult[$i]['luogo_nascita'],$queryResult[$i]['residenza'],
                                         $queryResult[$i]['numero_telefono'],$queryResult[$i]['attivo']);
-                $paziente -> setIdPaziente($queryResult[0]['IdPaziente']);   //IMPORTANTE SETTARE LA PRIMARY KEY
+                $paziente -> setIdPaziente($queryResult[$i]['IdPaziente']);   //IMPORTANTE SETTARE LA PRIMARY KEY
                 $pazienti[] = $paziente;   //AGGIUNGE L'ELEMENTO ALL'ARRAY PAZIENTI
             }
             return $pazienti;
@@ -145,8 +129,8 @@ class FPaziente  {
         $result = FEntityManagerSQL::getInstance()->getObjOnAttributes(FPaziente::getTable(), "nome", $nome,"cognome", $cognome);
         //var_dump($result);
         if(count($result) > 0){
-            $user = self::creapaziente($result);  //va bene anche per un array di pazienti
-            return $user;
+            $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $paziente;
         }else{
             return null;
         }
@@ -154,7 +138,7 @@ class FPaziente  {
     }
 
 
-    /**
+    /*
      * Metodo che verifica se esiste un paziente con un dato valore in uno dei campi  (FIELD=CAMPO,ID=VALORE)
      * @param $id valore da usare come ricerca
      * @param $field campo da usare come ricerca
@@ -175,13 +159,13 @@ class FPaziente  {
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN PAZIENTE o AD AGGIORNARNE I DATI
 
-    public static function saveObj($obj, $fieldArray = null){
+    public static function salvapaziente($paziente, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FPaziente::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FPaziente::getClass(), $paziente);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $paziente, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
                     if($saveUser){
                         return $savePersonAndLastInsertedID;
@@ -202,7 +186,7 @@ class FPaziente  {
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv)
                 {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    FEntityManagerSQL::getInstance()->updateObj(FPaziente::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FPaziente::getTable(), $fv[0], $fv[1], self::getKey(), $paziente->getId());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;

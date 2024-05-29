@@ -24,16 +24,6 @@ class FImmagine{
         return self::$key;
     }
 
-    //POSSIAMO SUPPORRE DI CARICARE SOLO UNA IMMAGINE ALLA VOLTA
-    public static function creaimmagine($queryResult){
-        $immagine = new EImmagine($queryResult[0]['nome'], $queryResult[0]['dimensione'],$queryResult[0]['tipo'],$queryResult[0]['dati']);
-        $immagine->setIdImmagine($queryResult[0]['IdImmagine']);
-              
-        return $immagine;
-        
-    }
-
-
     public static function bind($stmt, $immagine){
         $stmt->bindValue(":nome", $immagine->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(":dimensione", $immagine->getDimensione(), PDO::PARAM_INT);
@@ -49,6 +39,16 @@ class FImmagine{
         }
         */
     }
+
+    //POSSIAMO SUPPORRE DI CARICARE SOLO UNA IMMAGINE ALLA VOLTA
+    public static function creaimmagine($queryResult){
+        $immagine = new EImmagine($queryResult[0]['nome'], $queryResult[0]['dimensione'],$queryResult[0]['tipo'],$queryResult[0]['dati']);
+        $immagine->setIdImmagine($queryResult[0]['IdImmagine']);
+              
+        return $immagine;
+        
+    }
+
 
     public static function getimmaginefromid($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
