@@ -12,7 +12,7 @@ class EAppuntamento
 
     private static $entity = EAppuntamento::class;
     //costruttore
-    public function __construct($IdAppuntamento, $stato)
+    public function __construct($stato)
     {
         //$this->$IdAppuntamento=$IdAppuntamento; PK
         $this->stato=$stato;

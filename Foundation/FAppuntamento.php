@@ -58,66 +58,102 @@ class FAppuntamento{
         $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
 
-    /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE RECENSIONI data query risult l'array con le fasce orarie da istanziare
+    /** PER FARE LA LOAD DAL DB ed INSTANZIARE gli appuntamenti data query result l'array degli APPUNTAMENTI da istanziare
      * Proxy obj
      */
-    public static function crearecensione($queryResult){
+    public static function creaappuntamento($queryResult){
         if(count($queryResult) > 0){
-            $recensioni = array();
+            $appuntamenti = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
-                $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
+                $appuntamento = new EAppuntamento($queryResult[$i]['stato']);
+                $appuntamento->setIdAppuntamento($queryResult[$i]['IdAppuntamento']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
-                $recensione->setPaziente($paziente);
+                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);
+                $appuntamento->setPaziente($paziente);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
-                //come si mette il medico? (FOREIGN KEY)
+                //Metto la fascia oraria (FOREIGN KEY)
                 //DA TESTARE
-                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
-                $recensione->setMedico($medico);
+                $fascia_oraria = FFasciaOraria::getfasciaorariafromid($queryResult[$i]['IdFasciaOraria']);  //
+                $appuntamento->setFasciaoraria($fascia_oraria);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
-                $recensioni[] = $recensione;
+                $recensioni[] = $appuntamento;
             }
-            return $recensioni;   //ARRAY DELLE RECENSIONI
+            return $appuntamenti;   //ARRAY DEGLI APPUNTAMENTI
         }else{
             return array();
         }
     }
 
-    //PER LOADDARE UNA RECENSIONE DAL SUO ID
-    public static function getrecensionefromid($IdRecensione){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
+    //PER LOADDARE UN APPUNTAMENTO DAL SUO ID
+    public static function getappuntamentofromid($IdAppuntamento){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdAppuntamento);
         //var_dump($result);
         if(count($result) > 0){
-            $recensione = self::crearecensione($result);
-            return $recensione;
+            $Appuntamento = self::creaappuntamento($result);
+            return $Appuntamento;
         }else{
             return null;
         }
     }
 
 
-    //CON QUESTO SALVIAMO LE RECENSIONI
-    public static function salvarecensione($recensione){
-            $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
-            if($saveFasciaOraria !== null){
-                return $saveFasciaOraria;
-            }else{
+    //CON QUESTO SALVO GLI APPUNTAMENTI, MA DOVREBBE ANCHE SERVIRE UNA MODALITà DI MODIFICA
+    //if field null salva, sennò deve updetare la table
+    //fieldArray è un array che deve contere array aventi nome del field e valore 
+    //ALTRO MALLOPPONE CHE SERVE A SALVARE UN APPUNTAMENTO o AD AGGIORNARNE I DATI
+
+    public static function saveObj($obj, $fieldArray = null){
+        if($fieldArray === null){   
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FAppuntamento::getClass(), $obj);
+                if($savePersonAndLastInsertedID !== null){
+                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    FEntityManagerSQL::getInstance()->getDb()->commit();
+                    if($saveUser){
+                        return $savePersonAndLastInsertedID;
+                    }
+                }else{
+                    return false;
+                }
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
-            }
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }else{   //QUA è NEL CASO DI UPDATE $fieldarray contiene i campi da updatare
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                //var_dump($fieldArray);
+                foreach($fieldArray as $fv)
+                {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
+                    FEntityManagerSQL::getInstance()->updateObj(FAppuntamento::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                }
+                FEntityManagerSQL::getInstance()->getDb()->commit();
+                return true;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }
     }
 
     /**
-     * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
-     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RECENSIONE
+     * QUESTO SERVE PER CANCELLARE UN APPUNTAMENTO con La sua PK COME ARGOMENTO
+     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE L'APPUNTAMENTO
      */
-    public static function eliminarecensione($IdRecensione){        
-        $eliminaRecensione = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdRecensione);
-        if($eliminaRecensione !== null){
-            return $eliminaRecensione;
+    public static function eliminaappuntamento($IdAppuntamento){        
+        $eliminaAppuntamento = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdAppuntamento);
+        if($eliminaAppuntamento !== null){
+            return $eliminaAppuntamento;
         }else{
             return false;
         }
