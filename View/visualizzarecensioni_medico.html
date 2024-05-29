@@ -106,18 +106,13 @@ https://templatemo.com/tm-566-medic-care
                 <div class="col">
                     <form action="#">
                         <div class="form-group" >
-                            <!--<h3><label for="categ">Tipologia</label></h3>
+                            <!--<h3><label for="categ">Tipologia</label></h3>-->
                             <select name="languages" id="categ" class="form-select">
-                                <option value="select">Seleziona una tipologia</option>
-                                <option value="dentista">dentista</option>
-                                <option value="oculista">oculista</option>
-                                <option value="otorino">otorino</option>
-                                <option value="cardiologo">cardiologo</option>
-                                <option value="radiologo">radiologo</option>
-                                <option value="neurologo">neurologo</option>
-                                <option value="urologo">urologo</option>
-                                <option value="neurofisiopatologo">neurofisiopatologo</option>
-                            </select>-->
+                                <option value="select">Ordina per</option>
+                                <option value="dentista">Nome</option>
+                                <option value="oculista">Cognome</option>
+                                <option value="otorino">Data appuntamento</option>
+                            </select>
                         </div>
                             <br>
                                 <div>
@@ -125,7 +120,7 @@ https://templatemo.com/tm-566-medic-care
                                     </input>
                                     </div>
                                     <br>
-                            <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
+                            <button type="submit" class="btn btn-primary">Effettua ricerca</button>
                     </form>
                 </div>
             </div>
@@ -137,8 +132,7 @@ https://templatemo.com/tm-566-medic-care
                         <th scope="col">Nome Paziente</th>
                         <th scope="col">Cognome Paziente</th>
                         <th scope="col">Data</th>
-                        <th scope="col">Ora</th>
-                        <th scope="col">Tipologia</th>
+                        <th scope="col">Valutazione</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -147,27 +141,22 @@ https://templatemo.com/tm-566-medic-care
                         <td>Giacomo</td>
                         <td>Giannini</td>
                         <td>24/05/2024</td>
-                        <td>10:00</td>
-                        <td>Urologia</td>
-                        <td><a href="inseriscireferto.html"><button class="btn btn-primary">Carica Referto</button></a></td>
+                        <td>3/5</td>
+                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
                     </tr>
                     <tr>
                         <td>Piero</td>
                         <td>Marcozzi</td>
                         <td>01/01/2024</td>
-                        <td>08:30</td>
-                        <td>Neurologia</td>
-                        <td><button class="btn btn-primary">Visualizza Referto</button></td>
-                        <td><button class="btn btn-primary">Cancella Referto</button></td>
+                        <td>4/5</td>
+                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
                     </tr>
                     <tr>
                         <td>Elisabetta</td>
                         <td>Mecozzi</td>
                         <td>05/03/2024</td>
-                        <td>11:20</td>
-                        <td>Cardiologia</td>
-                        <td><button class="btn btn-primary">Visualizza Referto</button></td>
-                        <td><button class="btn btn-primary">Elimina Referto</button></td>
+                        <td>1/5</td>
+                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
                     </tr>
                 </tbody>
             </table>
