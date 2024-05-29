@@ -48,14 +48,14 @@ class EReferto
         $this->contenuto = $contenuto;
     }
 
-    public function getFile()
+    public function getImmagine()
     {
-        return $this->file;
+        return $this->immagine;
     }
 
-    public function setFile($file)
+    public function setImmagine($immagine)
     {
-        $this->file = $file;
+        $this->immagine = $immagine;
     }
 
     public function getAppuntamento()
