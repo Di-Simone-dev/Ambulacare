@@ -1,3 +1,5 @@
+{extends file="layout.tpl"}
+{block name=body}
 <section class="gallery">
     <div class="container">
         <div class="row">
@@ -21,8 +23,7 @@
 
                 <div class="owl-carousel reviews-carousel">
 
-
-                    {foreach item=paziente from=$pazienti}
+                    {foreach $recensioni as $recensione}
                         <figure class="reviews-thumb d-flex flex-wrap align-items-center rounded">
                             <div class="reviews-stars">
                                 <i class="bi-star-fill"></i>
@@ -32,15 +33,15 @@
                                 <i class="bi-star"></i>
                             </div>
 
-                            <p class="text-primary d-block mt-2 mb-0 w-100"><strong>Best Health Care</strong></p>
+                            <p class="text-primary d-block mt-2 mb-0 w-100"><strong>{$recensione.titolo}</strong></p>
 
-                            <p class="reviews-text w-100">{$paziente['recensione']}</p>
+                            <p class="reviews-text w-100">{$recensione.descrizione}</p>
 
                             <img src="images/reviews/beautiful-woman-face-portrait-brown-background.jpeg"
                                 class="img-fluid reviews-image" alt="">
 
                             <figcaption class="ms-4">
-                                <strong>{$paziente['nome']}</strong>
+                                <strong>{$recensione.paziente}</strong>
 
                                 <span class="text-muted">Patient</span>
                             </figcaption>
@@ -53,5 +54,6 @@
         </div>
     </div>
 </section>
+{/block}
 
-</main>
+{include file='../footer/stock_footer.tpl'}

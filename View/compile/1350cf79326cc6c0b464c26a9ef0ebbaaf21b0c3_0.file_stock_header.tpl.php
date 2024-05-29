@@ -1,4 +1,28 @@
-<!doctype html>
+<?php
+/* Smarty version 5.1.0, created on 2024-05-29 16:47:03
+  from 'file:C:\xampp\htdocs\Ambulacare\View\template\pages\../header/stock_header.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.1.0',
+  'unifunc' => 'content_66573fe7c8a9d4_91211602',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '1350cf79326cc6c0b464c26a9ef0ebbaaf21b0c3' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages\\../header/stock_header.tpl',
+      1 => 1716993753,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_66573fe7c8a9d4_91211602 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\header';
+?><!doctype html>
 <html lang="en">
 
 <head>
@@ -48,40 +72,19 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Storico esami</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about">Visualizza agenda</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#timeline">Carica slot per appuntamento</a>
-                        </li>
-
                         <div class="navbar-brand d-none d-lg-block">
                             AmbulaCare
                             <strong class="d-block">HEALTH SPECIALISTS</strong>
                         </div>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#booking">Recensioni</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Statistiche</a>
+                            <a class="nav-link" href="register.html">Registrati</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Ricerca pazienti</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#booking">Recensioni</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                            <a class="nav-link" href="login.html">Accedi</a>
                         </li>
                     </ul>
                 </div>
 
             </div>
-        </nav>
+        </nav><?php }
+}

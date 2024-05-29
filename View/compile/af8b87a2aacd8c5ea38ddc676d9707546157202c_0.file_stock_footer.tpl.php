@@ -1,6 +1,28 @@
-</main>
+<?php
+/* Smarty version 5.1.0, created on 2024-05-29 17:33:22
+  from 'file:C:\xampp\htdocs\Ambulacare\View\template\pages\../footer/stock_footer.tpl' */
 
-<footer class="site-footer section-padding" id="contact">
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.1.0',
+  'unifunc' => 'content_66574ac2243da3_61420506',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'af8b87a2aacd8c5ea38ddc676d9707546157202c' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages\\../footer/stock_footer.tpl',
+      1 => 1716995206,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_66574ac2243da3_61420506 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\footer';
+?><footer class="site-footer section-padding" id="contact">
     <div class="container">
         <div class="row">
 
@@ -49,7 +71,7 @@
             </div>
 
             <div class="col-lg-3 col-12 ms-auto mt-4 mt-lg-0">
-                <p class="copyright-text">Copyright © Ambula Care 2024
+                <p class="copyright-text">Copyright © Ambula Care 2024</p>
                     <br><br>Realizzato da:
                 <p>Emanuele Papile</p>
                 <p>Andrea Iannotti</p>
@@ -57,13 +79,25 @@
             </div>
 
         </div>
-        </section>
+    </section>
 </footer>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/scrollspy.min.js"></script>
-<script src="js/custom.js"></script>
+
+<?php echo '<script'; ?>
+ src="js/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="js/scrollspy.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="js/custom.js"><?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}
