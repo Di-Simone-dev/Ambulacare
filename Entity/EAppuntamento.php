@@ -50,12 +50,12 @@ class EAppuntamento
     {
         $this->stato = $paziente;
     }
-    public function getFascia_Oraria()
+    public function getFasciaoraria()
     {
         return $this->paziente;
     }
 
-    public function setFascia_Oraria($IdFascia_oraria)
+    public function setFasciaoraria($IdFascia_oraria)
     {
         $this->fascia_oraria = $IdFascia_oraria;
     }

@@ -6,7 +6,7 @@ class FFasciaOraria{
     /** tabella con la quale opera */
     private static $table = "Fascia_Oraria";
     /** valori della tabella */
-    private static $values="(NULL,:data,:ora_inizio,:Calendario,:Appuntamento)";  //per l'autoincrement si fa così
+    private static $values="(NULL,:data,:ora_inizio,:IdCalendario)";  //per l'autoincrement si fa così
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdFasciaOraria";
@@ -54,7 +54,7 @@ class FFasciaOraria{
     	//$stmt->bindValue(':IdFasciaOraria',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':data', $fascor->getData(), PDO::PARAM_STR); 
         $stmt->bindValue(':ora_inizio', $fascor->getOraInizio(), PDO::PARAM_STR); 
-        $stmt->bindValue(':Calendario', $fascor->getCalendario()->getIdCalendario(), PDO::PARAM_STR); //ATTENZIONE ALLE FOREIGN KEY
+        $stmt->bindValue(':IdCalendario', $fascor->getCalendario()->getIdCalendario(), PDO::PARAM_STR); //ATTENZIONE ALLE FOREIGN KEY
     }
 
     /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE FASCE ORARIE data query risult l'array con le fasce orarie da istanziare

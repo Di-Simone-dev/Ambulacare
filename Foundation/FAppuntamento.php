@@ -8,33 +8,23 @@
  * @package Foundation
  */
 
-class FAppuntamento extends FDataBase {
-    /** classe foundation */
-    private static $class="FAppuntamento";
+class FAppuntamento{
     /** tabella con la quale opera */          
     private static $table="Appuntamento";
     /** valori della tabella */
-    private static $values="(:IdApp,:stato,:paziente)";
-
+    private static $values="(NULL,:stato,:IdPaziente,:IdFasciaOraria)";
+    /** nome del campo della primary key della tabella*/
+    private static $key = "IdAppuntamento";
 
     /** costruttore*/ 
     public function __construct(){}
-
-    public static function bind($stmt,EAppuntamento $appuntamento){
-        $stmt->bindValue(':IdApp', NULL, PDO::PARAM_INT);
-        $stmt->bindValue(':stato', $appuntamento->getStato(), PDO::PARAM_STR);
-        $stmt->bindValue(':paziente', $appuntamento->getPaziente(), PDO::PARAM_STR);
-        //$stmt->bindValue(':intermediatestep', $annuncio->getIntermediateStep(), PDO::PARAM_STR);
-
-        }
-
 
 	/**
 	 * questo metodo restituisce il nome della classe per la costruzione delle Query
 	 * @return string $class nome della classe
 	 */
     public static function getClass(){
-        return static::$class;
+        return static::class;
     }
 
 	/**
@@ -53,353 +43,89 @@ class FAppuntamento extends FDataBase {
         return static::$values;
     }
 
-    /** Metodo che richiama l'instanza di FDatabase per la store */
-    /*
-    public static function store(EAppuntamento $appuntamento){
-        $db=FDatabase::getInstance();
-
-		$arrivo = $db->loadVerificaLuogo($annuncio->getArrival()->getName() , $annuncio->getArrival()->getProvince());
-		//print($arrivo->__toString());
-		$partenza = $db->loadVerificaLuogo($annuncio->getDeparture()->getName() , $annuncio->getDeparture()->getProvince());
-		//print_r($partenza);
-		$utente = FUtenteloggato::exist("email", $annuncio->getEmailWriter()->getEmail());
-		if (isset($arrivo) && isset($partenza) && $utente == true) {
-			$annuncio->setArrival($arrivo);
-			$annuncio->setDeparture($partenza);
-			$id = $db->storeDB(static::getClass(), $annuncio);
-			return $id;
-		}
-		else
-			return false;
-    }*/
-
-
-/** Metodo che recupera dal db tutte le istanze che rispettano determinati parametri
-     */
-    /*
-    public static function loadByField($field, $id){
-        $annuncio = null;
-        $intermedia = null;
-        $tappa = null;
-        $db=FDatabase::getInstance();
-        $result=$db->loadDB(static::getClass(), $field, $id);
-        $rows_number = $db->interestedRows(static::getClass(), $field, $id);
-        if(($result!=null) && ($rows_number == 1)) {
-            $part = FLuogo::loadByField("id" , $result["departure"]);
-            $arr = FLuogo::loadByField("id" , $result["arrival"]);
-        	$ute = FUtenteloggato::loadByField("email" , $result["emailWriter"]);
-            $tappa = FTappa::loadByField("ad", $result["idAd"] );
-           if ($tappa != null ) {
-               $t = current($tappa);
-               if (is_array($t)) {
-               foreach ($tappa as $t) {
-                   $intermedia[] = FLuogo::loadByField("id", $t['place']);
-               }
-               }
-                   else {
-                       $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                   }
-               }
-            $annuncio=new EAnnuncio($result['departureDate'], $result['arrivalDate'], $result['space'], $part , $arr ,$result['weight'],$result['description'],$ute);
-            if ($intermedia != null) {
-                foreach ($intermedia as $i)
-                    $annuncio->addTappa($i);
-            }
-            $annuncio->setIdAd($result['idAd']);
-            if($result['visibility']) $annuncio->setVis();
-             }
-        else {
-            if(($result!=null) && ($rows_number > 1)){
-                $part = array();
-                $arr = array();
-                $ute = array();
-                $annuncio = array();
-            for($i=0; $i<count($result); $i++){
-                $tappa = null;
-                $intermedia = null;
-                $part[] = FLuogo::loadByField("id" , $result[$i]["departure"]);
-                $arr[] = FLuogo::loadByField("id" , $result[$i]["arrival"]);
-				$ute[] = FUtenteloggato::loadByField("email" , $result[$i]["emailWriter"]);
-                $tappa = FTappa::loadByField("ad", $result[$i]["idAd"]);
-                    if ($tappa != null ) {
-                        $t = current($tappa);
-                        if (is_array($t)) {
-                            foreach ($tappa as $t) {
-                                $intermedia[] = FLuogo::loadByField("id", $t['place']);
-                            }
-                        } else {
-                            $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                        }
-                    }
-
-                    $annuncio[]=new EAnnuncio($result[$i]['departureDate'], $result[$i]['arrivalDate'], $result[$i]['space'], $part[$i] , $arr[$i] ,$result[$i]['weight'],$result[$i]['description'],$ute[$i]);
-                    $annuncio[$i]->setIdAd($result[$i]['idAd']);
-                    if($result[$i]['visibility']) $annuncio[$i]->setVis();
-                    if ( $intermedia != null ){
-                    foreach ($intermedia as $int)
-                        $annuncio[$i]->addTappa($int);
-                         }
-
-                }
-            }
-        }
-        return $annuncio;
-    }
-*/
-
-    /** Metodo che verifica se esiste un annuncio con un certo valore in uno dei suoi campi:
-     * 1) se esiste restituisce true;
-     * 2) viceversa restituisce false.
-     */
-        /*
-    public static function exist($field, $id){
-        $db=FDatabase::getInstance();
-        $result=$db->existDB(static::getClass(), $field, $id);          //funzione richiamata,presente in FDatabase
-        if($result!=null) return true;
-        else return false;
-    }
-*/
- /** Metodo che aggiorna il valore di un campo 
-     */
-    public static function update ($field, $newvalue, $pk, $id){
-      $db=FDatabase::getInstance();
-      $result = $db->updateDB(static::getClass(), $field, $newvalue, $pk, $id);  //funzione richiamata,presente in FDatabase
-      if($result) return true;
-        else return false;
-
+    /**
+    * questo metodo restituisce il nome del campo della primary key per la costruzione delle Query
+    * @return string $key nome del campo della primary key della tabella
+    */
+    public static function getKey(){
+        return self::$key;
     }
 
-/** Metodo che elimina una delle istanze
-     */
-     public static function delete($field, $id){
-      $db=FDatabase::getInstance();
-      $result = $db->deleteDB(static::getClass(), $field, $id);   //funzione richiamata,presente in FDatabase
-      if($result) return true;
-        else return false;
-
+    public static function bind($stmt,EAppuntamento $appuntamento){
+        //$stmt->bindValue(':IdAppuntamento', NULL, PDO::PARAM_INT);
+        $stmt->bindValue(':stato', $appuntamento->getStato(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdPaziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
 
-/** Metodo che permette di caricare un annuncio che ha determinati parametri  */
-    /*
-	public static function loadByForm ($luogo1, $luogo2, $data1, $data2, $dim , $peso) {
-		$annuncio = null;
-		$intermedia = null;
-		$tappa = null;
-		$db=FDatabase::getInstance();
-		list ($result, $rows_number)=$db->loadMultipleAnnuncio($luogo1, $luogo2, $data1, $data2, $dim , $peso);
-		//print_r ($result);
-		//print $rows_number;
-		if(($result!=null) && ($rows_number == 1)) {
-			$part = FLuogo::loadByField("id" , $result["departure"]);
-			$arr = FLuogo::loadByField("id" , $result["arrival"]);
-            $ute = FUtenteloggato::loadByField("email" , $result["emailWriter"]);
-			$tappa = FTappa::loadByField("ad", $result["idAd"] );
-			if ($tappa != null ) {
-				$t = current($tappa);
-				if (is_array($t)) {
-					foreach ($tappa as $t) {
-						$intermedia[] = FLuogo::loadByField("id", $t['place']);
-					}
-				}
-				else {
-					$intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-				}
-			}
-			$annuncio=new EAnnuncio($result['departureDate'], $result['arrivalDate'], $result['space'], $part , $arr ,$result['weight'],$result['description'],$ute);
-			if ($intermedia != null) {
-				foreach ($intermedia as $i)
-					$annuncio->addTappa($i);
-			}
-			$annuncio->setIdAd($result['idAd']);
-			if($result['visibility']) $annuncio->setVis();
-		}
-		else {
-			if(($result!=null) && ($rows_number > 1)){
-				$part = array();
-				$arr = array();
-				$annuncio = array();
-				for($i=0; $i<count($result); $i++){
-					$tappa = null;
-					$intermedia = null;
-					$part[] = FLuogo::loadByField("id" , $result[$i]["departure"]);
-					$arr[] = FLuogo::loadByField("id" , $result[$i]["arrival"]);
-                    $ute[] = FUtenteloggato::loadByField("email" , $result[$i]["emailWriter"]);
-					$tappa = FTappa::loadByField("ad", $result[$i]["idAd"]);
-					if ($tappa != null ) {
-						$t = current($tappa);
-						if (is_array($t)) {
-							foreach ($tappa as $t) {
-								$intermedia[] = FLuogo::loadByField("id", $t['place']);
-							}
-						} else {
-							$intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-						}
-					}
-
-					$annuncio[]=new EAnnuncio($result[$i]['departureDate'], $result[$i]['arrivalDate'], $result[$i]['space'], $part[$i] , $arr[$i] ,$result[$i]['weight'],$result[$i]['description'],$ute[$i]);
-					$annuncio[$i]->setIdAd($result[$i]['idAd']);
-					if($result[$i]['visibility']) $annuncio[$i]->setVis();
-					if ( $intermedia != null ){
-						foreach ($intermedia as $int)
-							$annuncio[$i]->addTappa($int);
-					}
-
-				}
-			}
-		}
-		return $annuncio;
-
-	}
-*/
-
-
-    /** Metodo che recupera dal db tutte le istanze che rispettano determinati parametri
+    /** PER FARE LA LOAD DAL DB ed INSTANZIARE LE RECENSIONI data query risult l'array con le fasce orarie da istanziare
+     * Proxy obj
      */
-    /*
-    public static function initialLoad(){
-        $annuncio = null;
-        $intermedia = null;
-        $tappa = null;
-        $db=FDatabase::getInstance();
-        $result=$db->loadTrasporti();
-        $rows_number = $db->rowsTrasporti();
-        if(($result!=null) && ($rows_number == 1)) {
-            $part = FLuogo::loadByField("id" , $result["departure"]);
-            $arr = FLuogo::loadByField("id" , $result["arrival"]);
-            $ute = FUtenteloggato::loadByField("email" , $result["emailWriter"]);
-            $tappa = FTappa::loadByField("ad", $result["idAd"] );
-            if ($tappa != null ) {
-                $t = current($tappa);
-                if (is_array($t)) {
-                    foreach ($tappa as $t) {
-                        $intermedia[] = FLuogo::loadByField("id", $t['place']);
-                    }
-                }
-                else {
-                    $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                }
-            }
-            $annuncio=new EAnnuncio($result['departureDate'], $result['arrivalDate'], $result['space'], $part , $arr ,$result['weight'],$result['description'],$ute);
-            if ($intermedia != null) {
-                foreach ($intermedia as $i)
-                    $annuncio->addTappa($i);
-            }
-            $annuncio->setIdAd($result['idAd']);
-            if($result['visibility']) $annuncio->setVis();
-        }
-        else {
-            if(($result!=null) && ($rows_number > 1)){
-                $part = array();
-                $arr = array();
-                $ute = array();
-                $annuncio = array();
-                for($i=0; $i<count($result); $i++) {
-                    $tappa = null;
-                    $intermedia = null;
-                    $part[] = FLuogo::loadByField("id" , $result[$i]["departure"]);
-                    $arr[] = FLuogo::loadByField("id" , $result[$i]["arrival"]);
-                    $ute[] = FUtenteloggato::loadByField("email" , $result[$i]["emailWriter"]);
-                    $tappa = FTappa::loadByField("ad", $result[$i]["idAd"]);
-                    if ($tappa != null ) {
-                        $t = current($tappa);
-                        if (is_array($t)) {
-                            foreach ($tappa as $t) {
-                                $intermedia[] = FLuogo::loadByField("id", $t['place']);
-                            }
-                        } else {
-                            $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                        }
-                    }
+    public static function crearecensione($queryResult){
+        if(count($queryResult) > 0){
+            $recensioni = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
+                $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
+                //come si mette il paziente? (FOREIGN KEY)
+                //DA TESTARE
+                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
+                $recensione->setPaziente($paziente);
 
-                    $annuncio[]=new EAnnuncio($result[$i]['departureDate'], $result[$i]['arrivalDate'], $result[$i]['space'], $part[$i] , $arr[$i] ,$result[$i]['weight'],$result[$i]['description'],$ute[$i]);
-                    $annuncio[$i]->setIdAd($result[$i]['idAd']);
-                    if($result[$i]['visibility']) $annuncio[$i]->setVis();
-                    if ( $intermedia != null ){
-                        foreach ($intermedia as $int)
-                            $annuncio[$i]->addTappa($int);
-                    }
+                //ispirazione presa da FReport
+                //come si mette il medico? (FOREIGN KEY)
+                //DA TESTARE
+                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
+                $recensione->setMedico($medico);
 
-                }
+                //ispirazione presa da FReport
+                $recensioni[] = $recensione;
             }
+            return $recensioni;   //ARRAY DELLE RECENSIONI
+        }else{
+            return array();
         }
-        return $annuncio;
     }
-*/
+
+    //PER LOADDARE UNA RECENSIONE DAL SUO ID
+    public static function getrecensionefromid($IdRecensione){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
+        //var_dump($result);
+        if(count($result) > 0){
+            $recensione = self::crearecensione($result);
+            return $recensione;
+        }else{
+            return null;
+        }
+    }
 
 
-    /** Metodo che recupera dal db tutte le istanze che contengono il parametro passato in input
+    //CON QUESTO SALVIAMO LE RECENSIONI
+    public static function salvarecensione($recensione){
+            $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
+            if($saveFasciaOraria !== null){
+                return $saveFasciaOraria;
+            }else{
+                return false;
+            }
+    }
+
+    /**
+     * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
+     * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RECENSIONE
      */
-    /*
-    public static function loadByParola($parola){
-        $annuncio = null;
-        $intermedia = null;
-        $tappa = null;
-        $db=FDatabase::getInstance();
-        list ($result, $rows_number)=$db->ricercaParola($parola, static::getClass(), "description");
-        if(($result!=null) && ($rows_number == 1)) {
-            $part = FLuogo::loadByField("id" , $result["departure"]);
-            $arr = FLuogo::loadByField("id" , $result["arrival"]);
-            $ute = FUtenteloggato::loadByField("email" , $result["emailWriter"]);
-            $tappa = FTappa::loadByField("ad", $result["idAd"] );
-            if ($tappa != null ) {
-                $t = current($tappa);
-                if (is_array($t)) {
-                    foreach ($tappa as $t) {
-                        $intermedia[] = FLuogo::loadByField("id", $t['place']);
-                    }
-                }
-                else {
-                    $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                }
-            }
-            $annuncio=new EAnnuncio($result['departureDate'], $result['arrivalDate'], $result['space'], $part , $arr ,$result['weight'],$result['description'],$ute);
-            if ($intermedia != null) {
-                foreach ($intermedia as $i)
-                    $annuncio->addTappa($i);
-            }
-            $annuncio->setIdAd($result['idAd']);
-            if($result['visibility']) $annuncio->setVis();
+    public static function eliminarecensione($IdRecensione){        
+        $eliminaRecensione = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdRecensione);
+        if($eliminaRecensione !== null){
+            return $eliminaRecensione;
+        }else{
+            return false;
         }
-        else {
-            if(($result!=null) && ($rows_number > 1)){
-                $part = array();
-                $arr = array();
-                $ute = array();
-                $annuncio = array();
-                for($i=0; $i<count($result); $i++){
-                    $tappa = null;
-                    $intermedia = null;
-                    $part[] = FLuogo::loadByField("id" , $result[$i]["departure"]);
-                    $arr[] = FLuogo::loadByField("id" , $result[$i]["arrival"]);
-                    $ute[] = FUtenteloggato::loadByField("email" , $result[$i]["emailWriter"]);
-                    $tappa = FTappa::loadByField("ad", $result[$i]["idAd"]);
-                    if ($tappa != null ) {
-                        $t = current($tappa);
-                        if (is_array($t)) {
-                            foreach ($tappa as $t) {
-                                $intermedia[] = FLuogo::loadByField("id", $t['place']);
-                            }
-                        } else {
-                            $intermedia[] = FLuogo::loadByField("id", $tappa['place']);
-                        }
-                    }
+    }
 
-                    $annuncio[]=new EAnnuncio($result[$i]['departureDate'], $result[$i]['arrivalDate'], $result[$i]['space'], $part[$i] , $arr[$i] ,$result[$i]['weight'],$result[$i]['description'],$ute[$i]);
-                    $annuncio[$i]->setIdAd($result[$i]['idAd']);
-                    if($result[$i]['visibility']) $annuncio[$i]->setVis();
-                    if ( $intermedia != null ){
-                        foreach ($intermedia as $int)
-                            $annuncio[$i]->addTappa($int);
-                    }
 
-                }
-            }
-        }
-        return $annuncio;
-    }*/
+
+
+
 
 }
-
-
-
-?>
