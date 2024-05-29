@@ -9,16 +9,16 @@ $smarty->setCacheDir('cache');
 
 /* $smarty->testInstall(); */
 
-$smarty->assign('pazienti',[
+$smarty->assign('recensioni',[
     [
-        'nome'=>'Luca',
+        'paziente'=>'Luca',
         'titolo'=>'Buono',
-        'recensione' => 'non male',
+        'descrizione' => 'non male',
     ],
     [
-        'nome'=>'Maurizio',
+        'paziente'=>'Maurizio',
         'titolo'=>'Bua',
-        'recensione' => 'aiiiiiii',
+        'descrizione' => 'aiiiiiii',
     ]
     ]);
 $smarty->display("pages/index.tpl");

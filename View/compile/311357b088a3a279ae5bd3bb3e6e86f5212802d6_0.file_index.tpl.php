@@ -1,41 +1,36 @@
 <?php
-/* Smarty version 5.1.0, created on 2024-05-29 17:54:35
+/* Smarty version 5.1.0, created on 2024-05-29 18:08:11
   from 'file:pages/index.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.1.0',
-  'unifunc' => 'content_66574fbb90b2f7_76833674',
+  'unifunc' => 'content_665752eb626a28_63852432',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '311357b088a3a279ae5bd3bb3e6e86f5212802d6' => 
     array (
       0 => 'pages/index.tpl',
-      1 => 1716998066,
+      1 => 1716998888,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:../footer/stock_footer.tpl' => 1,
   ),
 ))) {
-function content_66574fbb90b2f7_76833674 (\Smarty\Template $_smarty_tpl) {
+function content_665752eb626a28_63852432 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_66162791966574fbb8e9615_27950861', 'body');
-?>
-
-
-<?php $_smarty_tpl->renderSubTemplate('file:../footer/stock_footer.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2048858511665752eb603d04_85321605', 'body');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout.tpl", $_smarty_current_dir);
 }
 /* {block 'body'} */
-class Block_66162791966574fbb8e9615_27950861 extends \Smarty\Runtime\Block
+class Block_2048858511665752eb603d04_85321605 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages';

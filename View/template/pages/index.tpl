@@ -55,5 +55,3 @@
     </div>
 </section>
 {/block}
-
-{include file='../footer/stock_footer.tpl'}
