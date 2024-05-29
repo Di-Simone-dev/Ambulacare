@@ -9,4 +9,14 @@ $smarty->setCacheDir('cache');
 
 /* $smarty->testInstall(); */
 
-$smarty->display("pages/indexmedico.tpl");
+$smarty->assign('pazienti',array([
+    [
+        'nome' => 'Luca',
+        'recensione' => 'non male'
+    ],
+    [
+        'nome' => 'Luca',
+        'recensione' => 'non male'
+    ]
+    ]));
+$smarty->display("pages/index.tpl");
