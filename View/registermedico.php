@@ -27,8 +27,8 @@ if (isset($_POST['register'])) {
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
         $query = "
-            SELECT IdPaziente
-            FROM paziente
+            SELECT IdMedico
+            FROM medico
             WHERE email = :email
         ";
         
@@ -36,15 +36,15 @@ if (isset($_POST['register'])) {
         $check->bindParam(':email', $email, PDO::PARAM_STR);
         $check->execute();
         
-        $email2 = $check->fetchAll(PDO::FETCH_ASSOC);
+        $medico = $check->fetchAll(PDO::FETCH_ASSOC);
 
-        if (count($email2) > 0) {
+        if (count($medico) > 0) {
             $msg = 'email già in uso %s';
         } else {
             $query = "
-                INSERT INTO paziente 
-                (nome,cognome,email,password,codice_fiscale,data_nascita,luogo_nascita,residenza,numero_telefono,attivo) VALUES 
-                ('".$_POST['nome']."','".$_POST['cognome']."','".$_POST['email']."','".$password_hash."','".$_POST['codicefiscale']."','".$_POST['datanascita']."','".$_POST['luogonascita']."','".$_POST['residenza']."','".$_POST['numerotelefono']."','1')
+                INSERT INTO medico 
+                (nome,cognome,email,password,attivo,costo,IdTipologia,IdImmagine) VALUES 
+                ('".$_POST['nome']."','".$_POST['cognome']."','".$_POST['email']."','".$password_hash."','1','".$_POST['costo']."','1','1')
             ";
         
             $check = $pdo->prepare($query);
@@ -53,11 +53,7 @@ if (isset($_POST['register'])) {
             $check->bindParam(':cognome', $_POST['cognome'], PDO::PARAM_STR);
             $check->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
             $check->bindParam(':password', $password_hash, PDO::PARAM_STR);
-            $check->bindParam(':codice_fiscale', $_POST['codicefiscale'], PDO::PARAM_STR);
-            $check->bindParam(':data_nascita', $_POST['datanascita'], PDO::PARAM_STR);
-            $check->bindParam(':luogo_nascita', $_POST['luogonascita'], PDO::PARAM_STR);
-            $check->bindParam(':residenza', $_POST['residenza'], PDO::PARAM_STR);
-            $check->bindParam(':numero_telefono', $_POST['numerotelefono'], PDO::PARAM_STR);
+            $check->bindParam(':costo', $_POST['costo'], PDO::PARAM_STR);
             //$check->bindParam(':attivo', $_POST['nome'], PDO::PARAM_STR);
             $check->execute();
             
@@ -98,28 +94,16 @@ if (isset($_POST['register'])) {
                                     $nome=$_POST["nome"];
                                     $cognome=$_POST["cognome"];
                                     $email=$_POST["email"];
-                                    $codicefiscale=$_POST["codicefiscale"];
-                                    $datanascita=$_POST["datanascita"];
-                                    $luogonascita=$_POST["luogonascita"];
-                                    $residenza=$_POST["residenza"];
-                                    $numerotelefono=$_POST["numerotelefono"];
+                                    $costo=$_POST["costo"];
                                     echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>";
                                     echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$nome</p>";
                                     echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>";
                                     echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$cognome</p>";
                                     echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
                                     echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$email</p>";
-                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Codice Fiscale:</p>";
-                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$codicefiscale</p>";
-                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Data di Nascita:</p>";
-                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$datanascita</p>";
-                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Luogo di Nascita:</p>";
-                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$luogonascita</p>";
-                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Residenza:</p>";
-                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$residenza</p>";
-                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>";
-                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$numerotelefono</p>";
-                                    echo "<a href='login.html'><button class='w3-button w3-yellow' style='height:60px;position:relative;left:625px;width:200px;border:solid white 3px;' ><p>Accedi</p></button></a>";
+                                    echo "<p style='text-align:center;font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>";
+                                    echo "<p style='text-align:center;font-size:20px; font-family:monospace;'>$costo</p>";
+                                    echo "<a href='loginmedico.html'><button class='w3-button w3-yellow' style='height:60px;position:relative;left:625px;width:200px;border:solid white 3px;' ><p>Accedi</p></button></a>";
                                 ?>
                                 </div>
                 </body>

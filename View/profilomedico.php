@@ -34,7 +34,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
     
     <br><br>
     <header id="header">
-        <h1 style="font-size: 45px;"><b>Profilo Personale - <?php session_start(); print($_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
+        <h1 style="font-size: 45px;"><b>Profilo Personale - <?php session_start(); print("Dott."."&nbsp".$_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
 	</header>
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
                 <div class="container">
@@ -50,18 +50,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link" href="indexmedico.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Prenota esame</a>
+                                <a class="nav-link" href="storicoesami_perappuntamento.html">Storico esami</a>
+                                
+
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
                             </li>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
+                            </li>
 
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
@@ -72,22 +74,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                                 <a class="nav-link" href="#reviews">Testimonials</a>
                             </li>-->
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="storicoesami_perpaziente.html">Ricerca pazienti</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="visualizzarecensioni_medico.html">Recensioni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
+                            </li>
+                            <!--<li class="nav-item" >
+                                <a class="nav-link" href="register.html">REGISTRATI</a>
                             </li>-->
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contact">Visualizza Storico Esami</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
-                            </li>
-                            <li class="nav-item" >
-                                <a class="nav-link" href="logout.php">Logout</a>
-                            </li>
                             <!--<li class="nav-item" >
                                 <a class="nav-link" href="login.html">ACCEDI</a>
                             </li>-->
+                            <li class="nav-item" >
+                                <a class="nav-link" href="logout.php">Logout</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -106,7 +113,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
         <?php 
                 require_once('database.php');
-                $query="SELECT * FROM paziente where IdPaziente='".$_SESSION["IdPaziente"]."'";
+                $query="SELECT * FROM medico where IdMedico='".$_SESSION["IdMedico"]."'";
                 $check = $pdo->prepare($query);
                 $check->bindParam(':email', $email, PDO::PARAM_STR);
                 $check->execute();
@@ -124,28 +131,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     $nome=$_SESSION["nome"];
                     $cognome=$_SESSION["cognome"];
                     $email=$_SESSION["email"];
-                    $codicefiscale=$_SESSION["codicefiscale"];
-                    $datanascita=$_SESSION["datanascita"];
-                    $luogonascita=$_SESSION["luogonascita"];
-                    $residenza=$_SESSION["residenza"];
-                    $numerotelefono=$_SESSION["numerotelefono"];
+                    $costo=$_SESSION["costo"];
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$nome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Codice Fiscale:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$codicefiscale</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Data di Nascita:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$datanascita</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Luogo di Nascita:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$luogonascita</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Residenza:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$residenza</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$numerotelefono</p>";
-                    echo "<a href='eliminaaccountpaziente.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
+                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>";
+                    echo "<p style='font-size:20px; font-family:monospace;'>$costo</p>";
+                    echo "<a href='eliminaaccountmedico.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {

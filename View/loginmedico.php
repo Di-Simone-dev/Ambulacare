@@ -19,10 +19,10 @@ if (isset($_POST['login'])) {
          </script>';
         //$msg = 'Inserisci email e password %s';
     } else {
-        $q="SELECT IdPaziente,nome,cognome,email,codice_fiscale,data_nascita,luogo_nascita,residenza,numero_telefono FROM paziente WHERE email = :email";
+        $q="SELECT IdMedico,nome,cognome,email,costo,IdTipologia FROM medico WHERE email = :email";
         $query = "
             SELECT email, password
-            FROM paziente
+            FROM medico
             WHERE email = :email
         ";
         
@@ -30,25 +30,22 @@ if (isset($_POST['login'])) {
         $check->bindParam(':email', $email, PDO::PARAM_STR);
         $check->execute();
         
-        $email2 = $check->fetch(PDO::FETCH_ASSOC);
+        $medico = $check->fetch(PDO::FETCH_ASSOC);
 
         $check = $pdo->prepare($q);
         $check->bindParam(':email', $email, PDO::PARAM_STR);
         $check->execute();
 
         while($row=$check->fetch(PDO::FETCH_ASSOC)){
-            $_SESSION['IdPaziente']=$row['IdPaziente'];
+            $_SESSION['IdMedico']=$row['IdMedico'];
             $_SESSION['nome']=$row['nome'];
             $_SESSION['cognome']=$row['cognome'];
             $_SESSION['email']=$row['email'];
-            $_SESSION['codicefiscale']=$row['codice_fiscale'];
-            $_SESSION['datanascita']=$row['data_nascita'];
-            $_SESSION['luogonascita']=$row['luogo_nascita'];
-            $_SESSION['residenza']=$row['residenza'];
-            $_SESSION['numerotelefono']=$row['numero_telefono'];
+            $_SESSION['costo']=$row['costo'];
+            $_SESSION['IdTipologia']=$row['IdTipologia'];
+
         }
-        
-        if (!$email2 || password_verify($password, $email2['password']) === false) {
+        if (!$medico || password_verify($password, $medico['password']) === false) {
             echo '<script type="text/javascript">
             window.onload = function () { alert("Credenziali utente errate %s"); } 
             </script>';
@@ -57,9 +54,9 @@ if (isset($_POST['login'])) {
         } else {
             session_regenerate_id();
             $_SESSION['session_id'] = session_id();
-            $_SESSION['session_user'] = $email2['email'];
+            $_SESSION['session_user'] = $medico['email'];
             
-            header('Location: indexpaziente.html');
+            header('Location: indexmedico.html');
             exit;
         }
     }
