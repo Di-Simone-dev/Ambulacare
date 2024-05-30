@@ -9,7 +9,7 @@ $smarty->setCacheDir('cache');
 
 /* $smarty->testInstall(); */
 
-$smarty->assign('recensioni',[
+/* $smarty->assign('recensioni',[
     [
         'paziente'=>'Luca',
         'titolo'=>'Buono',
@@ -20,5 +20,58 @@ $smarty->assign('recensioni',[
         'titolo'=>'Bua',
         'descrizione' => 'aiiiiiii',
     ]
+    ]); */
+
+    $smarty->assign('slots',[
+    [
+        'p'=>'Luca',
+        'titolo'=>'Buono',
+        'descrizione' => 'non male',
+    ],
+    [
+        'paziente'=>'Maurizio',
+        'titolo'=>'Bua',
+        'descrizione' => 'aiiiiiii',
+    ]
     ]);
-$smarty->display("pages/index.tpl");
+
+    $smarty->assign('fascieorarie',[
+        [
+            'giorno'=>'Lunedì 27/05',
+            'orari' => [
+                '14:30',
+                '15:30',
+                '16:30',
+                '17:30',
+            ],
+        ],
+        [
+            'giorno'=>'Martedì 28/05',
+            'orari' => [
+                '14:30',
+                '15:30',
+                '',
+                '17:30',
+            ],
+        ],
+        [
+            'giorno'=>'Mercoledì 29/05',
+            'orari' => [
+                '',
+                '15:30',
+                '16:30',
+                '17:30',
+            ],
+        ],
+        [
+            'giorno'=>'Giovedì 27/05',
+            'orari' => [
+                '14:30',
+                '15:30',
+                '16:30',
+                '',
+            ],
+        ],
+    ]);
+
+$smarty->display("pages/inseriscislotorario.tpl");
