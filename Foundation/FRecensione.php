@@ -4,9 +4,9 @@
 
 class FRecensione {
     /** tabella con la quale opera */
-    private static $table = "Recensione";
+    private static $table = "recensione";
     /** valori della tabella */
-    private static $values="(NULL,:titolo,:contenuto,:valutazione,:IdMedico,:IdPaziente)";
+    private static $values="(NULL,:titolo,:contenuto,:valutazione,:data_creazione,:IdMedico,:IdPaziente)";
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdRecensione";
@@ -55,8 +55,9 @@ class FRecensione {
         $stmt->bindValue(':titolo', $rec->getTitolo(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $rec->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':valutazione', $rec->getValutazione(), PDO::PARAM_STR); //float o INT
-        $stmt->bindValue(':IdMedico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FOREIGN KEY=>DOPPIO GET
-        $stmt->bindValue(':IdPaziente', $rec->getPaziente()->getIdPaziente(), PDO::PARAM_STR);  //FOREIGN KEY=>DOPPIO GET
+        $stmt->bindValue(':data_creazione', $rec->getDatacreazione(), PDO::PARAM_STR); // DA CONTROLLARE
+        $stmt->bindValue(':IdMedico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FK
+        $stmt->bindValue(':IdPaziente', $rec->getPaziente()->getIdPaziente(), PDO::PARAM_STR);  //FK
     }
 
 

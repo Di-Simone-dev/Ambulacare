@@ -12,7 +12,7 @@ class ERisposta
     {
         //$this->IdRisposta=0; non va messo nel costruttore
         $this->contenuto=$contenuto;
-        $this->setData_creazionenow();
+        $this->setDatacreazioneora();
 
     }
     //metodi
@@ -37,11 +37,11 @@ class ERisposta
     }
 
     //4 METODI PER LA DATA
-    public function getData_creazione()
+    public function getDatacreazione()
     {
         return $this->data_creazione;
     }
-    private function setData_creazionenow(){
+    private function setDatacreazioneora(){
         $this->data_creazione = new DateTime("now");  //in teoria dovrebbe settare un valore sensato
     }
 

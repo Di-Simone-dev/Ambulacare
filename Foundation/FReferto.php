@@ -8,7 +8,7 @@ class FReferto {
     /** valori della tabella */
     private static $values="(NULL,:oggetto,:contenuto,:IdAppuntamento,:IdImmagine)";
     /** nome del campo della primary key della tabella*/
-    private static $key = "IdRecensione";
+    private static $key = "IdReferto";
     /** costruttore */
     public function __construct() {}
 

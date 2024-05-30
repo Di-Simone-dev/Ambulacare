@@ -4,7 +4,7 @@
 
 class FFasciaOraria{
     /** tabella con la quale opera */
-    private static $table = "Fascia_Oraria";
+    private static $table = "fascia_oraria";
     /** valori della tabella */
     private static $values="(NULL,:data,:ora_inizio,:IdCalendario)";  //per l'autoincrement si fa così
 

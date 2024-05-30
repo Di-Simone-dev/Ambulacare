@@ -4,7 +4,7 @@
 
 class FRisposta {
     /** tabella con la quale opera */
-    private static $table = "Risposta";
+    private static $table = "risposta";
     /** valori della tabella */
     private static $values="(NULL,:contenuto,:data_creazione,:IdRecensione,:IdMedico)";
 
@@ -53,7 +53,7 @@ class FRisposta {
     public static function bind($stmt,ERisposta $risp) {
     	//$stmt->bindValue(':IdRisposta',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':contenuto', $risp->getContenuto(), PDO::PARAM_STR);
-        $stmt->bindValue(':data_creazione', $risp->getData_creazione(), PDO::PARAM_STR);
+        $stmt->bindValue(':data_creazione', $risp->getDatacreazione(), PDO::PARAM_STR);
         $stmt->bindValue(':IdRecensione', $risp->getRecensione()->getIdRecensione(), PDO::PARAM_STR); //FK
         $stmt->bindValue(':IdMedico', $risp->getMedico()->getIdMedico(), PDO::PARAM_STR);  //FK
     }

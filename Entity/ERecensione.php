@@ -19,7 +19,7 @@ class ERecensione
         $this->titolo=$titolo;
         $this->contenuto=$contenuto;
         $this->valutazione=$valutazione;
-        $this->setTime();
+        $this->setData_creazioneora();
 
     }
     //metodi
@@ -65,11 +65,11 @@ class ERecensione
     }
 
     //4 METODI PER LA DATA
-    public function getTime()
+    public function getDatacreazione()
     {
         return $this->data_creazione;
     }
-    private function setTime(){
+    private function setData_creazioneora(){
         $this->data_creazione = new DateTime("now");  //in teoria dovrebbe settare un valore sensato
     }
 

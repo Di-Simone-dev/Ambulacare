@@ -4,7 +4,7 @@
 
 class FCalendario {
     /** tabella con la quale opera */
-    private static $table = "Calendario";
+    private static $table = "calendario";
     /** valori della tabella */
     private static $values="(NULL,:IdMedico)";
 
@@ -52,7 +52,7 @@ class FCalendario {
     */
     public static function bind($stmt, $calendario){
         //$stmt->bindValue(":IdCalendario", $calendario->getIdCalendario(), PDO::PARAM_STR);
-        $stmt->bindValue(":medico", $calendario->getMedico()->getId(), PDO::PARAM_STR);    //ATTENZIONE QUI CON LE FOREIGN KEY (2 GET)
+        $stmt->bindValue(":IdMedico", $calendario->getMedico()->getId(), PDO::PARAM_STR);    //ATTENZIONE QUI CON LE FOREIGN KEY (2 GET)
         
     }
 
@@ -104,9 +104,9 @@ class FCalendario {
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN CALENDARIO o AD AGGIORNARNE I DATI, NON DOVREBBE SERVIRE LA PARTE DELLE MODIFICHE
-    public static function saveObj($obj , $fieldArray = null){
+    public static function savecalendario($calendario , $fieldArray = null){
         if($fieldArray === null){
-            $saveCalendario = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
+            $saveCalendario = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $calendario);
             if($saveCalendario !== null){
                 return $saveCalendario;
             }else{
@@ -117,7 +117,7 @@ class FCalendario {
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv){
-                    FEntityManagerSQL::getInstance()->updateObj(FCalendario::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FCalendario::getTable(), $fv[0], $fv[1], self::getKey(), $calendario->getIdCalendario());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;

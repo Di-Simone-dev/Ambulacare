@@ -10,7 +10,7 @@
 
 class FAppuntamento{
     /** tabella con la quale opera */          
-    private static $table="Appuntamento";
+    private static $table="appuntamento";
     /** valori della tabella */
     private static $values="(NULL,:stato,:IdPaziente,:IdFasciaOraria)";
     /** nome del campo della primary key della tabella*/

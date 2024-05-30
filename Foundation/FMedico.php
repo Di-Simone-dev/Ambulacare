@@ -10,7 +10,7 @@
 
 class FMedico  {
 	/** tabella con la quale opera */
-    private static $table="Medico";
+    private static $table="medico";
     /** valori della tabella */
     private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo:tipologia)";
 
@@ -143,13 +143,13 @@ class FMedico  {
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN MEDICO o AD AGGIORNARNE I DATI
 
-    public static function saveObj($obj, $fieldArray = null){
+    public static function savemedico($medico, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FMedico::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FMedico::getClass(), $medico);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $medico, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
                     if($saveUser){
                         return $savePersonAndLastInsertedID;
@@ -170,7 +170,7 @@ class FMedico  {
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv)
                 {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    FEntityManagerSQL::getInstance()->updateObj(FMedico::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FMedico::getTable(), $fv[0], $fv[1], self::getKey(), $medico->getIdMedico());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;
