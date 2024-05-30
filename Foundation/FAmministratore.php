@@ -82,18 +82,6 @@ class FAmministratore {
 
     }
 
-    public static function salvaamministratore($admin){
-
-        $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $admin);
-        //var_dump($savePerson);
-        if($saveAmministratore !== null){
-            $saveAmministratore = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $admin, $saveAmministratore);
-            return $saveAmministratore;
-        }else{
-            return false;
-        }
-    }
-
     public static function getadminbyemail($email){
 
         $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), 'email', $email);
@@ -104,6 +92,18 @@ class FAmministratore {
             return $admin;
         }else{
             return null;
+        }
+    }
+
+    public static function salvaamministratore($admin){
+
+        $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $admin);
+        //var_dump($savePerson);
+        if($saveAmministratore !== null){
+            $saveAmministratore = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $admin, $saveAmministratore);
+            return $saveAmministratore;
+        }else{
+            return false;
         }
     }
 

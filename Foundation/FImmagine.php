@@ -61,19 +61,6 @@ class FImmagine{
         }
     }
 
-    //SALVIAMO UNA IMMAGINE DANDO IN PASTO L'OGGETTO IMMAGINE DA SALVARE
-    public static function salvaimmagine($immagine){
-
-        $saveImage = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $immagine);
-        if($saveImage !== null){
-            return $saveImage;
-        }else{
-            return false;
-        }
-    }
-
-
-    //QUESTA IMPLEMENTAZIONE PUò FARCI MOLTO COMODO NEL CASO DI PROPIC DEL MEDICO O DEL REFERTO
     public static function getimmaginefromidmedico($IdMedico){
         //andiamo a prendere 
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FMedico::getKey(), $IdMedico);
@@ -100,6 +87,27 @@ class FImmagine{
         }
     }
 
+
+
+    //SALVIAMO UNA IMMAGINE DANDO IN PASTO L'OGGETTO IMMAGINE DA SALVARE
+    public static function salvaimmagine($immagine){
+
+        $saveImage = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $immagine);
+        if($saveImage !== null){
+            return $saveImage;
+        }else{
+            return false;
+        }
+    }
+
+    public static function eliminaimmagine($IdImmagine){        
+        $eliminaimmagine = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(),self::getKey(), $IdImmagine);
+        if($eliminaimmagine !== null){
+            return $eliminaimmagine;
+        }else{
+            return false;
+        }
+    }
 
 
 }
