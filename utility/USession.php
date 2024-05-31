@@ -1,29 +1,30 @@
 <?php
-require_once(__DIR__ . '/../../../../config/config.php');
+//require_once(__DIR__ . '/../../../../config/config.php');
 /**
  * class to access to the $_SESSION superglobal array, you Must use this class instead of using directly the array
  */
 class USession{
 
     /**
-     * singleton class
-     * class for the session, if you want to manipulate the _SESSION superglobal ypu need to use this class
-     */
+    * CLASSE SINGLETON
+    * class for the session, if you want to manipulate the _SESSION superglobal ypu need to use this class
+    */
 
-     private static $instance;
+    private static $instance;
 
-     private function __construct() {
-        session_set_cookie_params(COOKIE_EXP_TIME); //set the duration of the session cookie
+    private function __construct() {
+        session_set_cookie_params(COOKIE_EXP_TIME); //DURATA DEL COOKIE DI SESSIONE
         session_start(); //start the session
-     }
+    }
  
-     public static function getInstance() {
-         if (self::$instance == null) {
-             self::$instance = new USession();
-         }
+    public static function getInstance() {
+        if  (self::$instance == null) 
+        {
+            self::$instance = new USession();
+        }
  
-         return self::$instance;
-     }
+        return self::$instance;
+    }
 
     /**
      * return session status. If you want to check if the session is staretd you can use this

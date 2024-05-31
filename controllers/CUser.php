@@ -3,24 +3,24 @@
 class CUser{
 
     /**
-     * check if the user is logged (using session)
+     * CONTROLLIAMO SE L'UTENTE è LOGGATO, true=LOGGATO, false=NON LOGGATO
      * @return boolean
      */
     public static function isLogged()
     {
-        $logged = false;
+        $logged = false;   //di base mettiamo il logged a false
 
-        if(UCookie::isSet('PHPSESSID')){
-            if(session_status() == PHP_SESSION_NONE){
-                USession::getInstance();
+        if(UCookie::isSet('PHPSESSID')){   //se è settato ritorna true
+            if(session_status() == PHP_SESSION_NONE){  //se non abbiamo lo stato di sessione 
+                USession::getInstance();  //getinstance() crea o getta la sessione (PATTERN SINGLETON) 
             }
         }
-        if(USession::isSetSessionElement('user')){
-            $logged = true;
-            self::isBanned();
+        if(USession::isSetSessionElement('user')){     //qui andrebbe cambiato a "paziente"
+            $logged = true;           //l'utente risulta loggato
+            self::isBanned();        //qui andiamo a mandarlo nella schermata di login bannato nella view                 
         }
         if(!$logged){
-            header('Location: /Agora/User/login');
+            header('Location: /Agora/User/login');    //qui si riporta l'utente alla schermata di login 
             exit;
         }
         return true;
@@ -30,7 +30,7 @@ class CUser{
      * check if the user is banned
      * @return void
      */
-    public static function isBanned()
+    public static function isBanned()   //QUI ABBIAMO IL CHECK SUL BAN O MENO DELL'UTENTE USANDO FOUNDATION ED IL DB
     {
         $userId = USession::getSessionElement('user');
         $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
@@ -42,16 +42,16 @@ class CUser{
         }
     }
 
-    public static function login(){
+    public static function login(){                     
         if(UCookie::isSet('PHPSESSID')){
             if(session_status() == PHP_SESSION_NONE){
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('user')){
+        if(USession::isSetSessionElement('user')){          //QUI ANDIAMO A CONTROLLARE SE L0UTENTE e loggato e lo portiamo sulla home
             header('Location: /Agora/User/home');
         }
-        $view = new VUser();
+        $view = new VUser();        //PARTE VIEW
         $view->showLoginForm();
     }
 
