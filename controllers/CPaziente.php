@@ -49,27 +49,34 @@ class CUser{
             }
         }
         if(USession::isSetSessionElement('user')){          //QUI ANDIAMO A CONTROLLARE SE L0UTENTE e loggato e lo portiamo sulla home
-            header('Location: /Agora/User/home');
+            header('Location: /Agora/User/home');       //REDIRECT LOCATION DELLA HOME DELL'UTENTE
+            //DOVREBBE USCIRE DOPO AVER USATO HEADER
+            //exit; IN CASO 
         }
-        $view = new VUser();        //PARTE VIEW
-        $view->showLoginForm();
+        $view = new VUser();        //ALTRIMENTI PARTE VIEW CON SMARTY
+        $view->showLoginForm();     //MOSTRARE IL FORM DI LOGIN CON SMARTY
     }
 
     /**
      * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
      * @return void
      */
-    public static function registration()
-    {
-        $view = new VUser();
-        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
-                $user = new EUser(UHTTPMethods::post('name'), UHTTPMethods::post('surname'),UHTTPMethods::post('age'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
-                $user->setIdImage(1);
-                FPersistentManager::getInstance()->uploadObj($user);
+    public static function registration(){
+    //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+        $view = new VUser();  
+        //PER QUESTE COSE DEVO AGGIUNGERE METODI NEL PERSISTENT MANAGER PER VERIFICARE CHE NON SIANO IN USO LE CREDENZIALI INSERITE
+        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false &&  //DA METTERE IN FOUNDATION
+           FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){   
+                //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                $user = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                  UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),UHTTPMethods::post('residenza'),
+                                  UHTTPMethods::post('numero_telefono'));
+                //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
+                FPersistentManager::getInstance()->uploadObj($user);  //da sistemare il persistent manager
 
-                $view->showLoginForm();
+                $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
         }else{
-                $view->registrationError();
+                $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
             }
     }
 
@@ -77,24 +84,36 @@ class CUser{
      * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
      * the User is redirected in the homepage
      */
-    public static function checkLogin(){
+    public static function checkLogin(){   //FACCIAMO IL LOGIN
         $view = new VUser();
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));                                            
-        if($username){
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
-            if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
-                if($user->isBanned()){
-                    $view->loginBan();
-
-                }elseif(USession::getSessionStatus() == PHP_SESSION_NONE){
+        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLERO LA MAIL)
+        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));  
+        //SE ESISTE NEL DB ALLORA CONTINUO                                          
+        if($username)
+        {
+            //PER FARE QUESTA DEVO AGGIUNGERE UN METODO "GETPAZIENTEFROMMAIL($MAIL)"
+            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));  
+            //CONTROLLO LA PASSWORD CON QUELLA HASHATA 
+            if(password_verify(UHTTPMethods::post('password'), $user->getPassword()))
+            {
+                if($user->isBanned())  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                {
+                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
+                }
+                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+                {
                     USession::getInstance();
                     USession::setSessionElement('user', $user->getId());
                     header('Location: /Agora/User/home');
                 }
-            }else{
+            }
+            else
+            {
                 $view->loginError();
             }
-        }else{
+        }
+        else
+        {
             $view->loginError();
         }
     }
@@ -216,13 +235,13 @@ class CUser{
     }
 
     /**
-     * Take the compiled form, use teh data to cjheck if the username alredy exist and if not update the user Username
+     * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
     public static function setUsername(){
         if(CUser::isLogged()){
             $userId = USession::getInstance()->getSessionElement('user');
             $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
-
+            
             if($user->getUsername() == UHTTPMethods::post('username')){
                 header('Location: /Agora/User/personalProfile');
             }else{

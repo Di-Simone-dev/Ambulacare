@@ -58,7 +58,7 @@ class FPersistentManager{
         $result = call_user_func([$foundClass, $staticMethod], $obj);
 
         return $result;
-    }
+    }   //metodo molto potente se funzionante ma serve chiamare tutti i metodi "saveObj"
 
     //---------------------------------------------------------------------------
 
