@@ -25,10 +25,9 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-
-        <link href="casimedico.css" rel="stylesheet">
-        <link href="font.css" rel="stylesheet">
 <!--
+        <link rel="stylesheet" href="casiadmin.css">
+
 
 TemplateMo 566 Medic Care
 
@@ -55,18 +54,18 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexmedico.html">Home</a>
+                                <a class="nav-link" href="indexadmin.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="storicoesami_perappuntamento.html">Storico esami</a>
+                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
+                                <a class="nav-link" href="visualizzaappuntamenti_admin.html">Visualizza appuntamenti</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
-                            </li>
+                            <!--<li class="nav-item">
+                                <a class="nav-link" href="#timeline">Timeline</a>
+                            </li>-->
 
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
@@ -76,24 +75,20 @@ https://templatemo.com/tm-566-medic-care
                             <!--<li class="nav-item">
                                 <a class="nav-link" href="#reviews">Testimonials</a>
                             </li>-->
-                            <li class="nav-item">
-                                <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="storicoesami_perpaziente.html">Ricerca pazienti</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_medico.html">Recensioni</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
-                            </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
+
+                            <!--<li class="nav-item">
+                                <a class="nav-link" href="#booking">Booking</a>
                             </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="visualizzaesami_admin.html">Visualizza esami</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="visualizzarecensioni_admin.html">Visualizza recensioni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -105,64 +100,112 @@ https://templatemo.com/tm-566-medic-care
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form action="#">
-                        <div class="form-group" >
-                            <!--<h3><label for="categ">Tipologia</label></h3>-->
-                            <select name="languages" id="categ" class="form-select">
-                                <option value="select">Ordina per</option>
-                                <option value="dentista">Nome</option>
-                                <option value="oculista">Cognome</option>
-                                <option value="otorino">Data appuntamento</option>
+                    <form action="moderazioneaccount.php" id="tendina">
+                        <div class="form-group">
+                            <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" >
+                            </input>
+                            <br><br>
+                            <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" >
+                            </input>
+                            </div>
+                            <br>
+                        <div class="form-group">
+                            <select name="categoria" id="categ" class="form-select">
+                                <option value="select">Seleziona categoria utente</option>
+                                <option value="paziente">paziente</option>
+                                <option value="medico">medico</option>
                             </select>
                         </div>
-                            <br>
-                                <div>
-                                    <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
-                                    </input>
-                                    </div>
-                                    <br>
-                            <button type="submit" class="btn btn-primary">Effettua ricerca</button>
+                        <br><br>
+                        <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-9" id="elenco">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Nome Paziente</th>
-                        <th scope="col">Cognome Paziente</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Valutazione</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Giacomo</td>
-                        <td>Giannini</td>
-                        <td>24/05/2024</td>
-                        <td>3/5</td>
-                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>Piero</td>
-                        <td>Marcozzi</td>
-                        <td>01/01/2024</td>
-                        <td>4/5</td>
-                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>Elisabetta</td>
-                        <td>Mecozzi</td>
-                        <td>05/03/2024</td>
-                        <td>1/5</td>
-                        <td><a href="rispostarecensione.html"><button class="btn btn-primary">Dettagli</button></a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-       <!--<footer class="site-footer section-padding" id="contact">
+        <?
+        require_once('database.php');
+            if($_POST['categoria']='paziente'){
+                $q="SELECT nome,cognome,attivo FROM paziente WHERE nome='".$_POST['nomeutente']."' AND cognome='".$_POST['cognomeutente']."'";
+               
+                $check = $pdo->prepare($q);
+                //$check->bindParam(':email', $email, PDO::PARAM_STR);
+                $check->execute();
+        
+                while($row=$check->fetch(PDO::FETCH_ASSOC)){
+                echo '<div class="col-9" id="elenco">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome Utente</th>
+                                <th scope="col">Cognome Utente</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Stato</th>
+                                <th scope="col">Azione</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+                            echo '<tr>
+                                <td>'.$row['nome'].'</td>
+                                <td>'.$row['cognome'].'</td>
+                                <td>'.$_POST['categoria'].'</td>
+                                <td>'.$row['attivo'].'</td>';
+                                if($row['attivo']=='1'){
+                                    echo '<td><button class=btn btn-primary">Blocca</button></td>';
+                                }
+                                else{
+                                    echo '<td><button class=btn btn-primary">Sblocca</button></td>';
+                                }
+                                echo '</tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>';
+                }
+            }
+            elseif($_POST['categoria']='medico'){
+                $q="SELECT nome,cognome,attivo FROM medico WHERE nome='".$_POST['nomeutente']."' AND cognome='".$_POST['cognomeutente']."'";
+               
+                $check = $pdo->prepare($q);
+                //$check->bindParam(':email', $email, PDO::PARAM_STR);
+                $check->execute();
+        
+                while($row=$check->fetch(PDO::FETCH_ASSOC)){
+
+                echo '<div class="col-9" id="elenco">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome Utente</th>
+                                <th scope="col">Cognome Utente</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Stato</th>
+                                <th scope="col">Azione</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+                            echo '<tr>
+                                <td>'.$row['nome'].'</td>
+                                <td>'.$row['cognome'].'</td>
+                                <td>'.$_POST['categoria'].'</td>
+                                <td>'.$row['attivo'].'</td>';
+                                if($row['attivo']=='1'){
+                                    echo '<td><button class=btn btn-primary">Blocca</button></td>';
+                                }
+                                else{
+                                    echo '<td><button class=btn btn-primary">Sblocca</button></td>';
+                                }
+                                echo '</tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>';
+                }
+            }
+        
+?>
+        <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
 

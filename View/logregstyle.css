@@ -8,7 +8,8 @@ html,body {
     background-size: cover;
     padding: 0;
     margin: 0;
-    font: 14px 'Open sans', sans-serif;
+    font-size: 14px;
+    font-style: 'Open sans', sans-serif;
     color: #333;
 }
 /*@media only screen and (max-width: 767px) {
@@ -29,7 +30,8 @@ form {
     margin: 30px auto;
 }
 input {
-	font: 14px 'Open Sans', sans-serif;
+	font-style: 'Open Sans', sans-serif;
+    font-size: 14px;
     border: 2px solid #ccc;
     padding: 6px;
     display: block;

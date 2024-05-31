@@ -25,6 +25,7 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
+        <link href="font.css" rel="stylesheet">
     </head>
     <!--<style>
 body,h1,h2,h3,h4,h5,h6 {font-family: monospace}

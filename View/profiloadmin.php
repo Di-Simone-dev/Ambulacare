@@ -35,7 +35,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
     
     <br><br>
     <header id="header">
-        <h1 style="font-size: 45px;"><b>Profilo Personale - <?php session_start(); print($_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
+        <h1 style="font-size: 45px;"><b>Profilo Personale - Amministratore - <?php session_start(); print($_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
 	</header>
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
                 <div class="container">
@@ -51,13 +51,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link" href="indexadmin.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Prenota esame</a>
+                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="#about">Visualizza appuntamenti</a>
                             </li>
 
                             <!--<li class="nav-item">
@@ -69,26 +69,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
-
                             <li class="nav-item">
-                                <a class="nav-link" href="#contact">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="visualizzaesami_admin.html">Visualizza esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                                <a class="nav-link" href="visualizzarecensioni_admin.html">Visualizza recensioni</a>
                             </li>
-                            <li class="nav-item" >
-                                <a class="nav-link" href="logout.php">Logout</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
                             </li>
+                            <!--<li class="nav-item" >
+                                <a class="nav-link" href="register.html">REGISTRATI</a>
+                            </li>-->
                             <!--<li class="nav-item" >
                                 <a class="nav-link" href="login.html">ACCEDI</a>
                             </li>-->
+                            <li class="nav-item" >
+                                <a class="nav-link" href="logout.php">Logout</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -107,7 +105,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
         <?php 
                 require_once('database.php');
-                $query="SELECT * FROM paziente where IdPaziente='".$_SESSION["IdPaziente"]."'";
+                $query="SELECT * FROM amministratore where IdAdmin='".$_SESSION["IdAdmin"]."'";
                 $check = $pdo->prepare($query);
                 $check->bindParam(':email', $email, PDO::PARAM_STR);
                 $check->execute();
@@ -125,28 +123,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     $nome=$_SESSION["nome"];
                     $cognome=$_SESSION["cognome"];
                     $email=$_SESSION["email"];
-                    $codicefiscale=$_SESSION["codicefiscale"];
-                    $datanascita=$_SESSION["datanascita"];
-                    $luogonascita=$_SESSION["luogonascita"];
-                    $residenza=$_SESSION["residenza"];
-                    $numerotelefono=$_SESSION["numerotelefono"];
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$nome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Codice Fiscale:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$codicefiscale</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Data di Nascita:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$datanascita</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Luogo di Nascita:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$luogonascita</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Residenza:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$residenza</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$numerotelefono</p>";
-                    echo "<a href='eliminaaccountpaziente.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
+                    echo "<a href='eliminaaccountadmin.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {
