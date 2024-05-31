@@ -1,0 +1,48 @@
+html,body {
+    /*background: url('images/gallery/pexels-shvetsa-4167561.jpg');*/
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 200px 50px;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    font: 14px 'Open sans', sans-serif;
+    color: #333;
+}
+/*@media only screen and (max-width: 767px) {
+    body {
+    background-image: url('images/gallery/pexels-shvetsa-4167561.jpg');
+    }
+    }*/
+h1 {
+    margin: 0;
+    margin-bottom: 20px;
+	font-size: 24px;
+}
+form {
+    padding: 40px;
+    background: #DDD;
+    border: 4px solid #AAA;
+    width: 360px;
+    margin: 30px auto;
+}
+input {
+	font: 14px 'Open Sans', sans-serif;
+    border: 2px solid #ccc;
+    padding: 6px;
+    display: block;
+	margin-bottom: 10px;
+    width: 96%;
+}
+button {
+    font: 14px 'Open Sans', sans-serif;
+    background-color: #4285f4;
+    color: white;
+    padding: 6px;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+	text-transform: uppercase;
+}
