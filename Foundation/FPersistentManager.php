@@ -53,7 +53,7 @@ class FPersistentManager{
      */
     public static function uploadObj($obj){
         $foundClass = "F" . substr(get_class($obj), 1);
-        $staticMethod = "saveObj";
+        $staticMethod = "saveObj";  //FIXATO ANCHE QUESTO
 
         $result = call_user_func([$foundClass, $staticMethod], $obj);
 
@@ -66,9 +66,11 @@ class FPersistentManager{
      * return a list of Comments belonged to a post
      * @param $idPost Refers to the id of the post 
      */
-    public static function getCommentList($idPost)
+    public static function getListaMediciAttiviFromTipologia($IdTipologia)
     {
-        $result = FComment::getCommentListNotBanned($idPost);
+        //PER UNA DATA TIPOLOGIA RESTITUISCE L'ELENCO DEI MEDICI ATTIVI
+        $result = FMedico::getMedicinonBannati($IdTipologia);
+        //$result = FComment::getCommentListNotBanned($idPost);
 
         return $result;
 
@@ -78,9 +80,9 @@ class FPersistentManager{
      * return a User findig it not on the id but on it's username
      * @param string $username Refers to the username of the user to get
      */
-    public static function retriveUserOnUsername($username)
+    public static function retrivePazienteFromEmail($email)
     {
-        $result = FUser::getUserByUsername($username);
+        $result = FPaziente::getpazientefromemail($email);
 
         return $result;
     }
@@ -89,12 +91,27 @@ class FPersistentManager{
      * return a Moderator finding it not on the id but on it's username
      * @param string $username Refers to the username of the user to get
      */
-    public static function retriveModOnUsername($username){
+    public static function retriveAmministratoreFromEmail($email){
 
-        $result = FModerator::getModByUsername($username);
+        $result = FAmministratore::getadminbyemail($email);
 
         return $result;
     }
+
+    /**
+     * return a Medic finding it not on the id but on it's username
+     * @param string $username Refers to the username of the user to get
+     */
+    public static function retriveMedicoFromEmail($email){
+
+        $result = FMedico::getmedicofromemail($email);
+
+        return $result;
+    }
+
+
+
+
 
     /**
      * return the number of Like of a Post

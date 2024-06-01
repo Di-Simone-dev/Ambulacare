@@ -139,6 +139,18 @@ class FMedico  {
 
     }
 
+    public static function getmedicofromemail($email){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(), "email", $email);
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creamedico($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
+
+    }
+
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN MEDICO o AD AGGIORNARNE I DATI
@@ -185,9 +197,38 @@ class FMedico  {
     }
 
 
+    public static function getMedicinonBannati($IdTipologia)
+    {
+        //OBJECTLISTNOTREMOVED VA CAMBIATO
+        $result = FEntityManagerSQL::getInstance()->objectListNotRemoved(self::getTable(), FTipologia::getKey(), $IdTipologia);
+        //RESULT CONTIENE I MEDICI LA CUI TIPOLOGIA è IDTIPOLOGIA E CHE NON SONO BANNATI 
+        if(count($result) == 1){
+            $comment = array();
+            $c = self::creamedico($result);
+            $comment[] = $c;
+            return $comment;
+        }elseif(count($result) > 1){
+            return self::creamedico($result);
+        }else{
+            return $result;
+        }
+        
+    }
 
 
+    public static function getmediarecensioni($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FRecensione::getTable(), self::getKey(), $IdMedico);
+        //QUI ABBIAMO TUTTE LE RECENSIONI DEL MEDICO
+        //PROBABILMENTE CONVIENE FARE UNA QUERY A PARTE
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creamedico($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
 
+    }
 
 
 

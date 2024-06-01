@@ -208,7 +208,9 @@ class FEntityManagerSQL{
     public static function objectListNotRemoved($table, $field, $id)
     {
         try{
-            $query = "SELECT * FROM " . $table . " e WHERE e." . $field . " = '" . $id . "' AND e.removed = 0;";
+            //QUESTO DOVREBBE ESSERE RITOCCATO PERCHè 1 = ATTIVO E 0 = DISATTIVATO 
+            $query = "SELECT * FROM " . $table . " e WHERE e." . $field . " = '" . $id . "' AND e.attivo = 1;";
+            //QUESTA QUERY DOVREBBE ESSERE CORRETTA
             $stmt = self::$db->prepare($query);
             $stmt->execute();
             $rowNum = $stmt->rowCount();
@@ -320,4 +322,31 @@ class FEntityManagerSQL{
             return array();
         }
     }
+
+
+    //QUESTA CI SERVE NELLA PRATICA
+    public static function getaveragevalutazione($IdMedico){
+        
+        //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
+        //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
+        try{
+            $query = "SELECT AVG(valutazione),IdMedico FROM Recensioni WHERE IdMedico = '" . $IdMedico . "' GROUP BY IdMedico;"
+                        ;
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            return true;
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
 }

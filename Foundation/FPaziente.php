@@ -137,6 +137,18 @@ class FPaziente  {
 
     }
 
+    public static function getpazientefromemail($email){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), "email", $email);
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
+
+    }
+
 
     /*
      * Metodo che verifica se esiste un paziente con un dato valore in uno dei campi  (FIELD=CAMPO,ID=VALORE)
