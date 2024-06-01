@@ -70,7 +70,7 @@ class FAmministratore {
         }
     }
 
-    public static function getadminfromid($id){
+    public static function getObj($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
@@ -95,7 +95,7 @@ class FAmministratore {
         }
     }
 
-    public static function salvaamministratore($admin){
+    public static function saveObj($admin){
 
         $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $admin);
         //var_dump($savePerson);

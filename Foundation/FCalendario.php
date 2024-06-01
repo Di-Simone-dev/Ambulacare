@@ -65,7 +65,7 @@ class FCalendario {
             $calendario -> setIdCalendario($queryResult[0]['IdCalendario']);
             //come si mette il medico? (FOREIGN KEY)
             //DA TESTARE
-            $medico = FMedico::getmedicofromid($queryResult[0]['Medico']);  //il campo calendario è proprio l'id
+            $medico = FMedico::getObj($queryResult[0]['Medico']);  //il campo calendario è proprio l'id
             $calendario->setMedico($medico);
 
             //ispirazione presa da FReport
@@ -76,7 +76,7 @@ class FCalendario {
     }
 
     //OTTENIAMO E LOADDIAMO DAL DB UN CALENDARIO USANDO IL SUO ID
-    public static function getcalendariofromid($IdCalendario){
+    public static function getObj($IdCalendario){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdCalendario);
         //var_dump($result);
         if(count($result) > 0){
@@ -104,7 +104,7 @@ class FCalendario {
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN CALENDARIO o AD AGGIORNARNE I DATI, NON DOVREBBE SERVIRE LA PARTE DELLE MODIFICHE
-    public static function savecalendario($calendario , $fieldArray = null){
+    public static function saveObj($calendario , $fieldArray = null){
         if($fieldArray === null){
             $saveCalendario = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $calendario);
             if($saveCalendario !== null){

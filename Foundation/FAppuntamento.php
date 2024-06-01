@@ -69,13 +69,13 @@ class FAppuntamento{
                 $appuntamento->setIdAppuntamento($queryResult[$i]['IdAppuntamento']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);
+                $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);
                 $appuntamento->setPaziente($paziente);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
                 //Metto la fascia oraria (FOREIGN KEY)
                 //DA TESTARE
-                $fascia_oraria = FFasciaOraria::getfasciaorariafromid($queryResult[$i]['IdFasciaOraria']);  //
+                $fascia_oraria = FFasciaOraria::getObj($queryResult[$i]['IdFasciaOraria']);  //
                 $appuntamento->setFasciaoraria($fascia_oraria);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
@@ -88,7 +88,7 @@ class FAppuntamento{
     }
 
     //PER LOADDARE UN APPUNTAMENTO DAL SUO ID
-    public static function getappuntamentofromid($IdAppuntamento){
+    public static function getObj($IdAppuntamento){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdAppuntamento);
         //var_dump($result);
         if(count($result) > 0){
@@ -105,7 +105,7 @@ class FAppuntamento{
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN APPUNTAMENTO o AD AGGIORNARNE I DATI
 
-    public static function salvaappuntamento($obj, $fieldArray = null){
+    public static function saveObj($obj, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();

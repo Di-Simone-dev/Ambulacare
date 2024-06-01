@@ -79,7 +79,7 @@ class FMedico  {
             $medico -> setIdMedico($queryResult[0]['IdMedico']);
             //come si mette LA TIPOLOGIA? (FOREIGN KEY)
             //DA TESTARE
-            $tipologia = FTipologia::gettipologiafromid($queryResult[0]['IdTipologia']);  //PRENDO L'OGGETTO TIPOLOGIA
+            $tipologia = FTipologia::getObj($queryResult[0]['IdTipologia']);  //PRENDO L'OGGETTO TIPOLOGIA
             $medico->setTipologia($tipologia);  //GLI METTO PROPRIO L'OGGETTO NEL SETTER
             //ispirazione presa da FReport
             return $medico;
@@ -96,7 +96,7 @@ class FMedico  {
                 $medico -> setIdMedico($queryResult[$i]['IdMedico']);
                  //come si mette LA TIPOLOGIA? (FOREIGN KEY)
                 //DA TESTARE
-                $tipologia = FTipologia::gettipologiafromid($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
+                $tipologia = FTipologia::getObj($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
                 $medico->setTipologia($tipologia);
                 //ispirazione presa da FReport
                 
@@ -114,7 +114,7 @@ class FMedico  {
      * @param $id valore da ricercare nel campo $field
      * @return $medico l'oggetto medico se presente
      */
-    public static function getmedicofromid($id){
+    public static function getObj($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
@@ -143,7 +143,7 @@ class FMedico  {
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN MEDICO o AD AGGIORNARNE I DATI
 
-    public static function savemedico($medico, $fieldArray = null){
+    public static function saveObj($medico, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();

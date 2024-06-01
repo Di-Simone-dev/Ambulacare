@@ -65,13 +65,13 @@ class FReferto {
                 $referto->setIdReferto($queryResult[$i]['IdReferto']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $immagine = FImmagine::getimmaginefromid($queryResult[$i]['IdImmagine']);  //il campo IdPaziente è proprio l'id
+                $immagine = FImmagine::getObj($queryResult[$i]['IdImmagine']);  //il campo IdPaziente è proprio l'id
                 $referto->setImmagine($immagine);
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)
                 //DA TESTARE
-                $appuntamento = FAppuntamento::getappuntamentofromid($queryResult[$i]['IdAppuntamento']);  //il campo IdMedico è proprio l'id
+                $appuntamento = FAppuntamento::getObj($queryResult[$i]['IdAppuntamento']);  //il campo IdMedico è proprio l'id
                 $referto->setAppuntamento($appuntamento);
 
                 //ispirazione presa da FReport
@@ -84,7 +84,7 @@ class FReferto {
     }
 
     //PER LOADDARE UN REFERTO DAL SUO ID
-    public static function getrefertofromid($IdReferto){
+    public static function getObj($IdReferto){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdReferto);
         //var_dump($result);
         if(count($result) > 0){
@@ -97,7 +97,7 @@ class FReferto {
 
 
     //CON QUESTO SALVIAMO I REFERTI
-    public static function salvareferto($referto){
+    public static function saveObj($referto){
             $savereferto = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $referto);
             if($savereferto !== null){
                 return $savereferto;

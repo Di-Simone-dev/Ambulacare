@@ -50,7 +50,7 @@ class FImmagine{
     }
 
 
-    public static function getimmaginefromid($id){
+    public static function getObj($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
@@ -90,7 +90,7 @@ class FImmagine{
 
 
     //SALVIAMO UNA IMMAGINE DANDO IN PASTO L'OGGETTO IMMAGINE DA SALVARE
-    public static function salvaimmagine($immagine){
+    public static function saveObj($immagine){
 
         $saveImage = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $immagine);
         if($saveImage !== null){

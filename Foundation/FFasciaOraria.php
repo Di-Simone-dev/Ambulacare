@@ -68,7 +68,7 @@ class FFasciaOraria{
                 $fasciaoraria->setIdFasciaOraria($queryResult[$i]['idFasciaoraria']);  //PER LA PK AUTOINCREMENT
                 //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE
-                $calendario = FCalendario::getcalendariofromid($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id
+                $calendario = FCalendario::getObj($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id
                 $fasciaoraria->setCalendario($calendario);
 
                 //ispirazione presa da FReport
@@ -81,7 +81,7 @@ class FFasciaOraria{
     }
 
     //PER LOADDARE UNA FASCIA ORARIA DAL SUO ID
-    public static function getfasciaorariafromid($IdFascia_oraria){
+    public static function getObj($IdFascia_oraria){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdFascia_oraria);
         //var_dump($result);
         if(count($result) > 0){
@@ -94,7 +94,7 @@ class FFasciaOraria{
 
 
     //CON QUESTO UPDATEIAMO LE FASCE ORARIE (SERVIREBBE ANCHE UNA DELETE, LE MODIFICHE NON HANNO TROPPO SENSO)
-    public static function salvafasciaoraria($fasciaoraria){
+    public static function saveObj($fasciaoraria){
             $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $fasciaoraria);
             if($saveFasciaOraria !== null){
                 return $saveFasciaOraria;

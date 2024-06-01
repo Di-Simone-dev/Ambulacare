@@ -73,13 +73,13 @@ class FRecensione {
                 $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
+                $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
                 $recensione->setPaziente($paziente);
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)
                 //DA TESTARE
-                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
+                $medico = FMedico::getObj($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
                 $recensione->setMedico($medico);
 
                 //ispirazione presa da FReport
@@ -92,7 +92,7 @@ class FRecensione {
     }
 
     //PER LOADDARE UNA RECENSIONE DAL SUO ID
-    public static function getrecensionefromid($IdRecensione){
+    public static function getObj($IdRecensione){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
         if(count($result) > 0){
@@ -105,7 +105,7 @@ class FRecensione {
 
 
     //CON QUESTO SALVIAMO LE RECENSIONI
-    public static function salvarecensione($recensione){
+    public static function saveObj($recensione){
             $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
             if($saveFasciaOraria !== null){
                 return $saveFasciaOraria;

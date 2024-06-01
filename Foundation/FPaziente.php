@@ -110,7 +110,7 @@ class FPaziente  {
      * @param $id valore da ricercare nel campo $field
      * @return $paziente l'oggetto paziente se presente
      */
-    public static function getpazientefromid($id){
+    public static function getObj($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
@@ -159,7 +159,7 @@ class FPaziente  {
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN PAZIENTE o AD AGGIORNARNE I DATI
 
-    public static function salvapaziente($paziente, $fieldArray = null){
+    public static function saveObj($paziente, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();

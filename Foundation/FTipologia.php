@@ -73,7 +73,7 @@ class FTipologia {
     }
 
     //PER LOADDARE UNA FASCIA ORARIA DAL SUO ID
-    public static function gettipologiafromid($IdTipologia){
+    public static function getObj($IdTipologia){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdTipologia);
         //var_dump($result);
         if(count($result) > 0){
@@ -86,7 +86,7 @@ class FTipologia {
 
 
     //CON QUESTO SALVIAMO LE TIPOLOGIE 
-    public static function salvatipologia($tipologia){
+    public static function saveObj($tipologia){
             $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $tipologia);
             if($saveFasciaOraria !== null){
                 return $saveFasciaOraria;
