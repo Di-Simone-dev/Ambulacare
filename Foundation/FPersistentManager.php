@@ -634,7 +634,7 @@ public static function loadHomePage($id){
      * load all post not banned that are not belonged to the user
      * @param int $idUser Refers to the user 
      */
-    public static function loadPostInExplore($idUser)
+    public static function  
     {
         $explorePagePost = FPost::postInExplore($idUser);
 
