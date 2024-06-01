@@ -9,7 +9,9 @@
 
         <title>Ambula Care</title>
 
-        <!-- CSS FILES -->        
+        <!-- CSS FILES -->
+        <link href="casimedico.css" rel="stylesheet">
+        <link href="font.css" rel="stylesheet">     
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +27,6 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-
-        <link href="casimedico.css" rel="stylesheet">
-        <link href="font.css" rel="stylesheet">
 <!--
 
 TemplateMo 566 Medic Care
@@ -72,10 +71,6 @@ https://templatemo.com/tm-566-medic-care
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
                             <li class="nav-item">
                                 <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
                             </li>
@@ -88,12 +83,6 @@ https://templatemo.com/tm-566-medic-care
                             <li class="nav-item">
                                 <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
                             </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
                         </ul>
                     </div>
 
@@ -107,28 +96,27 @@ https://templatemo.com/tm-566-medic-care
                 <div class="col">
                     <form action="#">
                         <div class="form-group" >
-                            <!--<h3><label for="categ">Tipologia</label></h3>-->
-                            <select name="languages" id="categ" class="form-select">
+                            <h2>Recensioni</h2>
+                            <br>
+                            <select name="ordinarecensioni" id="categ" class="form-select">
                                 <option value="select">Ordina per</option>
                                 <option value="dentista">Nome</option>
                                 <option value="oculista">Cognome</option>
                                 <option value="otorino">Data appuntamento</option>
                             </select>
-                        </div>
                             <br>
-                                <div>
-                                    <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
-                                    </input>
-                                    </div>
-                                    <br>
+                                    <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required/>
+                                    <br><br>
                             <button type="submit" class="btn btn-primary">Effettua ricerca</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-9" id="elenco">
+        <br><br>
+        <div class="col-9" id="elenco" style="position: absolute;left: 180px;">
             <table class="table">
-                <thead>
+                <thead style="text-align: center;">
                     <tr>
                         <th scope="col">Nome Paziente</th>
                         <th scope="col">Cognome Paziente</th>

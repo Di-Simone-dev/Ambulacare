@@ -9,7 +9,11 @@
 
         <title>Ambula Care</title>
 
-        <!-- CSS FILES -->        
+        <!-- CSS FILES -->     
+        <link href="casimedico.css" rel="stylesheet">
+
+        <link href="font.css" rel="stylesheet">
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +30,6 @@
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
 
-        <link href="casimedico.css" rel="stylesheet">
-        <link href="font.css" rel="stylesheet">
 <!--
 
 TemplateMo 566 Medic Care
@@ -73,9 +75,6 @@ https://templatemo.com/tm-566-medic-care
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
                             <li class="nav-item">
                                 <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
                             </li>
@@ -88,12 +87,6 @@ https://templatemo.com/tm-566-medic-care
                             <li class="nav-item">
                                 <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
                             </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
                         </ul>
                     </div>
 
@@ -108,9 +101,15 @@ https://templatemo.com/tm-566-medic-care
                     <form action="#">
                         <div class="form-group" >
                             <div class="col-9" id="elenco">
-                                <h2>Disponibilità Orari Attule</h2>
-                                <table class="table" id style="border: 1px solid;">
-                                    <thead >
+                                <h2>Disponibilità Orari Attuale</h2>
+                                <br>
+                                <div>
+                                    <button><</button>
+                                    <button style="position: absolute;left: 1055px;">></button>
+                                </div>
+                                <br>
+                                <table class="table" id="orari" style="border: 1px solid;">
+                                    <thead style="background-color: rgb(230, 230, 230);text-align: center;">
                                         <tr>
                                             <th scope="col">LUN 27/05</th>
                                             <th scope="col">MAR 28/05</th>
@@ -123,42 +122,54 @@ https://templatemo.com/tm-566-medic-care
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>14:30</td>
-                                            <td>15:30</td>
-                                            <td>16:30</td>
-                                            <td>17:30</td>
-                                            <td>18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">08:30</td>
+                                            <td style="background-color: black;"></td>
                                         </tr>
                                         <tr>
-                                            <td>14:30</td>
-                                            <td>15:30</td>
-                                            <td>16:30</td>
-                                            <td>17:30</td>
-                                            <td>18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">09:30</td>
+                                            <td style="background-color: black;"></td>
                                         </tr>
                                         <tr>
-                                            <td>14:30</td>
-                                            <td>15:30</td>
-                                            <td>16:30</td>
-                                            <td>17:30</td>
-                                            <td>18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: red">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">10:30</td>
+                                            <td style="background-color: black;"></td>
                                         </tr>
                                         <tr>
-                                            <td>08:30</td>
-                                            <td>09:30</td>
-                                            <td>10:30</td>
-                                            <td>11:30</td>
-                                            <td>12:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">11:30</td>
+                                            <td style="background-color: black;"></td>
                                         </tr>
                                         <tr>
-                                            <td>08:30</td>
-                                            <td>09:30</td>
-                                            <td>10:30</td>
-                                            <td>11:30</td>
-                                            <td>12:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">12:30</td>
+                                            <td style="background-color: black"></td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
+                                <br>
                                 <div>
                                     <label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp" placeholder="Data Disponibile" name="datadisp" />
                                     <br>
@@ -169,9 +180,11 @@ https://templatemo.com/tm-566-medic-care
                             </div>
                         </div>
                             <br><br><br>
+                            <div style="position: absolute;left: 550px;">
                             <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                             <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            </div>
                     </form>
                 </div>
             </div>
