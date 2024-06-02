@@ -16,7 +16,8 @@ class EMedico
 
     private float $costo;    //Un int è più semplice ma possiamo tenere float
 
-    private $tipologia;
+    private $IdImmagine;
+    private $IdTipologia;
 
     private static $entity = EMedico::class;
     //costruttore
@@ -106,23 +107,23 @@ class EMedico
         $this->costo = $costo;
     }
 
-    public function getTipologia()
+    public function getIdTipologia()
     {
-        return $this->tipologia;
+        return $this->IdTipologia;
     }
 
-    public function setTipologia($tipologia)
+    public function setIdTipologia($IdTipologia)
     {
-        $this->tipologia = $tipologia;
+        $this->IdTipologia = $IdTipologia;
     }
 
-    public function getImmagine()
+    public function getIdImmagine()
     {
-        return $this->tipologia;
+        return $this->IdImmagine;
     }
 
-    public function setImmagine($IdImmagine)
+    public function setIdImmagine($IdImmagine)
     {
-        $this->tipologia = $IdImmagine;
+        $this->IdImmagine = $IdImmagine;
     }
 }

@@ -814,10 +814,11 @@ public static function loadHomePage($id){
     }
 //------------------------FOLLOWERS PAGE-------------------------------------------
 
-    /**
+    /*
      * Method to return the Followed User List and their profile pic
      * @param int $idUser 
      */
+    /*
     public static function getFollowedList($idUser){
         $userList = self::getFollowedUserList($idUser);
 
@@ -825,6 +826,7 @@ public static function loadHomePage($id){
 
         return $userAndPropicArr;
     }
+    */
     
 //----------------------------FOLLOWED PAGE--------------------------------------------
 
@@ -847,25 +849,28 @@ public static function loadHomePage($id){
      * Method to load Users and their Profile Image
      * @param array | int $userInput 
      */
-    public static function loadUsersAndImage($userInput){
+
+     //UTILIZZABILE PER LA LOAD DI MEDICI CON LE FOTO PRIFILO?
+    public static function loadmedicieimmagine($mediciInput){
         $result = array();
-        if(is_array($userInput)){
-            foreach($userInput as $u){
-                $arrayData = array($u, self::retriveObj(FImage::getClass(), $u->getIdImage()));
+        if(is_array($mediciInput)){
+            foreach($mediciInput as $u){
+                $arrayData = array($u, self::retriveObj(FImmagine::getClass(), $u->getIdImmagine())); //serve un ritocco ad entity medico
                 $result[] = $arrayData;
             }
         }else{
-            $user = self::retriveObj(FUser::getClass(), $userInput);
-            $arrayData = array($user, self::retriveObj(FImage::getClass(), $user->getIdImage()));
+            $user = self::retriveObj(FMedico::getClass(), $mediciInput);
+            $arrayData = array($user, self::retriveObj(FImmagine::getClass(), $user->getIdImmagine())); // pure qua
             $result[] = $arrayData;
         }
         return $result;
     }
     
-    /**
+    /*
      * Method to load Posts and their like number
      * @param array $postArray Refers to an array of Posts
      */
+    /*
     public static function loadPostsAndLikes($postArray){   
         $result = array();
             foreach($postArray as $p){
@@ -874,6 +879,7 @@ public static function loadHomePage($id){
             }
         return $result;
     }
+    */
 
     /**
      * Method to load in an array the number of like, number of follower and number of followed
@@ -893,6 +899,8 @@ public static function loadHomePage($id){
      * Method to return COmments and their user Propic
      * @param int $idPost
      */
+
+     //RISULTA NECESSARIO UN METODO CHE RITORNI LE RECENSIONI DI UN DETERMINATO MEDICO 
     public static function loadCommentsAndUsersPic($idPost){
         $comments = self::getCommentList($idPost);
         $result = array();
