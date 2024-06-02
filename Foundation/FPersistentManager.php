@@ -240,6 +240,12 @@ class FPersistentManager{
         $medico->setImmagine($immagine);
 
         $uploadImmagine = FImmagine::saveObj($immagine);
+        //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del medico
+        //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
+        $fieldarray=array();
+        $fieldarray[0] = IdImmagine;
+        $fieldarray[1] = $immagine->getIdImmagine(); 
+        $updatemedico =FMedico::saveObj($medico,$fieldarray);  //dovrebbe funzionare
 
         if($uploadImmagine){
             return true;
@@ -259,6 +265,12 @@ class FPersistentManager{
         $referto->setImmagine($immagine);
 
         $uploadImage = FImmagine::saveObj($immagine);
+        //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del referto
+        //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
+        $fieldarray=array();
+        $fieldarray[0] = IdImmagine;
+        $fieldarray[1] = $immagine->getIdImmagine(); 
+        $updatemedico =FReferto::saveObj($referto,$fieldarray);  //dovrebbe funzionare
 
         if($uploadImage){
             return true;
@@ -269,10 +281,11 @@ class FPersistentManager{
 
 
 
-    /**
+    /*
      * Method to return a list of all user who liked a post 
      * @param int $idPost Refres to the post 
      */
+    /*
     public static function getLikesUserOfAPost($idPost){
         //prende i like, dai like prende gli utenti e ritorna una lista di utenti 
         $likesRow = FEntityManagerSQL::getInstance()->retriveObj(FLike::getTable(), FPost::getKey(), $idPost);
@@ -285,7 +298,8 @@ class FPersistentManager{
         }
         return $result;
     }
-
+    */
+    
     public static function getUsersPofilePic($userArray){
         $usersProfilePic = array();
         if(count($userArray) > 0){
