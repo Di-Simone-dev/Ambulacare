@@ -173,7 +173,7 @@ class FPersistentManager{
             return false; //QUI NON LA ELIMINIAMO NEL CASO DI appuntamento PRESENTE
         }
         //magari serve un controllo sulla presenza o meno di un appuntamento prenotato sulla fascia oraria 
-        return $result;
+        //return $result;
         
     }
 
@@ -299,38 +299,42 @@ class FPersistentManager{
         return $result;
     }
     */
-    
-    public static function getUsersPofilePic($userArray){
-        $usersProfilePic = array();
-        if(count($userArray) > 0){
-            foreach($userArray as $u){
-                $proPic = FImage::getObj($u->getIdImage());
+
+    public static function getmedicipropic($mediciArray){
+        $mediciProfilePic = array();
+        if(count($mediciArray) > 0){
+            foreach($mediciArray as $u){
+                $proPic = FImmagine::getObj($u->getIdImmagine());  //da ogni medico mi prendo l'id dell'immagine e poi l'immagine effettiva
                 //associative array (hash table)
-                $usersProfilePic[$u->getId()] = $proPic;
+                $mediciProfilePic[$u->getId()] = $proPic;
             }
         }
-        return $usersProfilePic;
+        return $mediciProfilePic;
     }
 
-    /**
+    /*
      * Method to return the number of the followed user pf a user
      * @param int $idUser Refrs to the user who follow
      */
+    /*
     public static function getFollowedNumb($idUser){
         $result = FUserFollow::getFollowedNumb($idUser);
 
         return $result;
     }
+    */
 
     /** 
      * Method to return the number of the follower user pf a user
      * @param int $idUser Refrs to the user who is followed
     */
-    public static function getFollowerNumb($idUser){
-        $result = FUserFollow::getFollowerNumb($idUser);
+    
+    public static function getnumerorecensionimedico($IdMedico){
+        $result = FRecensione::getnumerorecensionimedico($IdMedico);
 
         return $result;
     }
+    
 
     /**
      * Method to return the list of the followed user pf a user
@@ -703,7 +707,7 @@ public static function loadHomePage($id){
      * load all post not banned that are not belonged to the user
      * @param int $idUser Refers to the user 
      */
-    public static function  
+    public static function loadPostInExplore($idUser)
     {
         $explorePagePost = FPost::postInExplore($idUser);
 
