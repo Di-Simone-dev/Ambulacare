@@ -99,6 +99,18 @@ class FAppuntamento{
         }
     }
 
+    //PER LOADDARE UN APPUNTAMENTO DAL SUO IDFasciaOraria
+    public static function getappuntamentofromfasciaoraria($IdFascia_oraria){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdFasciaOraria" , $IdFascia_oraria);
+        //var_dump($result);
+        if(count($result) > 0){
+            $Appuntamento = self::creaappuntamento($result);
+            return $Appuntamento;
+        }else{
+            return null;
+        }
+    }
+
 
     //CON QUESTO SALVO GLI APPUNTAMENTI, MA DOVREBBE ANCHE SERVIRE UNA MODALITà DI MODIFICA
     //if field null salva, sennò deve updetare la table

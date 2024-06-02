@@ -117,29 +117,32 @@ class FPersistentManager{
      * return the number of Like of a Post
      * @param int $idPost Refers to id of the post
      */
-    public static function getLikeNumber($idPost)
+    public static function getaveragevalutazione($IdMedico)
     {
-        $result = FLike::getLikeNumber($idPost);
-
+        $result = FMedico::getaveragevalutazione($IdMedico);
+        //è un po' ridondato ma non fa niente
         return $result;
     }
 
-    /**
+
+    /*
+    /*
      * Method to return a Like obj giving the post and user
      * @param int $idUser Refers to the id of the user who liked the post
      * @param int $idPost Refers to the id of the post 
-     */
+     
     public static function retriveLike($idUser, $idPost){
         $like = FLike::getLikeOnUser($idUser, $idPost);
 
         return $like;
     }
+    */
 
-    /**
+    /*
      * Method to return a UserFollow obj giving the followed and the follwer users 
      * @param int $idUser Refers to the id of the user who follow
      * @param int $idFollowed Refers to the id of the user who is followed
-     */
+     
     public static function retriveFollow($idUser, $idFollowed){
         $follow = FUserFollow::retriveUserFollow($idUser, $idFollowed);
         if(!$follow){
@@ -149,6 +152,7 @@ class FPersistentManager{
         }
     }
    
+    */
 //---------------------------------------------------------------------------------------------------------------------------
     //TODO in orig gli passo un post (Da vedere in doctrine come aggiustarlo)
     /**
@@ -157,10 +161,18 @@ class FPersistentManager{
      * @param int $idUser Refers to the user who create the post
      * 
      */
-    public static function deletePost($idPost, $idUser){
+    public static function liberafasciaoraria($IdFascia_oraria){ //pensiamo ad un cambio di disponibilità
 
-        $result = FPost::deletePostInDb($idPost, $idUser);
-
+        $existappuntamento = FEntityManagerSQL::existInDb(FAppuntamento::getappuntamentofromfasciaoraria($IdFascia_oraria));
+        
+        if($existappuntamento){
+            $result = FFasciaOraria::eliminaFasciaOraria($IdFascia_oraria);
+            return result;
+        }
+        else {
+            return false; //QUI NON LA ELIMINIAMO NEL CASO DI appuntamento PRESENTE
+        }
+        //magari serve un controllo sulla presenza o meno di un appuntamento prenotato sulla fascia oraria 
         return $result;
         
     }
@@ -170,18 +182,19 @@ class FPersistentManager{
      * @param int $idLike Referes to the like to delete
      * @param int $idUser Refrers to the user who like the post
      */
-    public static function deleteLike($idLike, $idUser){
-
-        $result = FLike::deleteLikeInDb($idLike, $idUser);
+    public static function cancellaRecensione($IdRecensione){
+        //NON DOVREBBERO SERVIRE CONTROLLI QUI
+        $result = FRecensione::eliminaRecensione($IdRecensione);
 
         return $result;
     }
 
-    /**
+    /*
      * Method to delete a report, if $field is nul delete the report on the id, else delete the report referd to a comment or a post so the $field can be idPost or idComment
      * @param int $id Refers to report if $fiedl == null, else refers to a field of report like idPost or idComment
      * @param string | null $field Refers to the field in which we are deleting the report 
      */
+    /*
     public static function deleteRelatedReports($id, $field = null){
 
         $result = FReport::deleteReportInDb($id, $field);
@@ -189,27 +202,50 @@ class FPersistentManager{
         return $result;
     }
 
+    */
+
     /**
      * Method to delete an Image in the Database
      * @param int $idImage Refers to teh id of the image to delete
      */
-    public static function deleteImage($idImage){
-
-        $result = FEntityManagerSQL::getInstance()->deleteObjInDb(FImage::getTable(), FImage::getKey(), $idImage);
+    public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
+        //bisognerebbe implementare anche un meccanismo di cambio foto profil per il medico
+        $result = FImage::cancellaImmagine($IdImmagine);
 
         return $result;
     }
 
-    /**
+    /*
      * Method to delete an UserFoloow obj by giving the follower and the followed
      * @param int $idUser Refers to the id of the user who follow
      * @param int $idFollowed Refers to the id of the user who is followed
      */
+    /*
     public static function deleteFollow($idUser, $idUserFollowed){
 
         $result = FUserFollow::deleteUserFollowInDb($idUser, $idUserFollowed);
 
         return $result;
+    }
+    */
+    
+    /**
+     * Method to save an image in the post and store it in the database
+     * @param \EImage $image Refres to the image to store 
+     * @param \EPost $post Refers to the post
+     * @return boolean
+     */
+    public static function caricaimmaginemedico(EImmagine $immagine, EMedico $medico){
+
+        $medico->setImmagine($immagine);
+
+        $uploadImmagine = FImmagine::saveObj($immagine);
+
+        if($uploadImmagine){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -218,11 +254,11 @@ class FPersistentManager{
      * @param \EPost $post Refers to the post
      * @return boolean
      */
-    public static function uploadImagePost(EImage $image, EPost $post){
+    public static function caricaimmaginereferto(EImmagine $immagine, EReferto $referto){
 
-        $image->setPost($post);
+        $referto->setImmagine($immagine);
 
-        $uploadImage = FImage::saveObj($image);
+        $uploadImage = FImmagine::saveObj($immagine);
 
         if($uploadImage){
             return true;
@@ -230,6 +266,8 @@ class FPersistentManager{
             return false;
         }
     }
+
+
 
     /**
      * Method to return a list of all user who liked a post 

@@ -230,6 +230,19 @@ class FMedico  {
 
     }
 
+    public static function getaveragevalutazione($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->getaveragevalutazione($IdMedico);
+        //QUI ABBIAMO TUTTE LE RECENSIONI DEL MEDICO
+        //PROBABILMENTE CONVIENE FARE UNA QUERY A PARTE
+        //var_dump($result);
+        if($result !== null){
+            
+            return $result;
+        }else{
+            return null;
+        }
+
+    }
 
 
 

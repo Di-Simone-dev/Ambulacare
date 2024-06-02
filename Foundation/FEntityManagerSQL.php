@@ -335,7 +335,8 @@ class FEntityManagerSQL{
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
             $stmt->execute();
-            return true;
+            $stmt;  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            return $stmt;
         }catch(Exception $e){
             echo "ERROR: " . $e->getMessage();
             return false;
