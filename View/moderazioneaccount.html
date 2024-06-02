@@ -26,8 +26,9 @@
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="casiadmin.css">
         <link href="font.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="casiadmin.css">
 
 <!--
 TemplateMo 566 Medic Care
@@ -63,23 +64,10 @@ https://templatemo.com/tm-566-medic-care
                             <li class="nav-item">
                                 <a class="nav-link" href="visualizzaappuntamenti_admin.html">Visualizza appuntamenti</a>
                             </li>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
-
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
 
                             <li class="nav-item">
                                 <a class="nav-link" href="visualizzaesami_admin.html">Visualizza esami</a>
@@ -101,32 +89,30 @@ https://templatemo.com/tm-566-medic-care
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form action="moderazioneaccount.php" id="tendina" method="post">
+                    <form action="#" id="tendina" method="post">
                         <div class="form-group">
-                            
-                            <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" >
-                            </input>
-                            <br><br>
-                            <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" >
-                            </input>
-                            </div>
+                            <h2>Moderazione Account</h2>
                             <br>
-                        <div class="form-group">
+                            <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" />
+                            <br><br>
+                            <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" />
+                            <br><br>
                             <select name="categoria" id="categ" class="form-select" >
                                 <option value="select">Seleziona categoria utente</option>
                                 <option value="medico">medico</option>
                                 <option value="paziente">paziente</option>
                             </select>
-                        </div>
-                        <br><br>
-                        <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
+                        </div> 
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-9" id="elenco">
+        <br><br>
+        <div>
             <table class="table">
-                <thead>
+                <thead style="text-align: center;">
                     <tr>
                         <th scope="col">Nome Utente</th>
                         <th scope="col">Cognome Utente</th>
@@ -135,7 +121,7 @@ https://templatemo.com/tm-566-medic-care
                         <th scope="col">Azione</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align: center;">
                     <tr>
                         <td>Emanuele</td>
                         <td>Papile</td>

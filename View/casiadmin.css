@@ -43,3 +43,6 @@ input{
     padding: 4px;
     border-radius: 9px;
   }*/
+  thead{
+    text-align: center;
+  }

@@ -51,3 +51,6 @@ h4, label {
         font-size: xx-large;
         font-weight: bold;
     }
+    thead{
+        text-align: center;
+    }
