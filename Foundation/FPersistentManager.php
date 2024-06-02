@@ -359,43 +359,36 @@ class FPersistentManager{
      * Method to return the list of the follower user pf a user
      * @param int $idUser Refrs to the user who follow
      */
-    public static function getFollowerUserList($idUser){
+    public static function getappuntamentipaziente($IdPaziente){
         //prende gli utenti che seguono $idUser, crea una lista di utenti
-        $followerRow = FEntityManagerSQL::getInstance()->retriveObj(FUserFollow::getTable(), 'idFollowed', $idUser);
-        $result = array();
-        if(count($followerRow) > 0){
-            for($i = 0; $i < count($followerRow); $i++){
-                $user = FUser::getObj($followerRow[$i]['idFollower']);
-                $result[] = $user; 
+        $appuntamenti = FEntityManagerSQL::getInstance()->retriveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
+        $appuntamentipaziente = array();
+        if(count($appuntamenti) > 0){
+            for($i = 0; $i < count($appuntamenti); $i++){
+                $appuntamenti = FAppuntamento::getObj($appuntamenti[$i]['IdAppuntamento']);
+                $appuntamentipaziente[] = $appuntamenti; 
             }
         }
-        return $result;
+        return $appuntamentipaziente;
     }
 
     /**
      * Method to return alist of post serached with the title using $keyword
      * @param string $keyword 
      */
-    public static function getSearchedPost($keyword){
+    public static function getListaMediciFromTipologia($IdTipologia){
         //ritorna una lista di post con settati gli utenti
-        $field = 'title';
+        $result = FMedico::getmedicofromtipologia($IdTipologia);
 
-        $posts = FPost::getSearched($field, $keyword);
-
-        $postsAndUserPic = array();
-        foreach($posts as $p){
-            $arrayData = array($p, self::retriveObj(FImage::getClass(), $p->getUser()->getIdImage()));
-            $postsAndUserPic[] = $arrayData;
-        }
-
-        return $postsAndUserPic;
+        return $result;
     }
 
-    /**
+    /*
      * return a list of Users that have the $keyword in their Username
      * @param string $keyword
      */
-    public static function getSearchedUsers($keyword)
+    /*
+     public static function getSearchedUsers($keyword)
     {
         $userList = FUser::getSearched($keyword);
 
@@ -404,35 +397,45 @@ class FPersistentManager{
         return $userAndPropicArr;
 
     }
+    */
 
     /**
      * Method to return a list of post that are reported
      */
-    public static function getReportedPost(){
-        $queryResult = FReport::reportedPostList();
+    public static function getallappuntamenti(){
+        $result = FEntityManagerSQL::getInstance()->retriveall(FAppuntamento::getTable());
         //var_dump($queryResult);
-        $posts = FReport::createReportObj($queryResult);
 
-        return $posts;
+        return $result;
     }
 
     /**
-     * Method to return reported Comments
+     * Method to return a list of post that are reported
      */
-    public static function getReportedComment(){
-        $queryResult = FReport::reportedCommentList();
+    public static function getallmedici(){
+        $result = FEntityManagerSQL::getInstance()->retriveall(FMedico::getTable());
+        //var_dump($queryResult);
 
-        $comment = FReport::createReportObj($queryResult);
-        
-        return $comment;
+        return $result;
+    }
+
+    /**
+     * Method to return a list of post that are reported
+     */
+    public static function getallpazienti(){
+        $result = FEntityManagerSQL::getInstance()->retriveall(FPaziente::getTable());
+        //var_dump($queryResult);
+
+        return $result;
     }
 
 //---------------------------------------------HOME-------------------------------------------------------------------
 
-/**
+/*
  * Method to return the list of post in the home page of a user
  * @param int $id Referrs to the user who is loading the homepage
  */
+/*
 public static function loadHomePage($id){
     $followed = self::getFollowedlist($id);
     if(count($followed) == 0){
@@ -455,14 +458,16 @@ public static function loadHomePage($id){
         return $homePagePostsAndUserPropic;
     }
 }
+*/
 
 //---------------------------------------------VIP------------------------------------------------------------------------
 
-    /**
+    /*
      * retrurn an array containing 3 array, 'common' are the user who were vip and now are also vip, 
      * 'remainFirst' are the users who were vip but not now, 
      * 'remainSecond' are the users who weren't vip but now yes
     */
+    /*
     private static function findCommon($array1, $array2){
         $common = [];
         $remainFirst = [];
@@ -484,10 +489,11 @@ public static function loadHomePage($id){
 
         return ['common'=>$common, 'remainFirst'=>$remainFirst, 'remainSecond'=>$remainSecond];
     }
-
-    /**
+    */
+    /*
      * Method to return a list of VIP user and their profile pic. This method check if there are new vip and delete the old ones 
      */
+    /*
     public static function loadVip(){
         $oldVips = FUser::loadVipUsers();
         $oldIds = array();
@@ -535,15 +541,18 @@ public static function loadHomePage($id){
 
         return $vipsAndProPic;
     }
-
+    */
 //------------------------------------------------USER UPDATE----------------------------------------------------------------------------
     /**
      * Method to update a User Obj that have changed his info (Biography, Working, StudiedAt, Hobby)
      * @param \EUser $user 
      */
-    public static function updateUserInfo($user){
-        $field = [['biography', $user->getBio()],['working', $user->getWorking()],['studiedAt', $user->getStudiedAt()],['hobby', $user->getHobby()]];
-        $result = FUser::saveObj($user, $field);
+    //possiamo pensare ad un aggiornamento di un medico con la propic
+    //$FIELD CONTIENE LE COPPIE CHIAVE-VALORE DA USARE PER L'AGGIORNAMENTO DEL DB
+    //I DATI DA AGGIORNARE DEL MEDICO SONO: COSTO ED IMMAGINE?
+    public static function updateinfomedico($medico){
+        $field = [['costo', $medico->getCosto()],['working', $medico->getIdImmagine()]];
+        $result = FMedico::saveObj($medico, $field);
 
         return $result;
     }
@@ -552,9 +561,9 @@ public static function loadHomePage($id){
      * Method to update a User that have changed the vip attribute 
      * @param \EUser $user
      */
-    public static function updateUserVip($user){
-        $field = [['vip', $user->isVip()]];
-        $result = FUser::saveObj($user, $field);
+    public static function updateinfopaziente($paziente){
+        $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
+        $result = FUser::saveObj($paziente, $field);
 
         return $result;
     }
@@ -563,13 +572,23 @@ public static function loadHomePage($id){
      * Method to update a User that have changed the ban attribute 
      * @param \EUser $user
      */
-    public static function updateUserBan($user){
-        $field = [['ban', $user->isBanned()]];
-        $result = FUser::saveObj($user, $field);
+    public static function aggiornabanmedico($medico){
+        $field = [['attivo', $medico->getAttivo()]];
+        $result = FMedico::saveObj($medico, $field);
 
         return $result;
     }
 
+    /**
+     * Method to update a User that have changed the ban attribute 
+     * @param \EUser $user
+     */
+    public static function aggiornabanpaziente($paziente){
+        $field = [['attivo', $paziente->getAttivo()]];
+        $result = FMedico::saveObj($paziente, $field);
+
+        return $result;
+    }
     /**
      * Method to update a User that have changed the profile image  
      * @param \EUser $user
@@ -581,16 +600,18 @@ public static function loadHomePage($id){
         return $result;
     }
 
-    /**
+    /*
      * Method to update a User that have changed the warnings attribute 
      * @param \EUser $user
      */
+    /*
     public static function updateUserWarnings($user){
         $field = [['warnings', $user->getWarnings()]];
         $result = FUser::saveObj($user, $field);
 
         return $result;
     }
+    */
 
     /**
      * Method to update a User that have changed the username

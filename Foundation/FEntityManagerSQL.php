@@ -86,6 +86,28 @@ class FEntityManagerSQL{
             return array();
         }
     }
+    public static function retriveall($table){
+        try{
+            $query = "SELECT * FROM " .$table. ";";
+            $stmt = self::$db->prepare($query);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+                return $result;
+            }else{
+                return array();
+            }
+            
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            return array();
+        }
+    }
 
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields 
@@ -350,8 +372,8 @@ class FEntityManagerSQL{
     public static function getagendamedico($IdMedico){
         
         try{
-            $query = "SELECT IdMedico,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()>Fasciaoraria.data GROUP BY IdMedico;";
+            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data GROUP BY IdMedico ORDER BY data;";
                       //POTREBBE ESSERCI ANCHE UN "ORDER BY data e ora"
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
@@ -363,10 +385,13 @@ class FEntityManagerSQL{
                 while ($row = $stmt->fetch()){
                     $result[] = $row;
                 }
-                return $result;  //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
-                //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti, ma bisogna aggiungere la data e l'ora
+                return $result;
+                //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
+                //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
+                //ma bisogna aggiungere la data e l'ora (data)
                 //UNA SOLUZIONE POTREBBE ESSERE QUELLA DI UTILIZZARE 2 ARRAY SINCRONIZZATI CON LO STESSO INDICE PER RESTITUIRE I DATI
-                        }else{
+            
+                }else{
                 return array();
             }
         }catch(Exception $e){
