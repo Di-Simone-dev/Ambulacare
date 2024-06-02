@@ -291,6 +291,18 @@ class FCalendario {
 
     */
 
-    
+
+    //per ottenere una agenda dobbiamo usare almeno le tabelle Calendario e Fascia oraria con appuntamento
+    //per ottenere una lista degli appuntamenti di un medico da svolgere
+    public static function getagendamedico($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdMedico);
+        //var_dump($result);
+        if(count($result) > 0){
+            $calendario = self::creacalendario($result);
+            return $calendario;
+        }else{
+            return null;
+        }
+    }
 
 }

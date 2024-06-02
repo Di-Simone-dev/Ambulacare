@@ -6,7 +6,7 @@ class FFasciaOraria{
     /** tabella con la quale opera */
     private static $table = "fascia_oraria";
     /** valori della tabella */
-    private static $values="(NULL,:data,:ora_inizio,:IdCalendario)";  //per l'autoincrement si fa così
+    private static $values="(NULL,:data,:IdCalendario)";  //per l'autoincrement si fa così
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdFasciaOraria";
@@ -53,7 +53,7 @@ class FFasciaOraria{
     public static function bind($stmt,EFasciaoraria $fascor) {
     	//$stmt->bindValue(':IdFasciaOraria',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':data', $fascor->getData(), PDO::PARAM_STR); 
-        $stmt->bindValue(':ora_inizio', $fascor->getOraInizio(), PDO::PARAM_STR); 
+        //$stmt->bindValue(':ora_inizio', $fascor->getOraInizio(), PDO::PARAM_STR); 
         $stmt->bindValue(':IdCalendario', $fascor->getCalendario()->getIdCalendario(), PDO::PARAM_STR); //ATTENZIONE ALLE FOREIGN KEY
     }
 
@@ -64,7 +64,7 @@ class FFasciaOraria{
         if(count($queryResult) > 0){
             $orario = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $fasciaoraria = new EFasciaoraria($queryResult[$i]['data'],$queryResult[$i]['ora_inizio']);
+                $fasciaoraria = new EFasciaoraria($queryResult[$i]['data']);
                 $fasciaoraria->setIdFasciaOraria($queryResult[$i]['idFasciaoraria']);  //PER LA PK AUTOINCREMENT
                 //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE

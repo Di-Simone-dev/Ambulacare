@@ -127,5 +127,15 @@ class FRecensione {
         }
     }
 
+    //PER CONTARE IL NUMERO DI RECENSIONI DI UN MEDICO
+    public static function getnumerorecensionimedico($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdMedico", $IdMedico);
+        //var_dump($result);
+        return count($result);
+        
+    }
+
+
+
 
 }

@@ -167,7 +167,7 @@ class FPersistentManager{
         
         if($existappuntamento){
             $result = FFasciaOraria::eliminaFasciaOraria($IdFascia_oraria);
-            return result;
+            return $result;
         }
         else {
             return false; //QUI NON LA ELIMINIAMO NEL CASO DI appuntamento PRESENTE
@@ -210,7 +210,7 @@ class FPersistentManager{
      */
     public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
         //bisognerebbe implementare anche un meccanismo di cambio foto profil per il medico
-        $result = FImage::cancellaImmagine($IdImmagine);
+        $result = FImmagine::eliminaimmagine($IdImmagine);
 
         return $result;
     }
@@ -243,7 +243,7 @@ class FPersistentManager{
         //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del medico
         //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
         $fieldarray=array();
-        $fieldarray[0] = IdImmagine;
+        $fieldarray[0] = "IdImmagine";
         $fieldarray[1] = $immagine->getIdImmagine(); 
         $updatemedico =FMedico::saveObj($medico,$fieldarray);  //dovrebbe funzionare
 
@@ -268,10 +268,10 @@ class FPersistentManager{
         //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del referto
         //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
         $fieldarray=array();
-        $fieldarray[0] = IdImmagine;
+        $fieldarray[0] = "IdImmagine";
         $fieldarray[1] = $immagine->getIdImmagine(); 
-        $updatemedico =FReferto::saveObj($referto,$fieldarray);  //dovrebbe funzionare
-
+        $updatemedico =FReferto::saveObj($referto,$fieldarray);  //dovrebbe funzionare ok no
+        //DEVO METTERE LA POSSIBILITà DI MODIFICA DI UN REFERTO
         if($uploadImage){
             return true;
         }else{
@@ -340,7 +340,9 @@ class FPersistentManager{
      * Method to return the list of the followed user pf a user
      * @param int $idUser Refrs to the user who follow
      */
-    public static function getFollowedUserList($idUser){
+
+    //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA
+    public static function getagendamedico($IdMedico){
         //prende gli utenti seguti da $idUser, crea una lista di utenti
         $followRow = FEntityManagerSQL::getInstance()->retriveObj(FUserFollow::getTable(), 'idFollower', $idUser);
         $result = array();

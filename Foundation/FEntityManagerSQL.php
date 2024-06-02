@@ -335,8 +335,40 @@ class FEntityManagerSQL{
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
             $stmt->execute();
-            $stmt;  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
-            return $stmt;
+            //BISOGNA FARE IL FETCH
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            return $row[0];  //DA TESTARE
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    //QUESTA CI SERVE NELLA PRATICA PER VISUALIZZARE L'AGENDA DEL MEDICO
+    //DOBBIAMO OTTENERE UNA LISTA DI APPUNTAMENTI con anche le date ed ore effettive
+    public static function getagendamedico($IdMedico){
+        
+        try{
+            $query = "SELECT IdMedico,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()>Fasciaoraria.data GROUP BY IdMedico;";
+                      //POTREBBE ESSERCI ANCHE UN "ORDER BY data e ora"
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+                return $result;  //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
+                //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti, ma bisogna aggiungere la data e l'ora
+                //UNA SOLUZIONE POTREBBE ESSERE QUELLA DI UTILIZZARE 2 ARRAY SINCRONIZZATI CON LO STESSO INDICE PER RESTITUIRE I DATI
+                        }else{
+                return array();
+            }
         }catch(Exception $e){
             echo "ERROR: " . $e->getMessage();
             return false;
