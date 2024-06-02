@@ -9,9 +9,7 @@
 
         <title>Ambula Care</title>
 
-        <!-- CSS FILES -->
-        <link href="casimedico.css" rel="stylesheet">
-        <link href="font.css" rel="stylesheet">        
+        <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +25,9 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
+
+        <link href="casiadmin.css" rel="stylesheet">
+        <link href="font.css" rel="stylesheet">
 <!--
 
 TemplateMo 566 Medic Care
@@ -54,34 +55,26 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexmedico.html">Home</a>
+                                <a class="nav-link" href="indexadmin.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="storicoesami_perappuntamento.html">Storico esami</a>
+                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
+                                <a class="nav-link" href="visualizzaappuntamenti_profiloadmin.html">Visualizza appuntamenti</a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
-                            </li>
-
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
+                                <a class="nav-link" href="visualizzastoricoesamipaziente_profiloadmin.html">Visualizza esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="storicoesami_perpaziente.html">Ricerca pazienti</a>
+                                <a class="nav-link" href="visualizzarecensioni_profiloadmin.html">Visualizza recensioni</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_medico.html">Recensioni</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
+                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -94,43 +87,56 @@ https://templatemo.com/tm-566-medic-care
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h2>Storico Esami di Giacomo Giannini</h2>
+                    <form action="#">
+                        <div class="form-group" >
+                            <h2>Storico Esami Pazienti</h2>
+                            <select name="tipologia" id="tipologia" class="form-select">
+                                <option value="select">Seleziona una tipologia</option>
+                                <option value="dentista">dentista</option>
+                                <option value="oculista">oculista</option>
+                                <option value="otorino">otorino</option>
+                                <option value="cardiologo">cardiologo</option>
+                                <option value="radiologo">radiologo</option>
+                                <option value="neurologo">neurologo</option>
+                                <option value="urologo">urologo</option>
+                                <option value="neurofisiopatologo">neurofisiopatologo</option>
+                            </select>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Avvia Ricerca Esame</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <br><br>
-        <div class="col-9" id="elenco" style="position: absolute;left: 180px;">
+        <div>
             <table class="table">
                 <thead style="text-align: center;">
                     <tr>
-                        <th scope="col">Data</th>
-                        <th scope="col">Ora</th>
-                        <th scope="col">Tipologia</th>
-                        <th scope="col">Medico</th>
+                        <th scope="col">Nome Paziente</th>
+                        <th scope="col">Cognome Paziente</th>
+                        <th scope="col">Data Di Nascita</th>
                         <th scope="col">Azione</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align: center;">
                     <tr>
-                        <td>11/01/2022</td>
-                        <td>09:00</td>
-                        <td>Cardiologia</td>
-                        <td>Dottor Papile</td>
-                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
+                        <td>Giacomo</td>
+                        <td>Giannini</td>
+                        <td>11/07/2002</td>
+                        <td><a href="visualizzastoricoesamipaziente_profiloadmin.html"><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
                     </tr>
                     <tr>
-                        <td>05/10/2022</td>
-                        <td>10:00</td>
-                        <td>Radiologia</td>
-                        <td>Dottoressa Carmenini</td>
-                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
+                        <td>Nadia</td>
+                        <td>Muzyka</td>
+                        <td>15/09/2002</td>
+                        <td><a href="visualizzastoricoesamipaziente_profiloadmin.html"><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
                     </tr>
                     <tr>
-                        <td>28/05/2023</td>
-                        <td>11:00</td>
-                        <td>Neurologia</td>
-                        <td>Dottoressa Quintiliani</td>
-                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
+                        <td>Andrea</td>
+                        <td>Iannotti</td>
+                        <td>20/08/2002</td>
+                        <td><a href="visualizzastoricoesamipaziente_profiloadmin.html"><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
                     </tr>
                 </tbody>
             </table>

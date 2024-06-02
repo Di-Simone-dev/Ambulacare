@@ -50,58 +50,32 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
 
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                        <li class="nav-item active">
+                                <a class="nav-link" href="indexpaziente.html" >Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Prenota esame</a>
+                                <a class="nav-link" href="visualizzaesami_prenotazione.html">Prenota esame</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="visualizzaesamiprenotati_profilopaziente.html">Visualizza Esami Prenotati</a>
                             </li>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
 
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
-
                             <li class="nav-item">
-                                <a class="nav-link" href="#contact">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
                             </li>
-                            <li class="nav-item" >
-                                <a class="nav-link" href="logout.php">Logout</a>
-                            </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
                         </ul>
                     </div>
 
                 </div>
             </nav>
-    <!--<div class="w3-top">
-        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="indexutente.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-            <a href="prodottiutente.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Prodotti</a>
-            <a href="profilo.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profilo</a>
-            <a href="logout.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
-    </div>-->
     <br><br>
     <div>
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
@@ -111,17 +85,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                 $check = $pdo->prepare($query);
                 $check->bindParam(':email', $email, PDO::PARAM_STR);
                 $check->execute();
-            
-        /*if(empty($riga['immagine'])){
-            echo "<img class='img' src='img/profiloanonimo.png' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }
-        else{
-            echo "<img class='img' src='img/".$riga['immagine']."' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }*/
-        //<img class="img" src="img/download.jpeg" alt="Foto Profilo" style="width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;">
-        //mysqli_close($conn);
-       
-        
+
                     $nome=$_SESSION["nome"];
                     $cognome=$_SESSION["cognome"];
                     $email=$_SESSION["email"];
@@ -146,7 +110,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     echo "<p style='font-size:20px; font-family:monospace;'>$residenza</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$numerotelefono</p>";
-                    echo "<a href='eliminaaccountpaziente.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
+                    echo "<a href='logout.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Logout </p></button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {

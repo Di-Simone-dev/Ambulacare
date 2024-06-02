@@ -27,10 +27,6 @@
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
         <link href="font.css" rel="stylesheet">
     </head>
-    <!--<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
-.w3-bar,h1,button {font-family: monospace}
-</style>-->
 <body id="top">
     
     <br><br>
@@ -50,13 +46,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
 
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item active">
+                        <li class="nav-item active">
                                 <a class="nav-link" href="indexmedico.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="storicoesami_perappuntamento.html">Storico esami</a>
-                                
-
+                                <a class="nav-link" href="visualizzastoricoesami_caricamentoreferto_profilomedico.html">Storico esami</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
@@ -70,45 +64,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
                             <li class="nav-item">
                                 <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="storicoesami_perpaziente.html">Ricerca pazienti</a>
+                                <a class="nav-link" href="visualizzastoricoesami_perpaziente_profilomedico.html">Ricerca pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_medico.html">Recensioni</a>
+                                <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
-                            </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
-                            <li class="nav-item" >
-                                <a class="nav-link" href="logout.php">Logout</a>
                             </li>
                         </ul>
                     </div>
 
                 </div>
             </nav>
-    <!--<div class="w3-top">
-        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="indexutente.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-            <a href="prodottiutente.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Prodotti</a>
-            <a href="profilo.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profilo</a>
-            <a href="logout.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
-    </div>-->
     <br><br>
     <div>
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
@@ -119,16 +91,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                 $check->bindParam(':email', $email, PDO::PARAM_STR);
                 $check->execute();
             
-        /*if(empty($riga['immagine'])){
-            echo "<img class='img' src='img/profiloanonimo.png' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }
-        else{
-            echo "<img class='img' src='img/".$riga['immagine']."' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }*/
-        //<img class="img" src="img/download.jpeg" alt="Foto Profilo" style="width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;">
-        //mysqli_close($conn);
-       
-        
                     $nome=$_SESSION["nome"];
                     $cognome=$_SESSION["cognome"];
                     $email=$_SESSION["email"];
@@ -141,7 +103,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$costo</p>";
-                    echo "<a href='eliminaaccountmedico.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
+                    echo "<a href='logout.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Logout</p></button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {

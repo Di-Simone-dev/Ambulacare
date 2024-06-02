@@ -9,7 +9,7 @@
 
         <title>Ambula Care</title>
 
-        <!-- CSS FILES -->        
+        <!-- CSS FILES -->     
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +25,8 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="casiadmin.css">
-
-        <link href="font.css" rel="stylesheet">
-
+        <link href="casimedico.css" rel="stylesheet">
+        <link href="font.css" rel="stylesheet">   
 <!--
 
 TemplateMo 566 Medic Care
@@ -57,26 +54,34 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexadmin.html">Home</a>
+                                <a class="nav-link" href="indexmedico.html">Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
+                                <a class="nav-link" href="visualizzastoricoesami_caricamentoreferto_profilomedico.html">Storico esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaappuntamenti_admin.html">Visualizza appuntamenti</a>
+                                <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
+                            </li>
+
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaesami_admin.html">Visualizza esami</a>
+                                <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_admin.html">Visualizza recensioni</a>
+                                <a class="nav-link" href="visualizzastoricoesami_perpaziente_profilomedico.html">Ricerca pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                                <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -85,34 +90,11 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
         </main>
+        <br><br>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form action="#">
-                        <div class="form-group" >
-                            <br><br>
-                            <h2><label>Gestione Appuntamenti</label></h2>
-                            <br>
-                            <select name="tipologia" id="categ" class="form-select">
-                                <option value="select">Seleziona una tipologia</option>
-                                <option value="dentista">dentista</option>
-                                <option value="oculista">oculista</option>
-                                <option value="otorino">otorino</option>
-                                <option value="cardiologo">cardiologo</option>
-                                <option value="radiologo">radiologo</option>
-                                <option value="neurologo">neurologo</option>
-                                <option value="urologo">urologo</option>
-                                <option value="neurofisiopatologo">neurofisiopatologo</option>
-                            </select>
-                            <br>
-                                <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
-                            <br><br>
-                                <input type="time" id="oraprenotinizio" placeholder="Orario prenotazione" name="oraprenotinizio" />
-                                <input type="time" id="oraprenotfine" placeholder="Orario prenotazione" name="oraprenotfine" />
-                                <br><br>
-                            <button type="submit" class="btn btn-primary">Filtra Risultati</button>
-                        </div>
-                    </form>
+                    <h2>Storico Esami di Giacomo Giannini</h2>
                 </div>
             </div>
         </div>
@@ -123,36 +105,32 @@ https://templatemo.com/tm-566-medic-care
                     <tr>
                         <th scope="col">Data</th>
                         <th scope="col">Ora</th>
-                        <th scope="col">Medico</th>
                         <th scope="col">Tipologia</th>
-                        <th scope="col">Costo</th>
-                        <th scope="col">Azioni</th>
+                        <th scope="col">Medico</th>
+                        <th scope="col">Azione</th>
                     </tr>
                 </thead>
                 <tbody style="text-align: center;">
                     <tr>
-                        <td>01/06/2024</td>
-                        <td>10:00</td>
-                        <td>Papile</td>
-                        <td>Cardiologo</td>
-                        <td>50€</td>
-                        <td><a href="modificaappuntamento_admin.html"><button class="btn btn-primary">Modifica</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>10/08/2024</td>
-                        <td>12:00</td>
-                        <td>Iannotti</td>
-                        <td>Neurologo</td>
-                        <td>80€</td>
-                        <td><a href="modificaappuntamento_admin.html"><button class="btn btn-primary">Modifica</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>11/12/2024</td>
+                        <td>11/01/2022</td>
                         <td>09:00</td>
-                        <td>Di Simone</td>
-                        <td>Oculistica</td>
-                        <td>50€</td>
-                        <td><a href="modificaappuntamento_admin.html"><button class="btn btn-primary">Modifica</button></a></td>
+                        <td>Cardiologia</td>
+                        <td>Dottor Papile</td>
+                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
+                    </tr>
+                    <tr>
+                        <td>05/10/2022</td>
+                        <td>10:00</td>
+                        <td>Radiologia</td>
+                        <td>Dottoressa Carmenini</td>
+                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
+                    </tr>
+                    <tr>
+                        <td>28/05/2023</td>
+                        <td>11:00</td>
+                        <td>Neurologia</td>
+                        <td>Dottoressa Quintiliani</td>
+                        <td><a href="visualizzareferto.html"><button class="btn btn-primary">Visualizza Referto</button></a></td>
                     </tr>
                 </tbody>
             </table>

@@ -25,6 +25,7 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
+        <link href="casiadmin.css" rel="stylesheet">
         <link href="font.css" rel="stylesheet">
     </head>
     <!--<style>
@@ -50,56 +51,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
 
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item active">
+                        <li class="nav-item active">
                                 <a class="nav-link" href="indexadmin.html">Home</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">Visualizza appuntamenti</a>
+                                <a class="nav-link" href="visualizzaappuntamenti_profiloadmin.html">Visualizza appuntamenti</a>
                             </li>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
-
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
-
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaesami_admin.html">Visualizza esami</a>
+                                <a class="nav-link" href="visualizzastoricoesami_profiloadmin.html">Visualizza esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_admin.html">Visualizza recensioni</a>
+                                <a class="nav-link" href="visualizzarecensioni_profiloadmin.html">Visualizza recensioni</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
-                            </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
-                            <li class="nav-item" >
-                                <a class="nav-link" href="logout.php">Logout</a>
                             </li>
                         </ul>
                     </div>
 
                 </div>
             </nav>
-    <!--<div class="w3-top">
-        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="indexutente.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-            <a href="prodottiutente.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Prodotti</a>
-            <a href="profilo.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Profilo</a>
-            <a href="logout.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
-    </div>-->
     <br><br>
     <div>
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
@@ -109,16 +87,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                 $check = $pdo->prepare($query);
                 $check->bindParam(':email', $email, PDO::PARAM_STR);
                 $check->execute();
-            
-        /*if(empty($riga['immagine'])){
-            echo "<img class='img' src='img/profiloanonimo.png' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }
-        else{
-            echo "<img class='img' src='img/".$riga['immagine']."' alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>";
-        }*/
-        //<img class="img" src="img/download.jpeg" alt="Foto Profilo" style="width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;">
-        //mysqli_close($conn);
-       
         
                     $nome=$_SESSION["nome"];
                     $cognome=$_SESSION["cognome"];
@@ -129,7 +97,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<a href='eliminaaccountadmin.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Elimina Account </p></button></a>";
+                    echo "<a href='logout.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Logout </p></button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {
