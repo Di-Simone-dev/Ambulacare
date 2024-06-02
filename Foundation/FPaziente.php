@@ -212,6 +212,15 @@ class FPaziente  {
         }
     }
 
+    public static function verify($field, $id){  //PER IL CHECK DEI NON DUPLICATI ALLA REGISTRAZIONE
+        $queryResult = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), $field, $id);
+
+        return FEntityManagerSQL::getInstance()->existInDb($queryResult);
+    }
+
+
+
+
     
 
-    }
+}

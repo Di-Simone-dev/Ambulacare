@@ -341,10 +341,10 @@ class FPersistentManager{
      * @param int $idUser Refrs to the user who follow
      */
 
-    //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA
+    //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
     public static function getagendamedico($IdMedico){
         //prende gli utenti seguti da $idUser, crea una lista di utenti
-        $followRow = FEntityManagerSQL::getInstance()->retriveObj(FUserFollow::getTable(), 'idFollower', $idUser);
+        $followRow = FEntityManagerSQL::getInstance()->retriveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
         $result = array();
         if(count($followRow) > 0){
             for($i = 0; $i < count($followRow); $i++){
@@ -593,12 +593,26 @@ public static function loadHomePage($id){
      * Method to update a User that have changed the profile image  
      * @param \EUser $user
      */
-    public static function updateUserIdImage($user){
-        $field = [['idImage', $user->getIdImage()]];
-        $result = FUser::saveObj($user, $field);
+    //PER AGGIORNARE LE PROPIC DI MEDICI 
+    public static function updatemedicopropic($medico){
+        $field = [['IdImmagine', $medico->getIdImmagine()]];    //NON è DETTO CHE FUNZIONI bisogna cambiare entity
+        $result = FMedico::saveObj($medico, $field);
+                                                                //D 
+        return $result;
+    }
+
+    /**
+     * Method to update a User that have changed the profile image  
+     * @param \EUser $user
+     */
+    //PER AGGIORNARE LE IMMAGINI DEI REFERTI
+    public static function updateimmaginereferto($referto){
+        $field = [['IdImmagine', $referto->getIdImmagine()]];  //NON è DETTO CHE FUNZIONI
+        $result = FReferto::saveObj($referto, $field);   //DA FIXARE L'UPDATE DEL REFERTO IN FREFERTO
 
         return $result;
     }
+
 
     /*
      * Method to update a User that have changed the warnings attribute 
@@ -617,9 +631,20 @@ public static function loadHomePage($id){
      * Method to update a User that have changed the username
      * @param \EUser $user
      */
-    public static function updateUserUsername($user){
-        $field = [['username', $user->getUsername()]];
-        $result = FUser::saveObj($user, $field);
+    public static function updatemailmedico($medico){
+        $field = [['email', $medico->getEmail()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+    /**
+     * Method to update a User that have changed the username
+     * @param \EUser $user
+     */
+    public static function updatemailpaziente($paziente){
+        $field = [['email', $paziente->getEmail()]];
+        $result = FPaziente::saveObj($paziente, $field);
 
         return $result;
     }
@@ -628,24 +653,37 @@ public static function loadHomePage($id){
      * Method to update a User that have changed the password 
      * @param \EUser $user
      */
-    public static function updateUserPassword($user){
-        $field = [['password', $user->getPassword()]];
-        $result = FUser::saveObj($user, $field);
+    public static function updatepasswordmedico($medico){
+        $field = [['password', $medico->getPassword()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+    /**
+     * Method to update a User that have changed the password 
+     * @param \EUser $user
+     */
+    public static function updatepasswordpaziente($paziente){
+        $field = [['password', $paziente->getPassword()]];
+        $result = FPaziente::saveObj($paziente, $field);
 
         return $result;
     }
 
 //------------------------------------------------POST UPDATE---------------------------------------------------------------------
-    /**
+    /*
      * Method to update a Post that have changed the ban attribute 
      * @param \EPost $post
      */
+    /*
     public static function updatePostBan($post){
         $field = [['removed', $post->isBanned()]];
         $result = FPost::saveObj($post, $field);
 
         return $result;
     }
+    */
 
 //--------------------------------------------COMMENT UPDATE-----------------------------
 
@@ -654,7 +692,7 @@ public static function loadHomePage($id){
      * @param \EComment $comment
      */
     public static function updateCommentBan($comment){
-        $field = [['removed', $comment->isBanned()]];
+        $field = [['removed', $comment->isBanned()]];           //SERVE UN MECCANISMO SIMILE PER LE RECENSIONI
         $result = FComment::saveObj($comment, $field);
 
         return $result;
@@ -668,21 +706,35 @@ public static function loadHomePage($id){
      * verify if exist a user with this email (also mod)
      * @param string $email
      */
-    public static function verifyUserEmail($email){
-        $result = FPerson::verify('email', $email);
+    public static function verificaemailpaziente($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
+        $result = FPaziente::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
 
         return $result;
     }
 
     /**
+     * verify if exist a user with this email (also mod)
+     * @param string $email
+     */
+    public static function verificaemailmedico($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
+        $result = FMedico::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
+
+        return $result;
+    }
+
+
+
+    /*
      * verify if exist a user with this username (also mod)
      * @param string $username
      */
+    /*
     public static function verifyUserUsername($username){
         $result = FPerson::verify('username', $username);
 
         return $result;
     }
+    */
 
 //---------------------------------------------------USER PAGE-----------------------------------------------------------------
 
@@ -690,6 +742,7 @@ public static function loadHomePage($id){
      * load all post of a user that are not banned
      * @param int $id Refers to the user id 
      */
+    //QUESTO POTREBBE ESSERE MODIFICATO PER ESSERE UTILE
     public static function loadUserPage($id)
     {
         $allPosts = FPost::postListNotBanned($id);
@@ -726,10 +779,11 @@ public static function loadHomePage($id){
 
 //------------------------EXPLORE PAGE--------------------------------------------
     
-    /**
+    /*
      * load all post not banned that are not belonged to the user
      * @param int $idUser Refers to the user 
      */
+    /*
     public static function loadPostInExplore($idUser)
     {
         $explorePagePost = FPost::postInExplore($idUser);
@@ -746,7 +800,7 @@ public static function loadHomePage($id){
             return $explorePagePostsAndUserPropic;
         }
     }
-
+    */
 //----------------------------VISITED POST PAGE-------------------------------------
 
     /**

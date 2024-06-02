@@ -244,6 +244,11 @@ class FMedico  {
 
     }
 
+    public static function verify($field, $id){
+        $queryResult = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), $field, $id);
+
+        return FEntityManagerSQL::getInstance()->existInDb($queryResult);
+    }
 
 
 
