@@ -32,10 +32,10 @@ class CUser{
      */
     public static function isBanned()   //QUI ABBIAMO IL CHECK SUL BAN O MENO DELL'UTENTE USANDO FOUNDATION ED IL DB
     {
-        $userId = USession::getSessionElement('user');
-        $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
-        if($user->isBanned()){
-            $view = new VUser();
+        $userId = USession::getSessionElement('user');     //dipende da come settiamo l'array session
+        $user = FPersistentManager::getInstance()->retriveObj(EPaziente::getEntity(), $userId);
+        if(!($user->getAttivo())){
+            $view = new VUser();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
             USession::unsetSession();
             USession::destroySession();
             $view->loginBan();

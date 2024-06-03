@@ -31,6 +31,10 @@ class EPaziente
 
     }
     //metodi
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
     public function getIdPaziente()
     {
         return $this->IdPaziente;
