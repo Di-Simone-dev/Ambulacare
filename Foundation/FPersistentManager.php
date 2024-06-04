@@ -237,7 +237,7 @@ class FPersistentManager{
      */
     public static function caricaimmaginemedico(EImmagine $immagine, EMedico $medico){
 
-        $medico->setImmagine($immagine);
+        $medico->setIdImmagine($immagine);
 
         $uploadImmagine = FImmagine::saveObj($immagine);
         //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del medico
@@ -262,7 +262,7 @@ class FPersistentManager{
      */
     public static function caricaimmaginereferto(EImmagine $immagine, EReferto $referto){
 
-        $referto->setImmagine($immagine);
+        $referto->setIdImmagine($immagine);
 
         $uploadImage = FImmagine::saveObj($immagine);
         //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del referto
@@ -360,7 +360,7 @@ class FPersistentManager{
      * @param int $idUser Refrs to the user who follow
      */
     public static function getappuntamentipaziente($IdPaziente){
-        //prende gli utenti che seguono $idUser, crea una lista di utenti
+        //prende gli APPUNTAMENTI di IdPaziente (ottimo per caricare i propri appuntamenti da svolgere)
         $appuntamenti = FEntityManagerSQL::getInstance()->retriveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
         $appuntamentipaziente = array();
         if(count($appuntamenti) > 0){
@@ -737,24 +737,6 @@ public static function loadHomePage($id){
     */
 
 //---------------------------------------------------USER PAGE-----------------------------------------------------------------
-
-/**
-     * load all post of a user that are not banned
-     * @param int $id Refers to the user id 
-     */
-    //QUESTO POTREBBE ESSERE MODIFICATO PER ESSERE UTILE
-    public static function loadUserPage($id)
-    {
-        $allPosts = FPost::postListNotBanned($id);
-
-        if(count($allPosts) > 0){
-            usort($allPosts, ['FPost', 'comparePostsByCreationTime']);
-        }
-        $result = self::loadPostsAndLikes($allPosts);
-
-        return $result;
-    }
-
 //-----------------------CATEGORY PAGE----------------------------------------------
 
     /**

@@ -111,6 +111,18 @@ class FAppuntamento{
         }
     }
 
+    //PER LOADDARE UN APPUNTAMENTO DAL SUO IdPaziente
+    public static function getappuntamentofrompaziente($IdPaziente){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdPaziente" , $IdPaziente);
+        //var_dump($result);
+        if(count($result) > 0){  //dovrebbe funzionare per molteplici appuntamenti
+            $Appuntamento = self::creaappuntamento($result);
+            return $Appuntamento;
+        }else{
+            return null;
+        }
+    }
+
 
     //CON QUESTO SALVO GLI APPUNTAMENTI, MA DOVREBBE ANCHE SERVIRE UNA MODALITà DI MODIFICA
     //if field null salva, sennò deve updetare la table
@@ -171,6 +183,18 @@ class FAppuntamento{
         }
     }
 
+    public static function confrontadataappuntamenti($app1, $app2) {//SERVONO LE FASCE ORARIE SE VOGLIAMO ORDINARE
+        //POTREMMO TRANQUILLAMENTE NON FARLO E ORDINDARE PER PK
+
+        $time1 = $app1->getIdAppuntamento();  //L'ID DEGLI APPUNTAMENTI SEGUE L'ORDINE DI CREAZIONE, POTREBBE ESSERE USATO
+        $time2 = $app2->getIdAppuntamento();
+
+        if ($time1 == $time2) {
+            return 0;
+        }
+
+        return ($time1 > $time2) ? -1 : 1;
+    }
 
 
 
