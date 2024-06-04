@@ -4,8 +4,8 @@ class ERisposta
     private $IdRisposta;
     private $contenuto;
     private DateTime $data_creazione;
-    private $recensione;
-    private $medico;
+    private $recensione;   //FK senza ID
+    private $medico;  //FK SENZA ID
     private static $entity = ERisposta::class;
     //constructor
     public function __construct($contenuto)

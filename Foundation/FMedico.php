@@ -97,7 +97,7 @@ class FMedico  {
                  //come si mette LA TIPOLOGIA? (FOREIGN KEY)
                 //DA TESTARE
                 $tipologia = FTipologia::getObj($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
-                $medico->setTipologia($tipologia);
+                $medico->setTipologia($tipologia);  //CI POTREBBE ESSERE UN FIX DA FARE
                 //ispirazione presa da FReport
                 
                 $medici[] = $medico;   //AGGIUNGE L'ELEMENTO ALL'ARRAY MEDICI

@@ -7,9 +7,9 @@ class ERecensione
     private float $valutazione;
     private DateTime $data_creazione;
 
-    private $medico;
+    private $medico;  //FK senza id
     
-    private $paziente;
+    private $paziente;  //FK senza id
 
     private static $entity = ERecensione::class;
     //costruttore

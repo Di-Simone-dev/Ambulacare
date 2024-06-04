@@ -5,7 +5,7 @@ class ECalendario
 
     private $IdCalendario;
 
-    private $medico;
+    private $medico;  //FK
 
     private static $entity = ECalendario::class;
     //costruttore

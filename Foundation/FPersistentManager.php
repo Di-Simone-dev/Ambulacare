@@ -812,17 +812,18 @@ public static function loadHomePage($id){
     
 //----------------------------FOLLOWED PAGE--------------------------------------------
 
-    /**
+    /*
      * Method to return the Follower User List and their profile pic
      * @param int $idUser
      */
+    /*
     public static function getFollowerList($idUser){
         $userList = self::getFollowerUserList($idUser);
 
         $userAndPropicArr = self::loadUsersAndImage($userList);
 
         return $userAndPropicArr;
-    }
+    }*/
 
 //------------------------------------------------------------------------------------
 
@@ -867,6 +868,7 @@ public static function loadHomePage($id){
      * Method to load in an array the number of like, number of follower and number of followed
      * @param \EPost $post 
      */
+    /*
     public static function loadFollLikeNumb($post){
         $likeNumb = self::getLikeNumber($post->getId());
         $followerNumb = self::getFollowerNumb($post->getUser()->getId());
@@ -875,7 +877,7 @@ public static function loadHomePage($id){
         $result = array($likeNumb, $followerNumb, $followedNumb);
 
         return $result;
-    }
+    }*/
 
     /**
      * Method to return COmments and their user Propic
@@ -883,6 +885,7 @@ public static function loadHomePage($id){
      */
 
      //RISULTA NECESSARIO UN METODO CHE RITORNI LE RECENSIONI DI UN DETERMINATO MEDICO 
+     /*
     public static function loadCommentsAndUsersPic($idPost){
         $comments = self::getCommentList($idPost);
         $result = array();
@@ -892,21 +895,23 @@ public static function loadHomePage($id){
             $result[] = $arrayData;
         }
         return $result;
-    }
+    }*/
 
     /**
      * Method to load likes of a Post and their users Propic
      * @param int $idPost
      */
+    /*
     public static function getLikesPage($idPost){
         $user = self::getLikesUserOfAPost($idPost);
         return self::loadUsersAndImage($user);
-    }
+    }*/
 
     /**
      * Method to return a Post(Proxy) with the User setted
      * @param int $idPost
      */
+    /*
     public static function getPostAndUser($idPost){
 
         $queryResult = FEntityManagerSQL::getInstance()->retriveObj(FPost::getTable(), FPost::getKey(), $idPost);
@@ -915,11 +920,11 @@ public static function loadHomePage($id){
 
         return $post;
 
-    }
+    }*/
 
 //----------------------------------------------------IMAGE VALIDATION------------------------------------------------------------------------
 
-
+/*
 public static function manageImages($uploadedImages, $post, $idUser){
     foreach($uploadedImages['tmp_name'] as $index => $tmpName){
         $file = [
@@ -940,18 +945,18 @@ public static function manageImages($uploadedImages, $post, $idUser){
         }
     }
     return $checkUploadImage;
-}
+} */
 
     /**
  * check if the uploaded image is ok and then create an Image Obj and save it in the database
  */
-public static function uploadImage($file){
-    $check = self::validateImage($file);
+public static function caricaimmagine($file){
+    $check = self::validaimmagine($file);
     if($check[0]){
         
         //create new Image Obj ad perist it
-        $image = new EImage($file['name'], $file['size'], $file['type'], file_get_contents($file['tmp_name']));
-        return $image;
+        $immagine = new EImmagine($file['nome'], $file['dimensione'], $file['tipo'], file_get_contents($file['tmp_name']));
+        return $immagine;                                                            //????????????????????????????????
     }else{
         return $check[1];
     }
@@ -960,7 +965,7 @@ public static function uploadImage($file){
 /**
  * check if the image is ok and in case return the error
  */
-public static function validateImage($file){
+public static function validaimmagine($file){
     if($file['error'] !== UPLOAD_ERR_OK){
         $error = 'UPLOAD_ERROR_OK';
 

@@ -10,7 +10,7 @@ class EFasciaoraria
     //private $ora_inizio;   //questa non sarebbe una datetime ma una stringa nella pratica (solo ora scritta)
                             //QUESTA SAREBBE RICAVABILE DA $DATA, QUESTA è UNA RIDONDANZA ma probabilmente conviene tenerla
 
-    private $calendario;
+    private $calendario;   //FK
 
     private static $entity = EFasciaoraria::class;
     //costruttore

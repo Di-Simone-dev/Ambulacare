@@ -54,7 +54,7 @@ class FReferto {
         $stmt->bindValue(':oggetto', $ref->getOggetto(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $ref->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':IdAppuntamento', $ref->getAppuntamento()->getIdAppuntamento(), PDO::PARAM_STR);  //FK
-        $stmt->bindValue(':IdImmagine', $ref->getImmagine()->getIdImmagine(), PDO::PARAM_STR);      //FK 
+        $stmt->bindValue(':IdImmagine', $ref->getIdImmagine()->getIdImmagine(), PDO::PARAM_STR);      //FK 
     }
 
     public static function creareferto($queryResult){
@@ -66,7 +66,7 @@ class FReferto {
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
                 $immagine = FImmagine::getObj($queryResult[$i]['IdImmagine']);  //il campo IdPaziente è proprio l'id
-                $referto->setImmagine($immagine);
+                $referto->setIdImmagine($immagine);
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)
@@ -96,7 +96,8 @@ class FReferto {
     }
 
 
-    //CON QUESTO SALVIAMO I REFERTI
+    //CON QUESTO SALVIAMO I REFERTI va messo anche quello per cambiarli
+    /*
     public static function saveObj($referto){
             $savereferto = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $referto);
             if($savereferto !== null){
@@ -105,6 +106,52 @@ class FReferto {
                 return false;
             }
     }
+    */
+        //if field null salva, sennò deve updetare la table
+    //fieldArray è un array che deve contere array aventi nome del field e valore 
+    //ALTRO MALLOPPONE CHE SERVE A SALVARE UN PAZIENTE o AD AGGIORNARNE I DATI
+
+    public static function saveObj($referto, $fieldArray = null){
+        if($fieldArray === null){   
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FReferto::getClass(), $referto);
+                if($savePersonAndLastInsertedID !== null){
+                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $referto, $savePersonAndLastInsertedID);
+                    FEntityManagerSQL::getInstance()->getDb()->commit();
+                    if($saveUser){
+                        return $savePersonAndLastInsertedID;
+                    }
+                }else{
+                    return false;
+                }
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }else{   //QUA è NEL CASO DI UPDATE $fieldarray contiene i campi da updatare
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                //var_dump($fieldArray);
+                foreach($fieldArray as $fv)
+                {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
+                    FEntityManagerSQL::getInstance()->updateObj(FReferto::getTable(), $fv[0], $fv[1], self::getKey(), $referto->getId());
+                }
+                FEntityManagerSQL::getInstance()->getDb()->commit();
+                return true;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }  
+        }
+    }
+
 
     /**
      * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
