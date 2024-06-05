@@ -93,7 +93,7 @@ class FRecensione {
 
     //PER LOADDARE UNA RECENSIONE DAL SUO ID
     public static function getObj($IdRecensione){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
         if(count($result) > 0){
             $recensione = self::crearecensione($result);
@@ -129,7 +129,7 @@ class FRecensione {
 
     //PER CONTARE IL NUMERO DI RECENSIONI DI UN MEDICO
     public static function getnumerorecensionimedico($IdMedico){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdMedico", $IdMedico);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdMedico", $IdMedico);
         //var_dump($result);
         return count($result);
         
@@ -137,7 +137,7 @@ class FRecensione {
 
     //PER LOADDARE le recensioni di utenti non bannati    ATTENZIONE  QUESTA VA FATTA SU ENTITY MANAGER
     public static function getrecensionipazientiattivi($IdMedico){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
         if(count($result) > 0){
             $recensione = self::crearecensione($result);

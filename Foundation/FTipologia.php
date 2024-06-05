@@ -74,7 +74,7 @@ class FTipologia {
 
     //PER LOADDARE UNA FASCIA ORARIA DAL SUO ID
     public static function getObj($IdTipologia){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdTipologia);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdTipologia);
         //var_dump($result);
         if(count($result) > 0){
             $post = self::creatipologia($result);

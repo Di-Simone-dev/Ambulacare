@@ -64,7 +64,7 @@ class FEntityManagerSQL{
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
-    public static function retriveObj($table, $field ,$id){
+    public static function retrieveObj($table, $field ,$id){
         try{
             $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
             $stmt = self::$db->prepare($query);

@@ -71,7 +71,7 @@ class FAmministratore {
     }
 
     public static function getObj($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $mod = self::creaamministratore($result);

@@ -115,7 +115,7 @@ class FMedico  {
      * @return $medico l'oggetto medico se presente
      */
     public static function getObj($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(), self::getKey(), $id);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $medico = self::creamedico($result);  //va bene anche per un array di medici
@@ -128,7 +128,7 @@ class FMedico  {
 
     //RISULTA NECESSARIA PER SODDISFARE LE SPECIFICHE UNA QUERY CHE RESTITUISCA TUTTI I MEDICI DI UNA CERTA TIPOLOGIA
     public static function getmedicofromtipologia($idTipologia){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(),"Tipologia", $idTipologia);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(),"Tipologia", $idTipologia);
         //var_dump($result);
         if(count($result) > 0){
             $medico = self::creamedico($result);  //va bene anche per un array di medici
@@ -140,7 +140,7 @@ class FMedico  {
     }
 
     public static function getmedicofromemail($email){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(), "email", $email);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), "email", $email);
         //var_dump($result);
         if(count($result) > 0){
             $paziente = self::creamedico($result);  //va bene anche per un array di pazienti
@@ -199,14 +199,14 @@ class FMedico  {
 
     public static function getMedicinonBannati($IdTipologia)
     {
-        //OBJECTLISTNOTREMOVED VA CAMBIATO
         $result = FEntityManagerSQL::getInstance()->objectListNotRemoved(self::getTable(), FTipologia::getKey(), $IdTipologia);
-        //RESULT CONTIENE I MEDICI LA CUI TIPOLOGIA è IDTIPOLOGIA E CHE NON SONO BANNATI 
+        //$result contiene i medici con IdTipologia e NON bannati
+        //il controllo sul ban viene effettuato direttamente nel metodo objectListNotRemoved
         if(count($result) == 1){
-            $comment = array();
-            $c = self::creamedico($result);
-            $comment[] = $c;
-            return $comment;
+            $medici = array();
+            $medico = self::creamedico($result);
+            $medici[] = $medico;
+            return $medici;
         }elseif(count($result) > 1){
             return self::creamedico($result);
         }else{
@@ -217,7 +217,7 @@ class FMedico  {
 
 
     public static function getmediarecensioni($IdMedico){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FRecensione::getTable(), self::getKey(), $IdMedico);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(), self::getKey(), $IdMedico);
         //QUI ABBIAMO TUTTE LE RECENSIONI DEL MEDICO
         //PROBABILMENTE CONVIENE FARE UNA QUERY A PARTE
         //var_dump($result);
@@ -245,7 +245,7 @@ class FMedico  {
     }
 
     public static function verify($field, $id){
-        $queryResult = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), $field, $id);
+        $queryResult = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), $field, $id);
 
         return FEntityManagerSQL::getInstance()->existInDb($queryResult);
     }

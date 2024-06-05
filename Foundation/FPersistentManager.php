@@ -6,7 +6,7 @@
 class FPersistentManager{
 
     /**
-     * Singleton Class
+     * classe singleton
      */
 
      private static $instance;
@@ -18,7 +18,7 @@ class FPersistentManager{
      }
 
      /**
-     * Method to create an instance af the PersistentManager
+     * Metodo per creare una istanza di PersistentManager
      */
      public static function getInstance()
     {
@@ -29,14 +29,14 @@ class FPersistentManager{
         return self::$instance;
     }
 
-    //------------------------------Directly with EntityManager---------------------------
+    //METODI DI BASE PER IL RETRIEVE E L'UPLOAD
     /**
-     * return an object specifying the class and the id 
-     * @param string $class Refers to the Entity class of the object
-     * @param int $id Refers to the id o the object
+     * returna un oggetto dandone in input la classe e l'id
+     * @param string $class è la classe Entity dell'oggetto
+     * @param int $id è l'id dell'oggetto
      * @return mixed
      */
-    public static function retriveObj($class, $id){
+    public static function retrieveObj($class, $id){
        
         $foundClass = "F" . substr($class, 1);
         $staticMethod = "getObj";    //il metodo della classe si deve chiamare così
@@ -44,41 +44,37 @@ class FPersistentManager{
         $result = call_user_func([$foundClass, $staticMethod], $id);
 
         return $result;
-    }
+    }    //metodo molto potente, ma serve chiamare tutti i metodi "retrieveObj"
 
     /**
-     * upload any Object in the database
-     * @param object $obj Rfers to the object to store
+     * caricamento di un qualsiasi oggetto nel db
+     * @param object $obj è l'oggetto da caricare nel db
      * @return mixed
      */
     public static function uploadObj($obj){
         $foundClass = "F" . substr(get_class($obj), 1);
-        $staticMethod = "saveObj";  //FIXATO ANCHE QUESTO
+        $staticMethod = "saveObj";  
 
         $result = call_user_func([$foundClass, $staticMethod], $obj);
 
         return $result;
-    }   //metodo molto potente se funzionante ma serve chiamare tutti i metodi "saveObj"
+    }   //metodo molto potente, ma serve chiamare tutti i metodi "saveObj"
 
     //---------------------------------------------------------------------------
 
     /**
-     * return a list of Comments belonged to a post
-     * @param $idPost Refers to the id of the post 
+     * ritorna una lista di medici non bannati della categoria inserita 
+     * @param $IdTipologia è il campo della tabella tipologia ed fk nella tabella medico
      */
-    public static function getListaMediciAttiviFromTipologia($IdTipologia)
+    public static function retriveMediciAttiviFromTipologia($IdTipologia)
     {
-        //PER UNA DATA TIPOLOGIA RESTITUISCE L'ELENCO DEI MEDICI ATTIVI
         $result = FMedico::getMedicinonBannati($IdTipologia);
-        //$result = FComment::getCommentListNotBanned($idPost);
-
         return $result;
-
     }
 
     /**
-     * return a User findig it not on the id but on it's username
-     * @param string $username Refers to the username of the user to get
+     * ritorna un paziente dandone in input la sua mail (è una credenziale di accesso univoca)
+     * @param string $username è la mail del paziente
      */
     public static function retrivePazienteFromEmail($email)
     {
@@ -344,7 +340,7 @@ class FPersistentManager{
     //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
     public static function getagendamedico($IdMedico){
         //prende gli utenti seguti da $idUser, crea una lista di utenti
-        $followRow = FEntityManagerSQL::getInstance()->retriveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
+        $followRow = FEntityManagerSQL::getInstance()->retrieveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
         $result = array();
         if(count($followRow) > 0){
             for($i = 0; $i < count($followRow); $i++){
@@ -361,7 +357,7 @@ class FPersistentManager{
      */
     public static function getappuntamentipaziente($IdPaziente){
         //prende gli APPUNTAMENTI di IdPaziente (ottimo per caricare i propri appuntamenti da svolgere)
-        $appuntamenti = FEntityManagerSQL::getInstance()->retriveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
+        $appuntamenti = FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
         $appuntamentipaziente = array();
         if(count($appuntamenti) > 0){
             for($i = 0; $i < count($appuntamenti); $i++){
@@ -752,7 +748,7 @@ public static function loadHomePage($id){
 
         $categoryPagePostsAndUserPropic = array();
         foreach($categoryPagePost as $p){
-            $arrayData = array($p, self::retriveObj(FImage::getClass(), $p->getUser()->getIdImage()));
+            $arrayData = array($p, self::retrieveObj(FImage::getClass(), $p->getUser()->getIdImage()));
             $categoryPagePostsAndUserPropic[] = $arrayData;
         }
 
@@ -838,12 +834,12 @@ public static function loadHomePage($id){
         $result = array();
         if(is_array($mediciInput)){
             foreach($mediciInput as $u){
-                $arrayData = array($u, self::retriveObj(FImmagine::getClass(), $u->getIdImmagine())); //serve un ritocco ad entity medico
+                $arrayData = array($u, self::retrieveObj(FImmagine::getClass(), $u->getIdImmagine())); //serve un ritocco ad entity medico
                 $result[] = $arrayData;
             }
         }else{
-            $user = self::retriveObj(FMedico::getClass(), $mediciInput);
-            $arrayData = array($user, self::retriveObj(FImmagine::getClass(), $user->getIdImmagine())); // pure qua
+            $user = self::retrieveObj(FMedico::getClass(), $mediciInput);
+            $arrayData = array($user, self::retrieveObj(FImmagine::getClass(), $user->getIdImmagine())); // pure qua
             $result[] = $arrayData;
         }
         return $result;
