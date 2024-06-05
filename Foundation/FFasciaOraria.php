@@ -82,7 +82,7 @@ class FFasciaOraria{
 
     //PER LOADDARE UNA FASCIA ORARIA DAL SUO ID
     public static function getObj($IdFascia_oraria){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdFascia_oraria);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdFascia_oraria);
         //var_dump($result);
         if(count($result) > 0){
             $post = self::creafasciaoraria($result);

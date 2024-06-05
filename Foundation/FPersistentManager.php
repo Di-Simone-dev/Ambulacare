@@ -60,95 +60,190 @@ class FPersistentManager{
         return $result;
     }   //metodo molto potente, ma serve chiamare tutti i metodi "saveObj"
 
-    //---------------------------------------------------------------------------
+    //-----------------------------METODI RETRIEVE------------------------------
+
+
+    //PAZIENTE
 
     /**
-     * ritorna una lista di medici non bannati della categoria inserita 
+     * ritorna un paziente dando come argomento la sua mail (è una credenziale di accesso univoca)
+     * @param string $email è la mail del paziente
+     */
+    public static function retrievepazientefromemail($email)
+    {
+        $result = FPaziente::getpazientefromemail($email);
+        return $result;
+    }
+
+    /**
+     * ritorna un'array contenente tutti i pazienti della piattaforma (uso dell'admin)
+     */
+    public static function retrieveallpazienti(){
+        $result = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
+        //var_dump($queryResult);
+
+        return $result;
+    }
+
+    /**
+     * ritorna un'array contenente tutti gli appuntamenti della di un determinato paziente dando come argomento il suo Id
+     * @param int $idUser Refrs to the user who follow
+     */
+    public static function retrieveappuntamentifrompaziente($IdPaziente){
+        //prende gli APPUNTAMENTI di IdPaziente (ottimo per caricare i propri appuntamenti da svolgere)
+        $appuntamenti = FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
+        $appuntamentipaziente = array();
+        if(count($appuntamenti) > 0){
+            for($i = 0; $i < count($appuntamenti); $i++){
+                $appuntamenti = FAppuntamento::getObj($appuntamenti[$i]['IdAppuntamento']);
+                $appuntamentipaziente[] = $appuntamenti; 
+            }
+        }
+        return $appuntamentipaziente;
+    }
+
+
+//MEDICO
+
+    /**
+     * ritorna un medico dando come argomento la sua mail (è una credenziale di accesso univoca)
+     * @param string $email è la mail del medico
+     */
+    public static function retrievemedicofromemail($email){
+
+        $result = FMedico::getmedicofromemail($email);
+        return $result;
+    }
+
+    /**
+     * ritorna un'array contenente tutti i medici della piattaforma (uso dell'admin)
+     */
+    public static function retrieveallmedici(){
+        $result = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
+        //var_dump($queryResult);
+        return $result;
+    }
+
+    /**
+     * ritorna un'array contenente le propic dei medici contenuti nell'array inserito come argomento
+     */
+    public static function retrievemedicipropic($arraymedici){
+        $mediciProfilePic = array();
+        if(count($arraymedici) > 0){
+            foreach($arraymedici as $u){
+                $proPic = FImmagine::getObj($u->getIdImmagine());  //da ogni medico mi prendo l'id dell'immagine
+                //associative array (hash table)
+                $mediciProfilePic[$u->getId()] = $proPic;
+            }
+        }
+        return $mediciProfilePic;
+    }
+
+    /**
+     * $mediciInput è un'array di medici fornito come argomento e ritorniamo un'array contenente il medico con la relativa IdImmagine di propic
+     * Method to load Users and their Profile Image
+     * @param array | int $userInput 
+     */
+
+     //UTILIZZABILE PER LA LOAD DI MEDICI CON LE FOTO PRIFILO?
+     public static function retrievemedicieimmagini($mediciInput){
+        $result = array();
+        if(is_array($mediciInput)){
+            foreach($mediciInput as $u){
+                $arrayData = array($u, self::retrieveObj(FImmagine::getClass(), $u->getIdImmagine())); 
+                $result[] = $arrayData;
+            }
+        }else{
+            $medico = self::retrieveObj(FMedico::getClass(), $mediciInput);
+            $arrayData = array($medico, self::retrieveObj(FImmagine::getClass(), $medico->getIdImmagine())); 
+            $result[] = $arrayData;
+        }
+        return $result;
+    }
+
+    /**
+     * ritorna un'array di medici non bannati della categoria inserita 
      * @param $IdTipologia è il campo della tabella tipologia ed fk nella tabella medico
      */
-    public static function retriveMediciAttiviFromTipologia($IdTipologia)
+    public static function retrivemediciattivifromtipologia($IdTipologia)
     {
         $result = FMedico::getMedicinonBannati($IdTipologia);
         return $result;
     }
 
+    
     /**
-     * ritorna un paziente dandone in input la sua mail (è una credenziale di accesso univoca)
-     * @param string $username è la mail del paziente
+     * ritorna un'array contenenti tutti i medici della tipologia inserita come argomento (uso dell'admin)
+     * @param string $keyword 
      */
-    public static function retrivePazienteFromEmail($email)
-    {
-        $result = FPaziente::getpazientefromemail($email);
+    public static function retrievemedicifromtipologia($IdTipologia){
+        //ritorna una lista di post con settati gli utenti
+        $result = FMedico::getmedicofromtipologia($IdTipologia);
 
         return $result;
     }
 
     /**
-     * return a Moderator finding it not on the id but on it's username
-     * @param string $username Refers to the username of the user to get
+     * ritorna la valutazione media (data dalle recensioni) di un medico il cui Id è fornito come argomento
      */
-    public static function retriveAmministratoreFromEmail($email){
-
-        $result = FAmministratore::getadminbyemail($email);
-
-        return $result;
-    }
-
-    /**
-     * return a Medic finding it not on the id but on it's username
-     * @param string $username Refers to the username of the user to get
-     */
-    public static function retriveMedicoFromEmail($email){
-
-        $result = FMedico::getmedicofromemail($email);
-
-        return $result;
-    }
-
-
-
-
-
-    /**
-     * return the number of Like of a Post
-     * @param int $idPost Refers to id of the post
-     */
-    public static function getaveragevalutazione($IdMedico)
+    public static function retrieveaveragevalutazione($IdMedico)
     {
         $result = FMedico::getaveragevalutazione($IdMedico);
         //è un po' ridondato ma non fa niente
         return $result;
     }
 
-
-    /*
-    /*
-     * Method to return a Like obj giving the post and user
-     * @param int $idUser Refers to the id of the user who liked the post
-     * @param int $idPost Refers to the id of the post 
-     
-    public static function retriveLike($idUser, $idPost){
-        $like = FLike::getLikeOnUser($idUser, $idPost);
-
-        return $like;
-    }
+    /** 
+     * ritorna il numero di recensioni di un medico il cui id è fornito come argomento del metodo
     */
+    public static function retrievenumerorecensionimedico($IdMedico){
+        $result = FRecensione::getnumerorecensionimedico($IdMedico);
 
-    /*
-     * Method to return a UserFollow obj giving the followed and the follwer users 
-     * @param int $idUser Refers to the id of the user who follow
-     * @param int $idFollowed Refers to the id of the user who is followed
-     
-    public static function retriveFollow($idUser, $idFollowed){
-        $follow = FUserFollow::retriveUserFollow($idUser, $idFollowed);
-        if(!$follow){
-            return false;
-        }else{
-            return true;
+        return $result;
+    }
+    
+    /**
+     * metodo che ritorna l'agenda (appuntamenti non scaduti) di un medico il cui Id è inserito come argomento
+     */
+
+    //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
+    public static function retrieveagendamedico($IdMedico){
+        //prende gli utenti seguti da $idUser, crea una lista di utenti
+        $followRow = FEntityManagerSQL::getInstance()->retrieveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
+        $result = array();
+        if(count($followRow) > 0){
+            for($i = 0; $i < count($followRow); $i++){
+                $user = FUser::getObj($followRow[$i]['idFollowed']);
+                $result[] = $user; 
+            }
         }
+        return $result;
     }
-   
-    */
+
+//AMMINISTRATORE
+
+
+    /**
+     * ritorna un amministratore dandone in input la sua mail (è una credenziale di accesso univoca)
+     * @param string $email è la mail del'admin
+     */
+    public static function retrieveamministratorefromemail($email){
+
+        $result = FAmministratore::getadminbyemail($email);
+        return $result;
+    }
+
+    /**
+     * ritorna un'array contenente tutti gli appuntamenti della piattaforma (uso dell'admin)
+     */
+    public static function getallappuntamenti(){
+        $result = FEntityManagerSQL::getInstance()->retrieveall(FAppuntamento::getTable());
+        //var_dump($queryResult);
+
+        return $result;
+    }
+
+
 //---------------------------------------------------------------------------------------------------------------------------
     //TODO in orig gli passo un post (Da vedere in doctrine come aggiustarlo)
     /**
@@ -185,20 +280,6 @@ class FPersistentManager{
         return $result;
     }
 
-    /*
-     * Method to delete a report, if $field is nul delete the report on the id, else delete the report referd to a comment or a post so the $field can be idPost or idComment
-     * @param int $id Refers to report if $fiedl == null, else refers to a field of report like idPost or idComment
-     * @param string | null $field Refers to the field in which we are deleting the report 
-     */
-    /*
-    public static function deleteRelatedReports($id, $field = null){
-
-        $result = FReport::deleteReportInDb($id, $field);
-
-        return $result;
-    }
-
-    */
 
     /**
      * Method to delete an Image in the Database
@@ -210,20 +291,6 @@ class FPersistentManager{
 
         return $result;
     }
-
-    /*
-     * Method to delete an UserFoloow obj by giving the follower and the followed
-     * @param int $idUser Refers to the id of the user who follow
-     * @param int $idFollowed Refers to the id of the user who is followed
-     */
-    /*
-    public static function deleteFollow($idUser, $idUserFollowed){
-
-        $result = FUserFollow::deleteUserFollowInDb($idUser, $idUserFollowed);
-
-        return $result;
-    }
-    */
     
     /**
      * Method to save an image in the post and store it in the database
@@ -277,267 +344,7 @@ class FPersistentManager{
 
 
 
-    /*
-     * Method to return a list of all user who liked a post 
-     * @param int $idPost Refres to the post 
-     */
-    /*
-    public static function getLikesUserOfAPost($idPost){
-        //prende i like, dai like prende gli utenti e ritorna una lista di utenti 
-        $likesRow = FEntityManagerSQL::getInstance()->retriveObj(FLike::getTable(), FPost::getKey(), $idPost);
-        $result = array();
-        if(count($likesRow) > 0){
-            for($i = 0; $i < count($likesRow); $i++){
-                $user = FUser::getObj($likesRow[$i][FUser::getKey()]);
-                $result[] = $user;
-            }
-        }
-        return $result;
-    }
-    */
 
-    public static function getmedicipropic($mediciArray){
-        $mediciProfilePic = array();
-        if(count($mediciArray) > 0){
-            foreach($mediciArray as $u){
-                $proPic = FImmagine::getObj($u->getIdImmagine());  //da ogni medico mi prendo l'id dell'immagine e poi l'immagine effettiva
-                //associative array (hash table)
-                $mediciProfilePic[$u->getId()] = $proPic;
-            }
-        }
-        return $mediciProfilePic;
-    }
-
-    /*
-     * Method to return the number of the followed user pf a user
-     * @param int $idUser Refrs to the user who follow
-     */
-    /*
-    public static function getFollowedNumb($idUser){
-        $result = FUserFollow::getFollowedNumb($idUser);
-
-        return $result;
-    }
-    */
-
-    /** 
-     * Method to return the number of the follower user pf a user
-     * @param int $idUser Refrs to the user who is followed
-    */
-    
-    public static function getnumerorecensionimedico($IdMedico){
-        $result = FRecensione::getnumerorecensionimedico($IdMedico);
-
-        return $result;
-    }
-    
-
-    /**
-     * Method to return the list of the followed user pf a user
-     * @param int $idUser Refrs to the user who follow
-     */
-
-    //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
-    public static function getagendamedico($IdMedico){
-        //prende gli utenti seguti da $idUser, crea una lista di utenti
-        $followRow = FEntityManagerSQL::getInstance()->retrieveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
-        $result = array();
-        if(count($followRow) > 0){
-            for($i = 0; $i < count($followRow); $i++){
-                $user = FUser::getObj($followRow[$i]['idFollowed']);
-                $result[] = $user; 
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * Method to return the list of the follower user pf a user
-     * @param int $idUser Refrs to the user who follow
-     */
-    public static function getappuntamentipaziente($IdPaziente){
-        //prende gli APPUNTAMENTI di IdPaziente (ottimo per caricare i propri appuntamenti da svolgere)
-        $appuntamenti = FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
-        $appuntamentipaziente = array();
-        if(count($appuntamenti) > 0){
-            for($i = 0; $i < count($appuntamenti); $i++){
-                $appuntamenti = FAppuntamento::getObj($appuntamenti[$i]['IdAppuntamento']);
-                $appuntamentipaziente[] = $appuntamenti; 
-            }
-        }
-        return $appuntamentipaziente;
-    }
-
-    /**
-     * Method to return alist of post serached with the title using $keyword
-     * @param string $keyword 
-     */
-    public static function getListaMediciFromTipologia($IdTipologia){
-        //ritorna una lista di post con settati gli utenti
-        $result = FMedico::getmedicofromtipologia($IdTipologia);
-
-        return $result;
-    }
-
-    /*
-     * return a list of Users that have the $keyword in their Username
-     * @param string $keyword
-     */
-    /*
-     public static function getSearchedUsers($keyword)
-    {
-        $userList = FUser::getSearched($keyword);
-
-        $userAndPropicArr = self::loadUsersAndImage($userList);
-
-        return $userAndPropicArr;
-
-    }
-    */
-
-    /**
-     * Method to return a list of post that are reported
-     */
-    public static function getallappuntamenti(){
-        $result = FEntityManagerSQL::getInstance()->retriveall(FAppuntamento::getTable());
-        //var_dump($queryResult);
-
-        return $result;
-    }
-
-    /**
-     * Method to return a list of post that are reported
-     */
-    public static function getallmedici(){
-        $result = FEntityManagerSQL::getInstance()->retriveall(FMedico::getTable());
-        //var_dump($queryResult);
-
-        return $result;
-    }
-
-    /**
-     * Method to return a list of post that are reported
-     */
-    public static function getallpazienti(){
-        $result = FEntityManagerSQL::getInstance()->retriveall(FPaziente::getTable());
-        //var_dump($queryResult);
-
-        return $result;
-    }
-
-//---------------------------------------------HOME-------------------------------------------------------------------
-
-/*
- * Method to return the list of post in the home page of a user
- * @param int $id Referrs to the user who is loading the homepage
- */
-/*
-public static function loadHomePage($id){
-    $followed = self::getFollowedlist($id);
-    if(count($followed) == 0){
-        $homePagePostsAndUserPropic = array();
-    }else{
-        $nestedPosts = array();
-        foreach($followed as $f){
-            $nestedPosts[] = FPost::postListNotBanned($f[0]->getId());
-        }
-        $homePagePosts = array_merge(...$nestedPosts);
-
-        usort($homePagePosts, ['FPost', 'comparePostsByCreationTime']);
-
-        $homePagePostsAndUserPropic = array();
-        foreach($homePagePosts as $p){
-            $arrayData = array($p, self::retriveObj(FImage::getClass(), $p->getUser()->getIdImage()));
-            $homePagePostsAndUserPropic[] = $arrayData;
-        }
-
-        return $homePagePostsAndUserPropic;
-    }
-}
-*/
-
-//---------------------------------------------VIP------------------------------------------------------------------------
-
-    /*
-     * retrurn an array containing 3 array, 'common' are the user who were vip and now are also vip, 
-     * 'remainFirst' are the users who were vip but not now, 
-     * 'remainSecond' are the users who weren't vip but now yes
-    */
-    /*
-    private static function findCommon($array1, $array2){
-        $common = [];
-        $remainFirst = [];
-        $remainSecond = [];
-
-        foreach ($array1 as $num) {
-            if (in_array($num, $array2)) {
-                $common[] = $num;
-            } else {
-                $remainFirst[] = $num;
-            }
-        }
-
-        foreach ($array2 as $num) {
-            if (!in_array($num, $common)) {
-                $remainSecond[] = $num;
-            }
-        }
-
-        return ['common'=>$common, 'remainFirst'=>$remainFirst, 'remainSecond'=>$remainSecond];
-    }
-    */
-    /*
-     * Method to return a list of VIP user and their profile pic. This method check if there are new vip and delete the old ones 
-     */
-    /*
-    public static function loadVip(){
-        $oldVips = FUser::loadVipUsers();
-        $oldIds = array();
-
-        foreach($oldVips as $o){
-            $oldIds[] = $o->getId();
-        }
-
-        $newVips = FUserFollow::getTopUserFollower();
-        $newIds = array();
-
-        foreach($newVips as $n){
-            $newIds[] = $n['idFollowed'];
-        }
-
-        $arr = self::findCommon($oldIds, $newIds);
-
-        if(count($arr['remainFirst']) > 0){
-            foreach($arr['remainFirst'] as $u){
-                $user = FUser::getObj($u);
-                $user->setVip(false);
-                self::updateUserVip($user);
-            }
-        }
-
-        if(count($arr['remainSecond']) > 0){
-            foreach($arr['remainSecond'] as $d){
-                $user = FUser::getObj($d);
-                $user->setVip(true);
-                self::updateUserVip($user);
-            }
-        }
-        $vipArr = array(); 
-        foreach($newIds as $i){
-            $vipArr[] = Fuser::getObj($i);
-        }
-        
-        $vipsAndProPic = self::loadUsersAndImage($vipArr);
-        //var_dump($vipsAndProPic);
-
-        foreach($vipsAndProPic as &$vp){
-            $vp[] = self::getFollowerNumb($vp[0]->getId());
-        }
-        unset($vp);
-
-        return $vipsAndProPic;
-    }
-    */
 //------------------------------------------------USER UPDATE----------------------------------------------------------------------------
     /**
      * Method to update a User Obj that have changed his info (Biography, Working, StudiedAt, Hobby)
@@ -559,7 +366,7 @@ public static function loadHomePage($id){
      */
     public static function updateinfopaziente($paziente){
         $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
-        $result = FUser::saveObj($paziente, $field);
+        $result = FPaziente::saveObj($paziente, $field);
 
         return $result;
     }
@@ -609,20 +416,6 @@ public static function loadHomePage($id){
         return $result;
     }
 
-
-    /*
-     * Method to update a User that have changed the warnings attribute 
-     * @param \EUser $user
-     */
-    /*
-    public static function updateUserWarnings($user){
-        $field = [['warnings', $user->getWarnings()]];
-        $result = FUser::saveObj($user, $field);
-
-        return $result;
-    }
-    */
-
     /**
      * Method to update a User that have changed the username
      * @param \EUser $user
@@ -667,21 +460,6 @@ public static function loadHomePage($id){
         return $result;
     }
 
-//------------------------------------------------POST UPDATE---------------------------------------------------------------------
-    /*
-     * Method to update a Post that have changed the ban attribute 
-     * @param \EPost $post
-     */
-    /*
-    public static function updatePostBan($post){
-        $field = [['removed', $post->isBanned()]];
-        $result = FPost::saveObj($post, $field);
-
-        return $result;
-    }
-    */
-
-//--------------------------------------------COMMENT UPDATE-----------------------------
 
     /**
      * Method to update a Cooment that have changed the ban attribute 
@@ -755,32 +533,6 @@ public static function loadHomePage($id){
         return $categoryPagePostsAndUserPropic;
     }
 
-//------------------------EXPLORE PAGE--------------------------------------------
-    
-    /*
-     * load all post not banned that are not belonged to the user
-     * @param int $idUser Refers to the user 
-     */
-    /*
-    public static function loadPostInExplore($idUser)
-    {
-        $explorePagePost = FPost::postInExplore($idUser);
-
-        $explorePagePostsAndUserPropic = array();
-        if(empty($explorePagePost) || $explorePagePost === null){
-            return $explorePagePostsAndUserPropic = array();
-        }else{
-            foreach($explorePagePost as $p){
-                $arrayData = array($p, self::retriveObj(FImage::getClass(), $p->getUser()->getIdImage()));
-                $explorePagePostsAndUserPropic[] = $arrayData;
-            }
-    
-            return $explorePagePostsAndUserPropic;
-        }
-    }
-    */
-//----------------------------VISITED POST PAGE-------------------------------------
-
     /**
      * Method to load the post of a visited user
      * @param int $idPost Refers to the visited User
@@ -790,60 +542,8 @@ public static function loadHomePage($id){
 
         return $result;
     }
-//------------------------FOLLOWERS PAGE-------------------------------------------
 
-    /*
-     * Method to return the Followed User List and their profile pic
-     * @param int $idUser 
-     */
-    /*
-    public static function getFollowedList($idUser){
-        $userList = self::getFollowedUserList($idUser);
 
-        $userAndPropicArr = self::loadUsersAndImage($userList);
-
-        return $userAndPropicArr;
-    }
-    */
-    
-//----------------------------FOLLOWED PAGE--------------------------------------------
-
-    /*
-     * Method to return the Follower User List and their profile pic
-     * @param int $idUser
-     */
-    /*
-    public static function getFollowerList($idUser){
-        $userList = self::getFollowerUserList($idUser);
-
-        $userAndPropicArr = self::loadUsersAndImage($userList);
-
-        return $userAndPropicArr;
-    }*/
-
-//------------------------------------------------------------------------------------
-
-    /**
-     * $userinput can be an array of user or an user id,, in this case retrive the user
-     * Method to load Users and their Profile Image
-     * @param array | int $userInput 
-     */
-
-     //UTILIZZABILE PER LA LOAD DI MEDICI CON LE FOTO PRIFILO?
-    public static function loadmedicieimmagine($mediciInput){
-        $result = array();
-        if(is_array($mediciInput)){
-            foreach($mediciInput as $u){
-                $arrayData = array($u, self::retrieveObj(FImmagine::getClass(), $u->getIdImmagine())); //serve un ritocco ad entity medico
-                $result[] = $arrayData;
-            }
-        }else{
-            $user = self::retrieveObj(FMedico::getClass(), $mediciInput);
-            $arrayData = array($user, self::retrieveObj(FImmagine::getClass(), $user->getIdImmagine())); // pure qua
-            $result[] = $arrayData;
-        }
-        return $result;
-    }
     
     /*
      * Method to load Posts and their like number

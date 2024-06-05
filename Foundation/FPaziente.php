@@ -111,7 +111,7 @@ class FPaziente  {
      * @return $paziente l'oggetto paziente se presente
      */
     public static function getObj($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
@@ -138,7 +138,7 @@ class FPaziente  {
     }
 
     public static function getpazientefromemail($email){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), "email", $email);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), "email", $email);
         //var_dump($result);
         if(count($result) > 0){
             $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
@@ -213,7 +213,7 @@ class FPaziente  {
     }
 
     public static function verify($field, $id){  //PER IL CHECK DEI NON DUPLICATI ALLA REGISTRAZIONE
-        $queryResult = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), $field, $id);
+        $queryResult = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), $field, $id);
 
         return FEntityManagerSQL::getInstance()->existInDb($queryResult);
     }

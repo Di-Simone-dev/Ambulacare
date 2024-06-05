@@ -86,7 +86,7 @@ class FEntityManagerSQL{
             return array();
         }
     }
-    public static function retriveall($table){
+    public static function retrieveall($table){
         try{
             $query = "SELECT * FROM " .$table. ";";
             $stmt = self::$db->prepare($query);

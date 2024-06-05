@@ -105,7 +105,7 @@ class FRisposta {
     }
 
     public static function getObj($IdRisposta){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRisposta);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRisposta);
         //var_dump($result);
         if(count($result) > 0){
             $risposta = self::crearisposta($result);

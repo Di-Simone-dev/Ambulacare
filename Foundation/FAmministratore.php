@@ -84,7 +84,7 @@ class FAmministratore {
 
     public static function getadminbyemail($email){
 
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), 'email', $email);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FAmministratore::getTable(), 'email', $email);
         //var_dump($result);
 
         if($result !== null && count($result) > 0){

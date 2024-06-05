@@ -85,7 +85,7 @@ class FReferto {
 
     //PER LOADDARE UN REFERTO DAL SUO ID
     public static function getObj($IdReferto){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdReferto);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdReferto);
         //var_dump($result);
         if(count($result) > 0){
             $referto = self::creareferto($result);

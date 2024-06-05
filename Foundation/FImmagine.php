@@ -63,7 +63,7 @@ class FImmagine{
 
     public static function getimmaginefromidmedico($IdMedico){
         //andiamo a prendere 
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FMedico::getKey(), $IdMedico);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), FMedico::getKey(), $IdMedico);
         //$result contiene la riga del medico che contiene anche l'id dell'immagine che vogliamo ottenere
 
         if(count($result) > 0){
@@ -76,7 +76,7 @@ class FImmagine{
 
     public static function getimmaginefromidreferto($IdReferto){
         //andiamo a prendere 
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), FReferto::getKey(), $IdReferto);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), FReferto::getKey(), $IdReferto);
         //$result contiene la riga del medico che contiene anche l'id dell'immagine che vogliamo ottenere
 
         if(count($result) > 0){

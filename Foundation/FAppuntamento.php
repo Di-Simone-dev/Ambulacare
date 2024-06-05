@@ -89,7 +89,7 @@ class FAppuntamento{
 
     //PER LOADDARE UN APPUNTAMENTO DAL SUO ID
     public static function getObj($IdAppuntamento){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdAppuntamento);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdAppuntamento);
         //var_dump($result);
         if(count($result) > 0){
             $Appuntamento = self::creaappuntamento($result);
@@ -101,7 +101,7 @@ class FAppuntamento{
 
     //PER LOADDARE UN APPUNTAMENTO DAL SUO IDFasciaOraria
     public static function getappuntamentofromfasciaoraria($IdFascia_oraria){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdFasciaOraria" , $IdFascia_oraria);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdFasciaOraria" , $IdFascia_oraria);
         //var_dump($result);
         if(count($result) > 0){
             $Appuntamento = self::creaappuntamento($result);
@@ -113,7 +113,7 @@ class FAppuntamento{
 
     //PER LOADDARE UN APPUNTAMENTO DAL SUO IdPaziente
     public static function getappuntamentofrompaziente($IdPaziente){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "IdPaziente" , $IdPaziente);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdPaziente" , $IdPaziente);
         //var_dump($result);
         if(count($result) > 0){  //dovrebbe funzionare per molteplici appuntamenti
             $Appuntamento = self::creaappuntamento($result);
