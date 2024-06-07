@@ -28,13 +28,9 @@
         <link href="casiadmin.css" rel="stylesheet">
         <link href="font.css" rel="stylesheet">
     </head>
-    <!--<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
-.w3-bar,h1,button {font-family: monospace}
-</style>-->
 <body id="top">
     
-    <br><br>
+    <br>
     <header id="header">
         <h1 style="font-size: 45px;"><b>Profilo Personale - Amministratore - <?php session_start(); print($_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
 	</header>
@@ -97,7 +93,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: monospace}
                     echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<a href='logout.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Logout </p></button></a>";
+                    echo "<a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {

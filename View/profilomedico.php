@@ -29,7 +29,7 @@
     </head>
 <body id="top">
     
-    <br><br>
+    <br>
     <header id="header">
         <h1 style="font-size: 45px;"><b>Profilo Personale - <?php session_start(); print("Dott."."&nbsp".$_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
 	</header>
@@ -103,7 +103,7 @@
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
                     echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>";
                     echo "<p style='font-size:20px; font-family:monospace;'>$costo</p>";
-                    echo "<a href='logout.php'><button class='w3-button w3-red' style='padding:5px;width:195px;border:solid white 3px;' ><p>Logout</p></button></a>";
+                    echo "<a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>";
                 ?>
                 <!--<script type="text/javascript">
                     function Conferma() {
