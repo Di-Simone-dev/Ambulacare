@@ -26,28 +26,30 @@
     <script>
       function getData() {
   return [
-  ['21/05',50,1],
-    ['22/05',70,2],
-    ['23/05',90,1],
-    ['24/05',30,1],
-    ['25/05',0,0],
-    ['26/05',140,5],
-    ['27/05',180,4],
-    ['28/05',200,7],
-    ['29/05',350,8],
-    ['30/05',65,2],
-    ['31/05',90,2],
-    ['01/06',600,10]
+      ['21/05',1],
+      ['22/05',2],
+      ['23/05',3],
+      ['24/05',4],
+      ['25/05',0],
+      ['26/05',6],
+      ['27/05',7],
+      ['28/05',8],
+      ['29/05',2],
+      ['30/05',5],
+      ['31/05',1],
+      ['01/06',10]
   ];
 }
     // create a data set on our data
 var dataSet = anychart.data.set(getData());
-
 // map data for the line chart,
 // take x from the zero column and value from the first column
 var seriesData = dataSet.mapAs({ x: 0, value: 1 });
-var seriesData1 = dataSet.mapAs({ x: 0, value: 2 });
+//var matrice = new Array();
+//matrice=[['21/05',1],['22/05',2]];
 
+//document.write(matrice[0]);
+//document.write(getData()[4]);
 // create a line chart
 var chart = anychart.line();
 
@@ -56,19 +58,15 @@ chart.title('Guadagno dal 21/05/2024 al 01/06/2024');
 
 // set the y axis title
 chart.xAxis().title('intervallo di tempo');
-chart.yAxis().title('soldi guadagnati');
+chart.yAxis().title('esami complessivi');
 
 // create a line series with the mapped data
-var lineChart = chart.line(seriesData);
-lineChart.name('guadagno');
-var lineChart1=chart.line(seriesData1);
-lineChart1.name('numero visite');
+var lineChart=chart.line(seriesData);
+lineChart.name('esami complessivi');
 //chart.legend().enabled(true);
 chart.crosshair().enabled(true).yStroke(null).yLabel(false);
 lineChart.hovered().markers().type("circle").size(4);
-lineChart1.hovered().markers().type("circle").size(0);
 lineChart.normal().stroke("#7b60a2", 2.5);
-lineChart1.normal().stroke("#ffffff", 2.5);
 
 // set the container id for the line chart
 chart.container('container');
