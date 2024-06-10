@@ -76,3 +76,5 @@ http://www.ambulacare.com/medico/profilopersonale (pagina per visualizzare il pr
 Admin
 http://www.ambulacare.com/admin/moderazioneaccount/$nome_utente/$cognome_utente/$categoria_utente (pagina per la moderazione degli account)
 http://www.ambulacare.com/admin/profilopersonale (pagina per visualizzare il profilo)
+
+Nella cartella Pages saranno inseriti i template e i file html/css/js (analoga alla cartella smarty di Agora)
