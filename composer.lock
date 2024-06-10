@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8900fa4776b4aff6a16985bc0cbd4ac6",
+    "content-hash": "a5a0c9a7d3a08cac4d9f414ed85eda8d",
     "packages": [
         {
             "name": "smarty/smarty",
