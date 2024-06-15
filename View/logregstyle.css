@@ -2,10 +2,9 @@ html,body {
     /*background: url('images/gallery/pexels-shvetsa-4167561.jpg');*/
     background-repeat: no-repeat;
     background-position: 0 0;
-    background-size: 200px 50px;
+    background-size: 200px 50px cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
-    background-size: cover;
     padding: 0;
     margin: 0;
     font-size: 14px;

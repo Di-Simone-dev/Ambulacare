@@ -99,7 +99,7 @@ https://templatemo.com/tm-566-medic-care
                             <br><br><h4>Contenuto :</h4>
                             <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;">
                             <br><br>
-                            <h2>Valutazione : </h2>
+                            <h4>Valutazione : </h4><?php require_once('valutazione.php');?>
                             <br>
                             <div style="position: absolute;left: 550px;">
                             <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>

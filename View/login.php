@@ -63,6 +63,4 @@ if (isset($_POST['login'])) {
             exit;
         }
     }
-    
-    //printf($msg, '<a href="../login.html">torna indietro</a>');
 }

@@ -28,6 +28,12 @@
 
         <link href="casimedico.css" rel="stylesheet">
         <link href="font.css" rel="stylesheet">
+        <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+    <style type="text/css">      
+      html, body, #container { 
+        width: 100%; height: 100%; margin: 0; padding: 0; 
+      } 
+    </style>
 <!--
 
 TemplateMo 566 Medic Care
@@ -91,25 +97,66 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
         </main>
-        <br><br>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <form action="inseriscidata_perstatistiche.html">
-                        <div class="form-group">
-                            <div>
-                                <h2>Statistiche nell'intervallo di tempo selezionato</h2>
-                                <br><br>
-                                <h4>Esami Svolti : 6</h4>
-                                <br><br>
-                                <h4>Guadagno Complessivo : 1200€</h4>
-                                <br><br>
-                                <button class="btn btn-primary">Cambia intervallo di tempo</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <br><br><br><br><br>
+        <div id="container" style="height: 600px;" >
+        <h2>Statistiche nell'intervallo di tempo selezionato</h2>
+        <br>
+        <script>
+          function getData() {
+      return [
+          ['21/05',1],
+          ['22/05',2],
+          ['23/05',3],
+          ['24/05',4],
+          ['25/05',0],
+          ['26/05',6],
+          ['27/05',7],
+          ['28/05',8],
+          ['29/05',2],
+          ['30/05',5],
+          ['31/05',1],
+          ['01/06',10]
+      ];
+    }
+        // create a data set on our data
+    var dataSet = anychart.data.set(getData());
+    // map data for the line chart,
+    // take x from the zero column and value from the first column
+    var seriesData = dataSet.mapAs({ x: 0, value: 1 });
+    //var matrice = new Array();
+    //matrice=[['21/05',1],['22/05',2]];
+    
+    //document.write(matrice[0]);
+    //document.write(getData()[4]);
+    // create a line chart
+    var chart = anychart.line();
+    
+    // configure the chart title text settings
+    chart.title('Guadagno dal 21/05/2024 al 01/06/2024: 1200€');
+    
+    // set the y axis title
+    chart.xAxis().title('intervallo di tempo');
+    chart.yAxis().title('esami complessivi');
+    
+    // create a line series with the mapped data
+    var lineChart=chart.line(seriesData);
+    lineChart.name('esami giornalieri');
+    //chart.legend().enabled(true);
+    chart.crosshair().enabled(true).yStroke(null).yLabel(false);
+    lineChart.hovered().markers().type("circle").size(4);
+    lineChart.normal().stroke("#7b60a2", 2.5);
+    
+    // set the container id for the line chart
+    chart.container('container');
+    
+    // draw the line chart
+    chart.draw();
+        </script>
+    </div>
+    <br><br><br><br>
+    <div style="position: absolute;left: 650px;">
+    <button class="btn btn-primary">Cambia intervallo di tempo</button>
+    </div>
         
        <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
