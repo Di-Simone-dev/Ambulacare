@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2024 at 12:42 PM
+-- Generation Time: Jun 05, 2024 at 01:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,6 @@ USE `ambulacare`;
 -- Table structure for table `amministratore`
 --
 
-DROP TABLE IF EXISTS `amministratore`;
 CREATE TABLE `amministratore` (
   `IdAdmin` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -44,7 +43,6 @@ CREATE TABLE `amministratore` (
 -- Table structure for table `appuntamento`
 --
 
-DROP TABLE IF EXISTS `appuntamento`;
 CREATE TABLE `appuntamento` (
   `IdAppuntamento` int(10) UNSIGNED NOT NULL,
   `stato` varchar(20) NOT NULL,
@@ -58,7 +56,6 @@ CREATE TABLE `appuntamento` (
 -- Table structure for table `calendario`
 --
 
-DROP TABLE IF EXISTS `calendario`;
 CREATE TABLE `calendario` (
   `IdCalendario` int(10) UNSIGNED NOT NULL,
   `IdMedico` int(10) UNSIGNED NOT NULL
@@ -70,11 +67,9 @@ CREATE TABLE `calendario` (
 -- Table structure for table `fascia_oraria`
 --
 
-DROP TABLE IF EXISTS `fascia_oraria`;
 CREATE TABLE `fascia_oraria` (
   `IdFasciaOraria` int(10) UNSIGNED NOT NULL,
-  `data` date NOT NULL,
-  `ora_inizio` time NOT NULL,
+  `data` datetime NOT NULL,
   `IdCalendario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -84,7 +79,6 @@ CREATE TABLE `fascia_oraria` (
 -- Table structure for table `immagine`
 --
 
-DROP TABLE IF EXISTS `immagine`;
 CREATE TABLE `immagine` (
   `IdImmagine` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -99,7 +93,6 @@ CREATE TABLE `immagine` (
 -- Table structure for table `medico`
 --
 
-DROP TABLE IF EXISTS `medico`;
 CREATE TABLE `medico` (
   `IdMedico` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -118,7 +111,6 @@ CREATE TABLE `medico` (
 -- Table structure for table `paziente`
 --
 
-DROP TABLE IF EXISTS `paziente`;
 CREATE TABLE `paziente` (
   `IdPaziente` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -146,7 +138,6 @@ INSERT INTO `paziente` (`IdPaziente`, `nome`, `cognome`, `email`, `password`, `c
 -- Table structure for table `recensione`
 --
 
-DROP TABLE IF EXISTS `recensione`;
 CREATE TABLE `recensione` (
   `IdRecensione` int(10) UNSIGNED NOT NULL,
   `titolo` varchar(255) NOT NULL,
@@ -163,7 +154,6 @@ CREATE TABLE `recensione` (
 -- Table structure for table `referto`
 --
 
-DROP TABLE IF EXISTS `referto`;
 CREATE TABLE `referto` (
   `IdReferto` int(10) UNSIGNED NOT NULL,
   `oggetto` varchar(255) NOT NULL,
@@ -178,7 +168,6 @@ CREATE TABLE `referto` (
 -- Table structure for table `risposta`
 --
 
-DROP TABLE IF EXISTS `risposta`;
 CREATE TABLE `risposta` (
   `IdRisposta` int(10) UNSIGNED NOT NULL,
   `contenuto` varchar(255) NOT NULL,
@@ -193,7 +182,6 @@ CREATE TABLE `risposta` (
 -- Table structure for table `tipologia`
 --
 
-DROP TABLE IF EXISTS `tipologia`;
 CREATE TABLE `tipologia` (
   `IdTipologia` int(10) UNSIGNED NOT NULL,
   `nome_tipologia` varchar(255) NOT NULL
