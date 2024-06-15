@@ -20,7 +20,7 @@ class FPersistentManager{
      /**
      * Metodo per creare una istanza di PersistentManager
      */
-     public static function getInstance()
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -103,7 +103,7 @@ class FPersistentManager{
     }
 
 
-//MEDICO
+    //MEDICO
 
     /**
      * ritorna un medico dando come argomento la sua mail (è una credenziale di accesso univoca)
@@ -220,7 +220,7 @@ class FPersistentManager{
         return $result;
     }
 
-//AMMINISTRATORE
+    //AMMINISTRATORE
 
 
     /**
@@ -244,8 +244,174 @@ class FPersistentManager{
     }
 
 
-//---------------------------------------------------------------------------------------------------------------------------
-    //TODO in orig gli passo un post (Da vedere in doctrine come aggiustarlo)
+
+    //-----------------------------METODI PER LE VERIFICHE------------------------------
+
+
+    /**
+     * verifica se esiste un paziente con la mail data in input
+     * @param string $email
+     */
+    public static function verificaemailpaziente($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
+        $result = FPaziente::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
+
+        return $result; //ritorno una booleano
+    }
+
+    /**
+     * verifica se esiste un medico con la mail in input
+     * @param string $email
+     */
+    public static function verificaemailmedico($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
+        $result = FMedico::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
+
+        return $result; //ritorna un booleano
+    }
+
+    /**
+     * controllo sull'immagine, se non è corretta (formato e dimensione) ritorna errore
+     */
+    public static function validaimmagine($file){
+        if($file['error'] !== UPLOAD_ERR_OK){
+            $error = 'UPLOAD_ERROR_OK';
+
+            return [false, $error];
+        }
+
+        if(!in_array($file['type'],['image/jpeg', 'image/png', 'image/jpg'])){    //QUESTA PUò ESSERE RITOCCATA
+            $error = 'TYPE_ERROR';
+
+            return [false, $error];
+        }
+
+        if($file['size'] > 5242880){       //QUESTA è DA DEFINIRE, QUESTO EQUIVALE A 5 MEGABYTE
+            $error = 'SIZE_ERROR';
+
+            return [false, $error];
+        }
+
+        return [true, null];
+    }
+
+//-----------------------------METODI PER L'UPLOAD------------------------------
+
+    /**
+     *
+     * Metodo generale che applica la validazione dell'immagine e crea l'oggetto immagine per poi metterlo nel db
+    */
+    public static function caricaimmagine($file){
+    $check = self::validaimmagine($file);
+    if($check[0]){
+        
+        //create new Image Obj ad perist it
+        $immagine = new EImmagine($file['nome'], $file['dimensione'], $file['tipo'], file_get_contents($file['tmp_name']));
+        return $immagine;                                                            //????????????????????????????????
+    }else{
+        return $check[1];
+    }
+}
+
+
+    //PAZIENTE
+
+    /**
+     * Metodo per l'aggiornamento dei campi del paziente (residenza e numero di telefono) dando in input l'oggetto paziente
+     * @param \EPaziente $paziente
+     */
+    public static function updateinfopaziente($paziente){
+        $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
+        $result = FPaziente::saveObj($paziente, $field);
+
+        return $result;
+    }
+
+    /**
+     * metodo che aggiorna l'attributo "attivo" di un paziente per bannarlo o sbannarlo dando in input l'oggetto paziente
+     * @param \EPaziente $paziente
+     */
+    public static function aggiornabanpaziente($paziente){
+        $field = [['attivo', $paziente->getAttivo()]];
+        $result = FMedico::saveObj($paziente, $field);
+
+        return $result;
+    }
+
+    /**
+     * Metodo per aggiornare la mail di un paziente dando in input l'oggetto paziente
+     * @param \EUser $user
+     */
+    public static function updatemailpaziente($paziente){
+        $field = [['email', $paziente->getEmail()]];
+        $result = FPaziente::saveObj($paziente, $field);
+
+        return $result;
+    }
+
+    /**
+     * Metodo per aggiornare la password di un paziente dando in input l'oggetto paziente
+     * @param \EUser $user
+     */
+    public static function updatepasswordpaziente($paziente){
+        $field = [['password', $paziente->getPassword()]];
+        $result = FPaziente::saveObj($paziente, $field);
+
+        return $result;
+    }
+
+    //MEDICO
+
+    /**
+     * Metodo per aggiornare costo e propic di un medico dando in input l'oggetto medico
+     * @param \EMedico $medico
+     */
+    //I DATI DA AGGIORNARE DEL MEDICO SONO COSTO ED IMMAGINE
+    public static function updateinfomedico($medico){
+        $field = [['costo', $medico->getCosto()],['IdImmagine', $medico->getIdImmagine()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+    /**
+     *  metodo che aggiorna l'attributo "attivo" di un medico per bannarlo o sbannarlo dando in input l'oggetto medico
+     * @param \EMedico $medico
+     */
+    public static function aggiornabanmedico($medico){
+        $field = [['attivo', $medico->getAttivo()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+    /**
+     * Metodo per aggiornare la mail di un medico dando in input l'oggetto medico
+     * @param \EUser $user
+     */
+    public static function updatemailmedico($medico){
+        $field = [['email', $medico->getEmail()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+    /**
+     * metodo per aggiornare la password di un medico dando in input l'oggetto medico
+     * @param \EUser $user
+     */
+    public static function updatepasswordmedico($medico){
+        $field = [['password', $medico->getPassword()]];
+        $result = FMedico::saveObj($medico, $field);
+
+        return $result;
+    }
+
+
+
+
+
+
+
+    
     /**
      *  call to FPost to delete Post in the db (delete post and all comments, image, like and report related to it)
      * @param int $idPost Refers to the post to delete
@@ -346,52 +512,7 @@ class FPersistentManager{
 
 
 //------------------------------------------------USER UPDATE----------------------------------------------------------------------------
-    /**
-     * Method to update a User Obj that have changed his info (Biography, Working, StudiedAt, Hobby)
-     * @param \EUser $user 
-     */
-    //possiamo pensare ad un aggiornamento di un medico con la propic
-    //$FIELD CONTIENE LE COPPIE CHIAVE-VALORE DA USARE PER L'AGGIORNAMENTO DEL DB
-    //I DATI DA AGGIORNARE DEL MEDICO SONO: COSTO ED IMMAGINE?
-    public static function updateinfomedico($medico){
-        $field = [['costo', $medico->getCosto()],['working', $medico->getIdImmagine()]];
-        $result = FMedico::saveObj($medico, $field);
 
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the vip attribute 
-     * @param \EUser $user
-     */
-    public static function updateinfopaziente($paziente){
-        $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
-        $result = FPaziente::saveObj($paziente, $field);
-
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the ban attribute 
-     * @param \EUser $user
-     */
-    public static function aggiornabanmedico($medico){
-        $field = [['attivo', $medico->getAttivo()]];
-        $result = FMedico::saveObj($medico, $field);
-
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the ban attribute 
-     * @param \EUser $user
-     */
-    public static function aggiornabanpaziente($paziente){
-        $field = [['attivo', $paziente->getAttivo()]];
-        $result = FMedico::saveObj($paziente, $field);
-
-        return $result;
-    }
     /**
      * Method to update a User that have changed the profile image  
      * @param \EUser $user
@@ -416,49 +537,8 @@ class FPersistentManager{
         return $result;
     }
 
-    /**
-     * Method to update a User that have changed the username
-     * @param \EUser $user
-     */
-    public static function updatemailmedico($medico){
-        $field = [['email', $medico->getEmail()]];
-        $result = FMedico::saveObj($medico, $field);
 
-        return $result;
-    }
 
-    /**
-     * Method to update a User that have changed the username
-     * @param \EUser $user
-     */
-    public static function updatemailpaziente($paziente){
-        $field = [['email', $paziente->getEmail()]];
-        $result = FPaziente::saveObj($paziente, $field);
-
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the password 
-     * @param \EUser $user
-     */
-    public static function updatepasswordmedico($medico){
-        $field = [['password', $medico->getPassword()]];
-        $result = FMedico::saveObj($medico, $field);
-
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the password 
-     * @param \EUser $user
-     */
-    public static function updatepasswordpaziente($paziente){
-        $field = [['password', $paziente->getPassword()]];
-        $result = FPaziente::saveObj($paziente, $field);
-
-        return $result;
-    }
 
 
     /**
@@ -475,26 +555,6 @@ class FPersistentManager{
 
 
 //----------------------------------------------VERIFY-----------------------------------------------------
-
-    /**
-     * verify if exist a user with this email (also mod)
-     * @param string $email
-     */
-    public static function verificaemailpaziente($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
-        $result = FPaziente::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
-
-        return $result;
-    }
-
-    /**
-     * verify if exist a user with this email (also mod)
-     * @param string $email
-     */
-    public static function verificaemailmedico($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
-        $result = FMedico::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
-
-        return $result;
-    }
 
 
 
@@ -643,44 +703,7 @@ public static function manageImages($uploadedImages, $post, $idUser){
     return $checkUploadImage;
 } */
 
-    /**
- * check if the uploaded image is ok and then create an Image Obj and save it in the database
- */
-public static function caricaimmagine($file){
-    $check = self::validaimmagine($file);
-    if($check[0]){
-        
-        //create new Image Obj ad perist it
-        $immagine = new EImmagine($file['nome'], $file['dimensione'], $file['tipo'], file_get_contents($file['tmp_name']));
-        return $immagine;                                                            //????????????????????????????????
-    }else{
-        return $check[1];
-    }
-}
 
-/**
- * check if the image is ok and in case return the error
- */
-public static function validaimmagine($file){
-    if($file['error'] !== UPLOAD_ERR_OK){
-        $error = 'UPLOAD_ERROR_OK';
 
-        return [false, $error];
-    }
-
-    if(!in_array($file['type'],['image/jpeg', 'image/png', 'image/jpg'])){    //QUESTA PUò ESSERE RITOCCATA
-        $error = 'TYPE_ERROR';
-
-        return [false, $error];
-    }
-
-    if($file['size'] > 5242880){       //QUESTA è DA DEFINIRE, QUESTO EQUIVALE A 5 MEGABYTE
-        $error = 'SIZE_ERROR';
-
-        return [false, $error];
-    }
-
-    return [true, null];
-}
     
 }
