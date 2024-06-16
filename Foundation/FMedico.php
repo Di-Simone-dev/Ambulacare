@@ -12,7 +12,7 @@ class FMedico  {
 	/** tabella con la quale opera */
     private static $table="medico";
     /** valori della tabella */
-    private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo:tipologia)";
+    private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo,:IdTipologia,:IdImmagine)";
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdMedico";

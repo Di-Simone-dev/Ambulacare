@@ -385,7 +385,7 @@ class FPersistentManager{
 
     /**
      * Metodo per aggiornare la mail di un medico dando in input l'oggetto medico
-     * @param \EUser $user
+     * @param \EMedico $medico
      */
     public static function updatemailmedico($medico){
         $field = [['email', $medico->getEmail()]];
@@ -396,7 +396,7 @@ class FPersistentManager{
 
     /**
      * metodo per aggiornare la password di un medico dando in input l'oggetto medico
-     * @param \EUser $user
+     * @param \EMedico $medico
      */
     public static function updatepasswordmedico($medico){
         $field = [['password', $medico->getPassword()]];
@@ -405,63 +405,22 @@ class FPersistentManager{
         return $result;
     }
 
-    
-
-
-
-
-
-    
     /**
-     *  call to FPost to delete Post in the db (delete post and all comments, image, like and report related to it)
-     * @param int $idPost Refers to the post to delete
-     * @param int $idUser Refers to the user who create the post
-     * 
+     * Metodo per aggiornare sul db il campo IdImmagine dando in pasto l'oggetto medico
+     * @param \EMedico $medico
      */
-    public static function liberafasciaoraria($IdFascia_oraria){ //pensiamo ad un cambio di disponibilità
-
-        $existappuntamento = FEntityManagerSQL::existInDb(FAppuntamento::getappuntamentofromfasciaoraria($IdFascia_oraria));
-        
-        if($existappuntamento){
-            $result = FFasciaOraria::eliminaFasciaOraria($IdFascia_oraria);
-            return $result;
-        }
-        else {
-            return false; //QUI NON LA ELIMINIAMO NEL CASO DI appuntamento PRESENTE
-        }
-        //magari serve un controllo sulla presenza o meno di un appuntamento prenotato sulla fascia oraria 
-        //return $result;
-        
-    }
-
-    /**
-     * call to FLike to delete like in the db
-     * @param int $idLike Referes to the like to delete
-     * @param int $idUser Refrers to the user who like the post
-     */
-    public static function cancellaRecensione($IdRecensione){
-        //NON DOVREBBERO SERVIRE CONTROLLI QUI
-        $result = FRecensione::eliminaRecensione($IdRecensione);
-
+    //PER AGGIORNARE LE PROPIC DI MEDICI 
+    public static function updatemedicopropic($medico){
+        $field = [['IdImmagine', $medico->getIdImmagine()]];    //NON è DETTO CHE FUNZIONI anche in entity è settato bene
+        $result = FMedico::saveObj($medico, $field);            //risulta necessario che nell'oggetto venga messa la fk con l'id
+                                                                //
         return $result;
     }
 
-
     /**
-     * Method to delete an Image in the Database
-     * @param int $idImage Refers to teh id of the image to delete
-     */
-    public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
-        //bisognerebbe implementare anche un meccanismo di cambio foto profil per il medico
-        $result = FImmagine::eliminaimmagine($IdImmagine);
-
-        return $result;
-    }
-    
-    /**
-     * Method to save an image in the post and store it in the database
-     * @param \EImage $image Refres to the image to store 
-     * @param \EPost $post Refers to the post
+     * Metodo che salva l'immagine nel db e come propic del medico (INSIEME)
+     * @param \EImmagine $immagine l'oggetto dell'immagine della propic
+     * @param \EMedico $medico l'oggetto medico a cui settiamo la propic
      * @return boolean
      */
     public static function caricaimmaginemedico(EImmagine $immagine, EMedico $medico){
@@ -469,7 +428,6 @@ class FPersistentManager{
         $medico->setIdImmagine($immagine);
 
         $uploadImmagine = FImmagine::saveObj($immagine);
-        //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del medico
         //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
         $fieldarray=array();
         $fieldarray[0] = "IdImmagine";
@@ -484,50 +442,8 @@ class FPersistentManager{
     }
 
     /**
-     * Method to save an image in the post and store it in the database
-     * @param \EImage $image Refres to the image to store 
-     * @param \EPost $post Refers to the post
-     * @return boolean
-     */
-    public static function caricaimmaginereferto(EImmagine $immagine, EReferto $referto){
-
-        $referto->setIdImmagine($immagine);
-
-        $uploadImage = FImmagine::saveObj($immagine);
-        //CI SAREBBE DA FARE LA MODIFICA NEL DB DEL CAMPO "IdImmagine" del referto
-        //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
-        $fieldarray=array();
-        $fieldarray[0] = "IdImmagine";
-        $fieldarray[1] = $immagine->getIdImmagine(); 
-        $updatemedico =FReferto::saveObj($referto,$fieldarray);  //dovrebbe funzionare ok no
-        //DEVO METTERE LA POSSIBILITà DI MODIFICA DI UN REFERTO
-        if($uploadImage){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
-
-
-//------------------------------------------------USER UPDATE----------------------------------------------------------------------------
-
-    /**
-     * Method to update a User that have changed the profile image  
-     * @param \EUser $user
-     */
-    //PER AGGIORNARE LE PROPIC DI MEDICI 
-    public static function updatemedicopropic($medico){
-        $field = [['IdImmagine', $medico->getIdImmagine()]];    //NON è DETTO CHE FUNZIONI bisogna cambiare entity
-        $result = FMedico::saveObj($medico, $field);
-                                                                //D 
-        return $result;
-    }
-
-    /**
-     * Method to update a User that have changed the profile image  
-     * @param \EUser $user
+     * Metodo per aggiornare sul db il campo IdImmagine dando in pasto l'oggetto referto
+     * @param \EReferto $referto 
      */
     //PER AGGIORNARE LE IMMAGINI DEI REFERTI
     public static function updateimmaginereferto($referto){
@@ -538,9 +454,33 @@ class FPersistentManager{
     }
 
 
+    /**
+     * Metodo che salva l'immagine nel db e come contenuto del referto (INSIEME)
+     * @param \EImmagine $immagine l'oggetto immagine da mettere nel referto 
+     * @param \EReferto $referto l'oggetto referto a cui vogliamo associare l'immagine
+     * @return boolean
+     */
+    public static function caricaimmaginereferto(EImmagine $immagine, EReferto $referto){
+
+        $referto->setIdImmagine($immagine);
+
+        $uploadImage = FImmagine::saveObj($immagine);
+        //devo mettere un array in cui il primo elemento è "IdImmagine", mentre il secondo elemento è l'id dell'immagine
+        $fieldarray=array();
+        $fieldarray[0] = "IdImmagine";
+        $fieldarray[1] = $immagine->getIdImmagine(); 
+        $updatemedico =FReferto::saveObj($referto,$fieldarray);  //dovrebbe funzionare ok no
+        //DEVO METTERE LA POSSIBILITà DI MODIFICA DI UN REFERTO   OPPURE NO 
+        if($uploadImage){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 
+        //DA FARE SE NECESSARIO
     /**
      * Method to update a Cooment that have changed the ban attribute 
      * @param \EComment $comment
@@ -553,30 +493,61 @@ class FPersistentManager{
 
     }
 
+//-----------------------------METODI PER LE CANCELLAZIONI------------------------------
 
-//----------------------------------------------VERIFY-----------------------------------------------------
+    //MEDICO
 
-
-
-    /*
-     * verify if exist a user with this username (also mod)
-     * @param string $username
+    /**
+     * metodo che controlla se la fascia oraria è stata occupata da un appuntamento, altrimenti la rimuove, dando in input il suo id
+     * @param int $idFasciaOraria è L'id della fascia oraria che vogliamo liberare
      */
-    /*
-    public static function verifyUserUsername($username){
-        $result = FPerson::verify('username', $username);
+    public static function liberafasciaoraria($IdFasciaOraria){ //pensiamo ad un cambio di disponibilità
+
+        $existappuntamento = FEntityManagerSQL::existInDb(FAppuntamento::getappuntamentofromfasciaoraria($IdFasciaOraria));
+        //$existappuntamento ritorna un booleano, quindi true se l'appuntamento esiste
+        if(!$existappuntamento){  //se NON esiste l'appuntamento, allora possiamo liberare (cancellare) la fascia oraria 
+            $result = FFasciaOraria::eliminaFasciaOraria($IdFasciaOraria);
+            return $result;
+        }
+        else {
+            return false; //QUI NON LA ELIMINIAMO NEL CASO DI appuntamento PRESENTE
+        }
+        //return $result;
+        
+    }
+
+    /**
+     * Metodo che cancella una recensione dando in input il suo id
+     * @param int $IdRecensione l'id della recensione da eliminare
+     */
+    public static function cancellaRecensione($IdRecensione){
+        //NON DOVREBBERO SERVIRE CONTROLLI QUI
+        $result = FRecensione::eliminaRecensione($IdRecensione);
 
         return $result;
     }
-    */
+
+
+    /**
+     * Metodo per cancellare un'immagine dal db dando il suo id
+     * @param int $IdImmagine è l'id dell'immagine da cancellare
+     */
+    public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
+        $result = FImmagine::eliminaimmagine($IdImmagine);
+        //tanto abbiamo l'effetto cascade per toglierla da referto o medico
+        return $result;
+    }
+    
+
 
 //---------------------------------------------------USER PAGE-----------------------------------------------------------------
 //-----------------------CATEGORY PAGE----------------------------------------------
 
-    /**
+    /*
      * return all post that are not banned finded on a specific category
      * @param string $category Refers to the category serched
      */
+    /*
     public static function loadPostPerCategory($category)
     {
         $field = 'category';
@@ -592,17 +563,19 @@ class FPersistentManager{
 
         return $categoryPagePostsAndUserPropic;
     }
+    */
 
-    /**
+    /*
      * Method to load the post of a visited user
      * @param int $idPost Refers to the visited User
      */
+    /*
     public static function loadPostInVisited($idPost){
         $result = FPost::postInVisited($idPost);
 
         return $result;
     }
-
+    */
 
     
     /*
@@ -620,7 +593,7 @@ class FPersistentManager{
     }
     */
 
-    /**
+    /*
      * Method to load in an array the number of like, number of follower and number of followed
      * @param \EPost $post 
      */
@@ -635,7 +608,7 @@ class FPersistentManager{
         return $result;
     }*/
 
-    /**
+    /*
      * Method to return COmments and their user Propic
      * @param int $idPost
      */
@@ -653,7 +626,7 @@ class FPersistentManager{
         return $result;
     }*/
 
-    /**
+    /*
      * Method to load likes of a Post and their users Propic
      * @param int $idPost
      */
@@ -663,7 +636,7 @@ class FPersistentManager{
         return self::loadUsersAndImage($user);
     }*/
 
-    /**
+    /*
      * Method to return a Post(Proxy) with the User setted
      * @param int $idPost
      */

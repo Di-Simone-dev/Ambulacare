@@ -4,7 +4,7 @@ class FImmagine{
 
     private static $table = "immagine";
 
-    private static $value = "(NULL,:nome,:dimonesioni,:tipo,:dati)";
+    private static $value = "(NULL,:nome,:dimensione,:tipo,:dati)";
 
     private static $key = "IdImmagine";
 
