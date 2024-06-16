@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style type="text/css">
+        .Tabella {border:1px; border-color: grey; background-color: transparent;}
+        .tabella { border:none;}
+        .tabellai { border:none; cursor: pointer;}
+        .giorno { font-weight: bold; color: grey;}
+        body { background:transparent; }
+        a {
+        font-size: 14px; 
+        background-color: #ffffff; 
+        text-decoration: none;}
+        a:visited,active,link {
+        background-color: #a6c6f7; 
+        text-decoration: none;}
+        a:hover {
+        background-color: #a6c6f7;
+        text-decoration: none;
+        }
+        </style>
+</head>
+
+<body >
+
+  <div id="calendar"></div>
+
+  <script>
+    var d= new Date();
+    var giorno=d.getDate();
+    var mese=d.getMonth();
+    var anno=d.getFullYear();
+    var Mese=new Array();
+    Mese[1]="Gennaio";
+    Mese[2]="Febbraio";
+    Mese[3]="Marzo";
+    Mese[4]="Aprile";
+    Mese[5]="Maggio";
+    Mese[6]="Giugno";
+    Mese[7]="Luglio";
+    Mese[8]="Agosto";
+    Mese[9]="Settembre";
+    Mese[10]="Ottobre";
+    Mese[11]="Novembre";
+    Mese[12]="Dicembre";
+    function mese1()
+{
+    mese-=1;
+    if((mese+1)==0)
+    {
+        anno-=1; mese=11;
+        document.getElementById("anno").innerHTML='<b Onclick="anno1()">&lt;</b>          '+anno+'          <b OnClick="anno2()">&gt;</b>';
+    }
+    document.getElementById("mese").innerHTML='<b OnClick="mese1()">&lt;</b>          '+Mese[mese+1]+'          <b OnClick="mese2()">&gt;</b>';
+    giorni();
+}
+
+function mese2()
+{
+    mese+=1;
+    if((mese+1)==13)
+    {
+        anno+=1; mese=0;
+        document.getElementById("anno").innerHTML='<b Onclick="anno1()">&lt;</b>          '+anno+'          <b OnClick="anno2()">&gt;</b>';
+    }
+    document.getElementById("mese").innerHTML='<b OnClick="mese1()">&lt;          </b>'+Mese[mese+1]+'<b OnClick="mese2()">     &gt;</b>';
+    giorni();
+}
+
+function anno1()
+{
+    anno-=1;
+    document.getElementById("anno").innerHTML='<b Onclick="anno1()">&lt;</b>          '+anno+'          <b OnClick="anno2()">&gt;</b>';
+    giorni();
+}
+
+function anno2()
+{
+    anno+=1;
+    document.getElementById("anno").innerHTML='<b Onclick="anno1()">&lt;</b>          '+anno+'          <b OnClick="anno2()">&gt;</b>';
+    giorni();
+}
+  </script>
+  <table>
+    <tr>
+    <td id="anno"><b Onclick="anno1()">&lt;</b>          <script type="text/javascript">document.write(anno);</script>          <b OnClick="anno2()">&gt;</b></td>
+    <td style="width: 50px;"></td>
+    <td id="mese"><b OnClick="mese1()">&lt;</b>          <script type="text/javascript">document.write(Mese[mese+1]);</script>     <b OnClick="mese2()">&gt;</b></td>
+    </tr></table>
+    <table onMouseover="changeto('#a6c6f7')" onMouseout="changeback('#000000')">
+    <tr>
+    <td></td>
+    <td>Lun</td>
+    <td>Mar</td>
+    <td>Mer</td>
+    <td>Gio</td>
+    <td>Ven</td>
+    <td>Sab</td>
+    <td>Dom</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td id="1">1</td>
+    <td id="2">2</td>
+    <td id="3">3</td>
+    <td id="4">4</td>
+    <td id="5">5</td>
+    <td id="6">6</td>
+    <td id="7">7</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td id="8">8</td>
+    <td id="9">9</td>
+    <td id="10">10</td>
+    <td id="11">11</td>
+    <td id="12">12</td>
+    <td id="13">13</td>
+    <td id="14">14</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td id="15">15</td>
+        <td id="16">16</td>
+        <td id="17">17</td>
+        <td id="18">18</td>
+        <td id="19">19</td>
+        <td id="20">20</td>
+        <td id="21">21</td>
+        </tr>
+        <tr>
+        <td></td>
+        <td id="22">22</td>
+        <td id="23">23</td>
+        <td id="24">24</td>
+        <td id="25">25</td>
+        <td id="26">26</td>
+        <td id="27">27</td>
+        <td id="28">28</td>
+        </tr>
+        <tr id="giorni">
+        <td></td>
+        <td id="29">29</td>
+        <td id="30">30</td>
+        <td id="31">31</td>
+        <td id="32"></td>
+        <td id="33"></td>
+        <td id="34"></td>
+        <td id="35"></td>
+        </tr>
+        <tr id="giorni2">
+        <td></td>
+        <td id="36"></td>
+        <td id="37"></td>
+        <td id="38"></td>
+        </tr>
+        <script type="text/javascript">
+            function giorni()
+            {
+                var y=new Date(anno, mese+1);
+                var giorni_mese=new Date(anno, mese+1, 0).getDate();
+                for (var i=1; i<38; i++)
+                {
+                    document.getElementById(i).innerHTML='';
+                    document.getElementById(i).className='';
+                }
+                var newd=new Date(anno, mese+2);
+                var mm=new Date().getMonth()+1;
+                for(var i=1; i<giorni_mese+1; i++)
+                {
+                    var day=newd.getDay()+i+1;
+                    document.getElementById(day).innerHTML=i;
+                    if(y.getMonth() == mm)
+                    {
+                        if(day==d.getDate()){document.getElementById(day+4).className="giorno";}
+                    }
+                }
+            }
+            giorni();
+            
+            </script>
+            </table>
+
+</body>
+</html>
