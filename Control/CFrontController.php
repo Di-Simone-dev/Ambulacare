@@ -5,15 +5,6 @@ class CFrontController
 
     public function run()
     {
-
-        /*         echo '<h1>Test (dal frontController)</h1>';
-
-        echo '<p>Sul front controller va inserita la logica per chiamre i giusti controllori </p>';
-
-        echo '<h2>Vedi che alla fine ho dovuto rifare controlli GRRRRRRRRR</h2>';
-
-        echo $_SERVER['REQUEST_URI']; */
-
         $path = $_SERVER['REQUEST_URI'];
 
         $method = $_SERVER['REQUEST_METHOD'];
@@ -23,11 +14,9 @@ class CFrontController
         array_shift($resource);
         array_shift($resource);
 
-        /* var_dump($resource); */
-
 
         $controller = "C" . $resource[0];
-        $directory = "Controller";
+        $directory = "Control";
         $scanDir = scandir($directory);
 
         if (in_array($controller . ".php", $scanDir)) {
@@ -45,20 +34,10 @@ class CFrontController
                     else if ($num == 2) $controller::$method($param[0], $param[1]);
                 }
             } else {
-                USession::getInstance();
-                if (CUser::isLogged()) {
-                    header('Location: /Agora/User/home');
-                } else {
-                    header('Location: /Agora/User/home');
-                }
+                header("Location: /Ambulacare/Pages/smarty_class.php"); //temp
             }
         } else {
-            USession::getInstance();
-            if (CUser::isLogged()) {
-                header('Location: /Agora/User/home');
-            } else {
-                header('Location: /Agora/User/home');
-            }
+            header("Location: /Ambulacare/Pages/smarty_class.php"); //temp
         }
     }
 }

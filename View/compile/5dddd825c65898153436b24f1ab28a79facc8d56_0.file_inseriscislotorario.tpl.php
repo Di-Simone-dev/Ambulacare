@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.1.0, created on 2024-05-30 12:26:28
+/* Smarty version 5.3.0, created on 2024-06-16 11:10:04
   from 'file:pages/inseriscislotorario.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
-  'version' => '5.1.0',
-  'unifunc' => 'content_665854543515c5_47367248',
+  'version' => '5.3.0',
+  'unifunc' => 'content_666eabec26b173_90567784',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5dddd825c65898153436b24f1ab28a79facc8d56' => 
     array (
       0 => 'pages/inseriscislotorario.tpl',
-      1 => 1717064786,
+      1 => 1717065821,
       2 => 'file',
     ),
   ),
@@ -20,17 +20,17 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_665854543515c5_47367248 (\Smarty\Template $_smarty_tpl) {
+function content_666eabec26b173_90567784 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_14626561276658545432ff14_02161749', 'body');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1185939648666eabebc06490_66984683', 'body');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout.tpl", $_smarty_current_dir);
 }
 /* {block 'body'} */
-class Block_14626561276658545432ff14_02161749 extends \Smarty\Runtime\Block
+class Block_1185939648666eabebc06490_66984683 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template\\pages';
