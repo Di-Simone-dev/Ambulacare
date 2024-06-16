@@ -347,6 +347,7 @@ class FEntityManagerSQL{
 
 
     //QUESTA CI SERVE NELLA PRATICA
+    //metodo che dato in input un id di un medico ne restituisce la media delle recensioni
     public static function getaveragevalutazione($IdMedico){
         
         //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
@@ -367,25 +368,41 @@ class FEntityManagerSQL{
         }
     }
 
-    //QUESTA CI SERVE NELLA PRATICA PER VISUALIZZARE L'AGENDA DEL MEDICO
-    //DOBBIAMO OTTENERE UNA LISTA DI APPUNTAMENTI con anche le date ed ore effettive
+    //QUESTA CI SERVE NELLA PRATICA PER VISUALIZZARE L'AGENDA DEL MEDICO (solo appuntamenti futuri)
+    //DOBBIAMO OTTENERE UNA LISTA DI APPUNTAMENTI
+    //CAMPI DA VISUALIZZARE 
+    //1.NOME E COGNOME PAZIENTE 2.DATA E ORA APPUNTAMENTO E LA TIPOLOGIA SAREBBE DA TOGLIERE (IMPLICITA)
+    //PRENDIAMO IL NOME E COGNOME DEL PAZIENTE DA IdPaziente in Appuntamento 
+    //Prendiamo la data e ora da IdFasciaOraria
+    //Idealmente l'output dovrebbe essere un array che con un primo indice numerico scorre gli appuntamenti
+    //con un secondo indice associativo invece prendiamo i campi
+    //appuntamenti[0][paziente]="Mario Rossi"
+    //appuntamenti[0][data_ora]="20/03/24 11:30"
+    //appuntamenti[0][id]= id dell'apputanemento per accedere alla modifica
+    //metodo che dato in input l'id di un medico restituisce un array con le pk degli appuntamenti in agenda(da svolgere)
+    // query = SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
+    // WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;
     public static function getagendamedico($IdMedico){
         
         try{
             $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data GROUP BY IdMedico ORDER BY data;";
-                      //POTREBBE ESSERCI ANCHE UN "ORDER BY data e ora"
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;";
+                      
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
             $stmt->execute();
-            $rowNum = $stmt->rowCount();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti nell'agenda di un medico
             if($rowNum > 0){
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $stmt->fetch()){
-                    $result[] = $row;
+                    $result[] = $row;  //aggiungiamo la row all'array result
                 }
-                return $result;
+                //return $result;
+                for($i=0;$i++;$i<$rowNum)
+                {
+                        //devo construire l'array da restituire
+                }
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
                 //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
                 //ma bisogna aggiungere la data e l'ora (data)
