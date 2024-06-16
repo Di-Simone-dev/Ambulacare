@@ -54,4 +54,4 @@ $smarty->assign('slots',[
         ],
     ]);
 
-$smarty->display("pages/inseriscislotorario.tpl");
+$smarty->display("test.tpl");
