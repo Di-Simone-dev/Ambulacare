@@ -7,8 +7,6 @@ class EFasciaoraria
 
     private DateTime $data;
 
-    //private $ora_inizio;   //questa non sarebbe una datetime ma una stringa nella pratica (solo ora scritta)
-                            //QUESTA SAREBBE RICAVABILE DA $DATA, QUESTA è UNA RIDONDANZA ma probabilmente conviene tenerla
 
     private $calendario;   //FK
 
@@ -35,6 +33,12 @@ class EFasciaoraria
     public function getData()
     {
         return $this->data;
+    }
+
+    public function getDatatostring()
+    {
+        return $this->data->format('G:i d/m/y');
+        //$format4 = $dateTime->format('G:i d/m/y'); // Output:03/06/23 03:45
     }
 
     public function setData(DateTime $data): void

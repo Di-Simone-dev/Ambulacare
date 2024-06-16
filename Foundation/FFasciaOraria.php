@@ -65,7 +65,7 @@ class FFasciaOraria{
             $orario = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $fasciaoraria = new EFasciaoraria($queryResult[$i]['data']);
-                $fasciaoraria->setIdFasciaOraria($queryResult[$i]['idFasciaoraria']);  //PER LA PK AUTOINCREMENT
+                $fasciaoraria->setIdFasciaOraria($queryResult[$i]['IdFasciaOraria']);  //PER LA PK AUTOINCREMENT
                 //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE
                 $calendario = FCalendario::getObj($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id

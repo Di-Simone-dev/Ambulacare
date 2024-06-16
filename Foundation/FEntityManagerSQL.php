@@ -376,16 +376,16 @@ class FEntityManagerSQL{
     //Prendiamo la data e ora da IdFasciaOraria
     //Idealmente l'output dovrebbe essere un array che con un primo indice numerico scorre gli appuntamenti
     //con un secondo indice associativo invece prendiamo i campi
-    //appuntamenti[0][paziente]="Mario Rossi"
-    //appuntamenti[0][data_ora]="20/03/24 11:30"
-    //appuntamenti[0][id]= id dell'apputanemento per accedere alla modifica
+    //agenda[0][paziente]="Mario Rossi"
+    //agenda[0][data_ora]="20/03/24 11:30"
+    //agenda[0][id]= id dell'apputanemento per accedere alla modifica
     //metodo che dato in input l'id di un medico restituisce un array con le pk degli appuntamenti in agenda(da svolgere)
     // query = SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
     // WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;
     public static function getagendamedico($IdMedico){
         
         try{
-            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
+            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM Calendario,Fasciaoraria,Appuntamento
                       WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
@@ -399,9 +399,15 @@ class FEntityManagerSQL{
                     $result[] = $row;  //aggiungiamo la row all'array result
                 }
                 //return $result;
+                $agenda=array();
                 for($i=0;$i++;$i<$rowNum)
                 {
-                        //devo construire l'array da restituire
+                    //devo construire l'array da restituire
+                    $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);
+                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdFasciaOraria"]);
+                    $agenda[$i]["paziente"] = $paziente->getCognome()+" "+$paziente->getNome(); //da testare
+                    $agenda[$i]["data_ora"] = $fasciaoraria->getDatatostring();  //??????? PERCHè NON è UN OGGETTO???
+                    
                 }
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
                 //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
