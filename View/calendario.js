@@ -3,7 +3,7 @@ function createCalendar(elem, year, month) {
     let mon = month - 1; // in JS i mesi sono 0..11, non 1..12
     let d = new Date(year, mon);
 
-    let table = '<table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>';
+    let table = '<table ><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>';
 
     // gli spazi per la prima fila
     // da lunedì fino al primo giorno del mese
