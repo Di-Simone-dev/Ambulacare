@@ -32,6 +32,7 @@ class CFrontController
                     if ($num == 0) $controller::$method();
                     else if ($num == 1) $controller::$method($param[0]);
                     else if ($num == 2) $controller::$method($param[0], $param[1]);
+                    else if ($num == 2) $controller::$method($param[0], $param[1], $param[2]);
                 }
             } else {
                 header("Location: /Ambulacare/Pages/smarty_class.php"); //temp
