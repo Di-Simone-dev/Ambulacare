@@ -54,4 +54,19 @@ $smarty->assign('slots',[
         ],
     ]);
 
-$smarty->display("test.tpl");
+$smarty->assign('recensioni',[
+    [
+        'valutazione' => 0,
+        'paziente'=>'Luca',
+        'titolo'=>'Buono',
+        'descrizione' => 'non male',
+    ],
+    [
+        'valutazione' => 5,
+        'paziente'=>'Maurizio',
+        'titolo'=>'Bua',
+        'descrizione' => 'daiiiiiii',
+    ]
+    ]);
+
+$smarty->display("index.tpl");
