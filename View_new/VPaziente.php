@@ -17,7 +17,7 @@ class VPaziente
 	 * Funzione che inizializza e configura smarty.
 	 */
 	public function __construct() {
-		$this->smarty = StartSmarty::configuration();
+		$this->smarty = smarty_class::configuration();
 	}
 
 	/**
@@ -32,11 +32,10 @@ class VPaziente
 
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
-	 * //@param $array elenco di Anunci da visualizzare
 	 * @throws SmartyException
 	 */
 	public function loginOk() {
-		$this->smarty->assign('userlogged',"loggato");
+		//$this->smarty->assign('userlogged',"loggato");
 		//$this->smarty->assign('array', $array);
         //$this->smarty->assign('toSearch', 'trasporti');
 		$this->smarty->display('indexpaziente.tpl');
@@ -50,22 +49,34 @@ class VPaziente
 		$this->smarty->assign('error',"errore");
 		$this->smarty->display('login.tpl');
 	}
-
+	/**
+	 * Funzione che si occupa di gestire il login in caso di ban del paziente
+     * @throws SmartyException
+     */
+    public function loginBan() {
+        //$this->smarty->assign('error',false);
+        $this->smarty->assign('attivo',0);
+        //$this->smarty->assign('regErr',false);
+        $this->smarty->display('login.tpl');
+    }
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione del profilo paziente
 	 * @param $user informazioni da visualizzare
-	 * //@param $ann elenco di annunci pubblicati dall'utente
-	 * //@param $img immagine dell'utente
 	 * @throws SmartyException
 	 */
 	public function profileCli($user) {
 		//list($type,$pic64) = $this->setImage($img, 'user');
 		//$this->smarty->assign('type', $type);
 		//$this->smarty->assign('pic64', $pic64);
-		$this->smarty->assign('userlogged',"loggato");
+		//$this->smarty->assign('userlogged',"loggato");
 		$this->smarty->assign('nome',$user->getNome());
 		$this->smarty->assign('cognome',$user->getCognome());
 		$this->smarty->assign('email',$user->getEmail());
+		$this->smarty->assign('codice_fiscale',$user->getCodiceFiscale());
+		$this->smarty->assign('data_nascita',$user->getDataNascita());
+		$this->smarty->assign('luogo_nascita',$user->getLuogoNascita());
+		$this->smarty->assign('residenza',$user->getResidenza());
+		$this->smarty->assign('numero_telefono',$user->getNumeroTelefono());
 		//$this->smarty->assign('array',$ann);
 		$this->smarty->display('profilopaziente.tpl');
 	}
@@ -82,25 +93,18 @@ class VPaziente
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione degli errori nella form di registrazione per il paziente
 	 * @param $email tipo di errore derivante dall'email inserita
-	 * //@param $mezzo tipo di errore derivante dall'immagine inserita
 	 * @param $error tipo di errore da visualizzare nella form
 	 * @throws SmartyException
 	 */
 	public function registrazioneTrasError ($email,$error) {
 		if ($email)
-			$this->smarty->assign('errorEmail',"errore");
+			//$this->smarty->assign('errorEmail',"errore");
 		switch ($error) {
-			case "typeimg" :
-				$this->smarty->assign('errorType',"errore");
+			case "errorEmail" :
+				$this->smarty->assign('errorEmail',"errore");
 				break;
-			case "typeimgM" :
-				$this->smarty->assign('errorTypeM',"errore");
-				break;
-			case "size" :
-				$this->smarty->assign('errorSize',"errore");
-				break;
-			case "sizeM" :
-				$this->smarty->assign('errorSizeM',"errore");
+			case "errorPassw":
+				$this->smarty->assign('errorPassw', "errore");
 				break;
 		}
 		$this->smarty->display('registerpaziente.tpl');
@@ -108,7 +112,6 @@ class VPaziente
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di modifica per il paziente
 	 * @param $user informazioni sul paziente che desidera modificare i suoi dati
-	 * //@param $img immagine del medico
 	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
 	 * @throws SmartyException
 	 */
@@ -120,20 +123,93 @@ class VPaziente
 			case "errorPassw":
 				$this->smarty->assign('errorPassw', "errore");
 				break;
-			case "errorSize" :
-				$this->smarty->assign('errorSize', "errore");
-				break;
-			case "errorType" :
-				$this->smarty->assign('errorType', "errore");
-				break;
 		}
-		$this->smarty->assign('userlogged',"loggato");
+		//$this->smarty->assign('userlogged',"loggato");
 		//$this->smarty->assign('pic64',$pic64);
-		$this->smarty->assign('name',$user->getNome());
-		$this->smarty->assign('surname',$user->getCognome());
+		$this->smarty->assign('nome',$user->getNome());
+		$this->smarty->assign('cognome',$user->getCognome());
 		$this->smarty->assign('email',$user->getEmail());
+		$this->smarty->assign('codice_fiscale',$user->getCodiceFiscale());
+		$this->smarty->assign('data_nascita',$user->getDataNascita());
+		$this->smarty->assign('luogo_nascita',$user->getLuogoNascita());
+		$this->smarty->assign('residenza',$user->getResidenza());
+		$this->smarty->assign('numero_telefono',$user->getNumeroTelefono());
 		$this->smarty->display('modifica_profilo_paziente.tpl');
 	}
+	/**
+	 * Funzione che si occupa di gestire la visualizzazione della form di modifica della password per il paziente
+	 * @param $passw password da modificare
+	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
+	 * @throws SmartyException
+	 */
+	public function formmodificapassw($passw,$error) {
+		switch ($error) {
+			case "errorEmail" :
+				$this->smarty->assign('errorEmail', "errore");
+				break;
+			case "errorPassw":
+				$this->smarty->assign('errorPassw', "errore");
+				break;
+		}
+		$this->smarty->assign('password',$passw->getPassword());
+		$this->smarty->display('modifica_password_paziente.tpl');
+	}
+	/**
+	 * Funzione che permette di visualizzare la pagina per l'elenco di esami disponibili alla prenotazione
+	 * @param $app array di appuntamenti
+	 * @throws SmartyException
+	 */
+	public function showEsamiDisponibiliPrenotazione($app){
+        $this->smarty->assign('esami_prenotazione',$app);
+        $this->smarty->display('visualizzaesami_prenotazione.tpl');
+    }
+	/**
+	 * Funzione che permette di visualizzare la pagina per la prenotazione di un esame
+	 * @param $app un appuntamento
+	 * @param $foraria array di fasce orarie
+	 * @throws SmartyException
+	 */
+	public function PrenotaEsame($app,$foraria){
+        $this->smarty->assign('prenotazione_app',$app);
+		$this->smarty->assign('fasce_orarie',$foraria);
+        $this->smarty->display('prenotaesame.tpl');
+    }
+	/**
+	 * Funzione che permette di visualizzare gli esami prenotati dal paziente
+	 * @param $app array di appuntamenti
+	 * @throws SmartyException
+	 */
+	public function ShowEsamiPrenotati($app,$foraria){
+        $this->smarty->assign('appuntamenti',$app);
+        $this->smarty->display('visualizzaesamiprenotati_profilopaziente.tpl');
+    }
+	/**
+	 * Funzione che permette di visualizzare la pagina per la modifica dell'appuntamento di un paziente
+	 * @param $app un appuntamento
+	 * @throws SmartyException
+	 */
+	public function ModificaAppuntamento($app){
+        $this->smarty->assign('appuntamento',$app);
+        $this->smarty->display('modificaappuntamento_profilopaziente.tpl');
+    }
+	/**
+	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
+	 * @param $app array di appuntamenti
+	 * @throws SmartyException
+	 */
+	public function showStoricoEsami($app){
+        $this->smarty->assign('storico esami',$app);
+        $this->smarty->display('visualizzastoricoesamipaziente_profilopaziente.tpl');
+    }
+	/**
+	 * Funzione che permette di visualizzare la pagina per inserire una recensione
+	 * @param $app un appuntamento
+	 * @throws SmartyException
+	 */
+    public function RispostaRecensione($app){
+        $this->smarty->assign('appuntamento',$app);
+        $this->smarty->display('inseriscirecensione.tpl');
+    }
 
 
 }
