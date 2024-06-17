@@ -95,18 +95,6 @@
                     echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
                     echo "<a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>";
                 ?>
-                <!--<script type="text/javascript">
-                    function Conferma() {
-                        domanda="Vuoi veramente eliminare il tuo account?";
-                        confirm(domanda);
-                        /*if(confirm(domanda)== "ok"){
-                            location.href= '/eliminaaccount.php';
-                        }
-                        elseif(confirm(domanda)== "annulla"){
-                            location.href= '/profilo.php';
-                        }*/
-                    }
-                </script>-->
                 
                  </div>
 </body>
