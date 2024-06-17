@@ -405,11 +405,12 @@ class FEntityManagerSQL{
                     //devo construire l'array da restituire
                     $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
                     $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
-                    $agenda[$i]["paziente"] = $paziente[0]->getCognome()+" "+$paziente[0]->getNome(); //da testare
-                    $agenda[$i]["fasciaoraria"] = $fasciaoraria[0]->getData();  //da testare 
                     
-                    
+                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome()+" "+$paziente[0]->getNome(); //da testare
+                    $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData();  //da testare 
+                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"];  //da testare    
                 }
+                return $agenda;
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
                 //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
                 //ma bisogna aggiungere la data e l'ora (data)
@@ -425,6 +426,28 @@ class FEntityManagerSQL{
     }
 
 
+    //QUESTA CI SERVE PER NON VEDERE QUELLE DEI PAZIENTI BLOCCATI
+    //DA CAPIRE BENE IN QUALE SITUAZIONE BISOGNA MOSTRARLE
+    public static function getrecensionipazientiattivi($IdMedico){
+        
+        //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
+        //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
+        try{
+            $query = "SELECT IdMedico,IdRecesione,titolo,contenuto,valutazione,data_creazione FROM Recensioni,Pazienti 
+                        WHERE IdMedico = '" . $IdMedico . "'AND paziente.attivo=1;"
+                        ;
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            //BISOGNA FARE IL FETCH
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            return $row[0];  //DA TESTARE
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
 
 
 

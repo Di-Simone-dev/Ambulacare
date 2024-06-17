@@ -28,7 +28,7 @@ class FImmagine{
         $stmt->bindValue(":nome", $immagine->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(":dimensione", $immagine->getDimensione(), PDO::PARAM_INT);
         $stmt->bindValue(":tipo",$immagine->getTipo(), PDO::PARAM_STR);
-        $stmt->bindValue(":dati", $immagine->getDati(), PDO::PARAM_LOB);
+        $stmt->bindValue(":dati", $immagine->getDati(), PDO::PARAM_LOB);  //QUESTO DEVE ESSERE COSì
 
         //QUESTA STRUTTURA POTREBBE ESSERE UTILE IN ALTRE CLASSI=> MEGLIO TENERLA
         /*
