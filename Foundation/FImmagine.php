@@ -42,11 +42,15 @@ class FImmagine{
 
     //POSSIAMO SUPPORRE DI CARICARE SOLO UNA IMMAGINE ALLA VOLTA
     public static function creaimmagine($queryResult){
-        $immagine = new EImmagine($queryResult[0]['nome'], $queryResult[0]['dimensione'],$queryResult[0]['tipo'],$queryResult[0]['dati']);
-        $immagine->setIdImmagine($queryResult[0]['IdImmagine']);
-              
+        if(count($queryResult) > 0){
+            $immagini = array();
+            for($i = 0; $i < count($queryResult); $i++){
+            $immagine = new EImmagine($queryResult[$i]['nome'], $queryResult[$i]['dimensione'],$queryResult[$i]['tipo'],$queryResult[$i]['dati']);
+            $immagine->setIdImmagine($queryResult[$i]['IdImmagine']);
+            $immagini[]=$immagine;
+            }
         return $immagine;
-        
+        }
     }
 
 

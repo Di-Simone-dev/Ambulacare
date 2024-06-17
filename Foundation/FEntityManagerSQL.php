@@ -385,8 +385,8 @@ class FEntityManagerSQL{
     public static function getagendamedico($IdMedico){
         
         try{
-            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM Calendario,Fasciaoraria,Appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;";
+            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM calendario,fascia_oraria,appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=fascia_oraria.data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
@@ -403,10 +403,11 @@ class FEntityManagerSQL{
                 for($i=0;$i++;$i<$rowNum)
                 {
                     //devo construire l'array da restituire
-                    $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);
-                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdFasciaOraria"]);
-                    $agenda[$i]["paziente"] = $paziente->getCognome()+" "+$paziente->getNome(); //da testare
-                    $agenda[$i]["data_ora"] = $fasciaoraria->getDatatostring();  //??????? PERCHè NON è UN OGGETTO???
+                    $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
+                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
+                    $agenda[$i]["paziente"] = $paziente[0]->getCognome()+" "+$paziente[0]->getNome(); //da testare
+                    $agenda[$i]["fasciaoraria"] = $fasciaoraria[0]->getData();  //da testare 
+                    
                     
                 }
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento

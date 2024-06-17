@@ -71,6 +71,7 @@ class FMedico  {
     //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
     //queryresult è quindi un array associativo bidimensionale con prima chiave il numero dell'elemento e come seconda il campo
     public static function creamedico($queryResult){
+        /*
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
             $medico = new EMedico($queryResult[0]['nome'],$queryResult[0]['cognome'],
@@ -85,11 +86,11 @@ class FMedico  {
             return $medico;
         }
         //Questo nel caso di più utenti in output dalla query
-        elseif(count($queryResult) > 1){
+        else
+        */
+        if(count($queryResult) > 0){
             $medici = array();
             for($i = 0; $i < count($queryResult); $i++){
-                
-
                 $medico =  new EMedico($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
                                         $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['attivo'],
                                         $queryResult[$i]['costo']);

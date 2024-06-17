@@ -59,6 +59,7 @@ class FRisposta {
     }
     
     public static function crearisposta($queryResult){
+        /*
         if(count($queryResult) == 1){
             $risposta = new ERisposta($queryResult[0]['contenuto']);
             $risposta->setIdRisposta($queryResult[0]['IdRisposta']);
@@ -77,7 +78,9 @@ class FRisposta {
 
             //ispirazione presa da FReport
             return $risposta;
-        }elseif(count($queryResult) > 1){
+        }else
+        */
+        if(count($queryResult) > 0){
             $risposte = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $risposta = new ERisposta($queryResult[$i]['contenuto']);

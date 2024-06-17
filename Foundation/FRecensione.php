@@ -70,7 +70,7 @@ class FRecensione {
             $recensioni = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
-                $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
+                $recensione->setIdRecensione($queryResult[$i]['IdRecensione']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
                 $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id

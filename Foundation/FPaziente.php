@@ -75,7 +75,9 @@ class FPaziente  {
     //MALLOPPONE CHE SERVE AD ISTANZIARE I PAZIENTI
     //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
     //queryresult è quindi un array associativo bidimensionale
+    //CAMBIO QUESTA FUNZIONE IN MODO CHE LE "CREA*" RESTITUISCANO SEMPRE ARRAY 
     public static function creapaziente($queryResult){
+        /*
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
             $paziente = new EPaziente($queryResult[0]['nome'],$queryResult[0]['cognome'],
@@ -86,7 +88,9 @@ class FPaziente  {
             return $paziente;
         }
         //Questo nel caso di più utenti in output dalla query
-        elseif(count($queryResult) > 1){
+        else
+        */
+        if(count($queryResult) > 0){
             $pazienti = array();
             for($i = 0; $i < count($queryResult); $i++){
                 

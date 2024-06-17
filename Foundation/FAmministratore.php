@@ -61,10 +61,15 @@ class FAmministratore {
 
     public static function creaamministratore($queryResult){
         if(count($queryResult) > 0){
-            $admin = new EAmministratore($queryResult[0]['nome'],$queryResult[0]['cognome'],
-                                    $queryResult[0]['email'], $queryResult[0]['password']);
-            $admin -> setIdAdmin($queryResult[0]['IdAdmin']);
-            return $admin;
+            $amministratori = array();
+            for($i = 0; $i < count($queryResult); $i++){
+            $admin = new EAmministratore($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
+                                    $queryResult[$i]['email'], $queryResult[$i]['password']);
+            $admin -> setIdAdmin($queryResult[$i]['IdAdmin']);
+            $amministratori[]=$admin;
+            }
+            return $amministratori;
+
         }else{
             return array();
         }

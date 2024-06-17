@@ -61,15 +61,18 @@ class FCalendario {
      */
     public static function creacalendario($queryResult){
         if(count($queryResult) > 0){
-            $calendario = new ECalendario();
-            $calendario -> setIdCalendario($queryResult[0]['IdCalendario']);
-            //come si mette il medico? (FOREIGN KEY)
-            //DA TESTARE
-            $medico = FMedico::getObj($queryResult[0]['Medico']);  //il campo calendario è proprio l'id
-            $calendario->setMedico($medico);
-
+            $calendari = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                $calendario = new ECalendario();
+                $calendario -> setIdCalendario($queryResult[$i]['IdCalendario']);
+                //come si mette il medico? (FOREIGN KEY)
+                //DA TESTARE
+                $medico = FMedico::getObj($queryResult[$i]['IdMedico']);  //il campo calendario è proprio l'id
+                $calendario->setMedico($medico);
+                $calendari[] = $calendario;
+            }
             //ispirazione presa da FReport
-            return $calendario;
+            return $calendari;
         }else{
             return array();
         }
