@@ -1,7 +1,10 @@
 <?php
+/* IL FILE è ANCORA IN FASE DI ELABORAZIONE, MOLTE RIGHE DI CODICE SONO STATE COPIATE
+DAI FILE DI AGORA E FILLSPACEWEB */ 
+
 
 /**
- * Class VError si occupa di gestire la visualizzazione della pagina di errore in funxione dell'azione vietata
+ * Class VError si occupa di gestire la visualizzazione della pagina di errore in funzione dell'azione vietata
  */
 class VError
 {
