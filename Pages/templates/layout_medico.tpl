@@ -44,21 +44,36 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="indexmedico.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="visualizzastoricoesami_caricamentoreferto_profilomedico.html">Storico
+                            esami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
+                    </li>
 
                     <div class="navbar-brand d-none d-lg-block">
                         AmbulaCare
                         <strong class="d-block">HEALTH SPECIALISTS</strong>
                     </div>
-
-
                     <li class="nav-item">
-                        <a class="nav-link" href="register.html">Registrati</a>
+                        <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sceltalogin.html">Accedi</a>
+                        <a class="nav-link" href="visualizzastoricoesami_perpaziente_profilomedico.html">Ricerca
+                            pazienti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
                     </li>
                 </ul>
             </div>
