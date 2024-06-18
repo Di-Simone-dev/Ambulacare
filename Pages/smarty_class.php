@@ -105,12 +105,16 @@ $smarty->assign('recensioni',[
     ]);
 
 $smarty->assign('esame', [
-    'medico' => 'Emanuele Papile',
+    'medico' => [
+        'nome' => 'Emanuele Papile',
+        'valutazione' => "2",
+    ],
     'categoria' => 'Neurologia',
     'costo' => '1000',
     'orario' => '11:30',
     'data' => '01/01/2021',
-    'paziente' => 'Giacomo Giannini'
+    'paziente' => 'Giacomo Giannini',
+    'nome' => 'Taaaaaac (alla milanese)',
 ]);
 
 $smarty->assign('medici',[
@@ -131,4 +135,40 @@ $smarty->assign('medici',[
     ],
 ]);
 
-$smarty->display("moderazioneaccount_admin.tpl");
+$smarty->assign('appuntamenti',[
+    [
+        'paziente' => [
+            'nome' => 'Piero',
+            'cognome' => 'Marcozzi',
+        ],
+        'data' => '01/01/2025',
+        'orario' => '11:30',
+        'categoria' => 'Psichiatria',
+        'medico' => 'Emanuele Papile',
+        'costo' => '10',
+    ],
+    [
+        'paziente' => [
+            'nome' => 'Laura',
+            'cognome' => 'Tarantino',
+        ],
+        'data' => '01/01/2027',
+        'orario' => '11:30',
+        'categoria' => 'Psichiatria',
+        'medico' => 'Emanuele Papile',
+        'costo' => '10',
+    ],
+    [
+        'paziente' => [
+            'nome' => 'Giacomo',
+            'cognome' => 'Giannini',
+        ],
+        'data' => '01/01/2028',
+        'orario' => '11:30',
+        'categoria' => 'Dermatologia - sezione bruciature',
+        'medico' => 'Emanuele Papile',
+        'costo' => '10',
+    ],
+]);
+
+$smarty->display("visualizzaappuntamenti_admin.tpl");
