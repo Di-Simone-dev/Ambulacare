@@ -1,3 +1,5 @@
+<!--MODIFICARE A TUTTE LE PAGINE DI TUTTI I PROFILI IL LINK AL PROFILO PERSONALE-->
+
 <html lang="en">
     <head>
         <title> Profilo </title>
@@ -31,7 +33,7 @@
     
     <br>
     <header id="header">
-        <h1 style="font-size: 45px;"><b>Profilo Personale - <?php session_start(); print("Dott."."&nbsp".$_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
+        <h1 style="font-size: 45px;"><b>Profilo Personale - Dott. Emanuele Papile</b> </h1>
 	</header>
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
                 <div class="container">
@@ -74,7 +76,7 @@
                                 <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
+                                <a class="nav-link" href="profilomedico.html">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -84,40 +86,17 @@
     <br><br>
     <div>
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
-        <?php 
-                require_once('database.php');
-                $query="SELECT * FROM medico where IdMedico='".$_SESSION["IdMedico"]."'";
-                $check = $pdo->prepare($query);
-                $check->bindParam(':email', $email, PDO::PARAM_STR);
-                $check->execute();
-            
-                    $nome=$_SESSION["nome"];
-                    $cognome=$_SESSION["cognome"];
-                    $email=$_SESSION["email"];
-                    $costo=$_SESSION["costo"];
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$nome</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$costo</p>";
-                    echo "<a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>";
-                ?>
-                <!--<script type="text/javascript">
-                    function Conferma() {
-                        domanda="Vuoi veramente eliminare il tuo account?";
-                        confirm(domanda);
-                        /*if(confirm(domanda)== "ok"){
-                            location.href= '/eliminaaccount.php';
-                        }
-                        elseif(confirm(domanda)== "annulla"){
-                            location.href= '/profilo.php';
-                        }*/
-                    }
-                </script>-->
-                
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Emanuele</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Papile</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>
+                    <p style='font-size:20px; font-family:monospace;'>emanuele@abruzzofoto.it</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Costo:</p>
+                    <p style='font-size:20px; font-family:monospace;'>€80</p>
+                    <a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>
+                    <a href='modifica_dati_medico.html'><button class='btn btn-primary' style='width:195px;'>Modifica Dati</button></a>
+                    <a href='reimp_password_medico.html'><button class='btn btn-primary' style='width:195px;'>Reimposta Password</button></a>
                  </div>
 </body>
 </html>

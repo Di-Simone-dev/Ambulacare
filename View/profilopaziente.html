@@ -25,14 +25,14 @@
         <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
-        <link href="casiadmin.css" rel="stylesheet">
         <link href="font.css" rel="stylesheet">
+        <link href="casipaziente.css" rel="stylesheet">
     </head>
 <body id="top">
     
     <br>
     <header id="header">
-        <h1 style="font-size: 45px;"><b>Profilo Personale - Amministratore - <?php session_start(); print($_SESSION["nome"]."&nbsp"); print($_SESSION["cognome"]);?></b> </h1>
+        <h1 style="font-size: 45px;"><b>Profilo Personale - Sig. Andrea Iannotti</b> </h1>
 	</header>
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
                 <div class="container">
@@ -48,26 +48,25 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                         <li class="nav-item active">
-                                <a class="nav-link" href="indexadmin.html">Home</a>
+                                <a class="nav-link" href="indexpaziente.html" >Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
+                                <a class="nav-link" href="visualizzaesami_prenotazione.html">Prenota esame</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaappuntamenti_profiloadmin.html">Visualizza appuntamenti</a>
+                                <a class="nav-link" href="visualizzaesamiprenotati_profilopaziente.html">Visualizza Esami Prenotati</a>
                             </li>
+
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
+
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzastoricoesami_profiloadmin.html">Visualizza esami</a>
+                                <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzarecensioni_profiloadmin.html">Visualizza recensioni</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                                <a class="nav-link" href="profilopaziente.html">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -77,25 +76,25 @@
     <br><br>
     <div>
         <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
-        <?php 
-                require_once('database.php');
-                $query="SELECT * FROM amministratore where IdAdmin='".$_SESSION["IdAdmin"]."'";
-                $check = $pdo->prepare($query);
-                $check->bindParam(':email', $email, PDO::PARAM_STR);
-                $check->execute();
-        
-                    $nome=$_SESSION["nome"];
-                    $cognome=$_SESSION["cognome"];
-                    $email=$_SESSION["email"];
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$nome</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$cognome</p>";
-                    echo "<p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>";
-                    echo "<p style='font-size:20px; font-family:monospace;'>$email</p>";
-                    echo "<a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>";
-                ?>
-                
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Andrea</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Iannotti</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>
+                    <p style='font-size:20px; font-family:monospace;'>andrea.iannotti@gmail.com</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Codice Fiscale:</p>
+                    <p style='font-size:20px; font-family:monospace;'>INTADR02H20C632T</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Data di Nascita:</p>
+                    <p style='font-size:20px; font-family:monospace;'>20/08/2002</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Luogo di Nascita:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Chieti</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Residenza:</p>
+                    <p style='font-size:20px; font-family:monospace;'>Via papa giovanni 108</p>
+                    <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>
+                    <p style='font-size:20px; font-family:monospace;'>3456789012</p>
+                    <a href='logout.php'><button class='btn btn-primary' style='width:195px;'>Logout</button></a>
+                    <a href='modifica_dati_paziente.html'><button class='btn btn-primary' style='width:195px;'>Modifica Dati</button></a>
+                    <a href='reimp_password_paziente.html'><button class='btn btn-primary' style='width:195px;'>Reimposta Password</button></a>
                  </div>
 </body>
 </html>
