@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 19:06:37
-  from 'file:visualizzaappuntamenti_admin.tpl' */
+/* Smarty version 5.3.0, created on 2024-06-18 21:25:32
+  from 'file:visualizzaesamiprenotati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6671be9dcf5c73_54829791',
+  'unifunc' => 'content_6671df2cc9bad2_44249983',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'cc5db144c79b971753648aee3466974a52655439' => 
+    '4e90cfc8d569967acd958af01e284cba46b079bb' => 
     array (
-      0 => 'visualizzaappuntamenti_admin.tpl',
-      1 => 1718730139,
+      0 => 'visualizzaesamiprenotati_paziente.tpl',
+      1 => 1718738705,
       2 => 'file',
     ),
   ),
@@ -20,31 +20,31 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6671be9dcf5c73_54829791 (\Smarty\Template $_smarty_tpl) {
+function content_6671df2cc9bad2_44249983 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_5896362296671be9daa2358_42687907', 'content');
-$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1831415166671df2c9878d7_46934467', 'content');
+$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_5896362296671be9daa2358_42687907 extends \Smarty\Runtime\Block
+class Block_1831415166671df2c9878d7_46934467 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 ?>
 
 
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form action="#">
                     <div class="form-group">
-                        <br><br>
-                        <h2><label>Gestione Appuntamenti</label></h2>
+                        <h2><label for="storico">Elenco Esami</label></h2>
                         <br>
                         <select name="tipologia" id="categ" class="form-select">
                             <?php
@@ -61,12 +61,9 @@ $foreach0DoElse = false;
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
+                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
                         <br><br>
-                        <input type="time" id="oraprenotinizio" placeholder="Orario prenotazione" name="oraprenotinizio" />
-                        <input type="time" id="oraprenotfine" placeholder="Orario prenotazione" name="oraprenotfine" />
-                        <br><br>
-                        <button type="submit" class="btn btn-primary">Filtra Risultati</button>
+                        <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
                 </form>
             </div>
@@ -82,32 +79,31 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
-                    <th scope="col">Azioni</th>
+                    <th scope="col">Azione</th>
                 </tr>
             </thead>
             <tbody style="text-align: center;">
-                <tr>
-                    <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('appuntamenti'), 'appuntamento');
+            <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('esami'), 'esame');
 $foreach1DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('appuntamento')->value) {
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('esame')->value) {
 $foreach1DoElse = false;
 ?>
-                    <tr>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['data'];?>
+                <tr>
+                    <td><?php echo $_smarty_tpl->getValue('esame')['data'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['orario'];?>
+                    <td><?php echo $_smarty_tpl->getValue('esame')['orario'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['medico'];?>
+                    <td><?php echo $_smarty_tpl->getValue('esame')['medico']['nome'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['categoria'];?>
+                    <td><?php echo $_smarty_tpl->getValue('esame')['categoria'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['costo'];?>
-€</td>
-                        <td><a href="modificaappuntamento_profiloadmin.html"><button
-                                    class="btn btn-primary">Modifica</button></a></td>
-                    </tr>
-                <?php
+                    <td><?php echo $_smarty_tpl->getValue('esame')['costo'];?>
+</td>
+                    <td><a href="modificaappuntamento_profilopaziente.html"><button
+                                class="btn btn-primary">Modifica</button></a></td>
+                </tr>
+            <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             </tbody>

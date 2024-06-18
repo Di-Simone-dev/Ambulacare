@@ -11,15 +11,9 @@
                         <h2><label>Gestione Appuntamenti</label></h2>
                         <br>
                         <select name="tipologia" id="categ" class="form-select">
-                            <option value="select">Seleziona una tipologia</option>
-                            <option value="dentista">dentista</option>
-                            <option value="oculista">oculista</option>
-                            <option value="otorino">otorino</option>
-                            <option value="cardiologo">cardiologo</option>
-                            <option value="radiologo">radiologo</option>
-                            <option value="neurologo">neurologo</option>
-                            <option value="urologo">urologo</option>
-                            <option value="neurofisiopatologo">neurofisiopatologo</option>
+                            {foreach $categorie as $categoria}
+                                <option value="{$categoria.id}">{$categoria.nome}</option>
+                            {/foreach}
                         </select>
                         <br>
                         <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />

@@ -24,6 +24,7 @@
     <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="css/templatemo-medic-care.css" rel="stylesheet">
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
     <link href="font.css" rel="stylesheet">
 {/block}
 
