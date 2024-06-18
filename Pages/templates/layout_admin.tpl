@@ -30,41 +30,45 @@
 {block name=nav}
 
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
-        <div class="container">
-            <div class="navbar-brand mx-auto d-lg-none">
-                AmbulaCare
-                <strong class="d-block">HEALTH SPECIALISTS</strong>
-            </div>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-
-
-                    <div class="navbar-brand d-none d-lg-block">
-                        AmbulaCare
-                        <strong class="d-block">HEALTH SPECIALISTS</strong>
-                    </div>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sceltalogin.html">Accedi</a>
-                    </li>
-                </ul>
-            </div>
-
+    <div class="container">
+        <div class="navbar-brand mx-auto d-lg-none">
+            AmbulaCare
+            <strong class="d-block">HEALTH SPECIALISTS</strong>
         </div>
-    </nav>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="indexadmin.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="visualizzaappuntamenti_profiloadmin.html">Visualizza appuntamenti</a>
+                </li>
+                <div class="navbar-brand d-none d-lg-block">
+                    AmbulaCare
+                    <strong class="d-block">HEALTH SPECIALISTS</strong>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="visualizzastoricoesami_profiloadmin.html">Visualizza esami</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="visualizzarecensioni_profiloadmin.html">Visualizza recensioni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
 
 {/block}
 

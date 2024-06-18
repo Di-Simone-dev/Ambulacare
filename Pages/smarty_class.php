@@ -30,29 +30,46 @@ $smarty->assign('slots',[
             'orari' => [
                 '14:30',
                 '15:30',
-                '',
                 '17:30',
             ],
         ],
         [
             'giorno'=>'Mercoledì 29/05',
             'orari' => [
-                '',
                 '15:30',
                 '16:30',
                 '17:30',
             ],
         ],
         [
-            'giorno'=>'Giovedì 27/05',
+            'giorno'=>'Giovedì 30/05',
             'orari' => [
                 '14:30',
                 '15:30',
                 '16:30',
-                '',
             ],
         ],
+        [
+            'giorno'=>'Venerdì 31/05',
+            'orari' => [
+                '8:30',
+                '9:30',
+                '10:30',
+            ],  
+        ],
+        [
+            'giorno'=>'Sabato 1/06',
+            'orari' => [
+                '8:30',
+                '9:30',
+                '10:30',
+                '11:30',
+                '12:30',
+            ],  
+        ],
     ]);
+
+    $smarty->assign('maxdim', 5);
 
 $smarty->assign('recensioni',[
     [
@@ -87,4 +104,31 @@ $smarty->assign('recensioni',[
     ],
     ]);
 
-$smarty->display("index.tpl");
+$smarty->assign('esame', [
+    'medico' => 'Emanuele Papile',
+    'categoria' => 'Neurologia',
+    'costo' => '1000',
+    'orario' => '11:30',
+    'data' => '01/01/2021',
+    'paziente' => 'Giacomo Giannini'
+]);
+
+$smarty->assign('medici',[
+    [
+        'nome' => 'Emanuele',
+        'cognome' => 'Papile',
+        'stato' => 'Bloccato',
+    ],
+    [
+        'nome' => 'Andrea',
+        'cognome' => 'Luca Di Simone',
+        'stato' => 'Sbloccato',
+    ],
+    [
+        'nome' => 'Andrea',
+        'cognome' => 'Sorge',
+        'stato' => 'Bloccato',
+    ],
+]);
+
+$smarty->display("moderazioneaccount_admin.tpl");
