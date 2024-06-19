@@ -16,7 +16,7 @@
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
                                     <tr>
-                                    {foreach $fascieorarie as $fasciaoraria}
+                                    {foreach $fascieorare as $fasciaoraria}
                                         <th scope="col">{$fasciaoraria.giorno}</th>
                                     {/foreach}
                                     </tr>
@@ -24,7 +24,7 @@
                                 <tbody>
                                 {for $i = 0; $i<$maxdim; $i++}
                                     <tr>
-                                        {foreach $fascieorarie as $fasciaoraria}
+                                        {foreach $fascieorare as $fasciaoraria}
                                             <td {if $fasciaoraria.orari|@count > $i}
                                                 style="border: 1px solid;background-color: rgb(105, 200, 255);">{$fasciaoraria.orari[$i]}
                                             {else}

@@ -35,10 +35,7 @@ class VPaziente
 	 * @throws SmartyException
 	 */
 	public function loginOk() {
-		//$this->smarty->assign('userlogged',"loggato");
-		//$this->smarty->assign('array', $array);
-        //$this->smarty->assign('toSearch', 'trasporti');
-		$this->smarty->display('indexpaziente.tpl');
+		$this->smarty->display('index_paziente.tpl');
 	}
 
 	/**
@@ -160,46 +157,54 @@ class VPaziente
 	 * @throws SmartyException
 	 */
 	public function showEsamiDisponibiliPrenotazione($app){
-        $this->smarty->assign('esami_prenotazione',$app);
-        $this->smarty->display('visualizzaesami_prenotazione.tpl');
+        $this->smarty->assign('esami',$app);
+        $this->smarty->display('visualizzaesami_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per la prenotazione di un esame
 	 * @param $app un appuntamento
 	 * @param $foraria array di fasce orarie
+	 * @param $maxdim dimensione massima array fasce orarie
 	 * @throws SmartyException
 	 */
-	public function PrenotaEsame($app,$foraria){
-        $this->smarty->assign('prenotazione_app',$app);
-		$this->smarty->assign('fasce_orarie',$foraria);
+	public function PrenotaEsame($app,$foraria,$maxdim){
+        $this->smarty->assign('esame',$app);
+		$this->smarty->assign('fasceorarie',$foraria);
+		$this->smarty->assign('maxdim',$maxdim);
         $this->smarty->display('prenotaesame.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare gli esami prenotati dal paziente
 	 * @param $app array di appuntamenti
+	 * @param $categorie array di categorie
 	 * @throws SmartyException
 	 */
-	public function ShowEsamiPrenotati($app,$foraria){
-        $this->smarty->assign('appuntamenti',$app);
-        $this->smarty->display('visualizzaesamiprenotati_profilopaziente.tpl');
+	public function ShowEsamiPrenotati($app,$categorie){
+        $this->smarty->assign('esami',$app);
+		$this->smarty->assign('categorie',$categorie);
+        $this->smarty->display('visualizzaesamiprenotati_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per la modifica dell'appuntamento di un paziente
 	 * @param $app un appuntamento
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($app){
-        $this->smarty->assign('appuntamento',$app);
-        $this->smarty->display('modificaappuntamento_profilopaziente.tpl');
+	public function ModificaAppuntamento($app,$foraria,$maxdim){
+        $this->smarty->assign('esame',$app);
+		$this->smarty->assign('fasceorarie',$foraria);
+		$this->smarty->assign('maxdim',$maxdim);
+        $this->smarty->display('modificaappuntamento_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
 	 * @param $app array di appuntamenti
+	 * @param $categorie array di categorie
 	 * @throws SmartyException
 	 */
-	public function showStoricoEsami($app){
-        $this->smarty->assign('storico esami',$app);
-        $this->smarty->display('visualizzastoricoesamipaziente_profilopaziente.tpl');
+	public function showStoricoEsami($app, $categorie){
+        $this->smarty->assign('esami',$app);
+		$this->smarty->assign('categorie',$categorie);
+        $this->smarty->display('visualizzastoricoesami_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per inserire una recensione
