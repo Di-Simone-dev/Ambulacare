@@ -69,13 +69,13 @@ class FAppuntamento{
                 $appuntamento->setIdAppuntamento($queryResult[$i]['IdAppuntamento']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);
+                $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);
                 $appuntamento->setPaziente($paziente);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
                 //Metto la fascia oraria (FOREIGN KEY)
                 //DA TESTARE
-                $fascia_oraria = FFasciaOraria::getfasciaorariafromid($queryResult[$i]['IdFasciaOraria']);  //
+                $fascia_oraria = FFasciaOraria::getObj($queryResult[$i]['IdFasciaOraria']);  //
                 $appuntamento->setFasciaoraria($fascia_oraria);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
@@ -88,10 +88,34 @@ class FAppuntamento{
     }
 
     //PER LOADDARE UN APPUNTAMENTO DAL SUO ID
-    public static function getappuntamentofromid($IdAppuntamento){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdAppuntamento);
+    public static function getObj($IdAppuntamento){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdAppuntamento);
         //var_dump($result);
         if(count($result) > 0){
+            $Appuntamento = self::creaappuntamento($result);
+            return $Appuntamento;
+        }else{
+            return null;
+        }
+    }
+
+    //PER LOADDARE UN APPUNTAMENTO DAL SUO IDFasciaOraria
+    public static function getappuntamentofromfasciaoraria($IdFascia_oraria){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdFasciaOraria" , $IdFascia_oraria);
+        //var_dump($result);
+        if(count($result) > 0){
+            $Appuntamento = self::creaappuntamento($result);
+            return $Appuntamento;
+        }else{
+            return null;
+        }
+    }
+
+    //PER LOADDARE UN APPUNTAMENTO DAL SUO IdPaziente
+    public static function getappuntamentofrompaziente($IdPaziente){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdPaziente" , $IdPaziente);
+        //var_dump($result);
+        if(count($result) > 0){  //dovrebbe funzionare per molteplici appuntamenti
             $Appuntamento = self::creaappuntamento($result);
             return $Appuntamento;
         }else{
@@ -105,7 +129,7 @@ class FAppuntamento{
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN APPUNTAMENTO o AD AGGIORNARNE I DATI
 
-    public static function salvaappuntamento($obj, $fieldArray = null){
+    public static function saveObj($obj, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
@@ -159,6 +183,18 @@ class FAppuntamento{
         }
     }
 
+    public static function confrontadataappuntamenti($app1, $app2) {//SERVONO LE FASCE ORARIE SE VOGLIAMO ORDINARE
+        //POTREMMO TRANQUILLAMENTE NON FARLO E ORDINDARE PER PK
+
+        $time1 = $app1->getIdAppuntamento();  //L'ID DEGLI APPUNTAMENTI SEGUE L'ORDINE DI CREAZIONE, POTREBBE ESSERE USATO
+        $time2 = $app2->getIdAppuntamento();
+
+        if ($time1 == $time2) {
+            return 0;
+        }
+
+        return ($time1 > $time2) ? -1 : 1;
+    }
 
 
 

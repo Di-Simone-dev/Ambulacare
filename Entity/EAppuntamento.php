@@ -6,7 +6,7 @@ class EAppuntamento
 
     private $stato;
     
-    private $paziente;  //FK
+    private $paziente;  //FK BISOGNA CAPIRE SE METTERE L'ID O NO 
 
     private $fascia_oraria;   //FK
 

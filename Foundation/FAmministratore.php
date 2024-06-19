@@ -61,17 +61,22 @@ class FAmministratore {
 
     public static function creaamministratore($queryResult){
         if(count($queryResult) > 0){
-            $admin = new EAmministratore($queryResult[0]['nome'],$queryResult[0]['cognome'],
-                                    $queryResult[0]['email'], $queryResult[0]['password']);
-            $admin -> setIdAdmin($queryResult[0]['IdAdmin']);
-            return $admin;
+            $amministratori = array();
+            for($i = 0; $i < count($queryResult); $i++){
+            $admin = new EAmministratore($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
+                                    $queryResult[$i]['email'], $queryResult[$i]['password']);
+            $admin -> setIdAdmin($queryResult[$i]['IdAdmin']);
+            $amministratori[]=$admin;
+            }
+            return $amministratori;
+
         }else{
             return array();
         }
     }
 
-    public static function getadminfromid($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
+    public static function getObj($id){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FAmministratore::getTable(), FAmministratore::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $mod = self::creaamministratore($result);
@@ -84,7 +89,7 @@ class FAmministratore {
 
     public static function getadminbyemail($email){
 
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FAmministratore::getTable(), 'email', $email);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FAmministratore::getTable(), 'email', $email);
         //var_dump($result);
 
         if($result !== null && count($result) > 0){
@@ -95,7 +100,7 @@ class FAmministratore {
         }
     }
 
-    public static function salvaamministratore($admin){
+    public static function saveObj($admin){
 
         $saveAmministratore = FEntityManagerSQL::getInstance()->saveObject(FAmministratore::getClass(), $admin);
         //var_dump($savePerson);

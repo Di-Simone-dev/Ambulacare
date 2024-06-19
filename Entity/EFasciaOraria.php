@@ -7,18 +7,16 @@ class EFasciaoraria
 
     private DateTime $data;
 
-    private $ora_inizio;   //questa non sarebbe una datetime ma una stringa nella pratica (solo ora scritta)
-                            //QUESTA SAREBBE RICAVABILE DA $DATA, QUESTA è UNA RIDONDANZA ma probabilmente conviene tenerla
 
-    private $calendario;
+    private $calendario;   //FK
 
     private static $entity = EFasciaoraria::class;
     //costruttore
-    public function __construct($data,$ora_inizio)
+    public function __construct($data)
     {
         //$this->IdFascia_oraria;  l'id non va nel costruttore, perchè si mette con il metodo setIdFasciaOraria()
         $this->data=$data;
-        $this->ora_inizio=$ora_inizio;
+        //$this->ora_inizio=$ora_inizio;
 
     }
     //metodi set e get
@@ -37,11 +35,18 @@ class EFasciaoraria
         return $this->data;
     }
 
+    public function getDatatostring()
+    {
+        return $this->data->format('G:i d/m/y');
+        //$format4 = $dateTime->format('G:i d/m/y'); // Output:03/06/23 03:45
+    }
+
     public function setData(DateTime $data): void
     {
         $this->data = $data;
     }
 
+    /*
     public function getOrainizio()
     {
         return $this->ora_inizio;
@@ -51,6 +56,7 @@ class EFasciaoraria
     {
         $this->ora_inizio = $ora_inizio;
     }
+    */
 
     public function getCalendario()
     {

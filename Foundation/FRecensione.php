@@ -70,16 +70,16 @@ class FRecensione {
             $recensioni = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
-                $recensione->setIdRecensione($queryResult[$i]['idRecensione']);  //PER LA PK AUTOINCREMENT
+                $recensione->setIdRecensione($queryResult[$i]['IdRecensione']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
-                $paziente = FPaziente::getpazientefromid($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
+                $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);  //il campo IdPaziente è proprio l'id
                 $recensione->setPaziente($paziente);
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)
                 //DA TESTARE
-                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
+                $medico = FMedico::getObj($queryResult[$i]['IdMedico']);  //il campo IdMedico è proprio l'id
                 $recensione->setMedico($medico);
 
                 //ispirazione presa da FReport
@@ -92,8 +92,8 @@ class FRecensione {
     }
 
     //PER LOADDARE UNA RECENSIONE DAL SUO ID
-    public static function getrecensionefromid($IdRecensione){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRecensione);
+    public static function getObj($IdRecensione){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
         if(count($result) > 0){
             $recensione = self::crearecensione($result);
@@ -105,7 +105,7 @@ class FRecensione {
 
 
     //CON QUESTO SALVIAMO LE RECENSIONI
-    public static function salvarecensione($recensione){
+    public static function saveObj($recensione){
             $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $recensione);
             if($saveFasciaOraria !== null){
                 return $saveFasciaOraria;
@@ -126,6 +126,28 @@ class FRecensione {
             return false;
         }
     }
+
+    //PER CONTARE IL NUMERO DI RECENSIONI DI UN MEDICO
+    public static function getnumerorecensionimedico($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), "IdMedico", $IdMedico);
+        //var_dump($result);
+        return count($result);
+        
+    }
+
+    //PER LOADDARE le recensioni di utenti non bannati    ATTENZIONE  QUESTA VA FATTA SU ENTITY MANAGER
+    /*
+    public static function getrecensionipazientiattivi($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRecensione);
+        //var_dump($result);
+        if(count($result) > 0){
+            $recensione = self::crearecensione($result);
+            return $recensione;
+        }else{
+            return null;
+        }
+    }
+    */
 
 
 }

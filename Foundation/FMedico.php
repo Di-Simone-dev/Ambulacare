@@ -12,7 +12,7 @@ class FMedico  {
 	/** tabella con la quale opera */
     private static $table="medico";
     /** valori della tabella */
-    private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo:tipologia)";
+    private static $values="(NULL,:nome,:cognome,:email,:password,:attivo,:costo,:IdTipologia,:IdImmagine)";
 
     /** nome del campo della primary key della tabella*/
     private static $key = "IdMedico";
@@ -71,6 +71,7 @@ class FMedico  {
     //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
     //queryresult è quindi un array associativo bidimensionale con prima chiave il numero dell'elemento e come seconda il campo
     public static function creamedico($queryResult){
+        /*
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
             $medico = new EMedico($queryResult[0]['nome'],$queryResult[0]['cognome'],
@@ -79,25 +80,25 @@ class FMedico  {
             $medico -> setIdMedico($queryResult[0]['IdMedico']);
             //come si mette LA TIPOLOGIA? (FOREIGN KEY)
             //DA TESTARE
-            $tipologia = FTipologia::gettipologiafromid($queryResult[0]['IdTipologia']);  //PRENDO L'OGGETTO TIPOLOGIA
+            $tipologia = FTipologia::getObj($queryResult[0]['IdTipologia']);  //PRENDO L'OGGETTO TIPOLOGIA
             $medico->setTipologia($tipologia);  //GLI METTO PROPRIO L'OGGETTO NEL SETTER
             //ispirazione presa da FReport
             return $medico;
         }
         //Questo nel caso di più utenti in output dalla query
-        elseif(count($queryResult) > 1){
+        else
+        */
+        if(count($queryResult) > 0){
             $medici = array();
             for($i = 0; $i < count($queryResult); $i++){
-                
-
                 $medico =  new EMedico($queryResult[$i]['nome'],$queryResult[$i]['cognome'],
                                         $queryResult[$i]['email'], $queryResult[$i]['password'],$queryResult[$i]['attivo'],
                                         $queryResult[$i]['costo']);
                 $medico -> setIdMedico($queryResult[$i]['IdMedico']);
                  //come si mette LA TIPOLOGIA? (FOREIGN KEY)
                 //DA TESTARE
-                $tipologia = FTipologia::gettipologiafromid($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
-                $medico->setTipologia($tipologia);
+                $tipologia = FTipologia::getObj($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
+                $medico->setTipologia($tipologia);  //CI POTREBBE ESSERE UN FIX DA FARE
                 //ispirazione presa da FReport
                 
                 $medici[] = $medico;   //AGGIUNGE L'ELEMENTO ALL'ARRAY MEDICI
@@ -114,8 +115,8 @@ class FMedico  {
      * @param $id valore da ricercare nel campo $field
      * @return $medico l'oggetto medico se presente
      */
-    public static function getmedicofromid($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(), self::getKey(), $id);
+    public static function getObj($id){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $medico = self::creamedico($result);  //va bene anche per un array di medici
@@ -128,7 +129,7 @@ class FMedico  {
 
     //RISULTA NECESSARIA PER SODDISFARE LE SPECIFICHE UNA QUERY CHE RESTITUISCA TUTTI I MEDICI DI UNA CERTA TIPOLOGIA
     public static function getmedicofromtipologia($idTipologia){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FMedico::getTable(),"Tipologia", $idTipologia);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(),"Tipologia", $idTipologia);
         //var_dump($result);
         if(count($result) > 0){
             $medico = self::creamedico($result);  //va bene anche per un array di medici
@@ -139,11 +140,23 @@ class FMedico  {
 
     }
 
+    public static function getmedicofromemail($email){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), "email", $email);
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creamedico($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
+
+    }
+
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN MEDICO o AD AGGIORNARNE I DATI
 
-    public static function savemedico($medico, $fieldArray = null){
+    public static function saveObj($medico, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
@@ -185,12 +198,63 @@ class FMedico  {
     }
 
 
+    public static function getMedicinonBannati($IdTipologia)
+    {
+        $result = FEntityManagerSQL::getInstance()->objectListNotRemoved(self::getTable(), FTipologia::getKey(), $IdTipologia);
+        //$result contiene i medici con IdTipologia e NON bannati
+        //il controllo sul ban viene effettuato direttamente nel metodo objectListNotRemoved
+        if(count($result) == 1){
+            $medici = array();
+            $medico = self::creamedico($result);
+            $medici[] = $medico;
+            return $medici;
+        }elseif(count($result) > 1){
+            return self::creamedico($result);
+        }else{
+            return $result;
+        }
+        
+    }
 
 
+    public static function getmediarecensioni($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(), self::getKey(), $IdMedico);
+        //QUI ABBIAMO TUTTE LE RECENSIONI DEL MEDICO
+        //PROBABILMENTE CONVIENE FARE UNA QUERY A PARTE
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creamedico($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
 
+    }
 
+    public static function getaveragevalutazione($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->getaveragevalutazione($IdMedico);
+        //QUI ABBIAMO TUTTE LE RECENSIONI DEL MEDICO
+        //PROBABILMENTE CONVIENE FARE UNA QUERY A PARTE
+        //var_dump($result);
+        if($result !== null){
+            
+            return $result;
+        }else{
+            return null;
+        }
 
+    }
 
+    public static function verify($field, $id){
+        $queryResult = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), $field, $id);
+
+        return FEntityManagerSQL::getInstance()->existInDb($queryResult);
+    }
+
+    public static function getagenda($IdMedico){ //PER AGGIUNGERLO ALLA CLASSE MEDICO
+        $queryResult = FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
+        return $queryResult;
+    }
 
 
 

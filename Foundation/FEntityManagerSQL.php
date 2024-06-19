@@ -64,9 +64,31 @@ class FEntityManagerSQL{
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
-    public static function retriveObj($table, $field ,$id){
+    public static function retrieveObj($table, $field ,$id){
         try{
             $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
+            $stmt = self::$db->prepare($query);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+                return $result;
+            }else{
+                return array();
+            }
+            
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            return array();
+        }
+    }
+    public static function retrieveall($table){
+        try{
+            $query = "SELECT * FROM " .$table. ";";
             $stmt = self::$db->prepare($query);
             $stmt->execute();
             $rowNum = $stmt->rowCount();
@@ -208,7 +230,9 @@ class FEntityManagerSQL{
     public static function objectListNotRemoved($table, $field, $id)
     {
         try{
-            $query = "SELECT * FROM " . $table . " e WHERE e." . $field . " = '" . $id . "' AND e.removed = 0;";
+            //QUESTO DOVREBBE ESSERE RITOCCATO PERCHè 1 = ATTIVO E 0 = DISATTIVATO 
+            $query = "SELECT * FROM " . $table . " e WHERE e." . $field . " = '" . $id . "' AND e.attivo = 1;";
+            //QUESTA QUERY DOVREBBE ESSERE CORRETTA
             $stmt = self::$db->prepare($query);
             $stmt->execute();
             $rowNum = $stmt->rowCount();
@@ -320,4 +344,114 @@ class FEntityManagerSQL{
             return array();
         }
     }
+
+
+    //QUESTA CI SERVE NELLA PRATICA
+    //metodo che dato in input un id di un medico ne restituisce la media delle recensioni
+    public static function getaveragevalutazione($IdMedico){
+        
+        //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
+        //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
+        try{
+            $query = "SELECT AVG(valutazione),IdMedico FROM Recensioni WHERE IdMedico = '" . $IdMedico . "' GROUP BY IdMedico;"
+                        ;
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            //BISOGNA FARE IL FETCH
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            return $row[0];  //DA TESTARE
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    //QUESTA CI SERVE NELLA PRATICA PER VISUALIZZARE L'AGENDA DEL MEDICO (solo appuntamenti futuri)
+    //DOBBIAMO OTTENERE UNA LISTA DI APPUNTAMENTI
+    //CAMPI DA VISUALIZZARE 
+    //1.NOME E COGNOME PAZIENTE 2.DATA E ORA APPUNTAMENTO E LA TIPOLOGIA SAREBBE DA TOGLIERE (IMPLICITA)
+    //PRENDIAMO IL NOME E COGNOME DEL PAZIENTE DA IdPaziente in Appuntamento 
+    //Prendiamo la data e ora da IdFasciaOraria
+    //Idealmente l'output dovrebbe essere un array che con un primo indice numerico scorre gli appuntamenti
+    //con un secondo indice associativo invece prendiamo i campi
+    //agenda[0][paziente]="Mario Rossi"
+    //agenda[0][data_ora]="20/03/24 11:30"
+    //agenda[0][id]= id dell'apputanemento per accedere alla modifica
+    //metodo che dato in input l'id di un medico restituisce un array con le pk degli appuntamenti in agenda(da svolgere)
+    // query = SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
+    // WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;
+    public static function getagendamedico($IdMedico){
+        
+        try{
+            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM calendario,fascia_oraria,appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=fascia_oraria.data ORDER BY data;";
+                      
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti nell'agenda di un medico
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result
+                }
+                //return $result;
+                $agenda=array();
+                for($i=0;$i++;$i<$rowNum)
+                {
+                    //devo construire l'array da restituire
+                    $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
+                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
+                    
+                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome()+" "+$paziente[0]->getNome(); //da testare
+                    $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData();  //da testare 
+                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"];  //da testare    
+                }
+                return $agenda;
+                //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
+                //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
+                //ma bisogna aggiungere la data e l'ora (data)
+                //UNA SOLUZIONE POTREBBE ESSERE QUELLA DI UTILIZZARE 2 ARRAY SINCRONIZZATI CON LO STESSO INDICE PER RESTITUIRE I DATI
+            
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
+    //QUESTA CI SERVE PER NON VEDERE QUELLE DEI PAZIENTI BLOCCATI
+    //DA CAPIRE BENE IN QUALE SITUAZIONE BISOGNA MOSTRARLE
+    public static function getrecensionipazientiattivi($IdMedico){
+        
+        //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
+        //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
+        try{
+            $query = "SELECT IdMedico,IdRecesione,titolo,contenuto,valutazione,data_creazione FROM Recensioni,Pazienti 
+                        WHERE IdMedico = '" . $IdMedico . "'AND paziente.attivo=1;"
+                        ;
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            //BISOGNA FARE IL FETCH
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            return $row[0];  //DA TESTARE
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
+
+
+
+
 }

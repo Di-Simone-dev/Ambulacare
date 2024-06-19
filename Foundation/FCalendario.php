@@ -61,23 +61,26 @@ class FCalendario {
      */
     public static function creacalendario($queryResult){
         if(count($queryResult) > 0){
-            $calendario = new ECalendario();
-            $calendario -> setIdCalendario($queryResult[0]['IdCalendario']);
-            //come si mette il medico? (FOREIGN KEY)
-            //DA TESTARE
-            $medico = FMedico::getmedicofromid($queryResult[0]['Medico']);  //il campo calendario è proprio l'id
-            $calendario->setMedico($medico);
-
+            $calendari = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                $calendario = new ECalendario();
+                $calendario -> setIdCalendario($queryResult[$i]['IdCalendario']);
+                //come si mette il medico? (FOREIGN KEY)
+                //DA TESTARE
+                $medico = FMedico::getObj($queryResult[$i]['IdMedico']);  //il campo calendario è proprio l'id
+                $calendario->setMedico($medico);
+                $calendari[] = $calendario;
+            }
             //ispirazione presa da FReport
-            return $calendario;
+            return $calendari;
         }else{
             return array();
         }
     }
 
     //OTTENIAMO E LOADDIAMO DAL DB UN CALENDARIO USANDO IL SUO ID
-    public static function getcalendariofromid($IdCalendario){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdCalendario);
+    public static function getObj($IdCalendario){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdCalendario);
         //var_dump($result);
         if(count($result) > 0){
             $calendario = self::creacalendario($result);
@@ -90,7 +93,7 @@ class FCalendario {
     //OTTENIAMO E LOADDIAMO DAL DB UN CALENDARIO USANDO IL SUO MEDICO CON L'ID
     //RISULTA NECESSARIA PER SODDISFARE LE SPECIFICHE
     public static function getcalendariofromidmedico($IdMedico){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FCalendario::getTable(),"IdMedico", $IdMedico);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FCalendario::getTable(),"IdMedico", $IdMedico);
         //var_dump($result);
         if(count($result) > 0){
             $calendario = self::creacalendario($result);  //va bene anche per un array
@@ -104,7 +107,7 @@ class FCalendario {
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN CALENDARIO o AD AGGIORNARNE I DATI, NON DOVREBBE SERVIRE LA PARTE DELLE MODIFICHE
-    public static function savecalendario($calendario , $fieldArray = null){
+    public static function saveObj($calendario , $fieldArray = null){
         if($fieldArray === null){
             $saveCalendario = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $calendario);
             if($saveCalendario !== null){
@@ -291,6 +294,18 @@ class FCalendario {
 
     */
 
-    
+
+    //per ottenere una agenda dobbiamo usare almeno le tabelle Calendario e Fascia oraria con appuntamento
+    //per ottenere una lista degli appuntamenti di un medico da svolgere
+    public static function getagendamedico($IdMedico){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdMedico);
+        //var_dump($result);
+        if(count($result) > 0){
+            $calendario = self::creacalendario($result);
+            return $calendario;
+        }else{
+            return null;
+        }
+    }
 
 }

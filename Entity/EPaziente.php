@@ -27,10 +27,14 @@ class EPaziente
         $this->luogo_nascita=$luogo_nascita;
         $this->residenza=$residenza;
         $this->numero_telefono=$numero_telefono;
-        $this->attivo=true;
+        $this->attivo;  //FARE ATTENZIONE QUI
 
     }
     //metodi
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
     public function getIdPaziente()
     {
         return $this->IdPaziente;

@@ -4,9 +4,9 @@ class EReferto
     private $IdReferto;
     private $oggetto;
     private $contenuto;
-    private $immagine;
+    private $IdImmagine;  //FK con ID
 
-    private $appuntamento;
+    private $Appuntamento; //FK Senza ID
     private static $entity = EReferto::class;
     //costruttore
     public function __construct($oggetto,$contenuto)
@@ -48,24 +48,24 @@ class EReferto
         $this->contenuto = $contenuto;
     }
 
-    public function getImmagine()
+    public function getIdImmagine()
     {
-        return $this->immagine;
+        return $this->IdImmagine;
     }
 
-    public function setImmagine($immagine)
+    public function setIdImmagine($IdImmagine)
     {
-        $this->immagine = $immagine;
+        $this->IdImmagine = $IdImmagine;
     }
 
     public function getAppuntamento()
     {
-        return $this->appuntamento;
+        return $this->Appuntamento;
     }
 
-    public function setAppuntamento($appuntamento)
+    public function setAppuntamento($Appuntamento)
     {
-        $this->appuntamento = $appuntamento;
+        $this->Appuntamento = $Appuntamento;
     }
 
 

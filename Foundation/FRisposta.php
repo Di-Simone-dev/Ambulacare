@@ -59,6 +59,7 @@ class FRisposta {
     }
     
     public static function crearisposta($queryResult){
+        /*
         if(count($queryResult) == 1){
             $risposta = new ERisposta($queryResult[0]['contenuto']);
             $risposta->setIdRisposta($queryResult[0]['IdRisposta']);
@@ -66,18 +67,20 @@ class FRisposta {
             $risposta->setData_creazione($data_creazione);
             //metto la recensione (FOREIGN KEY)
             //DA TESTARE
-            $recensione = FRecensione::getrecensionefromid($queryResult[0]['IdRecensione']);  //il campo calendario è proprio l'id
+            $recensione = FRecensione::getObj($queryResult[0]['IdRecensione']);  //il campo calendario è proprio l'id
             $risposta->setRecensione($recensione);
 
             //ispirazione presa da FReport
             //metto il medico (FOREIGN KEY)
             //DA TESTARE
-            $medico = FMedico::getmedicofromid($queryResult[0]['IdMedico']);  //il campo calendario è proprio l'id
+            $medico = FMedico::getObj($queryResult[0]['IdMedico']);  //il campo calendario è proprio l'id
             $risposta->setMedico($medico);
 
             //ispirazione presa da FReport
             return $risposta;
-        }elseif(count($queryResult) > 1){
+        }else
+        */
+        if(count($queryResult) > 0){
             $risposte = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $risposta = new ERisposta($queryResult[$i]['contenuto']);
@@ -86,13 +89,13 @@ class FRisposta {
                 $risposta->setData_creazione($data_creazione);
                 //metto la recensione (FOREIGN KEY)
                 //DA TESTARE
-                $recensione = FRecensione::getrecensionefromid($queryResult[$i]['IdRecensione']);  //il campo calendario è proprio l'id
+                $recensione = FRecensione::getObj($queryResult[$i]['IdRecensione']);  //il campo calendario è proprio l'id
                 $risposta->setRecensione($recensione);
 
                 //ispirazione presa da FReport
                 //metto il medico (FOREIGN KEY)
                 //DA TESTARE
-                $medico = FMedico::getmedicofromid($queryResult[$i]['IdMedico']);  //il campo calendario è proprio l'id
+                $medico = FMedico::getObj($queryResult[$i]['IdMedico']);  //il campo calendario è proprio l'id
                 $risposta->setMedico($medico);
 
                 //ispirazione presa da FReport
@@ -104,8 +107,8 @@ class FRisposta {
         }
     }
 
-    public static function getrispostafromid($IdRisposta){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $IdRisposta);
+    public static function getObj($IdRisposta){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRisposta);
         //var_dump($result);
         if(count($result) > 0){
             $risposta = self::crearisposta($result);
@@ -116,7 +119,7 @@ class FRisposta {
 
     }
 
-    public static function salvarisposta($risposta){
+    public static function saveObj($risposta){
         $saveFasciaOraria = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $risposta);
         if($saveFasciaOraria !== null){
             return $saveFasciaOraria;

@@ -75,7 +75,9 @@ class FPaziente  {
     //MALLOPPONE CHE SERVE AD ISTANZIARE I PAZIENTI
     //queryresult è una roba del tipo $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), self::getKey(), $id);
     //queryresult è quindi un array associativo bidimensionale
+    //CAMBIO QUESTA FUNZIONE IN MODO CHE LE "CREA*" RESTITUISCANO SEMPRE ARRAY 
     public static function creapaziente($queryResult){
+        /*
         if(count($queryResult) == 1){
             //nel nostro caso una separazione non è necessaria, quindi si fa tutto con $query result perchè contiene tutti i campi
             $paziente = new EPaziente($queryResult[0]['nome'],$queryResult[0]['cognome'],
@@ -86,7 +88,9 @@ class FPaziente  {
             return $paziente;
         }
         //Questo nel caso di più utenti in output dalla query
-        elseif(count($queryResult) > 1){
+        else
+        */
+        if(count($queryResult) > 0){
             $pazienti = array();
             for($i = 0; $i < count($queryResult); $i++){
                 
@@ -110,8 +114,8 @@ class FPaziente  {
      * @param $id valore da ricercare nel campo $field
      * @return $paziente l'oggetto paziente se presente
      */
-    public static function getpazientefromid($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPaziente::getTable(), self::getKey(), $id);
+    public static function getObj($id){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
@@ -127,6 +131,18 @@ class FPaziente  {
     //SERVE USARE getObjOnAttributes, per ora è implementato per prendere entrambi gli input
     public static function getpazientefromnome_cognome($nome,$cognome){
         $result = FEntityManagerSQL::getInstance()->getObjOnAttributes(FPaziente::getTable(), "nome", $nome,"cognome", $cognome);
+        //var_dump($result);
+        if(count($result) > 0){
+            $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
+            return $paziente;
+        }else{
+            return null;
+        }
+
+    }
+
+    public static function getpazientefromemail($email){
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), "email", $email);
         //var_dump($result);
         if(count($result) > 0){
             $paziente = self::creapaziente($result);  //va bene anche per un array di pazienti
@@ -159,7 +175,7 @@ class FPaziente  {
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN PAZIENTE o AD AGGIORNARNE I DATI
 
-    public static function salvapaziente($paziente, $fieldArray = null){
+    public static function saveObj($paziente, $fieldArray = null){
         if($fieldArray === null){   
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
@@ -200,6 +216,15 @@ class FPaziente  {
         }
     }
 
+    public static function verify($field, $id){  //PER IL CHECK DEI NON DUPLICATI ALLA REGISTRAZIONE
+        $queryResult = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), $field, $id);
+
+        return FEntityManagerSQL::getInstance()->existInDb($queryResult);
+    }
+
+
+
+
     
 
-    }
+}
