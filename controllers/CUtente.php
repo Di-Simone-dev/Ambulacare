@@ -17,7 +17,8 @@ class CUser{
         }
         if(USession::isSetSessionElement('tipo_utente')){     //qui andrebbe cambiato a "paziente"
             $logged = true;           //l'utente risulta loggato
-            self::isBanned();        //qui andiamo a mandarlo nella schermata di login bannato nella view                 
+            self::isBanned();        //qui andiamo a mandarlo nella schermata di login bannato nella view      
+            //QUI DOVREBBE ESSERCI UNA DIVISIONE TRA I VARI TIPO DI UTENTI           
         }
         if(!$logged){
             header('Location: /Ambulacare/User/login');    //DA MODIFICARE
@@ -32,8 +33,21 @@ class CUser{
      */
     public static function isBanned()   //QUI ABBIAMO IL CHECK SUL BAN O MENO DELL'UTENTE USANDO FOUNDATION ED IL DB
     {
-        $userId = USession::getSessionElement('user');     //dipende da come settiamo l'array session
-        $user = FPersistentManager::getInstance()->retriveObj(EPaziente::getEntity(), $userId);
+        $userId = USession::getSessionElement('tipo_utente');     //dipende da come settiamo l'array session
+        switch ($userId) {
+            case "paziente":
+              echo "Your favorite color is red!";
+              break;
+            case "medico":
+              echo "Your favorite color is blue!";
+              break;
+            case "admin":
+              echo "Your favorite color is green!";
+              break;
+            default:
+              echo "Your favorite color is neither red, blue, nor green!";
+          }
+        $user = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $userId);
         if(!($user->getAttivo())){
             $view = new VUser();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
             USession::unsetSession();

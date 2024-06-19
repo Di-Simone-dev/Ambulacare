@@ -272,27 +272,29 @@ class FEntityManagerSQL{
         }
     }
 
-    /**
+    /*
      * Method to check if a row (not on User) have the same attribute @idUser
      * @param array $queryResult 
      * @param int $idUser
      * @return bool 
      */
+    /*
     public static function checkCreator($queryResult, $idUser){
         if(self::existInDb($queryResult) && $queryResult[0][FUser::getKey()] == $idUser){
             return true;
         }else{
             return false;
         }
-    }
+    }*/
 
-    /**
+    /*
      * Method to retrun rows from a SELECT FROM WHERE, but the @str is a string so search a row using LIKE % @str %
      * @param $table Refers to the table of the Database
      * @param $field  Refers to a field of the table
      * @param $str Refers to a string to serach on a field
      * @return array 
      */
+    /*
     public static function getSearchedItem($table, $field, $str){
         try{
             $query = "SELECT * FROM " . $table . " WHERE " . $field . " LIKE '%" . $str . "%'";
@@ -315,13 +317,14 @@ class FEntityManagerSQL{
             return array();
         }
     }
-
-    /**
+    */
+    /*
      * Method to return rows from a SELECT FROM WHERE but the @field is NULL
      * @param $table Refers to the table of the Database
      * @param $field  Refers to a field of the table
      * @return array
      */
+    /*
     public static function objectListOnNull($table, $field){
         try{
             $query = "SELECT * FROM " .$table. " WHERE ".$field." IS NULL;";
@@ -344,6 +347,7 @@ class FEntityManagerSQL{
             return array();
         }
     }
+    */
 
 
     //QUESTA CI SERVE NELLA PRATICA

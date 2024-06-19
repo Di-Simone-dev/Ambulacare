@@ -208,15 +208,8 @@ class FPersistentManager{
 
     //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
     public static function retrieveagendamedico($IdMedico){
-        //prende gli utenti seguti da $idUser, crea una lista di utenti
-        $followRow = FEntityManagerSQL::getInstance()->retrieveObj(FUserFollow::getTable(), 'idFollower', $IdMedico);
-        $result = array();
-        if(count($followRow) > 0){
-            for($i = 0; $i < count($followRow); $i++){
-                $user = FUser::getObj($followRow[$i]['idFollowed']);
-                $result[] = $user; 
-            }
-        }
+        $result = FMedico::getagenda($IdMedico);
+
         return $result;
     }
 
@@ -338,7 +331,7 @@ class FPersistentManager{
 
     /**
      * Metodo per aggiornare la mail di un paziente dando in input l'oggetto paziente
-     * @param \EUser $user
+     * @param \EPaziente $paziente
      */
     public static function updatemailpaziente($paziente){
         $field = [['email', $paziente->getEmail()]];
@@ -349,7 +342,7 @@ class FPersistentManager{
 
     /**
      * Metodo per aggiornare la password di un paziente dando in input l'oggetto paziente
-     * @param \EUser $user
+     * @param \EPaziente $paziente
      */
     public static function updatepasswordpaziente($paziente){
         $field = [['password', $paziente->getPassword()]];
@@ -481,10 +474,11 @@ class FPersistentManager{
 
 
         //DA FARE SE NECESSARIO
-    /**
+    /*
      * Method to update a Cooment that have changed the ban attribute 
      * @param \EComment $comment
      */
+    /*
     public static function updateCommentBan($comment){
         $field = [['removed', $comment->isBanned()]];           //SERVE UN MECCANISMO SIMILE PER LE RECENSIONI
         $result = FComment::saveObj($comment, $field);
@@ -492,7 +486,7 @@ class FPersistentManager{
         return $result;
 
     }
-
+    */
 //-----------------------------METODI PER LE CANCELLAZIONI------------------------------
 
     //MEDICO
