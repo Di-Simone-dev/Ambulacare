@@ -39,7 +39,7 @@ h4, label {
     padding: 4px;
     border-radius: 9px;
   } */
-  table {
+  /*table {
     margin: 0 auto;
     border-collapse: collapse;
     }
@@ -50,4 +50,7 @@ h4, label {
     label{
         font-size: xx-large;
         font-weight: bold;
+    }*/
+    thead{
+        text-align: center;
     }

@@ -26,3 +26,55 @@ FOUNDATION
 
 DATABASE
 1)SOLO le primary key e le foreign key vanno con le maiuscole per le iniziali delle parole (IdPaziente) e si usano gli "_" come separatori negli altri campi.
+
+SESSION
+->['tipo_utente'={medico | paziente | admin},
+	'nome',
+	'cognome',
+	'id',
+	]
+
+URL
+Home Page
+http://www.ambulacare.com (home page generale sia con login che senza login)
+
+Appuntamento
+http://www.ambulacare.com/appuntamento/esamidaprenotare/$tipologia (pagina per visualizzare gli esami che si possono prenotare)
+http://www.ambulacare.com/appuntamento/prenotaesame/$idesame (pagina per prenotare un esame)
+http://www.ambulacare.com/appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria (pagina per confermare la prenotazione di un appuntamento)
+http://www.ambulacare.com/appuntamento/esamiprenotati/$tipologia/$data_appuntamento (pagina per visualizzare tutti gli esami prenotati)
+http://www.ambulacare.com/appuntamento/modificaappuntamento/$idappuntamento (pagina per modificare un appuntamento)
+http://www.ambulacare.com/appuntamento/storicoesami/$tipologia/$data_appuntamento (pagina per visualizzare lo storico degli esami)
+http://www.ambulacare.com/appuntamento/agenda/$data_appuntamento (pagina per visualizzare l'agenda)
+
+Recensione
+http://www.ambulacare.com/recensione/inseriscirecensione/$idmedico (pagina per inserire una recensione)
+http://www.ambulacare.com/medico/recensioni/$data_recensione/$ordinaper (pagina per visualizzare le recensioni)
+
+Fascia Oraria
+http://www.ambulacare.com/medico/inserireslotorario (pagina per inserire gli slot per gli orari degli appuntamenti)
+
+Referto
+http://www.ambulacare.com/referto/inseriscireferto (pagina per caricare un referto)
+http://www.ambulacare.com/referto/$idreferto (pagina per visualizzare il referto)
+http://www.ambulacare.com/referto/cancellareferto/$idreferto (pagina per cancellare il referto)
+
+Paziente
+http://www.ambulacare.com/paziente/profilopersonale (pagina per visualizzare il profilo)
+
+CSearch(temporaneo)
+http://www.ambulacare.com/CSearch/ricercapazienti/$nome_paziente/$cognome_paziente (pagina per ricercare i pazienti assistiti)
+
+Risposta
+http://www.ambulacare.com/risposta/rispostarecensione/$idrecensione (pagina per rispondere ad una recensione)
+
+Medico
+http://www.ambulacare.com/medico/inserisciparametristatistiche (pagina per inserire i parametri per visualizzare le statistiche)
+http://www.ambulacare.com/medico/statistiche/$data1/$data2 (pagina per visualizzare le statistiche nell'intervallo di tempo selezionato)
+http://www.ambulacare.com/medico/profilopersonale (pagina per visualizzare il profilo)
+
+Admin
+http://www.ambulacare.com/admin/moderazioneaccount/$nome_utente/$cognome_utente/$categoria_utente (pagina per la moderazione degli account)
+http://www.ambulacare.com/admin/profilopersonale (pagina per visualizzare il profilo)
+
+Nella cartella Pages saranno inseriti i template e i file html/css/js (analoga alla cartella smarty di Agora)

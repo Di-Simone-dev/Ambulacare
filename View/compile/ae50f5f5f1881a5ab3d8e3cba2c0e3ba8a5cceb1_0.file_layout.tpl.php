@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.1.0, created on 2024-05-29 17:55:49
+/* Smarty version 5.3.0, created on 2024-06-16 11:10:04
   from 'file:layout.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
-  'version' => '5.1.0',
-  'unifunc' => 'content_66575005eb54b0_00916506',
+  'version' => '5.3.0',
+  'unifunc' => 'content_666eabec585cc1_65873034',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ae50f5f5f1881a5ab3d8e3cba2c0e3ba8a5cceb1' => 
     array (
       0 => 'layout.tpl',
-      1 => 1716998148,
+      1 => 1716998523,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66575005eb54b0_00916506 (\Smarty\Template $_smarty_tpl) {
+function content_666eabec585cc1_65873034 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 ?>
@@ -120,7 +120,7 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
             <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_180836411166575005eae600_32754578', 'body');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_38640578666eabec584d51_09009005', 'body');
 ?>
 
             
@@ -210,7 +210,7 @@ https://templatemo.com/tm-566-medic-care
     </body>
 </html><?php }
 /* {block 'body'} */
-class Block_180836411166575005eae600_32754578 extends \Smarty\Runtime\Block
+class Block_38640578666eabec584d51_09009005 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\View\\template';

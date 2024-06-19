@@ -9,7 +9,8 @@
 
         <title>Ambula Care</title>
 
-        <!-- CSS FILES -->        
+        <!-- CSS FILES -->
+        <link rel="stylesheet" href="bootstrap-italia/css/bootstrap-italia.min.css" />        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +27,7 @@
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
 
+        <link href="font.css" rel="stylesheet">
         <link rel="stylesheet" href="casipaziente.css">
 
 <!--
@@ -55,44 +57,26 @@ https://templatemo.com/tm-566-medic-care
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="indexpaziente.html">Home</a>
+                                <a class="nav-link" href="indexpaziente.html" >Home</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="prenotaesame.html">Prenota esame</a>
+                                <a class="nav-link" href="visualizzaesami_prenotazione.html">Prenota esame</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzaesamiprenotati.html">Visualizza Esami Prenotati</a>
+                                <a class="nav-link" href="visualizzaesamiprenotati_profilopaziente.html">Visualizza Esami Prenotati</a>
                             </li>
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
 
                             <div class="navbar-brand d-none d-lg-block">
                                 AmbulaCare
                                 <strong class="d-block">HEALTH SPECIALISTS</strong>
                             </div>
 
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
-                            <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
-
                             <li class="nav-item">
-                                <a class="nav-link" href="visualizzastoricoesami.html">Visualizza Storico Esami</a>
+                                <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
                             </li>
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                            <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
                         </ul>
                     </div>
 
@@ -109,19 +93,48 @@ https://templatemo.com/tm-566-medic-care
                     <h2>Categoria : Neurologia &ensp;&ensp;&ensp;&ensp;Costo: 70€</h2>
                     <br>
                     <h2>Data : 01/06/2024 &ensp;&ensp;&ensp;&ensp; Ora: 11:30</h2>
-                    <br>
                     <form action="#">
                         <div class="form-group"></div>
-                            <label for="oggetto">Oggetto : </label>
-                            <input id="oggetto" name="oggetto" placeholder="Oggetto" style="width: 800px;height: 35px;">
-                            <br><br><label for="contenuto">Contenuto :</label>
-                            <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;">
+                            <h4><label>Oggetto : </label>
+                            <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;"></h4>
+                            <br><br><h4><label>Contenuto :</label>
+                            <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;"></h4>
                             <br><br>
-                            <h2>Valutazione : </h2>
-                            <br>
+                            <h4><label>Valutazione : </label></h4>
+                                <fieldset class="rating rating-label">
+                                    <legend><span class="visually-hidden">Valutazione</span> <span class="visually-hidden">4 stelle</span> <span class="visually-hidden">su 5</span></legend>
+                                    <input type="radio" id="star5b" name="ratingB" value="5" />
+                                    <label class = "full" for="star5b">
+                                      <svg class="icon icon-lg"><use href="bootstrap-italia/svg/sprites.svg#it-star-full"></use></svg>
+                                      <span class="visually-hidden">Valuta 5 stelle su 5</span>
+                                    </label>
+                                    <input type="radio" id="star4b" name="ratingB" value="4" checked/>
+                                    <label class = "full" for="star4b">
+                                      <svg class="icon icon-lg"><use href="bootstrap-italia/svg/sprites.svg#it-star-full"></use></svg>
+                                      <span class="visually-hidden">Valuta 4 stelle su 5</span>
+                                    </label>
+                                    <input type="radio" id="star3b" name="ratingB" value="3" />
+                                    <label class = "full" for="star3b">
+                                      <svg class="icon icon-lg"><use href="bootstrap-italia/svg/sprites.svg#it-star-full"></use></svg>
+                                      <span class="visually-hidden">Valuta 3 stelle su 5</span>
+                                    </label>
+                                    <input type="radio" id="star2b" name="ratingB" value="2" />
+                                    <label class = "full" for="star2b">
+                                      <svg class="icon icon-lg"><use href="bootstrap-italia/svg/sprites.svg#it-star-full"></use></svg>
+                                      <span class="visually-hidden">Valuta 2 stelle su 5</span>
+                                    </label>
+                                    <input type="radio" id="star1b" name="ratingB" value="1" />
+                                    <label class = "full" for="star1b">
+                                      <svg class="icon icon-lg"><use href="bootstrap-italia/svg/sprites.svg#it-star-full"></use></svg>
+                                      <span class="visually-hidden">Valuta 1 stelle su 5</span>
+                                    </label>
+                                  </fieldset>
+                            <br><br><br>
+                            <div style="position: absolute;left: 550px;">
                             <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                             <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -192,6 +205,7 @@ https://templatemo.com/tm-566-medic-care
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/scrollspy.min.js"></script>
         <script src="js/custom.js"></script>
+        <script src="./bootstrap-italia.bundle.min.js"></script>
 <!--
 
 TemplateMo 566 Medic Care

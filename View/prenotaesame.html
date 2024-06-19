@@ -1,167 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+        <title>Ambula Care</title>
 
-    <title>Ambula Care</title>
+        <!-- CSS FILES -->     
 
-    <!-- CSS FILES -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-        rel="stylesheet" />
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet" />
+        <link href="css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet" />
+        <link href="css/templatemo-medic-care.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet" />
+        <link href="casipaziente.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet" />
+        <link href="font.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="casipaziente.css">
 <!--
-    <link rel="stylesheet" href="prenotaesame.css" />
-    
 
 TemplateMo 566 Medic Care
 
 https://templatemo.com/tm-566-medic-care
 
 -->
-</head>
+    </head>
+    
+    <body id="top">
+    
+        <main>
 
-<body id="top">
-    <main>
-        <nav class="navbar navbar-expand-lg mx-auto bg-light fixed-top shadow-lg">
-            <div class="container">
-                <div class="navbar-brand mx-auto d-lg-none">
-                    AmbulaCare
-                    <strong class="d-block">HEALTH SPECIALISTS</strong>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="indexpaziente.html">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="prenotaesame.html">Prenota esame</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="visualizzaesamiprenotati.html">Visualizza Esami Prenotati</a>
-                        </li>
-
-                        <!--<li class="nav-item">
-                                <a class="nav-link" href="#timeline">Timeline</a>
-                            </li>-->
-
-                        <li class="navbar-brand d-lg-block">
-                            AmbulaCare
-                            <strong class="d-block">HEALTH SPECIALISTS</strong>
-                        </li>
-
-                        <!--<li class="nav-item">
-                                <a class="nav-link" href="#reviews">Testimonials</a>
-                            </li>-->
-
-                        <!--<li class="nav-item">
-                                <a class="nav-link" href="#booking">Booking</a>
-                            </li>-->
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="visualizzastoricoesami">Visualizza Storico Esami</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
-                        </li>
-                        <!--<li class="nav-item" >
-                                <a class="nav-link" href="register.html">REGISTRATI</a>
-                            </li>-->
-                        <!--<li class="nav-item" >
-                                <a class="nav-link" href="login.html">ACCEDI</a>
-                            </li>-->
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </main>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="#">
-                    <div class="form-group">
-                        <h3><label for="categ">Tipologia</label></h3>
-                        <select name="languages" id="categ" class="form-select">
-                            <option value="select">Seleziona una tipologia</option>
-                            <option value="dentista">dentista</option>
-                            <option value="oculista">oculista</option>
-                            <option value="otorino">otorino</option>
-                            <option value="cardiologo">cardiologo</option>
-                            <option value="radiologo">radiologo</option>
-                            <option value="neurologo">neurologo</option>
-                            <option value="urologo">urologo</option>
-                            <option value="neurofisiopatologo">neurofisiopatologo</option>
-                        </select>
+            <nav class="navbar navbar-expand-lg mx-auto bg-light fixed-top shadow-lg">
+                <div class="container">
+                    <div class="navbar-brand mx-auto d-lg-none">
+                        AmbulaCare
+                        <strong class="d-block">HEALTH SPECIALISTS</strong>
                     </div>
-                    <button type="submit" class="btn btn-primary">Effettua ricerca</button>
-                </form>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="indexpaziente.html" >Home</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="visualizzaesami_prenotazione.html">Prenota esame</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="visualizzaesamiprenotati_profilopaziente.html">Visualizza Esami Prenotati</a>
+                            </li>
 
-            </div>
-            <div class="col-9">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Medico</th>
-                            <th scope="col">Tipologia</th>
-                            <th scope="col">Costo</th>
-                            <th scope="col">Recensioni</th>
-                            <th scope="col">Azione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Pippo</th>
-                            <td>Oculista</td>
-                            <td>10€</td>
-                            <td>5/5</td>
-                            <td><button class="btn btn-primary">Prenota</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Pluto</th>
-                            <td>cardiologo</td>
-                            <td>20€</td>
-                            <td>4.8/5</td>
-                            <td><button class="btn btn-primary">Prenota</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Pasquale</th>
-                            <td>dentista</td>
-                            <td>60€</td>
-                            <td>4.7/5</td>
-                            <td><button class="btn btn-primary">Prenota</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <div class="navbar-brand d-none d-lg-block">
+                                AmbulaCare
+                                <strong class="d-block">HEALTH SPECIALISTS</strong>
+                            </div>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </main>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form action="#">
+                        <div class="form-group" >
+                            <div class="col-9" id="elenco">
+                                <h3>Esame: Visita Cardiologica&ensp;&ensp;&ensp;&ensp;Costo: 70€</h3>
+                                <h3>Medico: Emanuele Papile&ensp;&ensp;&ensp;Data Odierna: 02/06/24</h3>
+                                <h3>Valutazione: 5/5&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità Orari del Medico</h3>
+                                <div>
+                                    <button><</button>
+                                    <button style="position: absolute;left: 1055px;">></button>
+                                </div>
+                                <br>
+                                <table class="table" id="orari" style="border: 1px solid;">
+                                    <thead style="background-color: rgb(230, 230, 230);text-align: center;">
+                                        <tr>
+                                            <th scope="col">LUN 27/05</th>
+                                            <th scope="col">MAR 28/05</th>
+                                            <th scope="col">MER 29/05</th>
+                                            <th scope="col">GIO 30/05</th>
+                                            <th scope="col">VEN 31/05</th>
+                                            <th scope="col">SAB 01/06</th>
+                                            <th scope="col">DOM 02/06</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">14:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">08:30</td>
+                                            <td style="background-color: black;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">15:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">09:30</td>
+                                            <td style="background-color: black;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: red">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">16:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">10:30</td>
+                                            <td style="background-color: black;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">17:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">11:30</td>
+                                            <td style="background-color: black;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">18:30</td>
+                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">12:30</td>
+                                            <td style="background-color: black"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <br>
+                                <div>
+                                    <h4><label>Data Appuntamento:</label><input type="date" id="dataapp" placeholder="Data Appuntamento" name="datadisp" /></h4>
+                                    <h4><label>Ora Appuntamento : </label><input type="time" id="oraapp" placeholder="Ora Appuntamento" name="oraapp" /></h4>
+                                    </div>
+                            </div>
+                        </div>
+                            <br><br><br>
+                            <div style="position: absolute;left: 550px;">
+                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            </div>
+                    </form>
+                </div>
             </div>
         </div>
-
-    </div>
-    <!--<footer class="site-footer section-padding" id="contact">
+       <!--<footer class="site-footer section-padding" id="contact">
             <div class="container">
                 <div class="row">
 
@@ -219,19 +236,18 @@ https://templatemo.com/tm-566-medic-care
             </section>
         </footer>-->
 
-    <!-- JAVASCRIPT FILES -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/scrollspy.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!--
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
+<!--
 
 TemplateMo 566 Medic Care
 
 https://templatemo.com/tm-566-medic-care
 
 -->
-</body>
-
+    </body>
 </html>

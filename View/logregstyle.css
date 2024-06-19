@@ -1,16 +1,16 @@
-html,body {
-    /*background: url('images/gallery/pexels-shvetsa-4167561.jpg');*/
+/*html,body {
+    background: url('images/gallery/pexels-shvetsa-4167561.jpg');
     background-repeat: no-repeat;
     background-position: 0 0;
-    background-size: 200px 50px;
+    background-size: 200px 50px cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
-    background-size: cover;
     padding: 0;
     margin: 0;
-    font: 14px 'Open sans', sans-serif;
+    font-size: 14px;
+    font-style: 'Open sans', sans-serif;
     color: #333;
-}
+}*/
 /*@media only screen and (max-width: 767px) {
     body {
     background-image: url('images/gallery/pexels-shvetsa-4167561.jpg');
@@ -29,7 +29,8 @@ form {
     margin: 30px auto;
 }
 input {
-	font: 14px 'Open Sans', sans-serif;
+	font-style: 'Open Sans', sans-serif;
+    font-size: 14px;
     border: 2px solid #ccc;
     padding: 6px;
     display: block;

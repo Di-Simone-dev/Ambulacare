@@ -1,20 +1,54 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <title>REGISTRAZIONE</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Ambula Care</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/owl.carousel.min.css" rel="stylesheet">
+
+        <link href="css/owl.theme.default.min.css" rel="stylesheet">
+
+        <link href="css/templatemo-medic-care.css" rel="stylesheet">
+
+        <link href="font.css" rel="stylesheet">
+
         <link rel="stylesheet" href="logregstyle.css">
+        
     </head>
-    <body>
-        <form method="post" action="registermedico.php">
-            <h1>REGISTRAZIONE</h1>
-            <input type="text" id="nome" placeholder="Nome" name="nome" required>
-            <input type="text" id="cognome" placeholder="Cognome" name="cognome" required>
-            <input type="text" id="email" placeholder="E-mail" name="email" required>
-            <input type="text" id="costo" placeholder="Costo" name="costo" required>
-            <input type="password" id="password" placeholder="Password" name="password" required>
-            <!--<input type="file" id="imgprofilo" placeholder="Immagine Profilo" name="imgprofilo" >-->
-            <button type="submit" name="register">REGISTRATI</button>
+    <body style="background-color: #9fc2fa;">
+        <form method="post" action="registermedico.php" style="width: 600px;">
+            <h1 style="font-size: 34px;">REGISTRAZIONE</h1>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Cognome</label>
+            <input type="text" id="cognome" name="cognome" required>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Email</label>
+            <input type="text" id="email" name="email" required>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Costo</label>
+            <input type="text" id="costo" name="costo" required>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Password</label>
+            <input type="password" id="password" name="password" required>
+            <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Immagine Profilo</label>
+            <input type="file" id="imgprofilo" name="imgprofilo" style="background-color: white;">
+            <button type="submit" name="register" style="width: 100px;">REGISTRATI</button>
         </form>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
     </body>
 </html>
