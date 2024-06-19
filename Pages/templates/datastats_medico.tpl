@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="visualizzastatistiche.html">
+                <form action="../test" method="post">
                     <div class="form-group">
                         <h2>Inserire un intervallo di date per visualizzarne le relative statistiche</h2>
                         <br>
@@ -14,7 +14,8 @@
                         <br><br><br>
                         <input type="date" id="datafine" placeholder="Data Fine" name="datafine" />
                         <br><br><br>
-                        <button class="btn btn-primary">Visualizza statistiche <br>nell'intervallo selezionato</button>
+                        <button class="btn btn-primary" type="submit">Visualizza statistiche <br>nell'intervallo
+                            selezionato</button>
                     </div>
                 </form>
             </div>

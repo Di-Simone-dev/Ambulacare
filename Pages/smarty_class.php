@@ -244,4 +244,4 @@ $smarty->assign('data1', '21/05');
 $smarty->assign('data1', '26/05');
 $smarty->assign('guadagno', '1000');
 
-$smarty->display("visualizzastoricoesami_medico.tpl");
+$smarty->display("datastats_medico.tpl");

@@ -14,6 +14,10 @@ class CFrontController
         array_shift($resource);
         array_shift($resource);
 
+        var_dump($resource);
+
+        if ($resource[0] == "test") header("Location: /Ambulacare/View/testing.php");
+
 
         $controller = "C" . $resource[0];
         $directory = "Control";
@@ -35,10 +39,10 @@ class CFrontController
                     else if ($num == 3) $controller::$method($param[0], $param[1], $param[2]);
                 }
             } else {
-                header("Location: /Ambulacare/Pages/smarty_class.php"); //temp
+                /* header("Location: /Ambulacare/Pages/smarty_class.php"); //temp */
             }
         } else {
-            header("Location: /Ambulacare/Pages/smarty_class.php"); //temp
+            /* header("Location: /Ambulacare/Pages/smarty_class.php"); //temp */
         }
     }
 }
