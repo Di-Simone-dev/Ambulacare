@@ -14,9 +14,10 @@ class CFrontController
         array_shift($resource);
         array_shift($resource);
 
-        var_dump($resource);
-
-        if ($resource[0] == "test") header("Location: /Ambulacare/View/testing.php");
+        if ($resource[0] == "test"){
+            $amm = new VAmministratore();
+            $amm->loginOk();
+        }
 
 
         $controller = "C" . $resource[0];

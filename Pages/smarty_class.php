@@ -1,9 +1,22 @@
 <?php
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Smarty\Smarty;
 
-$smarty = new Smarty();
+class Smarty_class
+{
+
+    static function startSmarty()
+    {
+        $smarty = new Smarty();
+        $smarty->setTemplateDir(__DIR__.'/../Pages/templates');
+        $smarty->setConfigDir(__DIR__.'/../Pages/configs');
+        $smarty->setCompileDir(__DIR__.'/../Pages/templates_c');
+        $smarty->setCacheDir(__DIR__.'/../Pages/cache');
+        return $smarty;
+    }
+}
+/* $smarty = new Smarty();
 $smarty->assign('slots', [
     [
         'p' => 'Luca',
@@ -243,5 +256,5 @@ $smarty->assign('statistiche',[
 $smarty->assign('data1', '21/05');
 $smarty->assign('data1', '26/05');
 $smarty->assign('guadagno', '1000');
-
-$smarty->display("datastats_medico.tpl");
+ */
+/* $smarty->display("datastats_medico.tpl"); */

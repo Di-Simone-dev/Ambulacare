@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__."/../Pages/smarty_class.php";
+
 /* IL FILE è ANCORA IN FASE DI ELABORAZIONE, MOLTE RIGHE DI CODICE SONO STATE COPIATE
 DAI FILE DI AGORA E FILLSPACEWEB */ 
 
@@ -14,7 +17,7 @@ class VAmministratore
      */
     function __construct ()
     {
-        $this->smarty = smarty_class::configuration();
+        $this->smarty = Smarty_class::startSmarty();
     }
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
@@ -36,7 +39,7 @@ class VAmministratore
 		//$this->smarty->assign('userlogged',"loggato");
 		//$this->smarty->assign('array', $array);
         //$this->smarty->assign('toSearch', 'trasporti');
-		$this->smarty->display('indexadmin.tpl');
+		$this->smarty->display('index_admin.tpl');
 	}
 
 	/**

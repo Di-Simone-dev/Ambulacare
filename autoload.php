@@ -13,7 +13,7 @@ function my_autoloader($className) {
                 break;
 
             case 'V':
-                include_once(__DIR__ . '/View/'. $className . '.php' );
+                include_once(__DIR__ . '/View_new/'. $className . '.php' );
                 break;
 
             case 'C':
