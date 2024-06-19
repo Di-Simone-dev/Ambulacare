@@ -251,6 +251,10 @@ class FMedico  {
         return FEntityManagerSQL::getInstance()->existInDb($queryResult);
     }
 
+    public static function getagenda($IdMedico){ //PER AGGIUNGERLO ALLA CLASSE MEDICO
+        $queryResult = FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
+        return $queryResult;
+    }
 
 
 
