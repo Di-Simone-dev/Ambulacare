@@ -241,7 +241,7 @@ class VMedico
 	 */
 	public function ShowPageOrari($fasceorarie){
         $this->smarty->assign('fasceorarie',$fasceorarie);
-        $this->smarty->display('inseriscislotorario_medico.tpl');//fino qui
+        $this->smarty->display('inseriscislotorario_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per l'inserimento dei dati per la visualizzazione delle statistiche
@@ -249,34 +249,38 @@ class VMedico
 	 */
 	public function ShowDataStatistiche(){
         //$this->smarty->assign('appuntamento',$app);
-        $this->smarty->display('inseriscidata_perstatistiche.tpl');
+        $this->smarty->display('datastats_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per le statistiche del medico
 	 * @param $stat array di statistiche
 	 * @throws SmartyException
 	 */
-	public function ShowStatistiche($stat){
+	public function ShowStatistiche($stat, $datainizio, $datafine, $guadagno){
         $this->smarty->assign('statistiche',$stat);
-        $this->smarty->display('visualizzastatistiche.tpl');
+		$this->smarty->assign('data1',$datainizio);
+		$this->smarty->assign('data2',$datafine);
+		$this->smarty->assign('guadagno',$guadagno);
+        $this->smarty->display('visualizzastats_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la lista dei pazienti presenti nel database
 	 * @param $paz array di pazienti
 	 * @throws SmartyException
 	 */
-	public function showPazPage($paz){
-        $this->smarty->assign('pazienti',$paz);
-        $this->smarty->display('visualizzastoricoesami_profilomedico.tpl');
+	public function showPazPage($esami){
+        $this->smarty->assign('esami',$esami);
+        $this->smarty->display('visualizzastoricoesami_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
 	 * @param $app array di appuntamenti
 	 * @throws SmartyException
 	 */
-	public function showStoricoEsami($app){
-        $this->smarty->assign('storico esami',$app);
-        $this->smarty->display('visualizzastoricoesamipaziente_profilomedico.tpl');
+	public function showStoricoEsami($paziente,$app){
+        $this->smarty->assign('esami',$app);
+		$this->smarty->assign('paziente', $paziente);
+        $this->smarty->display('visualizzastoricoesamipaz_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la lista delle recensioni presenti nel database
@@ -285,7 +289,7 @@ class VMedico
 	 */
     public function showRevPage($rec){
         $this->smarty->assign('recensioni',$rec);
-        $this->smarty->display('visualizzarecensioni_profilomedico.tpl');
+        $this->smarty->display('visualizzarecensioni_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per rispondere ad una recensione
@@ -294,7 +298,7 @@ class VMedico
 	 */
     public function RispostaRecensione($rec){
         $this->smarty->assign('recensioni',$rec);
-        $this->smarty->display('rispostarecensione_profilomedico.tpl');
+        $this->smarty->display('rispostarecensione_profilomedico.tpl'); //ancora implementata
     }
 
 }
