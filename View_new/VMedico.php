@@ -40,7 +40,7 @@ class VMedico
 		//$this->smarty->assign('userlogged',"loggato");
 		//$this->smarty->assign('array', $array);
         //$this->smarty->assign('toSearch', 'trasporti');
-		$this->smarty->display('indexmedico.tpl');
+		$this->smarty->display('index_medico.tpl');
 	}
 
 	/**
@@ -203,8 +203,8 @@ class VMedico
 	 * @throws SmartyException
 	 */
 	public function showStoricoEsamiReferto($app){
-        $this->smarty->assign('storico esami per gestione referti',$app);
-        $this->smarty->display('visualizzastoricoesami_caricamentoreferto_profilomedico.tpl');
+        $this->smarty->assign('esami',$app);
+        $this->smarty->display('visualizzastoricoesami_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per caricare un referto
@@ -212,7 +212,7 @@ class VMedico
 	 * @throws SmartyException
 	 */
 	public function CaricaReferto($app){
-        $this->smarty->assign('appuntamento',$app);
+        $this->smarty->assign('esame',$app);
         $this->smarty->display('inseriscireferto.tpl');
     }
 	/**
@@ -222,24 +222,26 @@ class VMedico
 	 */
 	public function ShowAgenda($app){
         $this->smarty->assign('appuntamenti',$app);
-        $this->smarty->display('visualizzaagenda.tpl');
+        $this->smarty->display('visualizzaagenda_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per la modifica dell'appuntamento di un paziente
 	 * @param $app un appuntamento
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($app){
-        $this->smarty->assign('appuntamento',$app);
-        $this->smarty->display('modificaappuntamento_profilomedico.tpl');
+	public function ModificaAppuntamento($app, $fasceorarie, $maxdim){
+        $this->smarty->assign('esame',$app);
+		$this->smarty->assign('fasceorarie',$fasceorarie);
+		$this->smarty->assign('maxdim',$maxdim);
+        $this->smarty->display('modificaappuntamento_medicomedico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per il caricamento di orari per appuntamenti
 	 * @throws SmartyException
 	 */
-	public function ShowPageOrari(){
-        //$this->smarty->assign('appuntamento',$app);
-        $this->smarty->display('inseriscislotorario.tpl');
+	public function ShowPageOrari($fasceorarie){
+        $this->smarty->assign('fasceorarie',$fasceorarie);
+        $this->smarty->display('inseriscislotorario_medico.tpl');//fino qui
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per l'inserimento dei dati per la visualizzazione delle statistiche

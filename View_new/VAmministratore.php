@@ -136,12 +136,12 @@ class VAmministratore
 	 * @param $utentiBannati array di utenti bannati
 	 * @throws SmartyException
 	 */
-    public function HomeAdmin($utentiAttivi, $utentiBannati) {
+    public function HomeAdmin() {
 		//list($typeA,$pic64att) = $this->SetImageRecensione($img_attivi);
-		$this->smarty->assign('n_bannati', 0);
+/* 		$this->smarty->assign('n_bannati', 0);
         $this->smarty->assign('utenti',$utentiAttivi);
-        $this->smarty->assign('utentiBan',$utentiBannati);
-        $this->smarty->display('moderazione_account.tpl');//il file tpl inserito è provvisorio non è stato ancora creato
+        $this->smarty->assign('utentiBan',$utentiBannati); */
+        $this->smarty->display('index_admin.tpl');
     }
 
 
@@ -152,16 +152,17 @@ class VAmministratore
 	 */
     public function showRevPage($rec){
         $this->smarty->assign('recensioni',$rec);
-        $this->smarty->display('visualizzarecensioni_profiloadmin.tpl');
+        $this->smarty->display('visualizzarecensioni_admin.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la lista degli appuntamenti presenti nel database
 	 * @param $app array di appuntamenti
 	 * @throws SmartyException
 	 */
-	public function showAppuntPage($app){
+	public function showAppuntPage($app, $categorie){
         $this->smarty->assign('appuntamenti',$app);
-        $this->smarty->display('visualizzaappuntamenti_profiloadmin.tpl');
+		$this->smarty->assign('categorie',$categorie);
+        $this->smarty->display('visualizzaappuntamenti_admin.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la lista dei pazienti presenti nel database
@@ -170,15 +171,16 @@ class VAmministratore
 	 */
 	public function showPazPage($paz){
         $this->smarty->assign('pazienti',$paz);
-        $this->smarty->display('visualizzastoricoesami_profiloadmin.tpl');
+        $this->smarty->display('visualizzastoricoesami_admin.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
 	 * @param $app array di appuntamenti
 	 * @throws SmartyException
 	 */
-	public function showStoricoEsami($app){
-        $this->smarty->assign('storico esami',$app);
+	public function showStoricoEsami($paziente, $app){
+        $this->smarty->assign('esami',$app);
+		$this->smarty->assign('paziente',$paziente);
         $this->smarty->display('visualizzastoricoesamipaziente_profiloadmin.tpl');
     }
 	/**
