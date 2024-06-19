@@ -15,12 +15,12 @@ class CUser{
                 USession::getInstance();  //getinstance() crea o getta la sessione (PATTERN SINGLETON) 
             }
         }
-        if(USession::isSetSessionElement('user')){     //qui andrebbe cambiato a "paziente"
+        if(USession::isSetSessionElement('tipo_utente')){     //qui andrebbe cambiato a "paziente"
             $logged = true;           //l'utente risulta loggato
             self::isBanned();        //qui andiamo a mandarlo nella schermata di login bannato nella view                 
         }
         if(!$logged){
-            header('Location: /Agora/User/login');    //qui si riporta l'utente alla schermata di login 
+            header('Location: /Ambulacare/User/login');    //DA MODIFICARE
             exit;
         }
         return true;
