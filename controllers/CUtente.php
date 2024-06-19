@@ -33,27 +33,43 @@ class CUser{
      */
     public static function isBanned()   //QUI ABBIAMO IL CHECK SUL BAN O MENO DELL'UTENTE USANDO FOUNDATION ED IL DB
     {
-        $userId = USession::getSessionElement('tipo_utente');     //dipende da come settiamo l'array session
-        switch ($userId) {
+        $tipo_utente = USession::getSessionElement('tipo_utente');     //dipende da come settiamo l'array session
+        $ID = USession::getSessionElement('id');
+        switch ($tipo_utente) {
             case "paziente":
-              echo "Your favorite color is red!";
-              break;
+                $user = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $ID);
+                if(!($user->getAttivo())){
+                    $view = new VPaziente();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
+                    USession::unsetSession();
+                    USession::destroySession();
+                    $view->loginBan();
+                }
+                break;
             case "medico":
-              echo "Your favorite color is blue!";
-              break;
+                $user = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $ID);
+                if(!($user->getAttivo())){
+                    $view = new VMedico();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
+                    USession::unsetSession();
+                    USession::destroySession();
+                    $view->loginBan();
+                }
+                break;
             case "admin":
-              echo "Your favorite color is green!";
-              break;
+                $user = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $ID);
+                /*
+                if(!($user->getAttivo())){
+                    $view = new VAmministratore();   //DA CAPIRE COSA FARE QUI
+                    USession::unsetSession();
+                    USession::destroySession();
+                    $view->loginBan();
+                }
+                    */
+                break;
             default:
-              echo "Your favorite color is neither red, blue, nor green!";
-          }
-        $user = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $userId);
-        if(!($user->getAttivo())){
-            $view = new VUser();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
-            USession::unsetSession();
-            USession::destroySession();
-            $view->loginBan();
+              echo "ERRORE DI TIPO UTENTE";
         }
+       
+    
     }
 
     public static function login(){                     
@@ -62,32 +78,45 @@ class CUser{
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('user')){          //QUI ANDIAMO A CONTROLLARE SE L0UTENTE e loggato e lo portiamo sulla home
-            header('Location: /Agora/User/home');       //REDIRECT LOCATION DELLA HOME DELL'UTENTE
+        if(USession::isSetSessionElement('tipo_utente')){          //QUI ANDIAMO A CONTROLLARE SE L0UTENTE e loggato e lo portiamo sulla home
+            header('Location: /Ambulacare');       //REDIRECT LOCATION DELLA HOME DELL'UTENTE
             //DOVREBBE USCIRE DOPO AVER USATO HEADER
             //exit; IN CASO 
         }
-        $view = new VUser();        //ALTRIMENTI PARTE VIEW CON SMARTY
-        $view->showLoginForm();     //MOSTRARE IL FORM DI LOGIN CON SMARTY
+        $tipo_utente = USession::getSessionElement('tipo_utente');     //dipende da come settiamo l'array session
+        $ID = USession::getSessionElement('id');
+        switch ($tipo_utente) {
+            case "paziente":
+                $view = new VPaziente();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
+                break;
+            case "medico":
+                $view = new VMedico();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
+                break;
+            case "admin":
+                $view = new VAmministratore();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
+                break;
+            default:
+              echo "ERRORE DI TIPO UTENTE";
+        }
+        $view->showLoginForm();     //MOSTRARE IL FORM DI LOGIN CON SMARTY MANCA??????
     }
-
     /**
+     * QUI ANDREBBE FATTA LA SUDDIVISIONE TRA LE REGISTRAZIONI DI MEDICI E PAZIENTI
      * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
      * @return void
      */
-    public static function registration(){
+    public static function registrationepaziente(){   //registrazione del paziente
     //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
-        $view = new VUser();  
-        //PER QUESTE COSE DEVO AGGIUNGERE METODI NEL PERSISTENT MANAGER PER VERIFICARE CHE NON SIANO IN USO LE CREDENZIALI INSERITE
-        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false &&  //DA METTERE IN FOUNDATION
-           FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){   
+        $view = new VPaziente();  
+        //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
+        if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
                 //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
-                $user = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
-                                  UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),UHTTPMethods::post('residenza'),
-                                  UHTTPMethods::post('numero_telefono'));
+                $paziente = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                UHTTPMethods::post('password'),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
+                                UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),1);
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
-                FPersistentManager::getInstance()->uploadObj($user);  //da sistemare il persistent manager
-
+                FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
+                
                 $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
         }else{
                 $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
@@ -98,27 +127,28 @@ class CUser{
      * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
      * the User is redirected in the homepage
      */
-    public static function checkLogin(){   //FACCIAMO IL LOGIN
-        $view = new VUser();
-        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLERO LA MAIL)
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));  
+    public static function checkLogin(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+        $view = new VPaziente();
+        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
+        $exist = FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email'));  
         //SE ESISTE NEL DB ALLORA CONTINUO                                          
-        if($username)
+        if($exist)
         {
-            //PER FARE QUESTA DEVO AGGIUNGERE UN METODO "GETPAZIENTEFROMMAIL($MAIL)"
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));  
-            //CONTROLLO LA PASSWORD CON QUELLA HASHATA 
-            if(password_verify(UHTTPMethods::post('password'), $user->getPassword()))
+            $user = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('username'));  
+            //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
+            //password_verify è una funzione NATIVA DI PHP
+            if(password_verify(UHTTPMethods::post('password'), $user[0]->getPassword()))  
             {
-                if($user->isBanned())  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                if(!($user[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
                 {
                     $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
                 }
                 elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
                 {
                     USession::getInstance();
-                    USession::setSessionElement('user', $user->getId());
-                    header('Location: /Agora/User/home');
+                    USession::setSessionElement('tipo_utente', 'paziente');
+                    USession::setSessionElement('id', $user[0]->getIdPaziente());
+                    header('Location: /Ambulacare');
                 }
             }
             else
@@ -140,14 +170,14 @@ class CUser{
         USession::getInstance();
         USession::unsetSession();
         USession::destroySession();
-        header('Location: /Agora/User/login');
+        header('Location: /Ambulacare');
     }
 
     /**
      * load all the Posts in homepage (Posts of the Users that the logged User are following). Also are loaded Information about vip User and
      * about profile Images of all the involved User
      */
-    public static function home(){
+    public static function home(){  //questa roba non ha proprio un corrispettivo
         if(CUser::isLogged()){
             $view = new VUser();
 
@@ -218,6 +248,7 @@ class CUser{
     }
 
     /**
+     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI
      * load the settings page compiled with the user data
      */
     public static function settings(){
@@ -231,6 +262,7 @@ class CUser{
     }
 
     /**
+     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
      */
     public static function setUserInfo(){
@@ -249,6 +281,7 @@ class CUser{
     }
 
     /**
+     * QUESTO VA APPLICATO PER UN CAMBIO MAIL
      * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
     public static function setUsername(){
@@ -274,6 +307,7 @@ class CUser{
     }
 
     /**
+     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD
      * Take the compiled form and update the user password
      */
     public static function setPassword(){
@@ -288,6 +322,7 @@ class CUser{
     }
 
     /**
+     * APPLICATO PER UN CAMBIO PROPIC DI UN MEDICO
      * Take the file, check if there is an upload error, if not update the user image and delete the old one 
      */
     public static function setProPic(){
@@ -324,6 +359,7 @@ class CUser{
     }
 
     /**
+     * POTREBBE ESSERE ANALOGO AL MOSTRARE GLI APPUNTAMENTI PRENOTABILI DAL PAZIENTE
      * load all the post finded by a specifyc category
      * @param String $category Refers to a name of a category
      */
@@ -345,6 +381,7 @@ class CUser{
     }
 
     /**
+     * BOH
      * load a limit number of posts that are not belonged to the logged user, so this page is for discover new Users
      */
     public static function explore()
@@ -366,6 +403,8 @@ class CUser{
     }
 
     /**
+     * POSSIAMO PENSARE A QUALCOSA COME I PAZIENTI VISITATI PER UN MEDICO
+     * QUINDI TUTTI GLI APPUNTAMENTI CONCLUSI RELATIVI AD UN MEDICO
      * return a page with a list of Users who are followed by the User logged 
      * @param int $idUser Refers to the id of a user
      */
@@ -380,6 +419,7 @@ class CUser{
     }
 
     /**
+     * QUI POTREMMO METTERE IL CASO SIMMETRICO, OVVERO GLI APPUNTAMENTI PASSATI DI UN PAZIENTE
      * return a page with a list of Users who are following the User logged 
      * @param int $idUser Refers to the id of a user
      */
@@ -394,6 +434,7 @@ class CUser{
     }
 
     /**
+     * POSSIBILE DA MODIFICARE PER LA PRENOTAZIONE DEGLI APPUNTAMENTI (CREAZIONE EFFETTIVA)
      * method to follow a user, the check is in the profile() method
      * @param int $followerId Refers to the id of a user
      */
@@ -410,6 +451,7 @@ class CUser{
     }
 
     /**
+     * CANCELLAZIONE APPUNTAMENTO   PROBABILMENTE SERVE CREARE CAppuntamento
      * method to unfollow a user, the check is in the profile() method
      * @param int $followedId Refers to the id of a user
      */

@@ -35,6 +35,10 @@ class EMedico
 
     }
 
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
     //metodi
     public function getIdMedico()
     {
