@@ -136,6 +136,7 @@ class FRecensione {
     }
 
     //PER LOADDARE le recensioni di utenti non bannati    ATTENZIONE  QUESTA VA FATTA SU ENTITY MANAGER
+    /*
     public static function getrecensionipazientiattivi($IdMedico){
         $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $IdRecensione);
         //var_dump($result);
@@ -146,7 +147,7 @@ class FRecensione {
             return null;
         }
     }
-
+    */
 
 
 }
