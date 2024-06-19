@@ -25,6 +25,7 @@
 
     <link href="css/templatemo-medic-care.css" rel="stylesheet">
     <link href="font.css" rel="stylesheet">
+    <link href="responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}

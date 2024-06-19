@@ -31,6 +31,8 @@
 
         <link href="font.css" rel="stylesheet">
 
+        <link href="responsive.css" rel="stylesheet">
+
 <!--
 
 TemplateMo 566 Medic Care
@@ -85,7 +87,7 @@ https://templatemo.com/tm-566-medic-care
                                 <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
+                                <a class="nav-link" href="profilomedico.html">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -103,10 +105,9 @@ https://templatemo.com/tm-566-medic-care
                             <div class="col-9" id="elenco">
                                 <h2>Disponibilità Orari Attuale</h2>
                                 <br>
-                                <div>
-                                    <button><</button>
-                                    <button style="position: absolute;left: 1055px;">></button>
-                                </div>
+                                    <button class="bottonitab"><</button>
+                                    <button class="bottonitab">></button>
+                            
                                 <br>
                                 <table class="table" id="orari" style="border: 1px solid;">
                                     <thead style="background-color: rgb(230, 230, 230);text-align: center;">
@@ -171,19 +172,19 @@ https://templatemo.com/tm-566-medic-care
                                 </table>
                                 <br>
                                 <div>
-                                    <h3><label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp" placeholder="Data Disponibile" name="datadisp" />
+                                    <h3><label>Disponibile in data: </label>&ensp;<input type="date" id="datadisp" name="datadisp" />
                                     <br>
-                                    <label>Inizio orario di Disponibilità : </label>&ensp;<input type="time" id="inizioorario" placeholder="Inizio Orario" name="inizioorario" />
+                                    <label>Inizio orario di Disponibilità: </label>&ensp;<input type="time" id="inizioorario" name="inizioorario" />
                                     <br>
-                                    <label>Fine orario di Disponibilità : </label>&ensp;<input type="time" id="fineorario" placeholder="Fine Orario" name="fineorario" /></h3>
+                                    <label>Fine orario di Disponibilità: </label>&ensp;<input type="time" id="fineorario" name="fineorario" /></h3>
                                     </div>
                             </div>
                         </div>
-                            <br><br><br>
-                            <div style="position: absolute;left: 550px;">
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                            <br>
+                            <div>
+                            <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                             </div>
                     </form>
                 </div>

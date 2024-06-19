@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <h2>Storico Esami</h2>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
+                        <input type="date" id="dataprenot" name="dataprenot" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>

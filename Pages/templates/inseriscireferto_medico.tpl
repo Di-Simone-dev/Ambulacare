@@ -16,11 +16,11 @@
                 <br><br>
                 <form action="#">
                     <h3><label for="oggetto">Oggetto Referto: </label>
-                        <input id="oggetto" name="oggetto" placeholder="Oggetto" style="width: 800px;height: 35px;" />
+                        <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" />
                     </h3>
                     <br>
                     <h3><label for="contenuto">Contenuto Referto:</label>
-                        <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;">
+                        <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;">
                     </h3>
                     <br><br><br><br>
                     <div style="position: absolute;left: 550px;">

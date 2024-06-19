@@ -10,7 +10,11 @@
                     <div class="form-group">
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attule</h2>
-                            <table class="table" id style="border: 1px solid;">
+			    <br>
+                                    <button class="bottonitab"><</button>
+                                    <button class="bottonitab">></button>
+                            <br>
+                            <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
                                     <tr>
                                         {foreach $fasceorarie as $fasciaoraria}
@@ -34,21 +38,20 @@
                                 </tbody>
                             </table>
                             <div>
-                                <label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp"
-                                    placeholder="Data Disponibile" name="datadisp" />
+                                <label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp" name="datadisp" />
                                 <br>
-                                <label>Inizio orario di Disponibilità : </label>&ensp;<input type="time" id="inizioorario"
-                                    placeholder="Inizio Orario" name="inizioorario" />
+                                <label>Inizio orario di Disponibilità : </label>&ensp;<input type="time" id="inizioorario" name="inizioorario" />
                                 <br>
-                                <label>Fine orario di Disponibilità : </label>&ensp;<input type="time" id="fineorario"
-                                    placeholder="Fine Orario" name="fineorario" />
+                                <label>Fine orario di Disponibilità : </label>&ensp;<input type="time" id="fineorario" name="fineorario" />
                             </div>
                         </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+		    <div>
+                    <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                    <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                    <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
+		</div>
                 </form>
             </div>
         </div>

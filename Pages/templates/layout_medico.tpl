@@ -26,6 +26,7 @@
     <link href="css/templatemo-medic-care.css" rel="stylesheet">
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
     <link href="font.css" rel="stylesheet">
+    <link href="responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -74,7 +75,7 @@
                         <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profilomedico.php">Profilo Personale</a>
+                        <a class="nav-link" href="profilomedico.html">Profilo Personale</a>
                     </li>
                 </ul>
             </div>
