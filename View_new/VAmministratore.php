@@ -181,7 +181,7 @@ class VAmministratore
 	public function showStoricoEsami($paziente, $app){
         $this->smarty->assign('esami',$app);
 		$this->smarty->assign('paziente',$paziente);
-        $this->smarty->display('visualizzastoricoesamipaziente_profiloadmin.tpl');
+        $this->smarty->display('visualizzastoricoesamipaziente_admin.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare una recensione
