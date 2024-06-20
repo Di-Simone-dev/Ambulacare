@@ -44,7 +44,7 @@
                     <td>{$recensione.medico}</td>
                     <td>{$recensione.data}</td>
                     <td>{$recensione.valutazione}/5</td>
-                    <td><button class="btn btn-primary">Dettagli</button></td>
+                    <td><a href="/Ambulacare/Admin/recensione/{$recensione.id}" class="btn btn-primary">Dettagli</a></td>
                 </tr>
             {/foreach}
             </tbody>

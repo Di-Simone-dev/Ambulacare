@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 12:34:35
+/* Smarty version 5.3.0, created on 2024-06-20 09:05:59
   from 'file:moderazioneaccount_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667162bba99ae4_78139157',
+  'unifunc' => 'content_6673d4d7b1c4b1_71695637',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fb73240af42f0f77434110696cd5c6e4bda9fbb0' => 
     array (
       0 => 'moderazioneaccount_admin.tpl',
-      1 => 1718706873,
+      1 => 1718867157,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667162bba99ae4_78139157 (\Smarty\Template $_smarty_tpl) {
+function content_6673d4d7b1c4b1_71695637 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_441418022667162bba6b2d8_94453334', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_13865887436673d4d7afb601_70906689', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_441418022667162bba6b2d8_94453334 extends \Smarty\Runtime\Block
+class Block_13865887436673d4d7afb601_70906689 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -90,7 +90,8 @@ $foreach0DoElse = false;
                         <td><?php echo $_smarty_tpl->getValue('medico')['stato'];?>
 </td>
                         <?php if ($_smarty_tpl->getValue('medico')['stato'] == "Sbloccato") {?>
-                            <td><button class="btn btn-primary">Blocca</button></td>
+                            <td><button class="btn btn-primary"><a href="/Ambulacare/Admin/bloccamedico/<?php echo $_smarty_tpl->getValue('medico')['id'];?>
+">Blocca</button></td>
                         <?php } else { ?>
                             <td><button class="btn btn-primary">Sblocca</button></td>
                         <?php }?>

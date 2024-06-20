@@ -184,7 +184,7 @@ class VAmministratore
 	public function showStoricoEsami($paziente, $app){
         $this->smarty->assign('esami',$app);
 		$this->smarty->assign('paziente',$paziente);
-        $this->smarty->display('visualizzastoricoesamipaziente_admin.tpl');
+        $this->smarty->display('visualizzastoricoesamipaz_admin.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare una recensione
@@ -195,4 +195,16 @@ class VAmministratore
         $this->smarty->assign('recensione',$recensione);
         $this->smarty->display('dettagli_recensione.tpl');
     }
+
+	public function moderazione($medici){
+		$this->smarty->assign('medici', $medici);
+		$this->smarty->display('moderazioneaccount_admin.tpl');
+	}
+
+	public function editApp($app, $fasceorarie ,$maxdim){
+		$this->smarty->assign('esame', $app);
+		$this->smarty->assign('maxdim', $maxdim);
+		$this->smarty->assign('fasceorarie', $fasceorarie);
+		$this->smarty->display('modificaappuntamento_admin.tpl');
+	}
 }

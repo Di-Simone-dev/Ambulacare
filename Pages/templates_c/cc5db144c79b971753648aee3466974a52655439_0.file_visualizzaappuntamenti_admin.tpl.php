@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 19:06:37
+/* Smarty version 5.3.0, created on 2024-06-20 11:23:13
   from 'file:visualizzaappuntamenti_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6671be9dcf5c73_54829791',
+  'unifunc' => 'content_6673f501294550_11138719',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cc5db144c79b971753648aee3466974a52655439' => 
     array (
       0 => 'visualizzaappuntamenti_admin.tpl',
-      1 => 1718730139,
+      1 => 1718874990,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6671be9dcf5c73_54829791 (\Smarty\Template $_smarty_tpl) {
+function content_6673f501294550_11138719 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_5896362296671be9daa2358_42687907', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_11888435626673f50127e998_18715568', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_5896362296671be9daa2358_42687907 extends \Smarty\Runtime\Block
+class Block_11888435626673f50127e998_18715568 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -41,7 +41,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="" method="post">
                     <div class="form-group">
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
@@ -104,7 +104,8 @@ $foreach1DoElse = false;
 </td>
                         <td><?php echo $_smarty_tpl->getValue('appuntamento')['costo'];?>
 €</td>
-                        <td><a href="modificaappuntamento_profiloadmin.html"><button
+                        <td><a href="/Ambulacare/Admin/modificaapp/<?php echo $_smarty_tpl->getValue('appuntamento')['id'];?>
+"><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>
                 <?php

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="" method="post">
                     <div class="form-group">
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
@@ -49,7 +49,7 @@
                         <td>{$appuntamento.medico}</td>
                         <td>{$appuntamento.categoria}</td>
                         <td>{$appuntamento.costo}€</td>
-                        <td><a href="modificaappuntamento_profiloadmin.html"><button
+                        <td><a href="/Ambulacare/Admin/modificaapp/{$appuntamento.id}"><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>
                 {/foreach}

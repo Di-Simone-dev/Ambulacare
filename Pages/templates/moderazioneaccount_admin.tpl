@@ -46,7 +46,7 @@
                         <td>Medico</td>
                         <td>{$medico.stato}</td>
                         {if $medico.stato == "Sbloccato"}
-                            <td><button class="btn btn-primary">Blocca</button></td>
+                            <td><button class="btn btn-primary"><a href="/Ambulacare/Admin/bloccamedico/{$medico.id}">Blocca</button></td>
                         {else}
                             <td><button class="btn btn-primary">Sblocca</button></td>
                         {/if}

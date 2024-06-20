@@ -25,7 +25,7 @@ class CFrontController
         $scanDir = scandir($directory);
 
         if (in_array($controller . ".php", $scanDir)) {
-            if (isset($result[1])) {
+            if (isset($resource[1])) {
                 $method = $resource[1];
 
                 if (method_exists($controller, $method)) {

@@ -15,16 +15,16 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet">
-    <link href="font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -43,26 +43,26 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="indexadmin.html">Home</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/index">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="moderazioneaccount.html">Visualizza medici e pazienti</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/">Visualizza medici e pazienti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizzaappuntamenti_profiloadmin.html">Visualizza appuntamenti</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/visualizzaapp">Visualizza appuntamenti</a>
                 </li>
                 <div class="navbar-brand d-none d-lg-block">
                     AmbulaCare
                     <strong class="d-block">HEALTH SPECIALISTS</strong>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizzastoricoesami_profiloadmin.html">Visualizza esami</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/">Visualizza esami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizzarecensioni_profiloadmin.html">Visualizza recensioni</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/recensioni">Visualizza recensioni</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profiloadmin.php">Profilo Personale</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/">Profilo Personale</a>
                 </li>
             </ul>
         </div>

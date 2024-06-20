@@ -6,7 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacre/Admin/" method="post">
+                    <input type="hidden" value="{$esame.id}" name="idesame">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
                             <h2>Esame: {$esame.nome}&ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h2>
@@ -16,7 +17,7 @@
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
                                     <tr>
-                                    {foreach $fascieorarie as $fasciaoraria}
+                                    {foreach $fasceorarie as $fasciaoraria}
                                         <th scope="col">{$fasciaoraria.giorno}</th>
                                     {/foreach}
                                     </tr>
@@ -24,7 +25,7 @@
                                 <tbody>
                                 {for $i = 0; $i<$maxdim; $i++}
                                     <tr>
-                                        {foreach $fascieorarie as $fasciaoraria}
+                                        {foreach $fasceorarie as $fasciaoraria}
                                             <td {if $fasciaoraria.orari|@count > $i}
                                                 style="border: 1px solid;background-color: rgb(105, 200, 255);">{$fasciaoraria.orari[$i]}
                                             {else}
@@ -50,7 +51,7 @@
                     </div>
                     <br>
                     <div style="left: 550px;">
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                        <a href="/Ambulacare/Admin/visualizzaapp" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
                     </div>

@@ -19,7 +19,7 @@
                     <td>{$paziente.nome}</td>
                     <td>{$paziente.cognome}</td>
                     <td>{$paziente.data}</td>
-                    <td><a href=""><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
+                    <td><a href="/Ambulacare/Admin/esamipaziente/{$paziente.id}"><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
                 </tr>
             {/foreach}
             </tbody>
