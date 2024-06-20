@@ -49,10 +49,10 @@
                         </div>
                     </div>
                     <br>
-                    <div style="left: 550px;">
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                    <div>
+                        <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                        <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
                 </form>
             </div>

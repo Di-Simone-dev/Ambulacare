@@ -15,6 +15,8 @@
                   
                             <h3>Valutazione: {$esame.medico.valutazione}/5&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità Orari
                                 del Medico</h3>
+				<button class="bottonitab"><</button>
+                                    <button class="bottonitab">></button>
                             <br>
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
@@ -41,19 +43,17 @@
                             </table>
                             <br>
                             <div>
-                                <h4><label>Data Appuntamento:</label><input type="date" id="dataapp"
-                                        placeholder="Data Appuntamento" name="datadisp" /></h4>
-                                <h4><label>Ora Appuntamento : </label><input type="time" id="oraapp"
-                                        placeholder="Ora Appuntamento" name="oraapp" /></h4>
+                                <h4><label>Data Appuntamento:</label><input type="date" id="dataapp" name="datadisp" /></h4>
+                                <h4><label>Ora Appuntamento : </label><input type="time" id="oraapp" name="oraapp" /></h4>
                             </div>
                         </div>
                     </div>
                     <br><br><br>
-                    <div>
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
-                    </div>
+                    <div >
+                            <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
+                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                            <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
+                            </div>
                 </form>
             </div>
         </div>

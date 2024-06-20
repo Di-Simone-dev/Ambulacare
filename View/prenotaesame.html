@@ -30,6 +30,7 @@
         <link href="casipaziente.css" rel="stylesheet">
 
         <link href="font.css" rel="stylesheet">
+        <link href="responsive.css" rel="stylesheet">
 
 <!--
 
@@ -95,10 +96,8 @@ https://templatemo.com/tm-566-medic-care
                                 <h3>Esame: Visita Cardiologica&ensp;&ensp;&ensp;&ensp;Costo: 70€</h3>
                                 <h3>Medico: Emanuele Papile&ensp;&ensp;&ensp;Data Odierna: 02/06/24</h3>
                                 <h3>Valutazione: 5/5&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità Orari del Medico</h3>
-                                <div>
-                                    <button><</button>
-                                    <button style="position: absolute;left: 1055px;">></button>
-                                </div>
+                                    <button class="bottonitab"><</button>
+                                    <button class="bottonitab">></button>
                                 <br>
                                 <table class="table" id="orari" style="border: 1px solid;">
                                     <thead style="background-color: rgb(230, 230, 230);text-align: center;">
@@ -163,16 +162,16 @@ https://templatemo.com/tm-566-medic-care
                                 </table>
                                 <br>
                                 <div>
-                                    <h4><label>Data Appuntamento:</label><input type="date" id="dataapp" placeholder="Data Appuntamento" name="datadisp" /></h4>
-                                    <h4><label>Ora Appuntamento : </label><input type="time" id="oraapp" placeholder="Ora Appuntamento" name="oraapp" /></h4>
+                                    <h4><label>Data Appuntamento:</label><input type="date" id="dataapp" name="datadisp" /></h4>
+                                    <h4><label>Ora Appuntamento : </label><input type="time" id="oraapp" name="oraapp" /></h4>
                                     </div>
                             </div>
                         </div>
-                            <br><br><br>
-                            <div style="position: absolute;left: 550px;">
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                            <br>
+                            <div >
+                            <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                             </div>
                     </form>
                 </div>

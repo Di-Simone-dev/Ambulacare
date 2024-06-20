@@ -26,7 +26,8 @@
 
         <link href="css/templatemo-medic-care.css" rel="stylesheet">
         <link href="casipaziente.css" rel="stylesheet">
-        <link href="font.css" rel="stylesheet"> 
+        <link href="font.css" rel="stylesheet">
+        <link href="responsive.css" rel="stylesheet">
 
 <!--
 
@@ -73,7 +74,7 @@ https://templatemo.com/tm-566-medic-care
                                 <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                                <a class="nav-link" href="profilopaziente.html">Profilo Personale</a>
                             </li>
                         </ul>
                     </div>
@@ -82,7 +83,7 @@ https://templatemo.com/tm-566-medic-care
             </nav>
 
         </main>
-        <br><br>
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -92,10 +93,8 @@ https://templatemo.com/tm-566-medic-care
                                 <h2>Esame: Visita Cardiologica&ensp;&ensp;&ensp;&ensp;Costo: 70€</h2>
                                 <h2>Medico: Emanuele Papile&ensp;&ensp;&ensp;Data Odierna: 02/06/24</h2>
                                 <h2>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità Orari del Medico</h2>
-                                <div>
-                                    <button><</button>
-                                    <button style="position: absolute;left: 1055px;">></button>
-                                </div>
+                                    <button class="bottonitab"><</button>
+                                    <button class="bottonitab">></button>
                                 <br>
                                 <table class="table" id="orari" style="border: 1px solid;">
                                     <thead style="background-color: rgb(230, 230, 230);text-align: center;">
@@ -160,16 +159,16 @@ https://templatemo.com/tm-566-medic-care
                                 </table>
                                 <br>
                                 <div>
-                                    <h4><label>Nuova Data :</label><input type="date" id="nuovadata" placeholder="Nuova Data" name="nuovadata" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data: 07/06/24</label></h4>
-                                    <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario" placeholder="Nuovo Orario" name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario: 11:30</label></h4>
+                                    <h4><label>Nuova Data :</label><input type="date" id="nuovadata" name="nuovadata" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data: 07/06/24</label></h4>
+                                    <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario" name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario: 11:30</label></h4>
                                     </div>
                             </div>
                         </div>
-                            <br><br><br>
-                            <div style="position: absolute;left: 550px;">
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                            <br>
+                            <div>
+                            <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                            <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                            <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                             </div>
                     </form>
                 </div>

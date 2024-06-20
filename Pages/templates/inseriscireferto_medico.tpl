@@ -6,27 +6,27 @@
         <div class="row">
             <div class="col">
                 <br>
-                <h1>Caricamento Referto</h1>
+                <h2>Caricamento Referto</h2>
                 <br>
-                <h2>Esame di {$esame.paziente}</h2>
+                <h3>Esame di {$esame.paziente}</h3>
                 <br>
-                <h2>Categoria : {$esame.categoria} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h2>
+                <h3>Categoria : {$esame.categoria} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h3>
                 <br>
-                <h2>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h2>
+                <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
                 <br><br>
                 <form action="#">
-                    <h3><label for="oggetto">Oggetto Referto: </label>
+                    <h4><label for="oggettoref">Oggetto Referto: </label>
                         <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" />
-                    </h3>
+                    </h4>
                     <br>
-                    <h3><label for="contenuto">Contenuto Referto:</label>
+                    <h4><label for="contenutoref">Contenuto Referto:</label>
                         <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;">
-                    </h3>
+                    </h4>
                     <br><br><br><br>
-                    <div style="position: absolute;left: 550px;">
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                    <div>
+                        <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                        <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
 
                 </form>

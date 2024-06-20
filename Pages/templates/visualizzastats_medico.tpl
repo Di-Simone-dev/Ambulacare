@@ -3,7 +3,7 @@
 {block name=content}
 
     <br><br><br><br><br>
-    <div id="container" style="height: 600px;">
+    <div id="container" style="height: 500px;">
         <h2>Statistiche nell'intervallo di tempo selezionato</h2>
     <br>
     <script>
