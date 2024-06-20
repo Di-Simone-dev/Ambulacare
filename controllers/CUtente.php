@@ -1,6 +1,6 @@
 <?php
 
-class CUser{
+class CUtente{
 
     /**
      * CONTROLLIAMO SE L'UTENTE è LOGGATO, true=LOGGATO, false=NON LOGGATO
@@ -177,7 +177,7 @@ class CUser{
      * load all the Posts in homepage (Posts of the Users that the logged User are following). Also are loaded Information about vip User and
      * about profile Images of all the involved User
      */
-    public static function home(){  //questa roba non ha proprio un corrispettivo
+    public static function home(){  //questa roba non ha proprio un corrispettivo, si può usare per una struttura comune per richieste e load
         if(CUser::isLogged()){
             $view = new VUser();
 
@@ -195,6 +195,7 @@ class CUser{
     }
 
     /**
+     * NON ESATTAMENTE CON CORRISPETTIVO
      * load Posts belonged to the logged User and his Bio information
      */
     public static function personalProfile(){
@@ -221,7 +222,7 @@ class CUser{
      */
     public static function profile($username)
     {
-        if(CUser::isLogged()){
+        if(CUtente::isLogged()){
             $personalUserId =  USession::getInstance()->getSessionElement('user');
             $personalUserAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($personalUserId);
             if($personalUserAndPropic[0][0]->getUsername() != $username){
@@ -248,76 +249,134 @@ class CUser{
     }
 
     /**
-     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI
+     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
      * load the settings page compiled with the user data
      */
-    public static function settings(){
-        if(CUser::isLogged()){
-            $view = new VUser();
+    public static function settingspaziente(){
+        if(CUtente::isLogged()){
+            $view = new VPaziente();
 
-            $userId = USession::getInstance()->getSessionElement('user');
-            $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);    
-            $view->settings($userAndPropic);
+            $userId = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal paziente
+            $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($userId);    
+            $view->settings($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
 
     /**
-     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO
+     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
      */
-    public static function setUserInfo(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
+    public static function setInfoPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            $paziente->setNome(UHTTPMethods::post('Nome'));
+            $paziente->setCognome(UHTTPMethods::post('Cognome'));
+            $paziente->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            $paziente->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
+            $paziente->setCodiceFiscale(UHTTPMethods::post('CodiceFiscale'));
+            $paziente->setDataNascita(UHTTPMethods::post('DataNascita'));
+            $paziente->setLuogoNascita(UHTTPMethods::post('LuogoNascita'));
+            $paziente->setResidenza(UHTTPMethods::post('Residenza'));
+            $paziente->setNumerotelefono(UHTTPMethods::post('Numerotelefono'));
+            
+            FPersistentManager::getInstance()->updateinfopaziente($paziente);
 
-            $user->setBio(UHTTPMethods::post('Bio'));
-            $user->setWorking(UHTTPMethods::post('Working'));                                               
-            $user->setStudiedAt(UHTTPMethods::post('StudiedAt'));
-            $user->setHobby(UHTTPMethods::post('Hobby'));
-            FPersistentManager::getInstance()->updateUserInfo($user);
-
-            header('Location: /Agora/User/personalProfile');
+            header('Location: /paziente/profilopersonale');
         }
     }
 
     /**
-     * QUESTO VA APPLICATO PER UN CAMBIO MAIL
+     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
+     * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
+     */
+    public static function setInfoMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico->setNome(UHTTPMethods::post('Nome'));
+            $medico->setCognome(UHTTPMethods::post('Cognome'));
+            $medico->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
+            $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
+                                                            //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
+            
+            FPersistentManager::getInstance()->updateinfomedico($medico);
+
+            header('Location: /medico/profilopersonale');
+        }
+    }
+
+    /**
+     * QUESTO VA APPLICATO PER UN CAMBIO MAIL DEL PAZIENTE
      * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
-    public static function setUsername(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
+    public static function setEmailPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             
-            if($user->getUsername() == UHTTPMethods::post('username')){
-                header('Location: /Agora/User/personalProfile');
+            if($paziente->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
+                header('Location: /paziente/profilopersonale');
             }else{
-                if(FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false)
+                if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('Email')) == false)
                 {
-                    $user->setUsername(UHTTPMethods::post('username'));
-                    FPersistentManager::getInstance()->updateUserUsername($user);
-                    header('Location: /Agora/User/personalProfile');
-                }else{
-                    $view = new VUser();
-                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+                    $paziente->setEmail(UHTTPMethods::post('Email'));
+                    FPersistentManager::getInstance()->updatemailpaziente($paziente);
+                    header('Location: /paziente/profilopersonale');
+                }else
+                {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
+                    $view = new VPaziente();
+                    //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
                     $view->usernameError($userAndPropic , true);
                 }
             }
         }
     }
 
+
     /**
-     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD
+     * QUESTO VA APPLICATO PER UN CAMBIO MAIL DEL MEDICO
+     * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
+     */
+    public static function setEmailMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            
+            if($medico->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
+                header('Location: /medico/profilopersonale');
+            }else{
+                if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('Email')) == false)
+                {
+                    $medico->setEmail(UHTTPMethods::post('Email'));
+                    FPersistentManager::getInstance()->updatemailmedico($medico);
+                    header('Location: /medico/profilopersonale');
+                }else
+                {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
+                    $view = new VMedico();
+                    //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+                    $view->usernameError($userAndPropic , true);  //EMAIL ERROR
+                }
+            }
+        }
+    }
+
+
+    /**
+     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL PAZIENTE
      * Take the compiled form and update the user password
      */
-    public static function setPassword(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);$newPass = UHTTPMethods::post('password');
-            $user->setPassword($newPass);
-            FPersistentManager::getInstance()->updateUserPassword($user);
+    public static function setPasswordPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            $newPass = UHTTPMethods::post('password');
+            $paziente->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordpaziente($paziente);
 
-            header('Location: /Agora/User/personalProfile');
+            header('Location: /paziente/profilopersonale');
         }
     }
 
@@ -325,35 +384,39 @@ class CUser{
      * APPLICATO PER UN CAMBIO PROPIC DI UN MEDICO
      * Take the file, check if there is an upload error, if not update the user image and delete the old one 
      */
-    public static function setProPic(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $userId);
+    public static function setProPicMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
             
-            if(UHTTPMethods::files('imageFile','size') > 0){
+            if(UHTTPMethods::files('imageFile','size') > 0){  //MMH
                 $uploadedImage = UHTTPMethods::files('imageFile');
-                $checkUploadImage = FPersistentManager::getInstance()->uploadImage($uploadedImage);
-                if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR'){
-                    $view = new VUser();
-                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+                $checkUploadImage = FPersistentManager::getInstance()->caricaimmagine($uploadedImage);
+                if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
+                {   //ENTRIAMO QUI SE L'IMMAGINE NON VA BENE
+                    $view = new VMedico();  
+                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($IdMedico);  //BOH
 
-                    $view->FileError($userAndPropic);
+                    $view->FileError($userAndPropic);  //MESSAGGIO DI ERRORE DEL FILE
                 }else{
                     $idImage = FPersistentManager::getInstance()->uploadObj($checkUploadImage);
-                    if($user->getIdImage() != 1){
-                        if(FPersistentManager::getInstance()->deleteImage($user->getIdImage())){
-                            $user->setIdImage($idImage);
-                            FPersistentManager::getInstance()->updateUserIdImage($user);
+                    if($medico->getIdImmagine() != 1)  //SE è DIVERSA DA QUELLA DI DEFAULT CANCELLIAMO QUELLA CHE AVEVA DAL DB
+                    {
+                        if(FPersistentManager::getInstance()->cancellaImmagine($medico->getIdImmagine())){
+                            $medico->setIdImmagine($idImage);
+                            FPersistentManager::getInstance()->updatemedicopropic($medico);
                         }
-                        header('Location: /Agora/User/personalProfile');
-                    }else{
-                        $user->setIdImage($idImage);
-                        FPersistentManager::getInstance()->updateUserIdImage($user);
+                        header('Location: /medico/profilopersonale');
                     }
-                    header('Location: /Agora/User/personalProfile');
+                    else
+                    {   //se ha quella di default, basta settarla senza cancellarla
+                        $medico->setIdImage($idImage);
+                        FPersistentManager::getInstance()->updatemedicopropic($medico);
+                    }
+                    header('Location: /medico/profilopersonale');
                 }
             }else{
-                header('Location: /Agora/User/settings');
+                header('Location: /medico/profilopersonale');
             }
         }
     }

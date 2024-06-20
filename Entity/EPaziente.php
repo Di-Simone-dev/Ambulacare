@@ -13,7 +13,7 @@ class EPaziente
     private $residenza;
     private $numero_telefono;
     private $attivo;
-    private static $entity = "EPaziente";
+    private static $entity = EPaziente::class;
     //costruttore
     public function __construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
     {

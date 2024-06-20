@@ -102,6 +102,23 @@ class FPersistentManager{
         return $appuntamentipaziente;
     }
 
+    public static function retrieveinfopaziente($IdPaziente){
+        //prende tutte le info del Paziente (per la visualizzazione della schermata di profilo)
+        $paziente = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), 'IdPaziente', $IdPaziente);
+        $infopaziente = array();
+        $infopaziente['nome'] = $paziente[0]->getNome();
+        $infopaziente['cognome'] = $paziente[0]->getCognome();
+        $infopaziente['email'] = $paziente[0]->getEmail();
+        $infopaziente['codice_fiscale'] = $paziente[0]->getCodiceFiscale();
+        $infopaziente['data_nascita'] = $paziente[0]->getDataNascita();
+        $infopaziente['luogo_nascita'] = $paziente[0]->getLuogoNascita();
+        $infopaziente['residenza'] = $paziente[0]->getResidenza();
+        $infopaziente['numero_telefono'] = $paziente[0]->getNumerotelefono();
+
+        return $infopaziente;
+    }
+
+
 
     //MEDICO
 
