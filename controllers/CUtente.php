@@ -78,7 +78,7 @@ class CUtente{
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('tipo_utente')){          //QUI ANDIAMO A CONTROLLARE SE L0UTENTE e loggato e lo portiamo sulla home
+        if(USession::isSetSessionElement('tipo_utente')){          //QUI ANDIAMO A CONTROLLARE SE L'UTENTE e loggato e lo portiamo sulla home
             header('Location: /Ambulacare');       //REDIRECT LOCATION DELLA HOME DELL'UTENTE
             //DOVREBBE USCIRE DOPO AVER USATO HEADER
             //exit; IN CASO 
@@ -105,7 +105,8 @@ class CUtente{
      * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
      * @return void
      */
-    public static function registrationepaziente(){   //registrazione del paziente
+    public static function registrazionepaziente()
+    {   //registrazione del paziente
     //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
         $view = new VPaziente();  
         //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
@@ -113,33 +114,62 @@ class CUtente{
                 //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
                 $paziente = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
                                 UHTTPMethods::post('password'),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
-                                UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),1);
+                                UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),'1');
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
                 FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
                 
                 $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
-        }else{
+        }else
+        {
+            $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
+        }
+    }
+
+
+    /**
+     * 
+     * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
+     * @return void
+     */
+    public static function registrazionemedico(){   //registrazione del medico usata (dall'admin)
+        //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+            $view = new VMedico();  
+            //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
+            if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
+                    //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                    $medico = new EMedico(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                    UHTTPMethods::post('password'),'1',UHTTPMethods::post('costo'));
+                    $medico->setIdImmagine(1);//imposto la propic di default che avrà id=1
+                    //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
+                    FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
+                    
+                    $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
+            }
+            else
+            {
                 $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
             }
     }
+
+
 
     /**
      * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
      * the User is redirected in the homepage
      */
-    public static function checkLogin(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+    public static function checkLoginPaziente(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
         $view = new VPaziente();
         //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
         $exist = FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email'));  
         //SE ESISTE NEL DB ALLORA CONTINUO                                          
         if($exist)
         {
-            $user = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('username'));  
+            $paziente = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('username'));  
             //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
             //password_verify è una funzione NATIVA DI PHP
-            if(password_verify(UHTTPMethods::post('password'), $user[0]->getPassword()))  
+            if(password_verify(UHTTPMethods::post('password'), $paziente[0]->getPassword()))  
             {
-                if(!($user[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                if(!($paziente[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
                 {
                     $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
                 }
@@ -147,7 +177,7 @@ class CUtente{
                 {
                     USession::getInstance();
                     USession::setSessionElement('tipo_utente', 'paziente');
-                    USession::setSessionElement('id', $user[0]->getIdPaziente());
+                    USession::setSessionElement('id', $paziente[0]->getIdPaziente());
                     header('Location: /Ambulacare');
                 }
             }
@@ -161,6 +191,51 @@ class CUtente{
             $view->loginError();
         }
     }
+
+
+    /**
+     * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
+     * the User is redirected in the homepage
+     */
+    public static function checkLoginMedico(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+        $view = new VMedico();
+        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
+        $exist = FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email'));  
+        //SE ESISTE NEL DB ALLORA CONTINUO                                          
+        if($exist)
+        {
+            $medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('username'));  
+            //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
+            //password_verify è una funzione NATIVA DI PHP
+            if(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()))  
+            {
+                if(!($medico[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                {
+                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
+                }
+                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+                {
+                    USession::getInstance();
+                    USession::setSessionElement('tipo_utente', 'medico');
+                    USession::setSessionElement('id', $medico[0]->getIdMedico());
+                    header('Location: /Ambulacare');
+                }
+            }
+            else
+            {
+                $view->loginError();
+            }
+        }
+        else
+        {
+            $view->loginError();
+        }
+    }
+
+
+
+
+
 
     /**
      * this method can logout the User, unsetting all the session element and destroing the session. Return the user to the Login Page
@@ -178,27 +253,29 @@ class CUtente{
      * about profile Images of all the involved User
      */
     public static function home(){  //questa roba non ha proprio un corrispettivo, si può usare per una struttura comune per richieste e load
-        if(CUser::isLogged()){
-            $view = new VUser();
+        if(CUtente::isLogged())
+        {   //questa obbligatorietò del login potrebbe essere tolta e messa nei punti cardine(creazione effettiva appuntamento)
+            $view = new VPaziente();
 
             $userId = USession::getInstance()->getSessionElement('user');
             $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
 
             //load all the posts of the users who you follow(post have user attribute) and the profile pic of the author of teh post
-            $postInHome = FPersistentManager::getInstance()->loadHomePage($userId);
+            //$postInHome = FPersistentManager::getInstance()->loadHomePage($userId);
             
             //load the VIP Users, their profile Images and the foillower number
-            $arrayVipUserPropicFollowNumb = FPersistentManager::getInstance()->loadVip();
+            //$arrayVipUserPropicFollowNumb = FPersistentManager::getInstance()->loadVip();
         
             $view->home($userAndPropic, $postInHome,$arrayVipUserPropicFollowNumb);
         }  
     }
 
-    /**
+    /*
      * NON ESATTAMENTE CON CORRISPETTIVO
      * load Posts belonged to the logged User and his Bio information
      */
-    public static function personalProfile(){
+    /*
+    public static function personalProfile(){ //NON DOVREBBE ESSERE POSSIBILE APRIRE I PROFILI DI ALTRI PAZIENTI, PROBABILMENTE SOLO DEI MEDICI
         if(CUser::isLogged()){ 
             $view = new VUser();
 
@@ -206,20 +283,22 @@ class CUtente{
             $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
                 
             //load all the Posts belonged to a User that are not Banned
-            $postProfileAndLikes = FPersistentManager::getInstance()->loadUserPage($userId);
+            //$postProfileAndLikes = FPersistentManager::getInstance()->loadUserPage($userId);
 
             //load the number of followed and following users
-            $followerNumb = FPersistentManager::getInstance()->getFollowerNumb($userId);
-            $followedNumb = FPersistentManager::getInstance()->getFollowedNumb($userId);
+            //$followerNumb = FPersistentManager::getInstance()->getFollowerNumb($userId);
+            //$followedNumb = FPersistentManager::getInstance()->getFollowedNumb($userId);
 
             $view->uploadPersonalUserInfo($userAndPropic, $postProfileAndLikes, $followerNumb, $followedNumb);
         }
     }
+    */
 
-    /**
+    /*
      * load post belonged to the visited User and his informations
      * @param String $username Refers to the username of a user
      */
+    /*
     public static function profile($username)
     {
         if(CUtente::isLogged()){
@@ -246,13 +325,13 @@ class CUtente{
                 header('Location: /Agora/User/personalProfile');
             }    
         }
-    }
+    }*/
 
     /**
      * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
      * load the settings page compiled with the user data
      */
-    public static function settingspaziente(){
+    public static function settingspaziente(){  //POTREBBE ESSERE RINOMINATO
         if(CUtente::isLogged()){
             $view = new VPaziente();
 
