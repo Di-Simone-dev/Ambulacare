@@ -37,7 +37,14 @@
                         <td>{$esame.data}</td>
                         <td>{$esame.orario}</td>
                         <td>{$esame.categoria}</td>
-                        <td>Carica referto | Cancella referto</td>
+                        <td>
+                            {if $esame.referto}
+                                <a href="/Ambulcare/Referto/visualizza/{$esame.id}" class="btn btn-primary">Visualizza Referto</a>
+                                <a href="/Ambulcare/Referto/cancreferto/{$esame.id}" class="btn btn-primary">Cancella Referto</a>
+                            {else}
+                                <a href="/Ambulcare/Medico/caricareferto/{$esame.id}" class="btn btn-primary">Carica Referto</a>
+                            {/if}
+                        </td>
                     </tr>
                 {/foreach}
             </tbody>

@@ -15,18 +15,18 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
-    <link href="font.css" rel="stylesheet">
-    <link href="responsive.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -45,19 +45,19 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="indexmedico.html">Home</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Home</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="visualizzastoricoesami_caricamentoreferto_profilomedico.html">Storico
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Ambulacare/Medico/storico">Storico
                             esami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="visualizzaagenda.html">Visualizza agenda</a>
+                        <a class="nav-link" href="">Visualizza agenda</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="inseriscislotorario.html">Carica slot per appuntamento</a>
+                        <a class="nav-link" href="">Carica slot per appuntamento</a>
                     </li>
 
                     <div class="navbar-brand d-none d-lg-block">
@@ -65,17 +65,17 @@
                         <strong class="d-block">HEALTH SPECIALISTS</strong>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="inseriscidata_perstatistiche.html">Statistiche</a>
+                        <a class="nav-link" href="">Statistiche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="visualizzastoricoesami_perpaziente_profilomedico.html">Ricerca
+                        <a class="nav-link" href="">Ricerca
                             pazienti</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="visualizzarecensioni_profilomedico.html">Recensioni</a>
+                        <a class="nav-link" href="">Recensioni</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profilomedico.html">Profilo Personale</a>
+                        <a class="nav-link" href="">Profilo Personale</a>
                     </li>
                 </ul>
             </div>

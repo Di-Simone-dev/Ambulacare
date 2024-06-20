@@ -1,4 +1,6 @@
 <?php
+
+require_once __DIR__."/../Pages/smarty_class.php";
 /* IL FILE è ANCORA IN FASE DI ELABORAZIONE, MOLTE RIGHE DI CODICE SONO STATE COPIATE
 DAI FILE DI AGORA E FILLSPACEWEB */ 
 
@@ -17,7 +19,7 @@ class VMedico
 	 * Funzione che inizializza e configura smarty.
 	 */
 	public function __construct() {
-		$this->smarty = smarty_class::configuration();
+		$this->smarty = Smarty_class::startSmarty();
 	}
 
 	/**

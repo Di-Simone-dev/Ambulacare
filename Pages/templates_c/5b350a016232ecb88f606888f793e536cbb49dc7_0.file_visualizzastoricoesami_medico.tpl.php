@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 22:55:44
+/* Smarty version 5.3.0, created on 2024-06-20 11:56:42
   from 'file:visualizzastoricoesami_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6671f450085b17_60566195',
+  'unifunc' => 'content_6673fcda3810d4_01431269',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5b350a016232ecb88f606888f793e536cbb49dc7' => 
     array (
       0 => 'visualizzastoricoesami_medico.tpl',
-      1 => 1718744140,
+      1 => 1718877397,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6671f450085b17_60566195 (\Smarty\Template $_smarty_tpl) {
+function content_6673fcda3810d4_01431269 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_151444316671f450073911_15695658', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_13613640406673fcda3647b5_21187716', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_151444316671f450073911_15695658 extends \Smarty\Runtime\Block
+class Block_13613640406673fcda3647b5_21187716 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -46,7 +46,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <div class="form-group">
                         <h2>Storico Esami</h2>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
+                        <input type="date" id="dataprenot" name="dataprenot" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
@@ -82,7 +82,17 @@ $foreach0DoElse = false;
 </td>
                         <td><?php echo $_smarty_tpl->getValue('esame')['categoria'];?>
 </td>
-                        <td>Carica referto | Cancella referto</td>
+                        <td>
+                            <?php if ($_smarty_tpl->getValue('esame')['referto']) {?>
+                                <a href="/Ambulcare/Referto/visualizza/<?php echo $_smarty_tpl->getValue('esame')['id'];?>
+" class="btn btn-primary">Visualizza Referto</a>
+                                <a href="/Ambulcare/Referto/cancreferto/<?php echo $_smarty_tpl->getValue('esame')['id'];?>
+" class="btn btn-primary">Cancella Referto</a>
+                            <?php } else { ?>
+                                <a href="/Ambulcare/Medico/caricareferto/<?php echo $_smarty_tpl->getValue('esame')['id'];?>
+" class="btn btn-primary">Carica Referto</a>
+                            <?php }?>
+                        </td>
                     </tr>
                 <?php
 }
