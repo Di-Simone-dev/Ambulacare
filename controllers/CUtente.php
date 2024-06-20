@@ -273,7 +273,7 @@ class CUtente{
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $paziente->setNome(UHTTPMethods::post('Nome'));
             $paziente->setCognome(UHTTPMethods::post('Cognome'));
-            $paziente->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            //$paziente->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
             $paziente->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
             $paziente->setCodiceFiscale(UHTTPMethods::post('CodiceFiscale'));
             $paziente->setDataNascita(UHTTPMethods::post('DataNascita'));
@@ -380,6 +380,25 @@ class CUtente{
         }
     }
 
+     /**
+     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL MEDICO
+     * Take the compiled form and update the user password
+     */
+    public static function setPasswordMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $newPass = UHTTPMethods::post('password');
+            $medico->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordmedico($medico);
+
+            header('Location: /medico/profilopersonale');
+        }
+    }
+
+
+
+
     /**
      * APPLICATO PER UN CAMBIO PROPIC DI UN MEDICO
      * Take the file, check if there is an upload error, if not update the user image and delete the old one 
@@ -421,8 +440,10 @@ class CUtente{
         }
     }
 
+
+
     /**
-     * POTREBBE ESSERE ANALOGO AL MOSTRARE GLI APPUNTAMENTI PRENOTABILI DAL PAZIENTE
+     * POTREBBE ESSERE ANALOGO AL MOSTRARE GLI APPUNTAMENTI PRENOTABILI DAL PAZIENTE (QUINDI I MEDICI ATTIVI)
      * load all the post finded by a specifyc category
      * @param String $category Refers to a name of a category
      */
@@ -439,7 +460,7 @@ class CUtente{
 
             $postCategory = FPersistentManager::getInstance()->loadPostPerCategory($category);
 
-            $view->category($userAndPropic, $postCategory, $arrayVipUserPropicFollowNumb);
+            $view->prenotaappumento($userAndPropic, $postCategory, $arrayVipUserPropicFollowNumb); //d'esempio
         }
     }
 
