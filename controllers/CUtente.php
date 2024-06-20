@@ -342,6 +342,22 @@ class CUtente{
         }
     }
 
+   /**
+     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
+     * load the settings page compiled with the user data
+     */
+    public static function settingsmedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            $Idmedico = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            $datipaziente = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
+            $view->settings($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+    
+
     /**
      * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)

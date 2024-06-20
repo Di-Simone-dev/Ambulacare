@@ -230,6 +230,21 @@ class FPersistentManager{
         return $result;
     }
 
+    public static function retrieveinfomedico($IdMedico){
+        //prende tutte le info del Medico (per la visualizzazione della schermata di profilo)
+        $medico = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), 'IdMedico', $IdMedico);
+        $infomedico = array();
+        $infomedico['nome'] = $medico[0]->getNome();
+        $infomedico['cognome'] = $medico[0]->getCognome();
+        $infomedico['email'] = $medico[0]->getEmail();
+        $infomedico['costo'] = $medico[0]->getCodiceFiscale();
+        $infomedico['propic'] = self::retrievemedicipropic($medico);
+        //oppure 
+        //$infomedico['propic'] = $medico[0]->getImmaginefromid();
+        return $infomedico;
+    }
+
+
     //AMMINISTRATORE
 
 
