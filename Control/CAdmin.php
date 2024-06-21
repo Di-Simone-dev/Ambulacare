@@ -63,15 +63,16 @@ class CAdmin
         $maxdim = 5;
 
         $fasceorarie = [
-            [
-                'giorno' => 'Lunedì 27/05',
-                'orari' => [
-                    '14:30',
-                    '15:30',
-                    '16:30',
-                    '17:30',
-                ],
-            ],
+/*             [
+                'giorno' => 1,
+                '14:30' => true,
+                '15:30' => false,
+                '16:30' => true,
+                '17:30' => false,
+            ], */
+            /*
+            $dati[1][1] = true,
+            */
             [
                 'giorno' => 'Martedì 28/05',
                 'orari' => [

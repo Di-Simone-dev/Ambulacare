@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-20 11:23:10
+/* Smarty version 5.3.0, created on 2024-06-21 16:16:46
   from 'file:modificaappuntamento_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6673f4fee733b3_92984829',
+  'unifunc' => 'content_66758b4e971bd6_63289405',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcdae442896da42438f9fdec2e4a0505334d37d8' => 
     array (
       0 => 'modificaappuntamento_admin.tpl',
-      1 => 1718875385,
+      1 => 1718979404,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6673f4fee733b3_92984829 (\Smarty\Template $_smarty_tpl) {
+function content_66758b4e971bd6_63289405 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_3256942236673f4fee3c079_50216521', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_22860554066758b4e931fa8_08095307', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_3256942236673f4fee3c079_50216521 extends \Smarty\Runtime\Block
+class Block_22860554066758b4e931fa8_08095307 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -103,15 +103,33 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             </table>
                             <br>
                             <div>
-                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata" placeholder="Nuova Data"
-                                        name="nuovadata" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
-                                        <?php echo $_smarty_tpl->getValue('esame')['data'];?>
-</label></h4>
-                                <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario"
-                                        placeholder="Nuovo Orario"
-                                        name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario:
-                                        <?php echo $_smarty_tpl->getValue('esame')['orario'];?>
-</label></h4>
+                            <label for="data">Seleziona una nuova data e ora</label>
+                            <select name="data" id="data">
+                                <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasceorarie'), 'fasciaoraria');
+$foreach2DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('fasciaoraria')->value) {
+$foreach2DoElse = false;
+?>
+                                    <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasciaoraria')['orari'], 'ora');
+$foreach3DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('ora')->value) {
+$foreach3DoElse = false;
+?>
+                                    <option value="<?php echo $_smarty_tpl->getValue('fasciaoraria')['giorno'];?>
+ <?php echo $_smarty_tpl->getValue('ora');?>
+"><?php echo $_smarty_tpl->getValue('fasciaoraria')['giorno'];?>
+ - <?php echo $_smarty_tpl->getValue('ora');?>
+</option>
+                                    <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                                <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                            </select>
+                            <input type="hidden" value="" name="idpaz">
                             </div>
                         </div>
                     </div>

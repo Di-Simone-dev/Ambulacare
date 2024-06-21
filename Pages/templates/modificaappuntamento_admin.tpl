@@ -39,13 +39,15 @@
                             </table>
                             <br>
                             <div>
-                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata" placeholder="Nuova Data"
-                                        name="nuovadata" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
-                                        {$esame.data}</label></h4>
-                                <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario"
-                                        placeholder="Nuovo Orario"
-                                        name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario:
-                                        {$esame.orario}</label></h4>
+                            <label for="data">Seleziona una nuova data e ora</label>
+                            <select name="data" id="data">
+                                {foreach $fasceorarie as $fasciaoraria}
+                                    {foreach $fasciaoraria.orari as $ora}
+                                    <option value="{$fasciaoraria.giorno} {$ora}">{$fasciaoraria.giorno} - {$ora}</option>
+                                    {/foreach}
+                                {/foreach}
+                            </select>
+                            <input type="hidden" value="" name="idpaz">
                             </div>
                         </div>
                     </div>
