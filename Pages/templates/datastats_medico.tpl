@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/Ambulacare/Medico/" method="post">
+                <form action="" method="post">
                     <div class="form-group">
                         <h2>Inserire un intervallo di date per visualizzarne le relative statistiche</h2>
                         <br>

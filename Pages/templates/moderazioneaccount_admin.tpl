@@ -14,8 +14,8 @@
                         <br><br>
                         <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" />
                         <br><br>
-                        <select name="categoria" id="categ" class="form-select-m">
-                            <option value="select">Seleziona categoria utente</option>
+                        <select name="categoria" id="categ" class="form-select-m" required>
+                            <option value="">Seleziona categoria utente</option>
                             <option value="medico">medico</option>
                             <option value="paziente">paziente</option>
                         </select>
@@ -46,9 +46,9 @@
                         <td>Medico</td>
                         <td>{$medico.stato}</td>
                         {if $medico.stato == "Sbloccato"}
-                            <td><button class="btn btn-primary"><a href="/Ambulacare/Admin/bloccamedico/{$medico.id}">Blocca</button></td>
+                            <td><a href="" class="btn btn-primary">Blocca</a></td>
                         {else}
-                            <td><button class="btn btn-primary">Sblocca</button></td>
+                            <td><a href="" class="btn btn-primary">Sblocca</a></td>
                         {/if}
                     </tr>
                 {/foreach}

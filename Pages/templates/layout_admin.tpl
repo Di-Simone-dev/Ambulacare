@@ -44,26 +44,26 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/Ambulacare/Admin/index">Home</a>
+                    <a class="nav-link" href="">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/Ambulacare/Admin/">Moderazione account</a>
+                    <a class="nav-link" href="">Moderazione account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/visualizzaapp">Gestione appuntamenti</a>
+                    <a class="nav-link" href="">Gestione appuntamenti</a>
                 </li>
                 <div class="navbar-brand d-none d-lg-block">
                     AmbulaCare
                     <strong class="d-block">HEALTH SPECIALISTS</strong>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/">Elenco pazienti</a>
+                    <a class="nav-link" href="">Elenco pazienti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/recensioni">Recensioni</a>
+                    <a class="nav-link" href="">Recensioni</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/">Profilo Personale</a>
+                    <a class="nav-link" href="">Profilo Personale</a>
                 </li>
             </ul>
         </div>

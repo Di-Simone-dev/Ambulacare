@@ -5,11 +5,11 @@
     <form method="post" action="" style="width: 600px;">
     <h1 style="font-size: 34px;">MODIFICA DATI</h1>
     <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Email</label>
-    <input type="text" id="email" name="email" >
+    <input type="email" id="email" name="email" required value="{$email}">
     <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Residenza</label>
-    <input type="text" id="residenza" name="residenza" >
+    <input type="text" id="residenza" name="residenza" required value="{$residenza}">
     <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Numero di telefono</label>
-    <input type="text" id="numerotelefono" name="numerotelefono" >
+    <input type="tel" id="numerotelefono" name="numerotelefono" required value="{$telefono}">
     <button type="submit" name="register" style="width: 100px;">MODIFICA</button>
 </form>
     

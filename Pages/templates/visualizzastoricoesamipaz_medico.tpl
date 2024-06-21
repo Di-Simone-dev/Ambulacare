@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Storico Esami di {$paziente.nome} {$paziente.cognome}</h2>
+                <h2>Storico Esami di {$nomePaziente} {$cognomePaziente}</h2>
             </div>
         </div>
     </div>

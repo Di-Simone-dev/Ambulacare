@@ -10,8 +10,8 @@
                         <h2><label>Prenotazione esami</label></h2>
                         <br>
                         <select name="tipologia" id="categ" class="form-select-m">
-                            {foreach $categorie as $categoria}
-                                <option value="{$categoria.id}">{$categoria.nome}</option>
+                            {foreach $tipologie as $tipologia}
+                                <option value="{$tipologia.id}">{$tipologia.nome}</option>
                             {/foreach}
                         </select>
                         <br><br>

@@ -10,7 +10,7 @@
                 <br>
                 <h3>Esame di {$esame.paziente}</h3>
                 <br>
-                <h3>Categoria : {$esame.categoria} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h3>
+                <h3>Categoria : {$esame.tipologia} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h3>
                 <br>
                 <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
                 <br><br>
@@ -24,7 +24,7 @@
                     </h4>
                     <br><br><br><br>
                     <div>
-                        <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
+                        <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

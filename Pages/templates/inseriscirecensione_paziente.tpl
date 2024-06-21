@@ -8,7 +8,7 @@
                 <br>
                 <h2>Medico : {$esame.medico}</h2>
                 <br>
-                <h2>Categoria : {$esame.categoria} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h2>
+                <h2>Categoria : {$esame.tipologia} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h2>
                 <br>
                 <h2>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h2>
                 <form action="#">

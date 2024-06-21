@@ -8,15 +8,15 @@
             <div class="col">
                 <h2>Riepilogo Dettagli Appuntamento</h2>
                 <br>
-                <h3>Esame: {$esame.nome}</h3>
+                <h3>Esame: {$nomeEsame}</h3>
                 <br>
-                <h3>Medico: {$esame.medico.nome}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{$esame.medico.valutazione}/5</h3>
+                <h3>Medico: {$nomeMedico}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{$valutazioneMedico}/5</h3>
                 <br>
-                <h3>Costo: {$esame.costo}€</h3>
+                <h3>Costo: {$costo}€</h3>
                 <br>
-                <h3>Data: {$esame.data}</h3>
+                <h3>Data: {$data}</h3>
                 <br>
-                <h3>Ora: {$esame.orario}</h3>
+                <h3>Ora: {$orario}</h3>
                 <br><br><br>
                 <div>
                     <form action="" method="post">

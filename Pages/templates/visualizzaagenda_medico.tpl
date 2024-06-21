@@ -39,7 +39,7 @@
                         <td>{$appuntamento.data}</td>
                         <td>{$appuntamento.orario}</td>
                         <td>{$appuntamento.categoria}</td>
-                        <td><a href="modificaappuntamento_profilomedico.html"><button
+                        <td><a href=""><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>
                 {/foreach}

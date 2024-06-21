@@ -49,7 +49,7 @@
                         <a class="nav-link" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/storico">Storico
+                        <a class="nav-link" href="">Storico
                             esami</a>
                     </li>
                     <li class="nav-item">

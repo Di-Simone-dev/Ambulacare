@@ -8,18 +8,19 @@
                 <br>
                 <h2>Risposta Recensione</h2>
                 <br>
-                <h3>Paziente : {$esame.paziente}</h3>
+                <h3>Paziente : {$paziente}</h3>
                 <br>
-                <h3>Categoria : {$esame.nome} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h3>
+                <h3>Categoria : {$nomeEsame} &ensp;&ensp;&ensp;&ensp;Costo: {$costoEsame}€</h3>
                 <br>
-                <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
+                <h3>Data : {$data} &ensp;&ensp;&ensp;&ensp; Ora: {$orario}</h3>
                 <br>
                 <form action="#">
                     <div class="form-group"></div>
                     <h4><label for="oggetto">Oggetto Risposta: </label>
-                        <input id="oggetto" name="oggetto" placeholder="Oggetto" style="width: 800px;height: 35px;">
+                        <input type="text" id="oggetto" name="oggetto" placeholder="Oggetto"
+                            style="width: 800px;height: 35px;">
                         <br><br><label for="contenuto">Contenuto Risposta:</label>
-                        <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;">
+                        <textarea id="contenuto" name="contenuto" style="width: 800px;height: 170px;">Scrivi qua</textarea>
                     </h4>
                     <br><br>
                     <div>

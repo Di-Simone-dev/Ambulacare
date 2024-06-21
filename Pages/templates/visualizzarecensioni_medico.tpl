@@ -14,8 +14,8 @@
                             <br><br>
                             <button type="submit" class="btn btn-primary">Effettua ricerca</button>
                             <br><br>
-                            <select name="recensioni" id="categ" class="form-select-m">
-                                <option value="select">Ordina per</option>
+                            <select name="recensioni" id="categ" class="form-select-m" required>
+                                <option value="">Ordina per</option>
                                 <option value="nome">Nome</option>
                                 <option value="cognome">Cognome</option>
                                 <option value="dataapp">Data appuntamento</option>
