@@ -20,7 +20,7 @@
                 <br><br><br>
                 <div>
                     <form action="" method="post">
-                        <a haref="" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </form>

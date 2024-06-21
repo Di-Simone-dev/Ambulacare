@@ -8,7 +8,7 @@
             <div class="col">
                 <form action="#">
                     <div class="form-group">
-                        <h2><label for="storico">Elenco Esami</label></h2>
+                        <h2><label for="storico">Elenco Appuntamenti</label></h2>
                         <br>
                         <select name="tipologia" id="categ" class="form-select">
                             {foreach $categorie as $categoria}
@@ -16,7 +16,7 @@
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
+                        <input type="date" id="dataprenot" name="dataprenot" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>

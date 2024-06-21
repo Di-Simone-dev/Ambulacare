@@ -9,13 +9,13 @@
                     <div class="form-group">
                         <h2><label for="storico">Storico Esami</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select">
+                        <select name="tipologia" id="categ" class="form-select-m">
                             {foreach $categorie as $categoria}
                                 <option value="{$categoria.id}">{$categoria.nome}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required>
+                        <input type="date" id="dataprenot" name="dataprenot" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>

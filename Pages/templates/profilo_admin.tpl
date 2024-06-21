@@ -4,7 +4,8 @@
     
     <br><br>
     <div>
-        <h2 style="font-size: 25px;"><b>Informazioni Personali</b> </h2>
+        <h2>Profilo Personale - Amministratore - Andrea Luca di Simone</h2>
+        <h4>Informazioni Personali</h4>
                     <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
                     <p style='font-size:20px; font-family:monospace;'>{$admin.nome}</p>
                     <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>

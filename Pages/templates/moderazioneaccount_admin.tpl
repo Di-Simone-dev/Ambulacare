@@ -14,7 +14,7 @@
                         <br><br>
                         <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" />
                         <br><br>
-                        <select name="categoria" id="categ" class="form-select">
+                        <select name="categoria" id="categ" class="form-select-m">
                             <option value="select">Seleziona categoria utente</option>
                             <option value="medico">medico</option>
                             <option value="paziente">paziente</option>
