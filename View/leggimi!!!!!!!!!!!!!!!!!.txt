@@ -1,0 +1,6 @@
+I vecchi file di View che sono stati già resi tpl sono stati cancellati
+In caso di necessità modifica direttamente i tpl
+
+I file vecchi sono disponibili sulla cartella OneDrive (https://univaq-my.sharepoint.com/personal/emanuele_papile_student_univaq_it/_layouts/15/onedrive.aspx?e=5%3A31448daf1391495d8dd95fa43b1f3769&sharingv2=true&fromShare=true&at=9&CT=1710189618987&OR=OWA%2DNT%2DMail&CID=a46f0e87%2Dd415%2Dc4b7%2D0486%2D44b405f568f0&id=%2Fpersonal%2Femanuele%5Fpapile%5Fstudent%5Funivaq%5Fit%2FDocuments%2FProgetto%20web&FolderCTID=0x01200068A0490BE33F2B42BD217011EF1EDAF9&view=0)
+
+Se devi creare nuovi file fai direttamente i tpl perchè questa cartella sarà cancellata a breve.
