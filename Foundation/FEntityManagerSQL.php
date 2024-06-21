@@ -221,7 +221,7 @@ class FEntityManagerSQL{
     }
 
     /**
-     * Method to return rows from a SELECT FROM WHERE but removed is = 0 (so it's not banned)
+     * Method to return rows from a SELECT FROM WHERE but attivo is = 1 (so it's not banned)
      * @param $table Refers to the table of the Database
      * @param $field  Refers to a field of the table
      * @param mixed $id Refers to the value in the where clause
@@ -232,6 +232,39 @@ class FEntityManagerSQL{
         try{
             //QUESTO DOVREBBE ESSERE RITOCCATO PERCHè 1 = ATTIVO E 0 = DISATTIVATO 
             $query = "SELECT * FROM " . $table . " e WHERE e." . $field . " = '" . $id . "' AND e.attivo = 1;";
+            //QUESTA QUERY DOVREBBE ESSERE CORRETTA
+            $stmt = self::$db->prepare($query);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+                self::closeConnection();
+                return $result;
+            }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR " . $e->getMessage();
+            return array();
+        }
+    }
+
+    /**
+     * Method to return rows from a SELECT FROM WHERE but attivo is = 1 (so it's not banned)
+     * @param $table Refers to the table of the Database
+     * @param $field  Refers to a field of the table
+     * @param mixed $id Refers to the value in the where clause
+     * @return array
+     */
+    public static function retrieveattivi($table)
+    {
+        try{
+            //QUESTO DOVREBBE ESSERE RITOCCATO PERCHè 1 = ATTIVO E 0 = DISATTIVATO 
+            $query = "SELECT * FROM " . $table . " e WHERE e.attivo = 1;";
             //QUESTA QUERY DOVREBBE ESSERE CORRETTA
             $stmt = self::$db->prepare($query);
             $stmt->execute();
@@ -453,6 +486,85 @@ class FEntityManagerSQL{
         }
     }
 
+
+
+    //per fare questa query mi serve usare l'id del medico per accedere al calendario, poi alle fasce orarie e poi agli appuntamenti
+    //sarebbe possibile fare due query diverse, una la uso per ottenere tutte le fasce orarie di un medico di una determinata settimana
+    //poi questo array delle fasce orarie va usato per vedere se queste fasce orarie sono nella tabella degli appuntamenti
+    public static function getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno){
+        
+        try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
+            $query = "SELECT IdMedico,IdFasciaOraria,WEEK(fascia_oraria.data) AS numerosettimana, YEAR(fascia_oraria.data) AS anno,
+                      DAYOFWEEK(fascia_oraria.data) AS giornosettimana,HOUR(data) AS ora 
+                      FROM calendario,fascia_oraria
+                      WHERE IdMedico = '" . $IdMedico . "'AND numerosettimana = '" . $numerosettimana . "' AND anno = '" . $anno ."'
+                      ORDER BY data;";//prendo solo l'ora per il controllo
+            //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
+            //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
+            //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
+            //questo per controllare l'occupazione della fascia, ma per avere l'informazione della disponibilità del medico
+            //posso passarla implicitamente per esclusione
+            //conviene prima riempire un array subito con gli slot? se tengo l'id risulta facile il controllo ma ce l'ho già
+            //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                //return $result;
+                //$result[$i]["IdFasciaOraria"] contiene l'id della i-esima fascia oraria cui dobbiamo controllare l'esistenza in appuntamenti 
+                $prenotabili=array();
+                $slotorari = ["14","15","16","17","18"]; //sono fissi
+                for($i=0;$i++;$i<$rowNum)
+                {
+                    //devo construire l'array da restituire 
+                    //controllo se ogni singola fascia oraria esiste sulla tabella appuntamenti 
+                    //NON ESISTE => true nell'array 
+                    $appuntamento =  FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), "IdFasciaOraria",
+                                     $result[$i]["IdFasciaOraria"]);
+                    $exist = FEntityManagerSQL::getInstance()->existInDb($appuntamento);
+                    //quindi ora nell'array ci devo mettere $disponibilità [$giorno della settimana][$numero slot orario]
+                    //il giorno lo posso prendere facilmente dal db ma l'orario va probabilmente fatto con switch o con un for
+                    
+                    if(!$exist){
+                        for($j=1;$j++;$j<6){ // $j ci indica il numero della fascia 
+                            if($result[$i]["ora"] == $slotorari[$j]){
+                               
+                            $prenotabili[$result[$i]["giornosettimana"-1]][$j] = true; //il -1 serve per tarare altrimenti lunedì = 2
+                               
+                            }
+                        }
+                        //il trucco sta nel mettere a true le prenotabili e poi riempire gli spazi rimanenti di false 
+                    }
+                    
+                    
+                }
+                //Qui dovrei aver finito di controllare le fasce orarie, attualmente l'array prenotabili ha solo i true su quelle effettivamente
+                //prenotabli
+                for($i=1;$i++;$i<6){
+                    for($j=1;$j++;$j<6){
+                        if (!(isset($prenotabili[$i][$j]))) {
+                            $prenotabili[$i][$j] = false;   //se non era prenotabile adesso metto effettivamente il valore a false;
+                        }
+                    }
+                }
+                return $prenotabili;
+                //costruendo la tabella orari 5 righe e 6/7 colonne abbiamo che true = blue prenotabile e false = non prenotabile rosso
+                //giorni da 1 = lunedi a 6 = sabato, fasce orarie 1=14:30 5= 18:30
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
 
 
 

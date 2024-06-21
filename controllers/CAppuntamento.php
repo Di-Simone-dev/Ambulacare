@@ -4,6 +4,7 @@ class CPost{
 
 
 /**
+ * mostriamo la pagina per la creazione di un appuntamento (lato paziente)
  * show the page for the creation of a post
  */
 

@@ -392,7 +392,7 @@ class CUtente{
             $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
             $medico->setNome(UHTTPMethods::post('Nome'));
             $medico->setCognome(UHTTPMethods::post('Cognome'));
-            $medico->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            //$medico->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
             $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
             $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
                                                             //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
@@ -643,4 +643,95 @@ class CUtente{
             header('Location: /Agora/User/profile/' . $visitedUser->getUsername());
         } 
     }
+
+//QUI PARTO CON I METODI PRESI DALL'SSD
+
+    //[paziente]caso d'uso 1 "prenotazione esame"
+
+    //avvia_prenotazione
+    //gli devo passare tutti i medici attivi per visualizzarli con i relativi dati da visualizzare
+    //ma anche le tipologie in modo di metterle nella tendina la per la selezione e farmele passare nella prossima funzione
+    public static function avviaprenotazione(){
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+            
+
+            $medici = FPersistentManager::getInstance()->retrievemediciattivi(); //è l'array dei medici attivi, ma potrebbe essere raffinato
+            $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+            //$view = new VManagePost($medici,$tipologie); //servirebbe una cosa del genere
+            header('Location: /appuntamento/esamidaprenotare');
+        } 
+    }
+
+    //ricerca_esame(tipologia_esame)
+    //prendo in input una tipologia e restituisco i medici attivi di quella tipologia alla view
+    //dovrebbe servire anche il nome della tipologia per visualizzarlo e per metterlo nella URL
+    //bisogna mettere gli id dei medici nei bottoni per passarli poi al metodo successivo
+    public static function ricercaesame($IdTipologia){
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+            
+            $nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
+            $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
+            $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+            $view = new VManagePost($medici,$tipologie,$nometipologia); //servirebbe una cosa del genere per il passaggio dei parametri
+            header('Location: /appuntamento/esamidaprenotare/$tipologia ');
+        } 
+    }
+
+    //dettagli_prenotazione(medico)
+    //accedendo alla schermata di dettaglio prendendo in input l'id del medico
+    //bisogna passare a view i dettagli dell'esame (quindi del medico) e gli orari di disponibilità (complesso) per la tabella
+    //ed anche per le tendine
+    //serve anche utilizzare gli appuntamenti per capire quali sono gli slot occupati o meno nella visualizzazione
+    //query specifica nel persistent manager probabilmente basta passare un array tridimensionale del tipo
+    //orari_disponibilità[$settimana][$giorno][$Numero slot orario (da 1 a 5)] = true/false
+    //DEVO USARE LE SETTIMANE nel senso che ne passo una alla volta
+    //SERVE UN METODO AGGIUNTIVO NEL CASO DI CLIC DEL TASTO ">" o "<" quindi ci deve essere memoria della settimana corrente
+
+    public static function dettagli_prenotazione($IdMedico){
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+            
+            $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
+            //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
+            $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+            $anno = $data->format('o'); //anno attuale (es 2024)
+            //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
+            //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
+            $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
+            $medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
+            $IdTipologia = $medico->getTipologia();
+            $Tipologia = FTipologia::getObj($IdTipologia);
+            
+
+
+            //servirebbe anche la valutazione del medico
+            $view = new VManagePost($Tipologia->getNometipologia(),$medico,$orari_disponinibilità); //servirebbe una cosa del genere per il passaggio dei parametri
+            header('Location: /appuntamento/esamidaprenotare/$idesame '); //che poi id esame sarebbe quello che del medico
+        } 
+    }
+
+    //conferma_appuntamento(orario_disponibilità)
+    //prendiamo un orario di disponibilità ma in realtà abbiamo una data + uno slot orario
+    //l'implementazione di un controllo aggiuntivo sull
+    public static function conferma_appuntamento($IdMedico,$data,$slotorario){  //DA FARE
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+            //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
+            //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
+            $medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
+            $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+            $orari_disponinibilità = F
+            $view = new VManagePost($medici,$tipologie,$nometipologia); //servirebbe una cosa del genere per il passaggio dei parametri
+            header('Location: /appuntamento/esamidaprenotare/$tipologia ');
+        } 
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

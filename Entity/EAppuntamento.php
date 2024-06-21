@@ -4,7 +4,7 @@ class EAppuntamento
 {
     private $IdAppuntamento;
 
-    private $stato;
+    private $stato; //SERVE EFFETTIVAMENTE??????
     
     private $paziente;  //FK BISOGNA CAPIRE SE METTERE L'ID O NO 
 

@@ -178,15 +178,28 @@ class FPersistentManager{
         return $result;
     }
 
+
     /**
-     * ritorna un'array di medici non bannati della categoria inserita 
+     * ritorna un'array di medici non bannati della tipologia inserita 
      * @param $IdTipologia è il campo della tabella tipologia ed fk nella tabella medico
      */
-    public static function retrivemediciattivifromtipologia($IdTipologia)
+    public static function retrievemediciattivifromTipologia($IdTipologia)
     {
-        $result = FMedico::getMedicinonBannati($IdTipologia);
+        $result = FMedico::getMedicinonBannatifromTipologia($IdTipologia);
         return $result;
     }
+
+    /**
+     * ritorna un'array di medici non bannati di tutte le tipologie
+     */
+    public static function retrievemediciattivi()
+    {
+        $result = FMedico::getMedicinonBannati();
+        return $result;
+    }
+
+
+
 
     
     /**
@@ -244,6 +257,10 @@ class FPersistentManager{
         return $infomedico;
     }
 
+    public static function retrievealltipologie(){
+        $tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());
+        return $tipologie;
+    }
 
     //AMMINISTRATORE
 
