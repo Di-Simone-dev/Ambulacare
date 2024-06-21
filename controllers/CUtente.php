@@ -698,7 +698,7 @@ class CUtente{
             //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
             $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
             $medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
-            $IdTipologia = $medico->getTipologia();
+            $IdTipologia = $medico[0]->getTipologia();
             $Tipologia = FTipologia::getObj($IdTipologia);
             
 
@@ -711,16 +711,39 @@ class CUtente{
 
     //conferma_appuntamento(orario_disponibilità)
     //prendiamo un orario di disponibilità ma in realtà abbiamo una data + uno slot orario
-    //l'implementazione di un controllo aggiuntivo sull
-    public static function conferma_appuntamento($IdMedico,$data,$slotorario){  //DA FARE
+    //l'implementazione di un controllo aggiuntivo sull'esistenza della fascia oraria libera risulta necessario
+    //PER LA CREAZIONE DELL'APPUNTAMENTO CI SERVE LA FASCIAORARIA E IL PAZIENTE (lo stato non serve)
+    public static function conferma_appuntamento($IdMedico){  //DA FARE
         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
-            $medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
-            $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-            $orari_disponinibilità = F
-            $view = new VManagePost($medici,$tipologie,$nometipologia); //servirebbe una cosa del genere per il passaggio dei parametri
-            header('Location: /appuntamento/esamidaprenotare/$tipologia ');
+            $dataform = UHTTPMethods::post('data');
+            $nslot = UHTTPMethods::post('nslot');
+            //su slot potrei farmi passare anche solo un valore di questo array da 1 a 5
+            $orari = ["0","14:30:00","15:30:00","16:30:00","17:30:00","18:30:00"];
+            $ora = $orari[$nslot];
+            //$date = '2024-06-19'; //questo dovrei averlo da data
+            //$time = '14:25:36'; //questo si crea con uno switch case su nslot
+
+            $dateTimeString = $data . ' ' . $ora;
+            $data = new DateTime($dateTimeString);
+            //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
+            //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
+            $IdPaziente = USession::getSessionElement('id');
+            //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
+            //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+            $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);)
+            if($$exist){ //se il medico ha creato la disponibilità
+                $IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
+                $busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
+                if(!$busy){ //se la fascia non è occupata procediamo con la creazione dell'appuntamento
+                    //CREARE APPUNTAMENTO
+                }
+                
+                
+            }
+            $view = new VManagePost(); //servirebbe una cosa del genere NON SO COSA PASSARE 
+            header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
         } 
     }
 

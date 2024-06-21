@@ -567,6 +567,44 @@ class FEntityManagerSQL{
     }
 
 
+    public static function getIdFasciaOrariafromIdMedicoanddata($IdMedico,$data){ 
+        
+        try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
+            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data
+                      FROM calendario,fascia_oraria
+                      WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' ORDER BY data;";//prendo solo l'ora per il controllo
+            //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
+            //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
+            //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
+            //questo per controllare l'occupazione della fascia, ma per avere l'informazione della disponibilità del medico
+            //posso passarla implicitamente per esclusione
+            //conviene prima riempire un array subito con gli slot? se tengo l'id risulta facile il controllo ma ce l'ho già
+            //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                //return $result;
+                return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    
+
+
 
 
 
