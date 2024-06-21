@@ -78,18 +78,13 @@
                     <h5 class="mb-lg-4 mb-3">ORARI DI APERTURA</h5>
 
                     <ul class="list-group list-group-flush">
+
                         <li class="list-group-item d-flex">
+                            LUNEDI' - SABATO
+                        <span>14:30 - 18:30</span>
+			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>
-
-                        <li class="list-group-item d-flex">
-                            LUNEDI' - MARTEDI' - VENERDI'
-                        <span>8:00 - 15:30</span>
-                    </li>
-
-                    <li class="list-group-item d-flex">
-                        SABATO
-                        <span>10:30 - 17:30</span>
                     </li>
                 </ul>
             </div>
@@ -129,4 +124,10 @@
 
             </div>
     </footer>
+	<!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
 {/block}

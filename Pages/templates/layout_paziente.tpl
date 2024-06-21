@@ -46,10 +46,10 @@
                     <a class="nav-link" href="" >Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Prenota esame</a>
+                    <a class="nav-link" href="">Prenota appuntamento</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Visualizza Esami Prenotati</a>
+                    <a class="nav-link" href="">Elenco appuntamenti</a>
                 </li>
 
                 <div class="navbar-brand d-none d-lg-block">
@@ -58,7 +58,10 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">Visualizza Storico Esami</a>
+                    <a class="nav-link" href="">Storico Esami</a>
+                </li>
+		<li class="nav-item">
+                    <a class="nav-link" href="">Le mie recensioni </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Profilo Personale</a>
@@ -81,18 +84,11 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex">
+                            LUNEDI' - SABATO
+                        <span>14:30 - 18:30</span>
+			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>
-
-                        <li class="list-group-item d-flex">
-                            LUNEDI' - MARTEDI' - VENERDI'
-                        <span>8:00 - 15:30</span>
-                    </li>
-
-                    <li class="list-group-item d-flex">
-                        SABATO
-                        <span>10:30 - 17:30</span>
-                    </li>
                 </ul>
             </div>
 
@@ -131,4 +127,10 @@
 
             </div>
     </footer>
+	<!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
 {/block}

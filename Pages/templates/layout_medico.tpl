@@ -53,11 +53,11 @@
                             esami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Visualizza agenda</a>
+                        <a class="nav-link" href="">Agenda</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="">Carica slot per appuntamento</a>
+                        <a class="nav-link" href="">Disponibilità orari</a>
                     </li>
 
                     <div class="navbar-brand d-none d-lg-block">
@@ -68,7 +68,7 @@
                         <a class="nav-link" href="">Statistiche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Ricerca
+                        <a class="nav-link" href="">Elenco
                             pazienti</a>
                     </li>
                     <li class="nav-item">
@@ -95,18 +95,11 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex">
+                            LUNEDI' - SABATO
+                        <span>14:30 - 18:30</span>
+			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>
-
-                        <li class="list-group-item d-flex">
-                            LUNEDI' - MARTEDI' - VENERDI'
-                        <span>8:00 - 15:30</span>
-                    </li>
-
-                    <li class="list-group-item d-flex">
-                        SABATO
-                        <span>10:30 - 17:30</span>
-                    </li>
                 </ul>
             </div>
 
@@ -145,4 +138,10 @@
 
             </div>
     </footer>
+	<!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
 {/block}

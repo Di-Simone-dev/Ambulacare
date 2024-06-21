@@ -2,8 +2,8 @@
 
 {block name=content}
 
-    <h2>Profilo Personale - Dott. Emanuele Papile</h2>
     <div>
+    <h2>Profilo Personale - Dott. Emanuele Papile</h2>
         <h4>Informazioni Personali</h4>
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
         <p style='font-size:20px; font-family:monospace;'>{$medico.nome}</p>

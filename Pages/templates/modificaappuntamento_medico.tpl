@@ -38,12 +38,10 @@
                             </table>
                             <br>
                             <div>
-                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata" placeholder="Nuova Data"
+                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata"
                                         name="nuovadata" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
                                         {$esame.data}</label></h4>
-                                <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario"
-                                        placeholder="Nuovo Orario"
-                                        name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario:
+                                <h4><label>Nuovo Orario : </label><input type="time" id="nuovoorario" name="nuovoorario" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchio Orario:
                                         {$esame.orario}</label></h4>
                             </div>
                         </div>

@@ -8,18 +8,18 @@
             <div class="col">
                 <form action="#">
                     <div class="form-group" >
-                        <h2><label for="recensioni">Recensioni</label></h2>
+                        <h2>Recensioni</h2>
                         <br>
-                        <select name="recensioni" id="categ" class="form-select">
-                            <option value="">Ordina per</option>
-                            <option value="">Nome</option>
-                            <option value="">Cognome</option>
-                            <option value="">Data appuntamento</option>
-                        </select>
-                        <br>
-                                <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" required/>
-                                <br><br>
-                        <button type="submit" class="btn btn-primary">Effettua ricerca</button>
+                            <input type="date" id="dataprenot" name="dataprenot" required/>
+                            <br><br>
+                            <button type="submit" class="btn btn-primary">Effettua ricerca</button>
+                            <br><br>
+                            <select name="recensioni" id="categ" class="form-select-m">
+                                <option value="select">Ordina per</option>
+                                <option value="nome">Nome</option>
+                                <option value="cognome">Cognome</option>
+                                <option value="dataapp">Data appuntamento</option>
+                            </select>
                         </div>  
                 </form>
             </div>

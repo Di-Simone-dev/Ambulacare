@@ -9,7 +9,7 @@
                 <form action="#">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
-                            <h2>Disponibilità Orari Attule</h2>
+                            <h2>Disponibilità Orari Attuale</h2>
 			    <br>
                                     <button class="bottonitab"><</button>
                                     <button class="bottonitab">></button>

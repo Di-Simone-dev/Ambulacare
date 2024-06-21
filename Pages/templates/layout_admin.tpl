@@ -25,6 +25,7 @@
 
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -46,20 +47,20 @@
                     <a class="nav-link" href="/Ambulacare/Admin/index">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/Ambulacare/Admin/">Visualizza medici e pazienti</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/">Moderazione account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/visualizzaapp">Visualizza appuntamenti</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/visualizzaapp">Gestione appuntamenti</a>
                 </li>
                 <div class="navbar-brand d-none d-lg-block">
                     AmbulaCare
                     <strong class="d-block">HEALTH SPECIALISTS</strong>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/">Visualizza esami</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/">Elenco pazienti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Admin/recensioni">Visualizza recensioni</a>
+                    <a class="nav-link" href="/Ambulacare/Admin/recensioni">Recensioni</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Admin/">Profilo Personale</a>
@@ -82,18 +83,11 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex">
+                            LUNEDI' - SABATO
+                        <span>14:30 - 18:30</span>
+			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>
-
-                        <li class="list-group-item d-flex">
-                            LUNEDI' - MARTEDI' - VENERDI'
-                        <span>8:00 - 15:30</span>
-                    </li>
-
-                    <li class="list-group-item d-flex">
-                        SABATO
-                        <span>10:30 - 17:30</span>
-                    </li>
                 </ul>
             </div>
 
@@ -132,4 +126,10 @@
 
             </div>
     </footer>
+	<!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/scrollspy.min.js"></script>
+        <script src="js/custom.js"></script>
 {/block}

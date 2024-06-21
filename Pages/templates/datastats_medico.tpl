@@ -10,9 +10,9 @@
                     <div class="form-group">
                         <h2>Inserire un intervallo di date per visualizzarne le relative statistiche</h2>
                         <br>
-                        <input type="date" id="datainizio" placeholder="Data Inizio" name="datainizio" />
+                        <input type="date" id="datainizio" name="datainizio" />
                         <br><br><br>
-                        <input type="date" id="datafine" placeholder="Data Fine" name="datafine" />
+                        <input type="date" id="datafine" name="datafine" />
                         <br><br><br>
                         <button class="btn btn-primary" type="submit">Visualizza statistiche <br>nell'intervallo
                             selezionato</button>

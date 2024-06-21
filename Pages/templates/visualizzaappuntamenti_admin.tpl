@@ -10,16 +10,17 @@
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select">
+                        <select name="tipologia" id="categ" class="form-select-m">
                             {foreach $categorie as $categoria}
                                 <option value="{$categoria.id}">{$categoria.nome}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
+                        <input type="date" id="dataprenot" name="dataprenot" />
                         <br><br>
-                        <input type="time" id="oraprenotinizio" placeholder="Orario prenotazione" name="oraprenotinizio" />
-                        <input type="time" id="oraprenotfine" placeholder="Orario prenotazione" name="oraprenotfine" />
+                        <input type="time" id="oraprenotinizio"  name="oraprenotinizio" />
+
+                        <input type="time" id="oraprenotfine" name="oraprenotfine" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
