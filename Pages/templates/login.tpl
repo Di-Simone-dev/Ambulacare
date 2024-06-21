@@ -13,20 +13,20 @@
         
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/owl.carousel.min.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-        <link href="css/owl.theme.default.min.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-        <link href="css/templatemo-medic-care.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
 
-        <link href="font.css" rel="stylesheet">
+        <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="logregstyle.css">
-        <link rel="stylesheet" href="responsive.css">
+        <link rel="stylesheet" href="/Ambulacare/Pages/logregstyle.css">
+        <link rel="stylesheet" href="/Ambulacare/Pages/responsive.css">
 
     </head>
     <body style="background-color: #9fc2fa;" id="top">

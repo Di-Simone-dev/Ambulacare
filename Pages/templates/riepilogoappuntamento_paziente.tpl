@@ -7,26 +7,28 @@
         <div class="row">
             <div class="col">
                 <h2>Riepilogo Dettagli Appuntamento</h2>
-                        <br>
-                            <h3>Esame: Visita Cardiologica</h3>
-                            <br>
-                            <h3>Medico: Emanuele Papile&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;5/5</h3>
-                            <br>
-                            <h3>Costo: 70€</h3>
-                            <br>
-                            <h3>Data: 07/08/24</h3>
-                            <br>
-                            <h3>Ora: 11:30</h3>
-                            <br><br><br>
-                            <div >
-                                <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
-                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                                <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
-                         </div>
+                <br>
+                <h3>Esame: {$esame.nome}</h3>
+                <br>
+                <h3>Medico: {$esame.medico.nome}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{$esame.medico.valutazione}/5</h3>
+                <br>
+                <h3>Costo: {$esame.costo}€</h3>
+                <br>
+                <h3>Data: {$esame.data}</h3>
+                <br>
+                <h3>Ora: {$esame.orario}</h3>
+                <br><br><br>
+                <div>
+                    <form action="" method="post">
+                        <a haref="" class="btn btn-primary" id="annulla">Annulla</a>
+                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                        <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
+                    </form>
                 </div>
-
             </div>
+
         </div>
+    </div>
     </div>
 
 {/block}

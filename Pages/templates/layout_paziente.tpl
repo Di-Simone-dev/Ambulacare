@@ -15,16 +15,16 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet">
-    <link href="font.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link href="/Ambulacre/Pages/font.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -43,13 +43,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="indexpaziente.html" >Home</a>
+                    <a class="nav-link" href="" >Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="visualizzaesami_prenotazione.html">Prenota esame</a>
+                    <a class="nav-link" href="">Prenota esame</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizzaesamiprenotati_profilopaziente.html">Visualizza Esami Prenotati</a>
+                    <a class="nav-link" href="">Visualizza Esami Prenotati</a>
                 </li>
 
                 <div class="navbar-brand d-none d-lg-block">
@@ -58,10 +58,10 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizzastoricoesami_profilopaziente.html">Visualizza Storico Esami</a>
+                    <a class="nav-link" href="">Visualizza Storico Esami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profilopaziente.php">Profilo Personale</a>
+                    <a class="nav-link" href="">Profilo Personale</a>
                 </li>
             </ul>
         </div>

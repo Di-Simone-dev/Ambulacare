@@ -45,7 +45,7 @@
                     <td>{$esame.medico.nome}</td>
                     <td>{$esame.categoria}</td>
                     <td>{$esame.costo}</td>
-                    <td><a href="modificaappuntamento_profilopaziente.html"><button
+                    <td><a href=""><button
                                 class="btn btn-primary">Modifica</button></a></td>
                 </tr>
             {/foreach}

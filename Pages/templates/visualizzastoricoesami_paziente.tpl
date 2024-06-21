@@ -44,9 +44,9 @@
                         <td>{$esame.medico.nome}</td>
                         <td>{$esame.categoria}</td>
                         <td>{$esame.costo}</td>
-                        <td><button class="btn btn-primary">Aggiungi Recensione</button>
+                        <td><a class="btn btn-primary">Aggiungi Recensione</a>
                             {if $esame.referto}
-                                <button class="btn btn-primary">Visualizza Referto</button>
+                                <a class="btn btn-primary">Visualizza Referto</a>
                             {/if}
                         </td>
                     </tr>
