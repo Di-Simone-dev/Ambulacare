@@ -79,7 +79,7 @@ class FAppuntamento{
                 $appuntamento->setFasciaoraria($fascia_oraria);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
-                $recensioni[] = $appuntamento;
+                //$recensioni[] = $appuntamento;
             }
             return $appuntamenti;   //ARRAY DEGLI APPUNTAMENTI
         }else{

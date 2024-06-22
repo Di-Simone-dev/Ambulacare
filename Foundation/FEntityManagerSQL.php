@@ -423,7 +423,7 @@ class FEntityManagerSQL{
         
         try{
             $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM calendario,fascia_oraria,appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=fascia_oraria.data ORDER BY data;";
+                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
@@ -602,6 +602,150 @@ class FEntityManagerSQL{
         }
     }
 
+
+    public static function getappuntamenticonclusipaziente($IdPaziente,$data = null,$IdTipologia = null){ 
+        
+        //DOBBIAMO DISTINUGERE IL CASO DELLA RAFFINAZIONE DEL RISULTATO, LA QUERY DEVE ESSERE DIVERSA
+        //BISOGNA RISALIRE FINO A MEDICO
+        //CONTROLLO SULLA DATA????? POTREBBERO USCIRE APPUNTAMENTI NON CONCLUSI
+        $today = new DateTime();
+        $past = $today>$data; //controllo che la data inserita sia passata
+        try{
+
+            if($data && $IdTipologia && $past){ //se passiamo anche questi la query include questi parametri
+                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdTipologia,IdMedico
+                          FROM appuntamento,fascia_oraria,calendario,medico
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND data = '" . $data . "' 
+                          AND IdTipologia = '" . $IdTipologia . " ORDER BY data DESC;";
+            }
+            else
+            {   //l'id medico serve per la recensione in ogni caso
+                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico 
+                          FROM appuntamento,fascia_oraria,calendario,medico
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND GETDATE()<=data ORDER BY data DESC;";
+            }
+           
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; //array bidimensionale, primo indice = numero appuntamento, secondo indice = campo
+                //return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function getIdMedicofromIdAppuntamento($IdAppuntamento){ 
+        try{ 
+            $query = "SELECT IdAppuntamento,IdMedico 
+                          FROM appuntamento,fascia_oraria,calendario
+                          WHERE IdAppuntamento = '" . $IdAppuntamento . ";";
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; //array bidimensionale, primo indice = numero appuntamento, secondo indice = campo
+                //return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function getappuntamentiprenotatifromIdPaziente($IdPaziente){ 
+        
+       
+        $today = new DateTime();
+        try{
+            $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria
+                          FROM appuntamento,fascia_oraria
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND GETDATE()=>data ORDER BY data DESC;";
+            //prendiamo tutti gli appuntamenti fissati in date future (quindi prenotati e non ancora conclusi)            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; //array bidimensionale, primo indice = numero appuntamento, secondo indice = campo
+                //return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function getappuntamenticonclusifromIdMedico($IdMedico,$data = null){ 
+        
+        //DOBBIAMO DISTINUGERE IL CASO DELLA RAFFINAZIONE DEL RISULTATO, LA QUERY DEVE ESSERE DIVERSA
+        //BISOGNA RISALIRE FINO A MEDICO
+        //CONTROLLO SULLA DATA????? POTREBBERO USCIRE APPUNTAMENTI NON CONCLUSI
+        $today = new DateTime();
+        $past = $today>$data; //controllo che la data inserita sia passata
+        try{
+            //la tipologia possiamo toglierla ma ci servono i dati del paziente
+            if($data && $past){ //se passiamo anche questi la query include questi parametri
+                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico,IdPaziente
+                          FROM appuntamento,fascia_oraria,calendario,medico
+                          WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' 
+                             ORDER BY data DESC;";
+            }
+            else
+            {   
+                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico,IdPaziente 
+                          FROM appuntamento,fascia_oraria,calendario,medico
+                          WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=data ORDER BY data DESC;";
+            }
+           
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; //array bidimensionale, primo indice = numero appuntamento, secondo indice = campo
+                //return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
     
 
 

@@ -13,13 +13,13 @@ class ERecensione
 
     private static $entity = ERecensione::class;
     //costruttore
-    public function __construct($titolo,$contenuto,$valutazione)
+    public function __construct($titolo,$contenuto,$valutazione,$data_creazione)
     {
         //$this->IdRecensione=0; //l'id non va nel costruttore
         $this->titolo=$titolo;
         $this->contenuto=$contenuto;
         $this->valutazione=$valutazione;
-        $this->setData_creazioneora();
+        $this->data_creazione = $data_creazione;
 
     }
     //metodi

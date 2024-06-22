@@ -16,8 +16,8 @@ class EAppuntamento
     {
         //$this->$IdAppuntamento=$IdAppuntamento; PK
         $this->stato=$stato;
-        //$this->$paziente=$paziente; PK
-        //$this->$fascia_oraria=$fascia_oraria; PK
+        //$this->$paziente=$paziente; FK
+        //$this->$fascia_oraria=$fascia_oraria; FK
 
     }
     //metodi get e set 
