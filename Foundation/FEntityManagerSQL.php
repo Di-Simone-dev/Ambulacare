@@ -725,7 +725,6 @@ class FEntityManagerSQL{
                           WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=data ORDER BY data DESC;";
             }
            
-            
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
             $stmt->execute();
