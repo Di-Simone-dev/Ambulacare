@@ -40,7 +40,7 @@
                         <td>{$esame.medico.nome}</td>
                         <td>{$esame.categoria}</td>
                         <td>{$esame.costo}</td>
-                        <td>{$esame.medico.valutazione}/5</td>
+                        <td>{$esame.medico.valutazione}/5&#9733;</td>
                         <td><a href="" class="btn btn-primary">Prenota</a></td>
                     </tr>
                 {/foreach}

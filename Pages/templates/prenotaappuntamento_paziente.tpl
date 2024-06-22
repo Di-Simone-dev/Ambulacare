@@ -15,7 +15,7 @@
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
 
                             <h3>Valutazione:
-                                {$esame.medico.valutazione}/5&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
+                                {$esame.medico.valutazione}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
                                 Orari
                                 del Medico</h3>
                             <a class="bottonitab">

@@ -5,6 +5,8 @@
     <div>
     <h2>Profilo Personale - Dott. Emanuele Papile</h2>
         <h4>Informazioni Personali</h4>
+
+	<img class='img' src="{$imgprofilomedico}" alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%; float:right; margin-right:150px;'>
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
         <p style='font-size:20px; font-family:monospace;'>{$nome}</p>
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>

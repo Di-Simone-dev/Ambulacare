@@ -41,7 +41,7 @@
                 <tr>
                     <td>{$recensione.paziente}</td>
                     <td>{$recensione.data}</td>
-                    <td>{$recensione.valutazione}/5</td>
+                    <td>{$recensione.valutazione}/5&#9733;</td>
                     <td><button class="btn btn-primary">Dettagli</button></td>
                 </tr>
             {/foreach}

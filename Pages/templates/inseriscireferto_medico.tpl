@@ -22,7 +22,10 @@
                     <h4><label for="contenutoref">Contenuto Referto:</label>
                         <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;">
                     </h4>
-                    <br><br><br><br>
+		    <br><br>
+                            <h4><label for="fileref">File Referto: </label>
+                            <input id="fileref" name="fileref"  type="file"></h4>
+                    <br><br>
                     <div>
                         <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
