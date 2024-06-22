@@ -81,29 +81,6 @@ class VMedico
         $this->smarty->display('visualizzaelencopazperstoricoesami_medico.tpl');
     }
 
-
-
-
-/*
-
-
-
-		da revisionare
-				|
-				V
-
-
-
-
-
-
-
-*/
-
-
-
-
-
 	/**
 	 * Funzione che permette di visualizzare la pagina per caricare un referto
 	 * @param $app un appuntamento
@@ -111,7 +88,7 @@ class VMedico
 	 */
 	public function CaricaReferto($app){
         $this->smarty->assign('esame',$app);
-        $this->smarty->display('inseriscireferto.tpl');
+        $this->smarty->display('inseriscireferto_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare l'agenda degli appuntamenti
@@ -127,10 +104,10 @@ class VMedico
 	 * @param $app un appuntamento
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($app, $fasceorarie, $maxdim){
+	public function ModificaAppuntamento($app, $fasceorarie, $giorno){
         $this->smarty->assign('esame',$app);
 		$this->smarty->assign('fasceorarie',$fasceorarie);
-		$this->smarty->assign('maxdim',$maxdim);
+		$this->smarty->assign('giorno',$giorno);
         $this->smarty->display('modificaappuntamento_medicomedico.tpl');
     }
 	/**
