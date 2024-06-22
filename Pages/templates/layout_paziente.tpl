@@ -85,7 +85,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex">
                             LUNEDI' - SABATO
-                        <span>14:30 - 18:30</span>
+                        <span>14:30 - 19:30</span>
 			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>

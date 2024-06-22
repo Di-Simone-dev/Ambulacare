@@ -46,11 +46,11 @@
                                             name="datadisp" />
                                         <br>
                                         <label>Orario di Disponibilità: </label><br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="14:30"/>14:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="15:30"/>15:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="16:30"/>16:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="17:30"/>17:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="18:30"/>18:30</h3>
+                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="14:30"/>14:30-15:30<br>
+                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="15:30"/>15:30-16:30<br>
+                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="16:30"/>16:30-17:30<br>
+                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="17:30"/>17:30-18:30<br>
+                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="18:30"/>18:30-19:30</h3>
                                     </div>
                         </div>
                     </div>
