@@ -61,7 +61,7 @@
                     <a class="nav-link" href="">Storico Esami</a>
                 </li>
 		<li class="nav-item">
-                    <a class="nav-link" href="">Le mie recensioni </a>
+                    <a class="nav-link" href="">Le mie recensioni</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Profilo Personale</a>
