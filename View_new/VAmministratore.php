@@ -1,209 +1,171 @@
 <?php
 
-require_once __DIR__."/../Pages/smarty_class.php";
-
-/* IL FILE è ANCORA IN FASE DI ELABORAZIONE, MOLTE RIGHE DI CODICE SONO STATE COPIATE
-DAI FILE DI AGORA E FILLSPACEWEB */ 
+require_once __DIR__ . "/../Pages/smarty_class.php";
 
 
-/**
- * La classe VAmministratore si occupa dell'input-output per la sezione privata dell'amministratore
- */
 class VAmministratore
 {
-    private $smarty;
-    /**
-     * Funzione che inizializza e configura smarty.
-     */
-    function __construct ()
-    {
-        $this->smarty = Smarty_class::startSmarty();
-    }
-	/**
-	 * Funzione che si occupa di gestire la visualizzazione della form di login
-	 * @throws SmartyException
-	 */
-	public function showFormLogin(){
-		if (isset($_POST['login']))
-			$this->smarty->assign('email',$_POST['login']);
-		$this->smarty->display('loginadmin.tpl');
+	private $smarty;
+	function __construct()
+	{
+		$this->smarty = Smarty_class::startSmarty();
 	}
 
+
+
 	/**
-	 * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
-	 * //@param $array elenco di Anunci da visualizzare
-	 * @throws SmartyException
+	 * visualizza form di login
+	 * @param string $email da mostrare nel form (opzionale)
+	 * @param string $error messaggio di errore da stampare (opzionale)
+	 * 
 	 */
-	public function loginOk() {
-		//$this->smarty->assign('immagine', "/FillSpaceWEB/Smarty/immagini/truck.png");
-		//$this->smarty->assign('userlogged',"loggato");
-		//$this->smarty->assign('array', $array);
-        //$this->smarty->assign('toSearch', 'trasporti');
+	public function showFormLogin($email = false, $error = false)
+	{
+		if ($email) $this->smarty->assign('email', $email);
+		if ($error) $this->smarty->assign('error', $error);
+		$this->smarty->display('login_admin.tpl');
+	}
+
+
+
+
+	public function loginOk()
+	{
 		$this->smarty->display('index_admin.tpl');
 	}
 
-	/**
-	 * Funzione che si occupa di gestire la visualizzazione degli errori in fase login
-	 * @throws SmartyException
-	 */
-	public function loginError() {
-		$this->smarty->assign('error',"errore");
-		$this->smarty->display('loginadmin.tpl');
-	}
+
+
 
 	/**
-	 * Funzione che si occupa di gestire la visualizzazione del profilo admin
-	 * @param $user informazioni da visualizzare
-	 * @throws SmartyException
+	 * visualizza la pagina di profilo
+	 * @param mixed $admin oggetto admin
+	 * 
+	 *
 	 */
-	public function profileAdmin($user) {
-		//list($type,$pic64) = $this->setImage($img, 'user');
-		//$this->smarty->assign('type', $type);
-		//$this->smarty->assign('pic64', $pic64);
-		//$this->smarty->assign('userlogged',"loggato");
-		$this->smarty->assign('nome',$user->getNome());
-		$this->smarty->assign('cognome',$user->getCognome());
-		$this->smarty->assign('email',$user->getEmail());
-		//$this->smarty->assign('array',$ann);
-		$this->smarty->display('profiloadmin.tpl');
+	public function profileAdmin($admin)
+	{
+		$this->smarty->assign('nome', $admin->getNome());
+		$this->smarty->assign('cognome', $admin->getCognome());
+		$this->smarty->assign('email', $admin->getEmail());
+		$this->smarty->display('profilo_admin.tpl');
 	}
 
+
 	/**
-	 * Funzione che si occupa di gestire la visualizzazione della form di modifica per l'admin
-	 * @param $user informazioni sull'admin che desidera modificare 
-	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
-	 * @throws SmartyException
+	 * @param mixed $admin
+	 * @param string $error
+	 * @param string $email
+	 * 
 	 */
-	public function formmodificacli($user,$error) {
-		switch ($error) {
-			case "errorEmail" :
-				$this->smarty->assign('errorEmail', "errore");
-				break;
-			case "errorPassw":
-				$this->smarty->assign('errorPassw', "errore");
-				break;
-		}
-		//$this->smarty->assign('userlogged',"loggato");
-		//$this->smarty->assign('pic64',$pic64);
-		$this->smarty->assign('nome',$user->getNome());
-		$this->smarty->assign('cognome',$user->getCognome());
-		$this->smarty->assign('email',$user->getEmail());
+	public function formmodificacli($admin, $error = false, $email)
+	{
+		if ($error) $this->smarty->assign('error', $error);
+		$this->smarty->assign('nome', $admin->getNome());
+		$this->smarty->assign('cognome', $admin->getCognome());
+		$this->smarty->assign('email', $email);
 		$this->smarty->display('modifica_profilo_admin.tpl');
 	}
+
+
 	/**
-	 * Funzione che si occupa di gestire la visualizzazione della form di modifica della password per l'admin
-	 * @param $passw password da modificare
-	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
-	 * @throws SmartyException
+	 * @param string $error
+	 * 
+	 * @return [type]
 	 */
-	public function formmodificapassw($passw,$error) {
-		switch ($error) {
-			case "errorEmail" :
-				$this->smarty->assign('errorEmail', "errore");
-				break;
-			case "errorPassw":
-				$this->smarty->assign('errorPassw', "errore");
-				break;
-		}
-		$this->smarty->assign('password',$passw->getPassword());
-		$this->smarty->display('modifica_password_admin.tpl');
+	public function formmodificapassw($passw, $error = false)
+	{
+		if ($error)
+			$this->smarty->assign('error', $error);
+		$this->smarty->display('reimpostapassword_admin.tpl');
 	}
 
-    /**
-     * Restituisce l'email dell'utente da bannare/riattivare dal campo hidden input
-     * Inviato con metodo post
-     * @return string contenente l'email dell'utente
-     */
-    function getEmail(){
-        $value = null;
-        if (isset($_POST['email']))
-            $value = $_POST['email'];
-        return $value;
-    }
-
-    /**
-     * Restituisce l'id della recensione da eliminare (proviene dal campo input hidden)
-     * Inviato con metodo post
-     * @return string contenente l'id della recensione
-     */
-    function getIdRecensione(){
-        $value = null;
-        if (isset($_POST['idrecensione']))
-            $value = $_POST['iderecensione'];
-        return $value;
-    }
-
-	/**
-	 * Funzione che permette di visualizzare la pagina dell'admin (contenente tutti gli utenti della piattaforma),divisi in attivi e bannati.
-	 * @param $utentiAttivi array di utenti attivi
-	 * @param $utentiBannati array di utenti bannati
-	 * @throws SmartyException
-	 */
-    public function HomeAdmin() {
-		//list($typeA,$pic64att) = $this->SetImageRecensione($img_attivi);
-/* 		$this->smarty->assign('n_bannati', 0);
-        $this->smarty->assign('utenti',$utentiAttivi);
-        $this->smarty->assign('utentiBan',$utentiBannati); */
-        $this->smarty->display('index_admin.tpl');
-    }
+	public function HomeAdmin()
+	{
+		$this->smarty->display('index_admin.tpl');
+	}
 
 
 	/**
-	 * Funzione che permette di visualizzare la lista delle recensioni presenti nel database
-	 * @param $rec array di recensioni
-	 * @throws SmartyException
+	 * @param mixed $rec array di recensioni
+	 * 
+	 * @return [type]
 	 */
-    public function showRevPage($rec){
-        $this->smarty->assign('recensioni',$rec);
-        $this->smarty->display('visualizzarecensioni_admin.tpl');
-    }
-	/**
-	 * Funzione che permette di visualizzare la lista degli appuntamenti presenti nel database
-	 * @param $app array di appuntamenti
-	 * @throws SmartyException
-	 */
-	public function showAppuntPage($app, $categorie){
-        $this->smarty->assign('appuntamenti',$app);
-		$this->smarty->assign('categorie',$categorie);
-        $this->smarty->display('visualizzaappuntamenti_admin.tpl');
-    }
-	/**
-	 * Funzione che permette di visualizzare la lista dei pazienti presenti nel database
-	 * @param $paz array di pazienti
-	 * @throws SmartyException
-	 */
-	public function showPazPage($paz){
-        $this->smarty->assign('pazienti',$paz);
-        $this->smarty->display('visualizzastoricoesami_admin.tpl');
-    }
-	/**
-	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
-	 * @param $app array di appuntamenti
-	 * @throws SmartyException
-	 */
-	public function showStoricoEsami($paziente, $app){
-        $this->smarty->assign('esami',$app);
-		$this->smarty->assign('paziente',$paziente);
-        $this->smarty->display('visualizzastoricoesamipaz_admin.tpl');
-    }
-	/**
-	 * Funzione che permette di visualizzare una recensione
-	 * @param $recensione una recensione
-	 * @throws SmartyException
-	 */
-	public function showRecensione($recensione){
-        $this->smarty->assign('recensione',$recensione);
-        $this->smarty->display('dettagli_recensione.tpl');
-    }
+	public function showRevPage($rec)
+	{
+		$this->smarty->assign('recensioni', $rec);
+		$this->smarty->display('visualizzarecensioni_admin.tpl');
+	}
 
-	public function moderazione($medici){
+
+	/**
+	 * @param mixed $app array di appuntamenti
+	 * @param mixed $tipologie array di tipologie
+	 * 
+	 * @return [type]
+	 */
+	public function showAppuntPage($app, $tipologie)
+	{
+		$this->smarty->assign('appuntamenti', $app);
+		$this->smarty->assign('tipologie', $tipologie);
+		$this->smarty->display('visualizzaappuntamenti_admin.tpl');
+	}
+
+	/**
+	 * @param mixed $paz array di pazienti
+	 * @param mixed $tipologie array di tipologie
+	 * 
+	 * @return [type]
+	 */
+	public function showPazPage($paz, $tipologie)
+	{
+		$this->smarty->assign('pazienti', $paz);
+		$this->smarty->assign('tipologie', $tipologie);
+		$this->smarty->display('visualizzastoricoesami_admin.tpl');
+	}
+
+	/**
+	 * @param mixed $paziente oggetto paziente
+	 * @param mixed $esami array di esami
+	 * 
+	 * @return [type]
+	 */
+	public function showStoricoEsami($paziente, $esami)
+	{
+		$this->smarty->assign('esami', $esami);
+		$this->smarty->assign('nomePaziente', $paziente->getNome());
+		$this->smarty->assign('cognomePaziente', $paziente->getCognome());
+		$this->smarty->display('visualizzastoricoesamipaz_admin.tpl');
+	}
+
+	/* 	public function showRecensione($recensione)
+	{
+		$this->smarty->assign('recensione', $recensione);
+		$this->smarty->display('dettagli_recensione.tpl');
+	} */
+
+	/**
+	 * @param mixed $medici array di medici
+	 * 
+	 * @return [type]
+	 */
+	public function moderazione($medici)
+	{
 		$this->smarty->assign('medici', $medici);
 		$this->smarty->display('moderazioneaccount_admin.tpl');
 	}
 
-	public function editApp($app, $fasceorarie ,$maxdim){
-		$this->smarty->assign('esame', $app);
-		$this->smarty->assign('maxdim', $maxdim);
+	/**
+	 * @param mixed $esame
+	 * @param mixed $giorno array di giorni [0] per lunedì, [1] per martedì ...
+	 * @param mixed $fasceorarie array di fasciaoraria
+	 * 
+	 * @return [type]
+	 */
+	public function editApp($esame, $giorno, $fasceorarie)
+	{
+		$this->smarty->assign('esame', $esame);
+		$this->smarty->assign('giorno', $giorno);
 		$this->smarty->assign('fasceorarie', $fasceorarie);
 		$this->smarty->display('modificaappuntamento_admin.tpl');
 	}
