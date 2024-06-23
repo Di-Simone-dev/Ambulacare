@@ -9,7 +9,7 @@ class CPaziente{
     //1.1 avvia_prenotazione
     //gli devo passare tutti i medici attivi per visualizzarli con i relativi dati da visualizzare
     //ma anche le tipologie in modo di metterle nella tendina la per la selezione e farmele passare nella prossima funzione
-    public static function avviaprenotazionetest(){
+    public static function avviaprenotazione(){
         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             
 

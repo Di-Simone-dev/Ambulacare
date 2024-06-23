@@ -4,7 +4,7 @@ class EReferto
     private $IdReferto;
     private $oggetto;
     private $contenuto;
-    private $IdImmagine;  //FK con ID
+    private $IdImmagine;  //FK CON ID
 
     private $Appuntamento; //FK Senza ID
     private static $entity = EReferto::class;

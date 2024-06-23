@@ -50,31 +50,36 @@ public static function ricerca_storico_esami($data){
 
 
 //4.3 inserimento_referto(appuntamento)
+
+
+//PENSIAMO AD UN METODO CHE CARICHI IL REFERTO SOLO SE TUTTO è OK ALTRIMENTI MANDI UN MESSAGGIO DI ERRORE
 public static function inserimento_referto($IdAppuntamento){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
         
         //BISOGNA PRENDERE L'OGGETTO ed il contenuto dal form
         $oggetto = UHTTPMethods::post('oggetto');
         $contenuto = UHTTPMethods::post('contenuto');
-        //MA SERVE ANCHE L'IMMAGINE???? DOVE SI PRENDE
-        //$immagine = UHTTPMethods::post('immagine');  //NON SI FA COSì
-        //DA IMPLEMENTARE
-        //MANCA ANCHE SALVARE L'IMMAGINE NEL DB
+        $referto = new EReferto($oggetto,$contenuto);
+        $appuntamento = FAppuntamento::getObj($IdAppuntamento);
+        $referto->setAppuntamento($appuntamento);
+        $IdReferto = FReferto::saveObj($referto); //LO SALVO NEL DB
+        $referto->setIdReferto($IdReferto);
+        //SE C'è ANCHE L'IMMAGINE DEVO MODIFICARLO AL VOLO
+
+        //MANCA ANCHE SALVARE L'IMMAGINE NEL DB SE PRESENTE
         $check = UHTTPMethods::files('immagineref','error');                                       
         //var_dump($check);
-        
-        if($check > 0){
-            $immaginereferto = UHTTPMethods::files('immagineref');
-            $check = FPersistentManager::getInstance()->manageImages($immaginereferto, $referto, $userId);
+        if($check > 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
+            $immaginereferto = UHTTPMethods::files('immagineref'); //EQUIVALENTE AD ACCEDERE A $_FILES['immagineref']
+            $check = FPersistentManager::getInstance()->manageImages($immaginereferto, $referto, );
             if(!$check){
                 $view->uploadFileError($check);
             }
-        }
+        }//L'IMMAGINE VIENE CREATA E SALVATA IN FOUNDATION?
 
-        $referto = new EReferto($oggetto,$contenuto);
-        $referto->setAppuntamento($IdAppuntamento);
-        $referto->setIdImmagine();  //DA FARE
-        FReferto::saveObj($referto); //LO SALVO NEL DB
+       
+        //$referto->setIdImmagine();  //DA FARE
+        //FReferto::saveObj($referto); //LO SALVO NEL DB
 
         $view = new VManagePost($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
