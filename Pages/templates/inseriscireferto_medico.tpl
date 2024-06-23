@@ -14,7 +14,7 @@
                 <br>
                 <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
                 <br><br>
-                <form action="#" enctype="multipart/form-data" method="post">
+                <form action="" enctype="multipart/form-data" method="post">
                     <h4><label for="oggettoref">Oggetto Referto: </label>
                         <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" required/>
                     </h4>
@@ -27,7 +27,7 @@
                     <input id="immagineref" name="immagineref"  type="file"></h4>
                     <br><br>
                     <div>
-                        <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
