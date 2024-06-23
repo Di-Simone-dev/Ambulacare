@@ -216,5 +216,11 @@ class VPaziente
         $this->smarty->display('inseriscirecensione.tpl');
     }
 
+	public function showEsami($tipologie,$esami){
+		$this->smarty->assign('tipologie', $tipologie);
+		$this->smarty->display('esami',$esami)
+		$this->smarty->display('visualizzaappuntamenti_prenotazione_paziente.tpl');
+	}
+
 
 }
