@@ -4,7 +4,7 @@ class EAppuntamento
 {
     private $IdAppuntamento;
 
-    private $stato; //SERVE EFFETTIVAMENTE??????
+    //private $stato; //SERVE EFFETTIVAMENTE??????
     
     private $paziente;  //FK BISOGNA CAPIRE SE METTERE L'ID O NO 
 
@@ -12,10 +12,10 @@ class EAppuntamento
 
     private static $entity = EAppuntamento::class;
     //costruttore
-    public function __construct($stato)
+    public function __construct()
     {
         //$this->$IdAppuntamento=$IdAppuntamento; PK
-        $this->stato=$stato;
+        //$this->stato=$stato;
         //$this->$paziente=$paziente; FK
         //$this->$fascia_oraria=$fascia_oraria; FK
 
@@ -31,6 +31,7 @@ class EAppuntamento
         $this->IdAppuntamento = $IdAppuntamento;
     }
 
+    /*
     public function getStato()
     {
         return $this->stato;
@@ -40,6 +41,7 @@ class EAppuntamento
     {
         $this->stato = $stato;
     }
+    */
 
     public function getPaziente()
     {
