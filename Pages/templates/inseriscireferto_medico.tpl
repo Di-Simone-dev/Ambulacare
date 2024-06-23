@@ -14,17 +14,17 @@
                 <br>
                 <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
                 <br><br>
-                <form action="#">
+                <form action="#" enctype="multipart/form-data" method="post">
                     <h4><label for="oggettoref">Oggetto Referto: </label>
-                        <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" />
+                        <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" required/>
                     </h4>
                     <br>
                     <h4><label for="contenutoref">Contenuto Referto:</label>
-                        <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;">
+                        <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;" required/>
                     </h4>
 		    <br><br>
-                            <h4><label for="fileref">File Referto: </label>
-                            <input id="fileref" name="fileref"  type="file"></h4>
+                    <h4><label for="immagineref">Immagine Referto: </label>
+                    <input id="immagineref" name="immagineref"  type="file"></h4>
                     <br><br>
                     <div>
                         <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
