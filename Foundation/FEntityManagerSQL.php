@@ -567,7 +567,7 @@ class FEntityManagerSQL{
     }
 
 
-    public static function getIdFasciaOrariafromIdMedicoanddata($IdMedico,$data){ 
+    public static function getIdFasciaOrariafromIdMedicondata($IdMedico,$data){ 
         
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
             $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data

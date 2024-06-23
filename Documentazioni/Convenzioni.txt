@@ -9,7 +9,7 @@ FOUNDATION
 1)Nell'array values[] il campo della PK è scritto null, si scrive invece dentro la variabile $key
 2)Nel bind non compare la PK, mentre per le FK le mettiamo con il DOPPIO GET()  (1 GET OGGETTO DELL'FK,2GET ID)
 3)Nel metodo crea****() di un oggetto la PK si setta con il metodo setter (di entity) subito dopo aver usato il costruttore, successivamente settiamo anche altri 
-	attributi non presenti nel costruttore e NON VANNO MESSI GLI ID DELLE FK, BENSì GLI OGGETTI EFFETTIVI CON I CREA*******()
+	attributi non presenti nel costruttore e NON VANNO MESSI GLI ID DELLE FK, BENSì GLI OGGETTI EFFETTIVI CON I CREA*******() 
 
 
 
@@ -19,6 +19,8 @@ ENTITY
 2)Nei metodi getter e setter il nome del metodo ha in caps solo l'iniziale dell'attributo (ad esempio getNome())
 3)Nei metodi non si usa "_" come spazio tra le parole del nome del metodo
 4)Negli attributi si usa "_" come spazio (pochi casi)
+5)Gli attributi legati alle FK non sono ID, bensì oggetti effettivi, che vengono tradotti in ID con il bind in foundation, ma in entity rimangono oggetti
+	tranne le immagini????
 
 FOUNDATION
 1)Nelle classi, l'ordine è attributi->metodi get/set->bind->altri metodi

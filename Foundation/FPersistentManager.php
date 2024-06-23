@@ -335,6 +335,50 @@ class FPersistentManager{
         return [true, null];
     }
 
+    public static function manageImages($uploadedImages, $post, $idUser){
+        
+        $file = [
+        'nome' => $uploadedImages['name'],
+        'tipo' => $uploadedImages['type'],
+        'size' => $uploadedImages['size'],
+        'error' => $uploadedImages['error']
+        ];
+        
+        $fileExtension = strtolower(pathinfo($file["nome"], PATHINFO_EXTENSION));
+        $validExtensions = ['jpg', 'jpeg', 'png'];  //ESTENIONI PERMESSE
+
+        if (in_array($fileExtension, $validExtensions)  //CON QUESTO SI CONTROLLA CHE L'ESTENSIONE SIA UNA DI QUESTE
+
+            //check if the uploaded image is ok 
+        $checkUploadImage = self::uploadImage($file);
+        if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR'){
+            self::deletePost($post->getId(), $idUser);
+            
+            }
+        else
+        {
+                $checkUploadImage = self::uploadImagePost($checkUploadImage, $post);
+        }
+        return $checkUploadImage;
+    }
+    
+    /**
+     * check if the uploaded image is ok and then create an Image Obj and return it
+     */
+    public static function uploadImage($file){
+        $check = self::validaimmagine($file);
+        if($check[0]){
+            
+            //create new Image Obj ad perist it
+            $immagine = new EImmagine($file['nome'], $file['tipo'], $file['size'], file_get_contents($file));
+            //file_get_contents è un metodo php che prende tutto e butta 
+            return $immagine;
+        }else{
+            return $check[1];
+        }
+    }
+    
+
 //-----------------------------METODI PER L'UPLOAD------------------------------
 
     /**
