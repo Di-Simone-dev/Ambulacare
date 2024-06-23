@@ -494,7 +494,7 @@ class CUtente{
 
 
 
-    /**
+    /*
      * APPLICATO PER UN CAMBIO PROPIC DI UN MEDICO
      * Take the file, check if there is an upload error, if not update the user image and delete the old one 
      */
@@ -648,10 +648,10 @@ class CUtente{
 
     //[paziente]caso d'uso 1 "prenotazione esame"
 
-    //avvia_prenotazione
+    //1.1 avvia_prenotazione
     //gli devo passare tutti i medici attivi per visualizzarli con i relativi dati da visualizzare
     //ma anche le tipologie in modo di metterle nella tendina la per la selezione e farmele passare nella prossima funzione
-    public static function avviaprenotazione(){
+    public static function avviaprenotazionetest(){
         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             
 
@@ -662,7 +662,7 @@ class CUtente{
         } 
     }
 
-    //ricerca_esame(tipologia_esame)
+    //1.2 ricerca_esame(tipologia_esame)
     //prendo in input una tipologia e restituisco i medici attivi di quella tipologia alla view
     //dovrebbe servire anche il nome della tipologia per visualizzarlo e per metterlo nella URL
     //bisogna mettere gli id dei medici nei bottoni per passarli poi al metodo successivo
@@ -677,7 +677,7 @@ class CUtente{
         } 
     }
 
-    //dettagli_prenotazione(medico)
+    //1.3 dettagli_prenotazione(medico)
     //accedendo alla schermata di dettaglio prendendo in input l'id del medico
     //bisogna passare a view i dettagli dell'esame (quindi del medico) e gli orari di disponibilità (complesso) per la tabella
     //ed anche per le tendine
@@ -712,7 +712,7 @@ class CUtente{
         } 
     }
 
-    //conferma_appuntamento(orario_disponibilità)
+    //1.4 conferma_appuntamento(orario_disponibilità)
     //prendiamo un orario di disponibilità ma in realtà abbiamo una data + uno slot orario
     //l'implementazione di un controllo aggiuntivo sull'esistenza della fascia oraria libera risulta necessario
     //PER LA CREAZIONE DELL'APPUNTAMENTO CI SERVE LA FASCIAORARIA E IL PAZIENTE (lo stato non serve)
@@ -756,6 +756,8 @@ class CUtente{
     }
 
 //[paziente]caso d'uso 2 "visualizzare un referto"
+
+//2.1 visualizza_esami_effettuati()
 //PRENDO L'ID DEL PAZIENTE DALLA SESSIONE E CON QUESTO MI PRENDO TUTTI I SUOI APPUNTAMENTI CONCLUSI
 //QUINDI LA QUERY DEVE AVERE IN INPUT L'ID DEL PAZIENTE E OPERARE SULLA TABELLA DEGLI APPUNTAMENTI MA CONTROLLARE CHE LA DATA SIA PASSATA
 public static function visualizza_esami_effettuati(){
@@ -774,6 +776,7 @@ public static function visualizza_esami_effettuati(){
     } 
 }
 
+//2.2 ricerca_esami_effettuati
 //qui raffino i risultati visti in precedenza con l'aggiunta di tipologia e data che si prendono dal form
 //POTREBBE ESSERE UNITO AL PRECEDENTE
 public static function ricerca_esami_effettuati(){
@@ -795,6 +798,7 @@ public static function ricerca_esami_effettuati(){
 }
 
 //PREMENDO sul bottone viene passato anche l'id dell'appuntamento, quindi lo usiamo per andare a prendere il referto dal db
+//2.3 visualizza_referto()
 public static function visualizza_referto($IdAppuntamento){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
 
@@ -809,9 +813,9 @@ public static function visualizza_referto($IdAppuntamento){
 }
 
 //[paziente]caso d'uso 3 "recensire un medico" 
-//PARTIAMO DIRETTAMENTE DALLA SCHERMATA DI VISUALIZZAZIONE DEGLI APPUNTAMENTI CONCLUSI
+//PARTIAMO DIRETTAMENTE DALLA SCHERMATA DI VISUALIZZAZIONE DEGLI APPUNTAMENTI CONCLUSI 3.1 è già presente e concide con 2.1
 
-//accedi_schermata_recensioni
+//3.2 accedi_schermata_recensioni
 public static function accedi_schermata_recensioni($IdAppuntamento){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
         //BISOGNERà PASSARE L'Id del medico a cui attribuire la recensione perchè serve nello step successivo per la creazione
@@ -826,7 +830,7 @@ public static function accedi_schermata_recensioni($IdAppuntamento){
     } 
 }
 
-//conferma_recensione(Titolo,contenuto,voto)
+//3.3 conferma_recensione(Titolo,contenuto,voto)
 public static function conferma_recensione($IdMedico){  //POSSIBILE IMPLEMENTAZIONE ATTRAVERSO LA SESSIONE
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
         
@@ -848,9 +852,10 @@ public static function conferma_recensione($IdMedico){  //POSSIBILE IMPLEMENTAZI
 }
 
 //[paziente]caso d'uso 9 "modifica appuntamento" 
+
+
+//9.1 visualizza_appuntamenti_prenotati()
 //DOBBIAMO OPERARE SUGLI ESAMI PRENOTATI (QUINDI NON ANCORA SVOLTI)=>CONDIZIONE SULLA DATA NELLA QUERY
-
-
 public static function visualizza_appuntamenti_prenotati(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO
         //a questo punto prendiamo l'id del paziente della sessione e ritorniamo gli appuntamenti non ancora svolti
@@ -868,6 +873,7 @@ public static function visualizza_appuntamenti_prenotati(){
     } 
 }
 
+//9.2 dettagli_appuntamento()
 //con questo accediamo alla schermata di modifica dell'appuntamento 
 //VISTO CHE NON ABBIAMO SCHERMATE INTERMEDIE QUA DEVO PRENDERE ANCHE IL RESTO DELLE INFORMAZIONI
 public static function dettagli_appuntamento($IdAppuntamento){
@@ -891,6 +897,7 @@ public static function dettagli_appuntamento($IdAppuntamento){
     } 
 }
 
+//9.3 modifica_appuntamento()
 //PROBABILMENTE I METODI POSSONO ESSERE RIUTILIZZATI CON QUALCHE ACCORTEZZA
 public static function modifica_appuntamento($IdAppuntamento){  //DA FARE
     if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
