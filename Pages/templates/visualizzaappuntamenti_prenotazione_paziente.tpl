@@ -38,7 +38,10 @@
                 </tr>
             </thead>
             <tbody style="text-align: center;">
-            {vardump}
+            {php}
+                            echo "tipologie: " . vardump($tipologie);
+                            echo "$medici: " . vardump($medici);
+            {/php}
                 {foreach $medici as $medico}
                     <tr>
                         <td>{$medico.nome} {$medico.cognome}</td>
