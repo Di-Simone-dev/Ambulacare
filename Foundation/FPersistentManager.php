@@ -118,6 +118,11 @@ class FPersistentManager{
         return $infopaziente;
     }
 
+    public static function retrievepazientiattivi()
+    {
+        $result = FPaziente::getPazientinonBannati();
+        return $result;
+    }
 
 
     //MEDICO
