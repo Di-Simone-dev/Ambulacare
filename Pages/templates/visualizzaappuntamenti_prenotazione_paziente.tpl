@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody style="text-align: center;">
-
+            {vardump}
                 {foreach $medici as $medico}
                     <tr>
                         <td>{$medico.nome} {$medico.cognome}</td>

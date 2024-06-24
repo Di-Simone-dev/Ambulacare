@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../Pages/smarty_class.php";
 /* IL FILE è ANCORA IN FASE DI ELABORAZIONE, MOLTE RIGHE DI CODICE SONO STATE COPIATE
 DAI FILE DI AGORA E FILLSPACEWEB */ 
 
@@ -17,7 +18,7 @@ class VPaziente
 	 * Funzione che inizializza e configura smarty.
 	 */
 	public function __construct() {
-		$this->smarty = smarty_class::configuration();
+		$this->smarty = smarty_class::startSmarty();
 	}
 
 	/**
@@ -216,9 +217,9 @@ class VPaziente
         $this->smarty->display('inseriscirecensione.tpl');
     }
 
-	public function showEsami($tipologie,$esami){
+	public function showEsami($tipologie,$medici){
 		$this->smarty->assign('tipologie', $tipologie);
-		$this->smarty->display('esami',$esami)
+		$this->smarty->display('esami',$medici);
 		$this->smarty->display('visualizzaappuntamenti_prenotazione_paziente.tpl');
 	}
 
