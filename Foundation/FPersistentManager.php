@@ -329,48 +329,50 @@ class FPersistentManager{
         if($file['size'] > 5242880){       //QUESTA è DA DEFINIRE, QUESTO EQUIVALE A 5 MEGABYTE
             $error = 'SIZE_ERROR';
 
-            return [false, $error];
+            return [false, $error];   
         }
 
-        return [true, null];
+        return [true, null]; //il secondo campo va a null se è tutto corretto altrimenti = al tipo di errore
     }
 
-    public static function manageImages($uploadedImages, $post, $idUser){
+
+    //MANAGING NECESSARIO AL FINE DI CREARE UN REFERTO CON L'IMMAGINE
+    public static function manageImages($uploadedImage, $referto){
         
         $file = [
-        'nome' => $uploadedImages['name'],
-        'tipo' => $uploadedImages['type'],
-        'size' => $uploadedImages['size'],
-        'error' => $uploadedImages['error']
+        'name' => $uploadedImage['name'],
+        'type' => $uploadedImage['type'],
+        'tmpname' => $uploadedImage['tmp_name'], //questo va "serializzato" con file_get_contents
+        'size' => $uploadedImage['size'],
+        'error' => $uploadedImage['error']
         ];
         
-        $fileExtension = strtolower(pathinfo($file["nome"], PATHINFO_EXTENSION));
-        $validExtensions = ['jpg', 'jpeg', 'png'];  //ESTENIONI PERMESSE
-
-        if (in_array($fileExtension, $validExtensions)  //CON QUESTO SI CONTROLLA CHE L'ESTENSIONE SIA UNA DI QUESTE
-
-            //check if the uploaded image is ok 
-        $checkUploadImage = self::uploadImage($file);
-        if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR'){
-            self::deletePost($post->getId(), $idUser);
-            
-            }
+        //check if the uploaded image is ok 
+        $checkUploadImage = self::creaoggettoimmagine($file);  
+        if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
+        {
+            self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
+        }
         else
         {
-                $checkUploadImage = self::uploadImagePost($checkUploadImage, $post);
+            $IdImmmagine = FImmagine::saveObj($checkUploadImage); //DI CUI FACCIO RITORNARE L'ID perchè saveobj ritorna l'id
+            //dell'oggetto salvato
+            $arraymodifica[0][0] = "IdImmagine";
+            $arraymodifica[0][1] = $IdImmmagine;
+            $referto->setIdImmagine($IdImmmagine);
+            FReferto::saveObj($referto,$arraymodifica);//COMPLETO L'AGGIORNAMENTO DEL REFERTO CON L'AGGIUNTA DELLA PK DEL REFERTO
         }
-        return $checkUploadImage;
+        return $checkUploadImage;  //se c'è un errore ritorna l'errore
     }
     
     /**
      * check if the uploaded image is ok and then create an Image Obj and return it
      */
-    public static function uploadImage($file){
-        $check = self::validaimmagine($file);
+    public static function creaoggettoimmagine($file){
+        $check = self::validaimmagine($file);  //se l'immagine è valida $check[0]=true $check[1]=false
         if($check[0]){
-            
             //create new Image Obj ad perist it
-            $immagine = new EImmagine($file['nome'], $file['tipo'], $file['size'], file_get_contents($file));
+            $immagine = new EImmagine($file['nome'], $file['type'], $file['size'], file_get_contents($file['tmpname']));
             //file_get_contents è un metodo php che prende tutto e butta 
             return $immagine;
         }else{
@@ -621,6 +623,12 @@ class FPersistentManager{
      */
     public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
         $result = FImmagine::eliminaimmagine($IdImmagine);
+        //tanto abbiamo l'effetto cascade per toglierla da referto o medico
+        return $result;
+    }
+
+    public static function cancellaReferto($IdReferto){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
+        $result = FReferto::eliminareferto($IdReferto);
         //tanto abbiamo l'effetto cascade per toglierla da referto o medico
         return $result;
     }

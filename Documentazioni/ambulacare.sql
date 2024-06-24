@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 24, 2024 alle 16:51
+-- Creato il: Giu 24, 2024 alle 17:34
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `ambulacare`
 --
+CREATE DATABASE IF NOT EXISTS `ambulacare` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `ambulacare`;
 
 -- --------------------------------------------------------
 
