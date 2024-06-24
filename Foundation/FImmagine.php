@@ -49,13 +49,13 @@ class FImmagine{
             $immagine->setIdImmagine($queryResult[$i]['IdImmagine']);
             $immagini[]=$immagine;
             }
-        return $immagine;
+        return $immagini;
         }
     }
 
 
     public static function getObj($id){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
+        $result = FEntityManagerSQL::getInstance()->retrieveObj(self::getTable(), self::getKey(), $id);
         //var_dump($result);
         if(count($result) > 0){
             $immagine = self::creaimmagine($result);

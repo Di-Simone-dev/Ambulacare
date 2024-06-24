@@ -69,7 +69,8 @@ class FRecensione {
         if(count($queryResult) > 0){
             $recensioni = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],$queryResult[$i]['valutazione']);
+                $recensione = new ERecensione($queryResult[$i]['titolo'],$queryResult[$i]['contenuto'],
+                                $queryResult[$i]['valutazione'],$queryResult[$i]['data_creazione']);
                 $recensione->setIdRecensione($queryResult[$i]['IdRecensione']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE

@@ -198,7 +198,7 @@ class FMedico  {
     }
 
 
-    public static function getMedicinonBannati($IdTipologia)
+    public static function getMedicinonBannatifromTipologia($IdTipologia)
     {
         $result = FEntityManagerSQL::getInstance()->objectListNotRemoved(self::getTable(), FTipologia::getKey(), $IdTipologia);
         //$result contiene i medici con IdTipologia e NON bannati
@@ -216,6 +216,23 @@ class FMedico  {
         
     }
 
+    public static function getMedicinonBannati()
+    {
+        $result = FEntityManagerSQL::getInstance()->retrieveattivi(self::getTable());
+        //$result contiene i medici con IdTipologia e NON bannati
+        //il controllo sul ban viene effettuato direttamente nel metodo objectListNotRemoved
+        if(count($result) == 1){
+            $medici = array();
+            $medico = self::creamedico($result);
+            $medici[] = $medico;
+            return $medici;
+        }elseif(count($result) > 1){
+            return self::creamedico($result);
+        }else{
+            return $result;
+        }
+        
+    }
 
     public static function getmediarecensioni($IdMedico){
         $result = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(), self::getKey(), $IdMedico);
