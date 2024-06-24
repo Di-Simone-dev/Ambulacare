@@ -340,7 +340,6 @@ public static function visualizza_appuntamenti_prenotati(){
 
 //9.2 dettagli_appuntamento()
 //con questo accediamo alla schermata di modifica dell'appuntamento 
-//VISTO CHE NON ABBIAMO SCHERMATE INTERMEDIE QUA DEVO PRENDERE ANCHE IL RESTO DELLE INFORMAZIONI
 //va passato il medico
 public static function dettagli_appuntamento_modifica($IdAppuntamento){
     if(CUtente::isLogged()){ //BISOGNA TENERLO
