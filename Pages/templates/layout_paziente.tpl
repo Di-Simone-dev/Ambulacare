@@ -15,16 +15,16 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="/Ambulacre/Pages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="/Ambulacre/Pages/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="/Ambulacre/Pages/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="/Ambulacre/Pages/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="/Ambulacre/Pages/css/templatemo-medic-care.css" rel="stylesheet">
-    <link href="/Ambulacre/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
 {/block}
 
 {block name=nav}

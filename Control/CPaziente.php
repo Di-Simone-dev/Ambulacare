@@ -15,51 +15,51 @@ class CPaziente{
         $arraymedici = array();
         $nmedici = count($medici);
         //ci devo aggiungere la tipologia per ogni medico
-        for($i=0;$i++;$i<$nmedici){
-            $arraymedici[$i]["IdMedico"] = $medici[$i]->getIdMedico();
-            $arraymedici[$i]["nome"] = $medici[$i]->getNome();
-            $arraymedici[$i]["cognome"] = $medici[$i]->getCognome();
-            $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico());
-            $arraymedici[$i]["costo"] = $medici[$i]->getCosto();
-            $arraymedici[$i]["nometipologia"] = $medici[$i]->getTipologia()->getNometipologia(); 
-            $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(); 
-            $arraymedici[$i]["costo"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati(); 
-
+        for($i=0;$i<$nmedici; $i++){
+            $medico = [
+            "IdMedico" => $medici[$i]->getIdMedico(),
+            "nome" => $medici[$i]->getNome(),
+            "cognome" => $medici[$i]->getCognome(),
+            "valutazione" => FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico()),
+            "costo" => $medici[$i]->getCosto(),
+            "nometipologia" => $medici[$i]->getTipologia()/* ->getNometipologia() */, 
+            "tipoimmagine" => FImmagine::getObj($medici[$i]->getIdImmagine())[0]/* ->getTipo() */, 
+            "img" => FImmagine::getObj($medici[$i]->getIdImmagine())[0]/* ->getDati() */,
+            ];
+            $arraymedici[] = $medico;
         }
-        
         $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-        //$view = new VManagePost($arraymedici,$tipologie); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
+        $view = new VPaziente();
+        $view->showEsami($tipologie,$arraymedici);
     }
 
     //1.2 ricerca_esame(tipologia_esame)
     //prendo in input una tipologia e restituisco i medici attivi di quella tipologia alla view
     //dovrebbe servire anche il nome della tipologia per visualizzarlo e per metterlo nella URL
     //bisogna mettere gli id dei medici nei bottoni per passarli poi al metodo successivo
-    public static function ricercaesame($IdTipologia){
-        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
-            
+    public static function ricercaesame(){
+        /* if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo */
+            $IdTipologia = $_POST["tipologia"];
             $nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
-            
             $arraymedici = array();
             $nmedici = count($medici);
             //ci devo aggiungere la tipologia per ogni medico
-            for($i=0;$i++;$i<$nmedici){
-                $arraymedici[$i]["IdMedico"] = $medici[$i]->getIdMedico();
-                $arraymedici[$i]["nome"] = $medici[$i]->getNome();
-                $arraymedici[$i]["cognome"] = $medici[$i]->getCognome();
-                $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico());
-                $arraymedici[$i]["costo"] = $medici[$i]->getCosto();
-                $arraymedici[$i]["nometipologia"] = $medici[$i]->getTipologia()->getNometipologia(); 
-                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(); 
-                $arraymedici[$i]["costo"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati(); 
+            for($i=0;$i<$nmedici;$i++){
+                $arraymedici[$i]["IdMedico"] = $medici[$i][0]->getIdMedico();
+                $arraymedici[$i]["nome"] = $medici[$i][0]->getNome();
+                $arraymedici[$i]["cognome"] = $medici[$i][0]->getCognome();
+                $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i][0]->getIdMedico());
+                $arraymedici[$i]["costo"] = $medici[$i][0]->getCosto();
+                $arraymedici[$i]["nometipologia"] = $medici[$i][0]->getTipologia()/* ->getNometipologia() */; 
+                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]/* ->getTipo() */; 
+                $arraymedici[$i]["costo"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]/* ->getDati() */; 
             }
             
             $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-            $view = new VManagePost($arraymedici,$tipologie,$nometipologia); //servirebbe una cosa del genere per il passaggio dei parametri
-            header('Location: /appuntamento/esamidaprenotare/$tipologia ');
-        } 
+            $view = new VPaziente();
+            $view->showEsami($tipologie,$arraymedici, $IdTipologia);
+       /*  }  */
     }
 
     //1.3 dettagli_prenotazione(medico)
@@ -76,7 +76,7 @@ class CPaziente{
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
     public static function dettagli_prenotazione($IdMedico,$weekdisplacement){
-        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+        /* if(CUtente::isLogged()){  *///possiamo tenerlo o toglierlo
             
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
@@ -97,9 +97,7 @@ class CPaziente{
             $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
 
             //servirebbe anche la valutazione del medico
-            $view = new VManagePost($arraymedico,$orari_disponinibilità); //servirebbe una cosa del genere per il passaggio dei parametri
-            header('Location: /appuntamento/esamidaprenotare/$idesame '); //che poi id esame sarebbe quello che del medico
-        } 
+       /*  }  */
     }
 
     //1.4 conferma_appuntamento(orario_disponibilità)

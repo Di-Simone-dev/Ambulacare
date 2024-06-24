@@ -16,7 +16,7 @@ class FEntityManagerSQL{
 
         //global $host, $database, $username, $password;
 		$host = "127.0.0.1"; //localhost
-		$database = "AmbulaCare";
+		$database = "ambulaCare";
 		$username = "root";
 		$password = "";
 
@@ -390,7 +390,7 @@ class FEntityManagerSQL{
         //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
         //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
         try{
-            $query = "SELECT AVG(valutazione),IdMedico FROM Recensioni WHERE IdMedico = '" . $IdMedico . "' GROUP BY IdMedico;"
+            $query = "SELECT AVG(valutazione),IdMedico FROM Recensione WHERE IdMedico = '" . $IdMedico . "' GROUP BY IdMedico;"
                         ;
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);

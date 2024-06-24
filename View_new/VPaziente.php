@@ -169,10 +169,10 @@ class VPaziente
 	 * @throws SmartyException
 	 */
 	public function PrenotaEsame($app,$foraria,$maxdim){
-        $this->smarty->assign('esame',$app);
+        $this->smarty->assign('medico',$medico);
 		$this->smarty->assign('fasceorarie',$foraria);
 		$this->smarty->assign('maxdim',$maxdim);
-        $this->smarty->display('prenotaesame.tpl');
+        $this->smarty->display('prenotaappuntamento.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare gli esami prenotati dal paziente
@@ -217,9 +217,10 @@ class VPaziente
         $this->smarty->display('inseriscirecensione.tpl');
     }
 
-	public function showEsami($tipologie,$medici){
+	public function showEsami($tipologie, $medici, $Idtipologia = false){
 		$this->smarty->assign('tipologie', $tipologie);
-		$this->smarty->display('esami',$medici);
+		$this->smarty->assign('medici',$medici);
+		$this->smarty->assign('Idtipologia',$Idtipologia);
 		$this->smarty->display('visualizzaappuntamenti_prenotazione_paziente.tpl');
 	}
 

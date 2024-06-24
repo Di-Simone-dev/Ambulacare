@@ -4,18 +4,18 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Paziente/ricercaesame" method="post">
                     <div class="form-group">
                         <br><br>
                         <h2><label>Prenotazione esami</label></h2>
                         <br>
                         <select name="tipologia" id="categ" class="form-select-m">
                             {foreach $tipologie as $tipologia}
-                                <option value="{$tipologia.id}"
-                                    {if $tipologia.nome == $nometipologia}
+                                <option value="{$tipologia.IdTipologia}"
+                                    {if $tipologia.IdTipologia == $Idtipologia}
                                         selected="selected"
                                     {/if}
-                                >{$tipologia.nome}</option>
+                                >{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br><br>
@@ -38,22 +38,17 @@
                 </tr>
             </thead>
             <tbody style="text-align: center;">
-            {php}
-                            echo "tipologie: " . vardump($tipologie);
-                            echo "$medici: " . vardump($medici);
-            {/php}
                 {foreach $medici as $medico}
                     <tr>
                         <td>{$medico.nome} {$medico.cognome}</td>
                         <td>{$medico.nometipologia}</td>
                         <td>{$medico.costo}</td>
                         <td>{$medico.valutazione}/5&#9733;</td>
-                        <td><a href="" class="btn btn-primary">Prenota</a></td>
+                        <td><a href="/Ambulacare/Paziente/dettagliprenotazione/{$medico.IdMedico}" class="btn btn-primary">Prenota</a></td>
                     </tr>
                 {/foreach}
             </tbody>
         </table>
     </div>
-
 
 {/block}
