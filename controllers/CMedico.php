@@ -7,47 +7,72 @@ class CMedico{
 //4.1 visualizza_storico_esami()
 
 //per mostrare gli appuntamenti conclusi di un medico ci basta prendere il suo id dalla sessione
-public static function visualizza_storico_esami(){
+public static function visualizza_storico_appuntamenti_medico(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO
         
         $IdMedico = USession::getSessionElement('id');
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico));
         //dobbiamo prendere anche i pazienti per visualizzarne le informazioni
-        $pazienti = array();
-        foreach($appuntamenti_medico_conclusi as $ap)
-            $pazienti = FPaziente::getObj($ap->getIdPaziente());
+        //$pazienti = array();
+        //foreach($appuntamenti_medico_conclusi as $ap)
+        //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
+        
+        $arrayappuntamenti = array();
+        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+            
+            $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
 
+            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_medico_conclusi[$i]->getIdFasciaoraria());
+            $datastring = $fasciaoraria[0]->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]["IdAppuntamento"];
+            $arrayappuntamenti[$i]["dataeora"] = $datastring;
+            $arrayappuntamenti[$i]["nomepaziente"] = $paziente->getNome();
+            $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
+            //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
+            $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
+            //$arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
+            //$arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
+            //$arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
+        }
         //IN QUESTO MODO GLI ARRAY SONO SINCRONIZZATI E $appuntamenti_medico_conclusi[0] $pazienti[0] ci danno la prima riga
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
         //l'id dell'appuntamento va tenuto per associarlo ai bottoni di recensioni e di visualizzazione referto
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VManagePost($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
+        $view = new VManagePost($arrayappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
 
 //4.2 ricerca_storico_esami(data)
-public static function ricerca_storico_esami($data){
+public static function ricerca_storico_appuntamenti_medico(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
         
         $dataform = UHTTPMethods::post('data');
-        
-
         $IdMedico = USession::getSessionElement('id');
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform));
-        $pazienti = array();
-        foreach($appuntamenti_medico_conclusi as $ap)
-            $pazienti = FPaziente::getObj($ap->getIdPaziente());
+        $arrayappuntamenti = array();
+        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+            
+            $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
+    
+            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_medico_conclusi[$i]->getIdFasciaoraria());
+            $datastring = $fasciaoraria[0]->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]["IdAppuntamento"];
+            $arrayappuntamenti[$i]["dataeora"] = $datastring;
+            $arrayappuntamenti[$i]["nomepaziente"] = $paziente->getNome();
+            $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
+            //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
+            $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
 
-        $view = new VManagePost($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
+        $view = new VManagePost($arrayappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
         }
     } 
-
+}
 
 //4.3 inserimento_referto(appuntamento)
 

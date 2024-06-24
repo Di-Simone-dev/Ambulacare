@@ -111,6 +111,7 @@ class CPaziente{
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $IdMedico = UHTTPMethods::post('IdMedico');
+            $costo = FMedico::getObj($IdMedico)[0]->getCosto();
             $dataform = UHTTPMethods::post('data');
             $nslot = UHTTPMethods::post('nslot');
             //su slot potrei farmi passare anche solo un valore di questo array da 1 a 5
@@ -134,7 +135,7 @@ class CPaziente{
                 (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 
                 if(!$busy){ //se la fascia non è occupata procediamo con la creazione dell'appuntamento
                     //CREARE APPUNTAMENTO
-                    $appuntamento = new EAppuntamento(); 
+                    $appuntamento = new EAppuntamento($costo); //INSERIAMO il costo attualmente del medico ma poi rimane fisso
                     $appuntamento->setpaziente($IdPaziente);            //SETTIAMO IL PAZIENTE
                     $appuntamento->setFasciaoraria($IdFasciaOraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                     FAppuntamento::saveObj($appuntamento);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
@@ -171,7 +172,7 @@ public static function visualizza_appuntamenti_effettuati(){
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $medico[0]->getCosto();
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]["costo"];
             $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
@@ -210,7 +211,7 @@ public static function ricerca_appuntamenti_effettuati(){
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $medico[0]->getCosto();
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]["costo"];
             $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
@@ -256,13 +257,15 @@ public static function accedi_schermata_recensioni($IdAppuntamento){
         //SERVE PASSARE TUTTI I DATI RELATIVI AL MEDICO A CUI METTIAMO LA RECENSIONE
         
         $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
+        
+        $costoapp = FAppuntamento::getObj($IdAppuntamento)[0]->getCosto(); //questo non dipende più dal medico
         $arraymedico = array();
         $medico = FMedico::getObj($IdMedico);
         $arraymedico["IdMedico"] = $medico[0]->getIdMedico();
         $arraymedico["nome"] = $medico[0]->getNome();
         $arraymedico["cognome"] = $medico[0]->getCognome();
         $arraymedico["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-        $arraymedico["costo"] = $medico[0]->getCosto();
+        $arraymedico["costo"] = $costoapp;
         $arraymedico["nometipologia"] = $medico[0]->getTipologia()->getNometipologia(); 
         $arraymedico["tipoimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();
@@ -324,7 +327,7 @@ public static function visualizza_appuntamenti_prenotati(){
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $medico[0]->getCosto();
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_prenotati[$i]["costo"];
             $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
@@ -339,7 +342,7 @@ public static function visualizza_appuntamenti_prenotati(){
 //con questo accediamo alla schermata di modifica dell'appuntamento 
 //VISTO CHE NON ABBIAMO SCHERMATE INTERMEDIE QUA DEVO PRENDERE ANCHE IL RESTO DELLE INFORMAZIONI
 //va passato il medico
-public static function dettagli_appuntamento($IdAppuntamento){
+public static function dettagli_appuntamento_modifica($IdAppuntamento){
     if(CUtente::isLogged()){ //BISOGNA TENERLO
         //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
         $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
@@ -353,21 +356,32 @@ public static function dettagli_appuntamento($IdAppuntamento){
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
         $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($medico[0]->getIdMedico(),$numerosettimana,$anno);
         //DOVRO IMPLEMENTARE IL MODO DI CAMBIARE SETTIMANA DI VISUALIZZAZIONE
+        $medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
+        $arraymedico = array();
+        $arraymedico["IdMedico"] = $medico[0]->getIdMedico();
+        $arraymedico["nome"] = $medico[0]->getNome();
+        $arraymedico["cognome"] = $medico[0]->getCognome();
+        $arraymedico["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
+        $arraymedico["costo"] = $appuntamento[0]->getCosto();
+        $arraymedico["nometipologia"] = $medico[0]->getTipologia()->getNometipologia(); 
+        $arraymedico["tipoimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
+        $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
 
         $IdPaziente = USession::getSessionElement('id');
         
         
-        $view = new VManagePost($medico,$appuntamento,$orari_disponinibilità); //servirebbe anche la fascia oraria
+        $view = new VManagePost($arraymedico,$orari_disponinibilità); //servirebbe anche la fascia oraria
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
 
 //9.3 modifica_appuntamento()
 //PROBABILMENTE I METODI POSSONO ESSERE RIUTILIZZATI CON QUALCHE ACCORTEZZA
-public static function modifica_appuntamento($IdAppuntamento){  //DA FARE
+public static function modifica_appuntamento(){  //DA FARE
     if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
+        $IdAppuntamento = UHTTPMethods::post('IdAppuntamento');
         $dataform = UHTTPMethods::post('data');
         $nslot = UHTTPMethods::post('nslot');
         //su slot potrei farmi passare anche solo un valore di questo array da 1 a 5
@@ -386,7 +400,7 @@ public static function modifica_appuntamento($IdAppuntamento){  //DA FARE
 
         $exist = FEntityManagerSQL::getInstance()->
                 existInDb(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-        if($$exist){ //se il medico ha creato la disponibilità
+        if($$exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
                     (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 
