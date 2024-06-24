@@ -4,7 +4,7 @@ class EAppuntamento
 {
     private $IdAppuntamento;
 
-    //private $stato; //SERVE EFFETTIVAMENTE??????
+    private $costo; //per conservare la storia integra se il medico cambia il suo costo
     
     private $paziente;  //FK BISOGNA CAPIRE SE METTERE L'ID O NO 
 
@@ -12,10 +12,10 @@ class EAppuntamento
 
     private static $entity = EAppuntamento::class;
     //costruttore
-    public function __construct()
+    public function __construct($costo)
     {
         //$this->$IdAppuntamento=$IdAppuntamento; PK
-        //$this->stato=$stato;
+        $this->costo=$costo;
         //$this->$paziente=$paziente; FK
         //$this->$fascia_oraria=$fascia_oraria; FK
 
@@ -31,17 +31,17 @@ class EAppuntamento
         $this->IdAppuntamento = $IdAppuntamento;
     }
 
-    /*
-    public function getStato()
+    
+    public function getCosto()
     {
-        return $this->stato;
+        return $this->costo;
     }
 
-    public function setStato($stato)
+    public function setCosto($costo)
     {
-        $this->stato = $stato;
+        $this->stato = $costo;
     }
-    */
+    
 
     public function getPaziente()
     {

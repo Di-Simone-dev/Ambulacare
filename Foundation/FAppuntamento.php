@@ -12,7 +12,7 @@ class FAppuntamento{
     /** tabella con la quale opera */          
     private static $table="appuntamento";
     /** valori della tabella */
-    private static $values="(NULL,:IdPaziente,:IdFasciaOraria)";
+    private static $values="(NULL,:costo,:IdPaziente,:IdFasciaOraria)";
     /** nome del campo della primary key della tabella*/
     private static $key = "IdAppuntamento";
 
@@ -53,7 +53,7 @@ class FAppuntamento{
 
     public static function bind($stmt,EAppuntamento $appuntamento){
         //$stmt->bindValue(':IdAppuntamento', NULL, PDO::PARAM_INT);
-        //$stmt->bindValue(':stato', $appuntamento->getStato(), PDO::PARAM_STR);
+        $stmt->bindValue(':costo', $appuntamento->getCosto(), PDO::PARAM_STR);
         $stmt->bindValue(':IdPaziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
         $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
@@ -65,7 +65,7 @@ class FAppuntamento{
         if(count($queryResult) > 0){
             $appuntamenti = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $appuntamento = new EAppuntamento();
+                $appuntamento = new EAppuntamento($queryResult[$i]['costo']);
                 $appuntamento->setIdAppuntamento($queryResult[$i]['IdAppuntamento']);  //PER LA PK AUTOINCREMENT
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE

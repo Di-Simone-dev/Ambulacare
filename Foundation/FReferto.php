@@ -54,7 +54,7 @@ class FReferto {
         $stmt->bindValue(':oggetto', $ref->getOggetto(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $ref->getContenuto(), PDO::PARAM_STR);
         $stmt->bindValue(':IdAppuntamento', $ref->getAppuntamento()->getIdAppuntamento(), PDO::PARAM_STR);  //FK
-        $stmt->bindValue(':IdImmagine', $ref->getIdImmagine()->getIdImmagine(), PDO::PARAM_STR);      //FK 
+        $stmt->bindValue(':IdImmagine', $ref->getIdImmagine(), PDO::PARAM_STR);      //FK 
     }
 
     public static function creareferto($queryResult){
