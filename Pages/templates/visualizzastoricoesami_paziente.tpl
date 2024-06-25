@@ -5,17 +5,21 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Paziente/ricerca_appuntamenti_effettuati" method="post">
                     <div class="form-group">
                         <h2><label for="storico">Storico Esami</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select-m">
-                            {foreach $categorie as $categoria}
-                                <option value="{$categoria.id}">{$categoria.nome}</option>
+                        <select name="tipologia" id="categ" class="form-select-m" required>
+                            {foreach $tipologie as $tipologia}
+                                <option value="{$tipologia.IdTipologia}"
+                                    {if $tipologia.IdTipologia == $Idtipologia}
+                                        selected="selected"
+                                    {/if}
+                                >{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" name="dataprenot" required>
+                        <input type="date" id="dataprenot" name="data" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
@@ -28,8 +32,7 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Ora</th>
+                    <th scope="col">Data e ora</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -39,14 +42,13 @@
             <tbody style="text-align: center;">
                 {foreach $esami as $esame}
                     <tr>
-                        <td>{$esame.data}</td>
-                        <td>{$esame.orario}</td>
-                        <td>{$esame.medico.nome}</td>
-                        <td>{$esame.categoria}</td>
-                        <td>{$esame.costo}</td>
-                        <td><a class="btn btn-primary">Aggiungi Recensione</a>
+                        <td>{$esame.dataeora}</td>
+                        <td>{$esame.nomemedico} {$esame.cognomemedico}</td>
+                        <td>{$esame.nometipologiamedico}</td>
+                        <td>{$esame.costomedico}</td>
+                        <td><a class="btn btn-primary" href="/Ambulcare/Paziente/accedi_schermata_recensioni/{$esame.IdAppuntamento}">Aggiungi Recensione</a>
                             {if $esame.referto}
-                                <a class="btn btn-primary">Visualizza Referto</a>
+                                <a class="btn btn-primary" href="/Ambulcare/Paziente/visualizza_referto/{$esame.IdAppuntamento}>Visualizza Referto</a>
                             {/if}
                         </td>
                     </tr>

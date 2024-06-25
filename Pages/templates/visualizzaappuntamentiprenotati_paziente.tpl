@@ -16,7 +16,7 @@
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" name="dataprenot" required>
+                        <input type="date" id="dataprenot" name="data" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
@@ -29,8 +29,7 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Ora</th>
+                    <th scope="col">Data e ora</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -40,13 +39,11 @@
             <tbody style="text-align: center;">
             {foreach $esami as $esame}
                 <tr>
-                    <td>{$esame.data}</td>
-                    <td>{$esame.orario}</td>
-                    <td>{$esame.medico.nome}</td>
-                    <td>{$esame.categoria}</td>
-                    <td>{$esame.costo}</td>
-                    <td><a href=""><button
-                                class="btn btn-primary">Modifica</button></a></td>
+                <td>{$esame.dataeora}</td>
+                <td>{$esame.nomemedico} {$esame.cognomemedico}</td>
+                <td>{$esame.nometipologiamedico}</td>
+                <td>{$esame.costomedico}</td>
+                    <td><a href="/Ambulcare/Paziente/dettagli_appuntamento_modifica/{$esame.IdAppuntamento}" class="btn btn-primary">Modifica</a></td>
                 </tr>
             {/foreach}
             </tbody>

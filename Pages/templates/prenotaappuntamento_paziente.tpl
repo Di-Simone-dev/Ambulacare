@@ -7,10 +7,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="">
+                <form action="/Ambulacare/Paziente/conferma_appuntamento" method="post">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
-                            <h3>Esame: {$medico.tipologia}&ensp;&ensp;&ensp;&ensp;Costo: {$medico.costo}€</h3>
+                            <h3>Esame: {$medico.nometipologia}&ensp;&ensp;&ensp;&ensp;Costo: {$medico.costo}€</h3>
                             <h3>Medico: {$medico.nome} {$medico.cognome}&ensp;&ensp;&ensp;Data Odierna:
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
 
@@ -34,14 +34,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {for $i=1; $i<7; $i++}
+                                            {for $i=1; $i<6; $i++}
                                                 <tr>
-                                                    {for $j = 1; $j<6; $j++}
+                                                    {for $j = 1; $j<=6; $j++}
                                                         {if $fasceorarie[$i][$j]}
                                                             <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
                                                                 {13+$j}:30</td>
                                                         {else}
-                                                            <td style="border: 1px solid;background-color: red">{13+$j}:30</td>
+                                                            <td style="border: 1px solid;background-color: red">{13+$i}:30</td>
                                                         {/if}
                                                     {/for}
                                                 </tr>
@@ -51,14 +51,14 @@
                                     <br>
                                     <div>
                                         <label for="data">Seleziona una data e ora</label>
-                                        <select name="orario" id="orario" class="form-select-m">
-                                            <option value="">14:30</option>
-                                            <option value="">15:30</option>
-                                            <option value="">16:30</option>
-                                            <option value="">17:30</option>
-                                            <option value="">18:30</option>
+                                        <select name="nslot" id="orario" class="form-select-m">
+                                            <option value="1">14:30</option>
+                                            <option value="2">15:30</option>
+                                            <option value="3">16:30</option>
+                                            <option value="4">17:30</option>
+                                            <option value="5">18:30</option>
                                         </select>
-                                        <input type="hidden" value="" name="idpaz">
+                                        <input type="hidden" value="{$medico.IdMedico}" name="IdMedico">
                                     </div>
                         </div>
                     </div>

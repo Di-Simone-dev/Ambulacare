@@ -168,11 +168,11 @@ class VPaziente
 	 * @param $maxdim dimensione massima array fasce orarie
 	 * @throws SmartyException
 	 */
-	public function PrenotaEsame($app,$foraria,$maxdim){
+	public function PrenotaEsame($medico,$foraria,$giorno){
         $this->smarty->assign('medico',$medico);
 		$this->smarty->assign('fasceorarie',$foraria);
-		$this->smarty->assign('maxdim',$maxdim);
-        $this->smarty->display('prenotaappuntamento.tpl');
+		$this->smarty->assign('giorno',$giorno);
+        $this->smarty->display('prenotaappuntamento_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare gli esami prenotati dal paziente
@@ -180,9 +180,9 @@ class VPaziente
 	 * @param $categorie array di categorie
 	 * @throws SmartyException
 	 */
-	public function ShowEsamiPrenotati($app,$categorie){
+	public function ShowAppuntamentiPrenotati($app,$tipologie){
         $this->smarty->assign('esami',$app);
-		$this->smarty->assign('categorie',$categorie);
+		$this->smarty->assign('tipologie',$tipologie);
         $this->smarty->display('visualizzaesamiprenotati_paziente.tpl');
     }
 	/**
@@ -190,10 +190,10 @@ class VPaziente
 	 * @param $app un appuntamento
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($app,$foraria,$maxdim){
-        $this->smarty->assign('esame',$app);
+	public function ModificaAppuntamento($medico,$foraria,$giorno){
+        $this->smarty->assign('medico',$medico);
 		$this->smarty->assign('fasceorarie',$foraria);
-		$this->smarty->assign('maxdim',$maxdim);
+		$this->smarty->assign('giorno',$giorno);
         $this->smarty->display('modificaappuntamento_paziente.tpl');
     }
 	/**
@@ -204,7 +204,7 @@ class VPaziente
 	 */
 	public function showStoricoEsami($app, $categorie){
         $this->smarty->assign('esami',$app);
-		$this->smarty->assign('categorie',$categorie);
+		$this->smarty->assign('tipologie',$categorie);
         $this->smarty->display('visualizzastoricoesami_paziente.tpl');
     }
 	/**
@@ -212,8 +212,8 @@ class VPaziente
 	 * @param $app un appuntamento
 	 * @throws SmartyException
 	 */
-    public function RispostaRecensione($app){
-        $this->smarty->assign('appuntamento',$app);
+    public function Recensione($medico){
+        $this->smarty->assign('medico',$medico);
         $this->smarty->display('inseriscirecensione.tpl');
     }
 
@@ -222,6 +222,11 @@ class VPaziente
 		$this->smarty->assign('medici',$medici);
 		$this->smarty->assign('Idtipologia',$Idtipologia);
 		$this->smarty->display('visualizzaappuntamenti_prenotazione_paziente.tpl');
+	}
+
+	public function riepilogoAppuntamento(){
+
+		$this->smarty->display('riepologoappuntamento_paziente.tpl');
 	}
 
 
