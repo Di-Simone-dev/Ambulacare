@@ -47,7 +47,10 @@
                     <a class="nav-link" href="">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Moderazione account</a>
+                    <a class="nav-link" href="">Moderazione medici</a>
+                </li>
+		<li class="nav-item active">
+                    <a class="nav-link" href="">Moderazione pazienti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Gestione appuntamenti</a>

@@ -8,17 +8,12 @@
             <div class="col">
                 <form action="#" id="tendina" method="post">
                     <div class="form-group">
-                        <h2>Moderazione Account</h2>
+                        <h2>Moderazione Medici</h2>
                         <br>
-                        <input type="text" id="nomeutente" placeholder="Nome Utente" name="nomeutente" />
+                        <input type="text" id="nomemedico" placeholder="Nome Medico" name="nomemedico" />
                         <br><br>
-                        <input type="text" id="cognomeutente" placeholder="Cognome Utente" name="cognomeutente" />
-                        <br><br>
-                        <select name="categoria" id="categ" class="form-select-m" required>
-                            <option value="">Seleziona categoria utente</option>
-                            <option value="medico">medico</option>
-                            <option value="paziente">paziente</option>
-                        </select>
+                        <input type="text" id="cognomemedico" placeholder="Cognome Medico" name="cognomemedico" />
+                        <br>
                         <br>
                         <button type="submit" class="btn btn-primary">Avvia Ricerca</button>
                     </div>
@@ -31,9 +26,8 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Nome Utente</th>
-                    <th scope="col">Cognome Utente</th>
-                    <th scope="col">Categoria</th>
+                    <th scope="col">Nome Medico</th>
+                    <th scope="col">Cognome Medico</th>
                     <th scope="col">Stato</th>
                     <th scope="col">Azione</th>
                 </tr>
@@ -43,7 +37,6 @@
                     <tr>
                         <td>{$medico.nome}</td>
                         <td>{$medico.cognome}</td>
-                        <td>Medico</td>
                         <td>{$medico.stato}</td>
                         {if $medico.stato == "Sbloccato"}
                             <td><a href="" class="btn btn-primary">Blocca</a></td>
