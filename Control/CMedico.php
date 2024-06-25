@@ -41,8 +41,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
+        $view = new VMedico();
     } 
 }
 

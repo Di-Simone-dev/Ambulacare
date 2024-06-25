@@ -53,7 +53,7 @@ class VPaziente
      */
     public function loginBan() {
         //$this->smarty->assign('error',false);
-        $this->smarty->assign('attivo',0);
+        $this->smarty->assign('error',"le credenziali inserite sono associate a un account bannato, contatta l'amministratore");
         //$this->smarty->assign('regErr',false);
         $this->smarty->display('login.tpl');
     }
