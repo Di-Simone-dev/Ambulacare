@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-24 19:20:37
+/* Smarty version 5.3.0, created on 2024-06-25 18:08:34
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6679aae5cb0b99_22741214',
+  'unifunc' => 'content_667aeb82ec1ac6_99672668',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95e254caa3fb077c93c700fa78d00931e0c8fb89' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719249632,
+      1 => 1719331710,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6679aae5cb0b99_22741214 (\Smarty\Template $_smarty_tpl) {
+function content_667aeb82ec1ac6_99672668 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_14760771126679aae5c98ac5_80885272', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1447987853667aeb82e9ee38_96811292', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_14760771126679aae5c98ac5_80885272 extends \Smarty\Runtime\Block
+class Block_1447987853667aeb82e9ee38_96811292 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -53,11 +53,8 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('tipologia')->value) {
 $foreach0DoElse = false;
 ?>
                                 <option value="<?php echo $_smarty_tpl->getValue('tipologia')['IdTipologia'];?>
-"
-                                    <?php if ($_smarty_tpl->getValue('tipologia')['IdTipologia'] == $_smarty_tpl->getValue('Idtipologia')) {?>
-                                        selected="selected"
-                                    <?php }?>
-                                ><?php echo $_smarty_tpl->getValue('tipologia')['nome_tipologia'];?>
+" <?php if ($_smarty_tpl->getValue('tipologia')['IdTipologia'] == $_smarty_tpl->getValue('Idtipologia')) {?>
+                                    selected="selected" <?php }?>><?php echo $_smarty_tpl->getValue('tipologia')['nome_tipologia'];?>
 </option>
                             <?php
 }
@@ -75,6 +72,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
+                    <th scope="col">Img</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -90,6 +88,10 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('medico')->value) {
 $foreach1DoElse = false;
 ?>
                     <tr>
+                        <td><img class="rounded-circle ml-3" width="60" height="60"
+                                src="data:<?php echo $_smarty_tpl->getValue('medico')['tipoimmagine'];?>
+;base64,<?php echo $_smarty_tpl->getValue('medico')['img'];?>
+" alt="profile picture" /></td>
                         <td><?php echo $_smarty_tpl->getValue('medico')['nome'];?>
  <?php echo $_smarty_tpl->getValue('medico')['cognome'];?>
 </td>
@@ -99,8 +101,9 @@ $foreach1DoElse = false;
 </td>
                         <td><?php echo $_smarty_tpl->getValue('medico')['valutazione'];?>
 /5&#9733;</td>
-                        <td><a href="/Ambulacare/Paziente/dettagliprenotazione/<?php echo $_smarty_tpl->getValue('medico')['IdMedico'];?>
-" class="btn btn-primary">Prenota</a></td>
+                        <td><a href="/Ambulacare/Paziente/dettagli_prenotazione/<?php echo $_smarty_tpl->getValue('medico')['IdMedico'];?>
+"
+                                class="btn btn-primary">Prenota</a></td>
                     </tr>
                 <?php
 }

@@ -11,11 +11,8 @@
                         <br>
                         <select name="tipologia" id="categ" class="form-select-m">
                             {foreach $tipologie as $tipologia}
-                                <option value="{$tipologia.IdTipologia}"
-                                    {if $tipologia.IdTipologia == $Idtipologia}
-                                        selected="selected"
-                                    {/if}
-                                >{$tipologia.nome_tipologia}</option>
+                                <option value="{$tipologia.IdTipologia}" {if $tipologia.IdTipologia == $Idtipologia}
+                                    selected="selected" {/if}>{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br><br>
@@ -30,6 +27,7 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
+                    <th scope="col">Img</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -40,11 +38,14 @@
             <tbody style="text-align: center;">
                 {foreach $medici as $medico}
                     <tr>
+                        <td><img class="rounded-circle ml-3" width="60" height="60"
+                                src="data:{$medico.tipoimmagine};base64,{$medico.img}" alt="profile picture" /></td>
                         <td>{$medico.nome} {$medico.cognome}</td>
                         <td>{$medico.nometipologia}</td>
                         <td>{$medico.costo}</td>
                         <td>{$medico.valutazione}/5&#9733;</td>
-                        <td><a href="/Ambulacare/Paziente/dettagliprenotazione/{$medico.IdMedico}" class="btn btn-primary">Prenota</a></td>
+                        <td><a href="/Ambulacare/Paziente/dettagli_prenotazione/{$medico.IdMedico}"
+                                class="btn btn-primary">Prenota</a></td>
                     </tr>
                 {/foreach}
             </tbody>

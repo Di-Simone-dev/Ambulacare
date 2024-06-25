@@ -112,9 +112,9 @@ class EMedico
         return $this->Tipologia;
     }
 
-    public function setTipologia($IdTipologia)
+    public function setTipologia($Tipologia)
     {
-        $this->IdTipologia = $IdTipologia;
+        $this->Tipologia = $Tipologia;
     }
 
     public function getIdImmagine()

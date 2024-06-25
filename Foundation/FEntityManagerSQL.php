@@ -398,7 +398,7 @@ class FEntityManagerSQL{
             //BISOGNA FARE IL FETCH
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
-            return $row[0];  //DA TESTARE
+            return $row;  //DA TESTARE
         }catch(Exception $e){
             echo "ERROR: " . $e->getMessage();
             return false;
@@ -497,7 +497,7 @@ class FEntityManagerSQL{
             $query = "SELECT IdMedico,IdFasciaOraria,WEEK(fascia_oraria.data) AS numerosettimana, YEAR(fascia_oraria.data) AS anno,
                       DAYOFWEEK(fascia_oraria.data) AS giornosettimana,HOUR(data) AS ora 
                       FROM calendario,fascia_oraria
-                      WHERE IdMedico = '" . $IdMedico . "'AND numerosettimana = '" . $numerosettimana . "' AND anno = '" . $anno ."'
+                      WHERE IdMedico = '" . $IdMedico . "'AND WEEK(fascia_oraria.data) = '" . $numerosettimana . "' AND YEAR(fascia_oraria.data) = '" . $anno ."'
                       ORDER BY data;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
@@ -511,6 +511,8 @@ class FEntityManagerSQL{
             //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
+/*             var_dump($rowNum);
+            var_dump($query); */
             if($rowNum > 0){
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -520,8 +522,8 @@ class FEntityManagerSQL{
                 //return $result;
                 //$result[$i]["IdFasciaOraria"] contiene l'id della i-esima fascia oraria cui dobbiamo controllare l'esistenza in appuntamenti 
                 $prenotabili=array();
-                $slotorari = ["14","15","16","17","18"]; //sono fissi
-                for($i=0;$i++;$i<$rowNum)
+                $slotorari = ["","14","15","16","17","18"]; //sono fissi
+                for($i=0;$i<$rowNum;$i++)
                 {
                     //devo construire l'array da restituire 
                     //controllo se ogni singola fascia oraria esiste sulla tabella appuntamenti 
@@ -533,10 +535,10 @@ class FEntityManagerSQL{
                     //il giorno lo posso prendere facilmente dal db ma l'orario va probabilmente fatto con switch o con un for
                     
                     if(!$exist){
-                        for($j=1;$j++;$j<6){ // $j ci indica il numero della fascia 
+                        for($j=1;$j<6;$j++){ // $j ci indica il numero della fascia 
                             if($result[$i]["ora"] == $slotorari[$j]){
                                
-                            $prenotabili[$result[$i]["giornosettimana"-1]][$j] = true; //il -1 serve per tarare altrimenti lunedì = 2
+                            $prenotabili[$result[$i]["giornosettimana"]][$j] = true; //il -1 serve per tarare altrimenti lunedì = 2
                                
                             }
                         }
@@ -545,16 +547,19 @@ class FEntityManagerSQL{
                     
                     
                 }
+                $visualizzazione = array();
+                /* var_dump($prenotabili); */
                 //Qui dovrei aver finito di controllare le fasce orarie, attualmente l'array prenotabili ha solo i true su quelle effettivamente
                 //prenotabli
-                for($i=1;$i++;$i<6){
-                    for($j=1;$j++;$j<6){
+                for($i=2;$i<8;$i++){
+                    for($j=1;$j<6;$j++){
                         if (!(isset($prenotabili[$i][$j]))) {
-                            $prenotabili[$i][$j] = false;   //se non era prenotabile adesso metto effettivamente il valore a false;
-                        }
+                            $visualizzazione[$i-1][$j] = false;   //se non era prenotabile adesso metto effettivamente il valore a false;
+                        }else  $visualizzazione[$i-1][$j] = true;
                     }
                 }
-                return $prenotabili;
+                /* var_dump($prenotabili); */
+                return $visualizzazione;
                 //costruendo la tabella orari 5 righe e 6/7 colonne abbiamo che true = blue prenotabile e false = non prenotabile rosso
                 //giorni da 1 = lunedi a 6 = sabato, fasce orarie 1=14:30 5= 18:30
                 }else{

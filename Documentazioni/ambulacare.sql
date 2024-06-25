@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Creato il: Giu 25, 2024 alle 18:33
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Creato il: Giu 25, 2024 alle 19:46
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,7 @@ USE `ambulacare`;
 --
 -- Struttura della tabella `amministratore`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `amministratore`;
 CREATE TABLE `amministratore` (
   `IdAdmin` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -39,10 +36,6 @@ CREATE TABLE `amministratore` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `amministratore`:
---
 
 --
 -- Dump dei dati per la tabella `amministratore`
@@ -105,10 +98,7 @@ INSERT INTO `amministratore` (`IdAdmin`, `nome`, `cognome`, `email`, `password`)
 --
 -- Struttura della tabella `appuntamento`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `appuntamento`;
 CREATE TABLE `appuntamento` (
   `IdAppuntamento` int(10) UNSIGNED NOT NULL,
   `costo` float NOT NULL,
@@ -116,32 +106,16 @@ CREATE TABLE `appuntamento` (
   `IdFasciaOraria` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- RELAZIONI PER TABELLA `appuntamento`:
---   `IdFasciaOraria`
---       `fascia_oraria` -> `IdFasciaOraria`
---
-
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `calendario`
 --
--- Creazione: Giu 24, 2024 alle 15:38
--- Ultimo aggiornamento: Giu 25, 2024 alle 16:31
---
 
-DROP TABLE IF EXISTS `calendario`;
 CREATE TABLE `calendario` (
   `IdCalendario` int(10) UNSIGNED NOT NULL,
   `IdMedico` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `calendario`:
---   `IdMedico`
---       `medico` -> `IdMedico`
---
 
 --
 -- Dump dei dati per la tabella `calendario`
@@ -155,11 +129,7 @@ INSERT INTO `calendario` (`IdCalendario`, `IdMedico`) VALUES
 --
 -- Struttura della tabella `fascia_oraria`
 --
--- Creazione: Giu 24, 2024 alle 15:38
--- Ultimo aggiornamento: Giu 25, 2024 alle 16:32
---
 
-DROP TABLE IF EXISTS `fascia_oraria`;
 CREATE TABLE `fascia_oraria` (
   `IdFasciaOraria` int(10) UNSIGNED NOT NULL,
   `data` datetime NOT NULL,
@@ -167,27 +137,21 @@ CREATE TABLE `fascia_oraria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- RELAZIONI PER TABELLA `fascia_oraria`:
---   `IdCalendario`
---       `calendario` -> `IdCalendario`
---
-
---
 -- Dump dei dati per la tabella `fascia_oraria`
 --
 
 INSERT INTO `fascia_oraria` (`IdFasciaOraria`, `data`, `IdCalendario`) VALUES
-(1, '2024-06-25 18:30:00', 1);
+(1, '2024-06-25 18:30:00', 1),
+(2, '2024-06-26 16:30:00', 1),
+(3, '2024-06-28 16:30:00', 1),
+(5, '2024-07-01 14:30:00', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `immagine`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `immagine`;
 CREATE TABLE `immagine` (
   `IdImmagine` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -195,10 +159,6 @@ CREATE TABLE `immagine` (
   `tipo` varchar(255) NOT NULL,
   `dati` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `immagine`:
---
 
 --
 -- Dump dei dati per la tabella `immagine`
@@ -214,10 +174,7 @@ INSERT INTO `immagine` (`IdImmagine`, `nome`, `dimensione`, `tipo`, `dati`) VALU
 --
 -- Struttura della tabella `medico`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `medico`;
 CREATE TABLE `medico` (
   `IdMedico` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -229,14 +186,6 @@ CREATE TABLE `medico` (
   `IdTipologia` int(10) UNSIGNED NOT NULL,
   `IdImmagine` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `medico`:
---   `IdImmagine`
---       `immagine` -> `IdImmagine`
---   `IdTipologia`
---       `tipologia` -> `IdTipologia`
---
 
 --
 -- Dump dei dati per la tabella `medico`
@@ -251,10 +200,7 @@ INSERT INTO `medico` (`IdMedico`, `nome`, `cognome`, `email`, `password`, `attiv
 --
 -- Struttura della tabella `paziente`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `paziente`;
 CREATE TABLE `paziente` (
   `IdPaziente` int(10) UNSIGNED NOT NULL,
   `nome` varchar(255) NOT NULL,
@@ -268,10 +214,6 @@ CREATE TABLE `paziente` (
   `numero_telefono` varchar(10) NOT NULL,
   `attivo` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `paziente`:
---
 
 --
 -- Dump dei dati per la tabella `paziente`
@@ -289,10 +231,7 @@ INSERT INTO `paziente` (`IdPaziente`, `nome`, `cognome`, `email`, `password`, `c
 --
 -- Struttura della tabella `recensione`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `recensione`;
 CREATE TABLE `recensione` (
   `IdRecensione` int(10) UNSIGNED NOT NULL,
   `titolo` varchar(255) NOT NULL,
@@ -303,23 +242,12 @@ CREATE TABLE `recensione` (
   `IdPaziente` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- RELAZIONI PER TABELLA `recensione`:
---   `IdMedico`
---       `medico` -> `IdMedico`
---   `IdPaziente`
---       `paziente` -> `IdPaziente`
---
-
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `referto`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `referto`;
 CREATE TABLE `referto` (
   `IdReferto` int(10) UNSIGNED NOT NULL,
   `oggetto` varchar(255) NOT NULL,
@@ -328,23 +256,12 @@ CREATE TABLE `referto` (
   `IdImmagine` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- RELAZIONI PER TABELLA `referto`:
---   `IdImmagine`
---       `immagine` -> `IdImmagine`
---   `IdAppuntamento`
---       `appuntamento` -> `IdAppuntamento`
---
-
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `risposta`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `risposta`;
 CREATE TABLE `risposta` (
   `IdRisposta` int(10) UNSIGNED NOT NULL,
   `contenuto` varchar(255) NOT NULL,
@@ -353,31 +270,16 @@ CREATE TABLE `risposta` (
   `IdMedico` int(10) UNSIGNED NOT NULL COMMENT 'Campo ridondante, visto che il medico che può rispondere è solo quello della recensione, quindi direttamente correlato, ma teniamo questo campo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- RELAZIONI PER TABELLA `risposta`:
---   `IdRecensione`
---       `recensione` -> `IdRecensione`
---   `IdMedico`
---       `medico` -> `IdMedico`
---
-
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `tipologia`
 --
--- Creazione: Giu 24, 2024 alle 15:38
---
 
-DROP TABLE IF EXISTS `tipologia`;
 CREATE TABLE `tipologia` (
   `IdTipologia` int(10) UNSIGNED NOT NULL,
   `nome_tipologia` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- RELAZIONI PER TABELLA `tipologia`:
---
 
 --
 -- Dump dei dati per la tabella `tipologia`
@@ -495,7 +397,7 @@ ALTER TABLE `calendario`
 -- AUTO_INCREMENT per la tabella `fascia_oraria`
 --
 ALTER TABLE `fascia_oraria`
-  MODIFY `IdFasciaOraria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdFasciaOraria` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `immagine`

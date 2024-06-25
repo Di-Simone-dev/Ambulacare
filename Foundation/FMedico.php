@@ -65,6 +65,7 @@ class FMedico  {
         $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
         $stmt->bindValue(':costo',$cli->getCosto(), PDO::PARAM_STR);
         $stmt->bindValue(':tipologia',$cli->getTipologia()->getIdTipologia(), PDO::PARAM_STR); //LA FK VA MESSA NEL BIND
+        $stmt->bindValue(':IdImmagine',$cli->getIdImmagine(), PDO::PARAM_STR);
     }
 
     //MALLOPPONE CHE SERVE AD ISTANZIARE I MEDICI
@@ -97,8 +98,9 @@ class FMedico  {
                 $medico -> setIdMedico($queryResult[$i]['IdMedico']);
                  //come si mette LA TIPOLOGIA? (FOREIGN KEY)
                 //DA TESTARE
-                $tipologia = FTipologia::getObj($queryResult[$i]['Tipologia']);  //il campo calendario è proprio l'id
+                $tipologia = FTipologia::getObj($queryResult[$i]['IdTipologia']);  //il campo calendario è proprio l'id
                 $medico->setTipologia($tipologia);  //CI POTREBBE ESSERE UN FIX DA FARE
+                $medico->setIdImmagine($queryResult[$i]['IdImmagine']);
                 //ispirazione presa da FReport
                 
                 $medici[] = $medico;   //AGGIUNGE L'ELEMENTO ALL'ARRAY MEDICI

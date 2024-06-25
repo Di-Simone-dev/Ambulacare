@@ -14,19 +14,22 @@ class CPaziente{
         
         $arraymedici = array();
         $nmedici = count($medici);
+        /* var_dump($medici[0]); */
         //ci devo aggiungere la tipologia per ogni medico
         for($i=0;$i<$nmedici; $i++){
+            /* $tipologia = FTipol */
             $medico = [
             "IdMedico" => $medici[$i]->getIdMedico(),
             "nome" => $medici[$i]->getNome(),
             "cognome" => $medici[$i]->getCognome(),
             "valutazione" => FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico()),
             "costo" => $medici[$i]->getCosto(),
-            "nometipologia" => $medici[$i]->getTipologia()/* ->getNometipologia() */, 
-            "tipoimmagine" => FImmagine::getObj($medici[$i]->getIdImmagine())[0]/* ->getTipo() */, 
-            "img" => FImmagine::getObj($medici[$i]->getIdImmagine())[0]/* ->getDati() */,
+            "nometipologia" => $medici[$i]->getTipologia()[0]->getNometipologia(), 
+            "tipoimmagine" => FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(), 
+            "img" => base64_encode(FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati()),
             ];
             $arraymedici[] = $medico;
+           /*  echo $medico["img"];    */
         }
         $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
         $view = new VPaziente();
@@ -44,6 +47,7 @@ class CPaziente{
             $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
             $arraymedici = array();
             $nmedici = count($medici);
+            /* var_dump($medici); */
             //ci devo aggiungere la tipologia per ogni medico
             for($i=0;$i<$nmedici;$i++){
                 $arraymedici[$i]["IdMedico"] = $medici[$i][0]->getIdMedico();
@@ -51,9 +55,9 @@ class CPaziente{
                 $arraymedici[$i]["cognome"] = $medici[$i][0]->getCognome();
                 $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i][0]->getIdMedico());
                 $arraymedici[$i]["costo"] = $medici[$i][0]->getCosto();
-                $arraymedici[$i]["nometipologia"] = $medici[$i][0]->getTipologia()/* ->getNometipologia() */; 
-                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]/* ->getTipo() */; 
-                $arraymedici[$i]["costo"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]/* ->getDati() */; 
+                $arraymedici[$i]["nometipologia"] = $medici[$i][0]->getTipologia()[0]->getNometipologia(); 
+                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]->getTipo(); 
+                $arraymedici[$i]["img"] = base64_encode(FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]->getDati());
             }
             
             $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
@@ -75,26 +79,26 @@ class CPaziente{
     //va implementato uno spostamento della data su weekdisplacement dove se presente sposta la settimana del valore immesso
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
-    public static function dettagli_prenotazione($IdMedico,$weekdisplacement = false){
+    public static function dettagli_prenotazione($IdMedico,$weekdisplacement = 0){
         /* if(CUtente::isLogged()){  *///possiamo tenerlo o toglierlo
-            
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-            $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+            $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
             $anno = $data->format('o'); //anno attuale (es 2024)
             //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
             //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
-            $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
+            $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
             $medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
-            $arraymedico = array();
-/*             $arraymedico["IdMedico"] = $medico[0]->getIdMedico();
-            $arraymedico["nome"] = $medico[0]->getNome();
-            $arraymedico["cognome"] = $medico[0]->getCognome();
-            $arraymedico["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arraymedico["costo"] = $medico[0]->getCosto();
-            $arraymedico["nometipologia"] = $medico[0]->getTipologia()->getNometipologia(); 
-            $arraymedico["tipoimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
-            $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();  */
+            $arraymedico = [
+                    "IdMedico" => $medico[0]->getIdMedico(),
+                    "nome" => $medico[0]->getNome(),
+                    "cognome" => $medico[0]->getCognome(),
+                    "valutazione" => FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico()),
+                    "costo" => $medico[0]->getCosto(),
+                    "nometipologia" => $medico[0]->getTipologia()[0]->getNometipologia(), 
+                    "tipoimmagine" => FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(), 
+                    "img" => base64_encode(FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati()),
+            ];
             $giorno[0] = date("d/m",strtotime('Monday this week'));
             $giorno[1] = date("d/m",strtotime('Tuesday this week'));
             $giorno[2] = date("d/m",strtotime('Wednesday this week'));

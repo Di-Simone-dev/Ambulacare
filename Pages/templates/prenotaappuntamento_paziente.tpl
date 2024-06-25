@@ -19,7 +19,7 @@
                                 Orari
                                 del Medico</h3>
                             <a class="bottonitab">
-                                << /a>
+                                < </a>
                                     <a class="bottonitab">></a>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
@@ -34,14 +34,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {for $i=1; $i<6; $i++}
+                                            {for $j=1; $j<6; $j++}
                                                 <tr>
-                                                    {for $j = 1; $j<=6; $j++}
+                                                    {for $i = 1; $i<7; $i++}
                                                         {if $fasceorarie[$i][$j]}
                                                             <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
                                                                 {13+$j}:30</td>
                                                         {else}
-                                                            <td style="border: 1px solid;background-color: red">{13+$i}:30</td>
+                                                            <td style="border: 1px solid;background-color: red">{13+$j}:30</td>
                                                         {/if}
                                                     {/for}
                                                 </tr>
