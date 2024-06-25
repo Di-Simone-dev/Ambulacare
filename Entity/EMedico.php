@@ -12,7 +12,7 @@ class EMedico
 
     private $password;
 
-    private $attivo=true;
+    private $attivo;
 
     private float $costo;    //Un int è più semplice ma possiamo tenere float
 
@@ -116,9 +116,9 @@ class EMedico
         return $this->Tipologia;
     }
 
-    public function setTipologia($IdTipologia)
+    public function setTipologia($Tipologia)
     {
-        $this->IdTipologia = $IdTipologia;
+        $this->Tipologia = $Tipologia;
     }
 
     public function getIdImmagine()

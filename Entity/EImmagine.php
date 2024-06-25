@@ -17,10 +17,10 @@ class EImmagine{
 
     //constructor
     public function __construct($name, $size, $type, $imageData){
-        $this->name = $name;
-        $this->size = $size;
-        $this->types = $type;
-        $this->imageData = $imageData;
+        $this->nome = $name;
+        $this->dimensione = $size;
+        $this->tipo = $type;
+        $this->dati = $imageData;
     }
 
     //methods
@@ -35,7 +35,7 @@ class EImmagine{
     }
 
     public function setIdImmagine($IdImmagine){
-        $this->IdImmaginedImmagine = $IdImmagine;
+        $this->IdImmagine = $IdImmagine;
     }
 
     public function getNome()

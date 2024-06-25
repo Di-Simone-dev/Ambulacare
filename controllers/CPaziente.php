@@ -75,7 +75,7 @@ class CPaziente{
     //va implementato uno spostamento della data su weekdisplacement dove se presente sposta la settimana del valore immesso
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
-    public static function dettagli_prenotazione($IdMedico,$weekdisplacement){
+    public static function dettagli_prenotazione($IdMedico,$weekdisplacement = null){
         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
