@@ -50,7 +50,7 @@ class EAppuntamento
 
     public function setpaziente($paziente)
     {
-        $this->stato = $paziente;
+        $this->paziente = $paziente;
     }
     public function getFasciaoraria()
     {

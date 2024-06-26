@@ -54,8 +54,9 @@ class FAppuntamento{
     public static function bind($stmt,EAppuntamento $appuntamento){
         //$stmt->bindValue(':IdAppuntamento', NULL, PDO::PARAM_INT);
         $stmt->bindValue(':costo', $appuntamento->getCosto(), PDO::PARAM_STR);
-        $stmt->bindValue(':IdPaziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
-        $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
+        var_dump($appuntamento);
+        $stmt->bindValue(':paziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
+        $stmt->bindValue(':fascia_oraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
 
     /** PER FARE LA LOAD DAL DB ed INSTANZIARE gli appuntamenti data query result l'array degli APPUNTAMENTI da istanziare

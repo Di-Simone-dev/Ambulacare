@@ -68,7 +68,7 @@ class FFasciaOraria{
                 $fasciaoraria->setIdFasciaOraria($queryResult[$i]['IdFasciaOraria']);  //PER LA PK AUTOINCREMENT
                 //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE
-                $calendario = FCalendario::getObj($queryResult[$i]['Calendario']);  //il campo calendario è proprio l'id
+                $calendario = FCalendario::getObj($queryResult[$i]['IdCalendario']);  //il campo calendario è proprio l'id
                 $fasciaoraria->setCalendario($calendario[0]);  //$calendario è un array e devo prendere il primo ed unico elemento
 
                 //ispirazione presa da FReport

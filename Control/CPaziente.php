@@ -143,22 +143,28 @@ class CPaziente{
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
             $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
-            $IdPaziente = USession::getSessionElement('id');
+            $IdPaziente = 3;/* USession::getSessionElement('id'); */
+            $Paziente = FPaziente::getObj($IdPaziente);
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-            $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
-                    getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-            if($$exist){ //se il medico ha creato la disponibilità
-                $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
+            var_dump(FEntityManagerSQL::getInstance()->
+            getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+            $IdFasciaOraria = (FEntityManagerSQL::getInstance()->
+            getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+            $exist = isset($IdFasciaOraria);
+            if($exist){ //se il medico ha creato la disponibilità
+                $FasciaOraria = FFasciaOraria::getObj($IdFasciaOraria);
                 $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
                 (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 
                 if(!$busy){ //se la fascia non è occupata procediamo con la creazione dell'appuntamento
                     //CREARE APPUNTAMENTO
                     $appuntamento = new EAppuntamento($costo); //INSERIAMO il costo attualmente del medico ma poi rimane fisso
-                    $appuntamento->setpaziente($IdPaziente);            //SETTIAMO IL PAZIENTE
-                    $appuntamento->setFasciaoraria($IdFasciaOraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
+                    var_dump($Paziente[0]);
+                    $appuntamento->setpaziente($Paziente[0]);            //SETTIAMO IL PAZIENTE
+                    $appuntamento->setFasciaoraria($FasciaOraria[0]);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                     FAppuntamento::saveObj($appuntamento);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
                     $messaggio = "Prenotazione effettuata con successo!";
+                    var_dump($appuntamento);
                 }
                 //NELLA REALTà C'è UN'ALTRA PAGINA INTERMEDIA, basta spostare il codice
             }

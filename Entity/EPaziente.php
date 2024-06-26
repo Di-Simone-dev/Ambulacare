@@ -8,7 +8,7 @@ class EPaziente
     private $email;
     private $password;
     private $codice_fiscale;
-    private DateTime $data_nascita;
+    private $data_nascita;
     private $luogo_nascita;
     private $residenza;
     private $numero_telefono;

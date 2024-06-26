@@ -15,7 +15,8 @@ class EFasciaoraria
     public function __construct($data)
     {
         //$this->IdFascia_oraria;  l'id non va nel costruttore, perchè si mette con il metodo setIdFasciaOraria()
-        $this->data=$data;
+        $time = new DateTime($data);
+        $this->data=$time;
         //$this->ora_inizio=$ora_inizio;
 
     }
