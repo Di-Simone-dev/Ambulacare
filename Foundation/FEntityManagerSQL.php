@@ -694,9 +694,13 @@ class FEntityManagerSQL{
        
         $today = new DateTime();
         try{
-            $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria
-                          FROM appuntamento,fascia_oraria
-                          WHERE IdPaziente = '" . $IdPaziente . "'AND GETDATE()=>data ORDER BY data DESC;";
+            $query = "SELECT appuntamento.IdAppuntamento,IdPaziente,appuntamento.IdFasciaOraria, medico.IdMedico, appuntamento.costo, referto.IdReferto
+                          FROM appuntamento
+                          Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                          INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
+                          LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND CURDATE()<=data ORDER BY data DESC;";
             //prendiamo tutti gli appuntamenti fissati in date future (quindi prenotati e non ancora conclusi)            
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
