@@ -43,7 +43,10 @@
                         <td>{$medico.nome} {$medico.cognome}</td>
                         <td>{$medico.nometipologia}</td>
                         <td>{$medico.costo}</td>
-                        <td>{$medico.valutazione}/5&#9733;</td>
+                        <td>{if $medico.valutazione.IdMedico}
+                                {$medico.valutazione.valutazione}
+                            {else}0
+                            {/if}/5&#9733;</td>
                         <td><a href="/Ambulacare/Paziente/dettagli_prenotazione/{$medico.IdMedico}"
                                 class="btn btn-primary">Prenota</a></td>
                     </tr>

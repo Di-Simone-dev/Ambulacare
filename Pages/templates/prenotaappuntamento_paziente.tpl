@@ -15,7 +15,10 @@
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
 
                             <h3>Valutazione:
-                                {$medico.valutazione}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
+                            {if $medico.valutazione.IdMedico}
+                                {$medico.valutazione.valutazione}
+                            {else}0
+                            {/if}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
                                 Orari
                                 del Medico</h3>
                             {if $week}

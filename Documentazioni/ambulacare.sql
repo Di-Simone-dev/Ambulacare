@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 25, 2024 alle 19:46
+-- Creato il: Giu 26, 2024 alle 19:51
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -105,6 +105,15 @@ CREATE TABLE `appuntamento` (
   `IdPaziente` int(10) UNSIGNED NOT NULL,
   `IdFasciaOraria` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dump dei dati per la tabella `appuntamento`
+--
+
+INSERT INTO `appuntamento` (`IdAppuntamento`, `costo`, `IdPaziente`, `IdFasciaOraria`) VALUES
+(13, 30, 3, 2),
+(14, 30, 3, 1),
+(15, 40, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -242,6 +251,14 @@ CREATE TABLE `recensione` (
   `IdPaziente` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dump dei dati per la tabella `recensione`
+--
+
+INSERT INTO `recensione` (`IdRecensione`, `titolo`, `contenuto`, `valutazione`, `data_creazione`, `IdMedico`, `IdPaziente`) VALUES
+(1, 'bello', 'bello', 2, '2024-06-26 00:00:00', 3, 3),
+(2, 'bello', 'bello', 3, '2024-06-26 19:11:54', 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -255,6 +272,13 @@ CREATE TABLE `referto` (
   `IdAppuntamento` int(10) UNSIGNED NOT NULL,
   `IdImmagine` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dump dei dati per la tabella `referto`
+--
+
+INSERT INTO `referto` (`IdReferto`, `oggetto`, `contenuto`, `IdAppuntamento`, `IdImmagine`) VALUES
+(2, 'avanti un altro', 'ricordati che anche tu devi morire\r\navanti un altro', 14, 2);
 
 -- --------------------------------------------------------
 
@@ -385,7 +409,7 @@ ALTER TABLE `amministratore`
 -- AUTO_INCREMENT per la tabella `appuntamento`
 --
 ALTER TABLE `appuntamento`
-  MODIFY `IdAppuntamento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdAppuntamento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `calendario`
@@ -421,13 +445,13 @@ ALTER TABLE `paziente`
 -- AUTO_INCREMENT per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  MODIFY `IdRecensione` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdRecensione` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `referto`
 --
 ALTER TABLE `referto`
-  MODIFY `IdReferto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `IdReferto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `risposta`

@@ -184,7 +184,7 @@ class VPaziente
 	public function ShowAppuntamentiPrenotati($app,$tipologie){
         $this->smarty->assign('esami',$app);
 		$this->smarty->assign('tipologie',$tipologie);
-        $this->smarty->display('visualizzaappuntamenti_prenotazione_paziente.tpl');
+        $this->smarty->display('visualizzaappuntamentiprenotati_paziente.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per la modifica dell'appuntamento di un paziente

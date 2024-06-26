@@ -12,7 +12,7 @@
                         <br>
                         <select name="tipologia" id="categ" class="form-select">
                             {foreach $tipologie as $tipologia}
-                                <option value="{$tipologia.id}">{$tipologia.nome}</option>
+                                <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>

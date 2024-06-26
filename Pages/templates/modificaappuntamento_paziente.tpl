@@ -6,17 +6,19 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/Ambulcare/Paziente/" method="post">
+                <form action="/Ambulacare/Paziente/modifica_appuntamento" method="post">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
                             <h3>Esame: {$medico.nometipologia}&ensp;&ensp;&ensp;&ensp;Costo: {$medico.costo}€</h3>
                             <h3>Medico: {$medico.nome} {$medico.cognome}&ensp;&ensp;&ensp;Data Odierna:
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
-
-                            <h3>Valutazione:
-                                {$medico.valutazione}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
-                                Orari
-                                del Medico</h3>
+                                <h3>Valutazione:
+                                {if $medico.valutazione.IdMedico}
+                                    {$medico.valutazione.valutazione}
+                                {else}0
+                                {/if}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
+                                    Orari
+                                    del Medico</h3>
                             <a class="bottonitab">
                                 < </a>
                                     <a class="bottonitab"> > </a>
@@ -31,23 +33,24 @@
                                             <th scope="col">Sabato {$giorno[5]}</th>
                                         </thead>
                                         <tbody>
-                                            {for $i=1; $i<6; $i++}
-                                                <tr>
-                                                    {for $j = 1; $j<=6; $j++}
-                                                        {if $fasceorarie[$i][$j]}
-                                                            <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
-                                                                {13+$j}:30</td>
-                                                        {else}
-                                                            <td style="border: 1px solid;background-color: red">{13+$i}:30</td>
-                                                        {/if}
-                                                    {/for}
-                                                </tr>
-                                            {/for}
+                                        {for $j=1; $j<6; $j++}
+                                            <tr>
+                                                {for $i = 1; $i<7; $i++}
+                                                    {if $fasceorarie[$i][$j]}
+                                                        <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
+                                                            {13+$j}:30</td>
+                                                    {else}
+                                                        <td style="border: 1px solid;background-color: red">{13+$j}:30</td>
+                                                    {/if}
+                                                {/for}
+                                            </tr>
+                                        {/for}
                                         </tbody>
                                     </table>
                                     <br>
                                     <div>
                                         <label for="data">Seleziona una data e ora</label>
+                                        <input type="date" name="data" required>
                                         <select name="nslot" id="orario" class="form-select-m">
                                             <option value="1">14:30</option>
                                             <option value="2">15:30</option>

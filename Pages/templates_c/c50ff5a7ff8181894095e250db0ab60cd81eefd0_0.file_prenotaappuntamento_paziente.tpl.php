@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-26 12:59:41
+/* Smarty version 5.3.0, created on 2024-06-26 19:11:26
   from 'file:prenotaappuntamento_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667bf49d679071_53452906',
+  'unifunc' => 'content_667c4bbe39c502_79234207',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c50ff5a7ff8181894095e250db0ab60cd81eefd0' => 
     array (
       0 => 'prenotaappuntamento_paziente.tpl',
-      1 => 1719392801,
+      1 => 1719421883,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667bf49d679071_53452906 (\Smarty\Template $_smarty_tpl) {
+function content_667c4bbe39c502_79234207 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_82231195667bf49d204d65_30385356', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_248229028667c4bbe1d6eb8_78070720', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_82231195667bf49d204d65_30385356 extends \Smarty\Runtime\Block
+class Block_248229028667c4bbe1d6eb8_78070720 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -56,8 +56,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 </h3>
 
                             <h3>Valutazione:
-                                <?php echo $_smarty_tpl->getValue('medico')['valutazione'];?>
-/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
+                            <?php if ($_smarty_tpl->getValue('medico')['valutazione']['IdMedico']) {?>
+                                <?php echo $_smarty_tpl->getValue('medico')['valutazione']['valutazione'];?>
+
+                            <?php } else { ?>0
+                            <?php }?>/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
                                 Orari
                                 del Medico</h3>
                             <?php if ($_smarty_tpl->getValue('week')) {?>

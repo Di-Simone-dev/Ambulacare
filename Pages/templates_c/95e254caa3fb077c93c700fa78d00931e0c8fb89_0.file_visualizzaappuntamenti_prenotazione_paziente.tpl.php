@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-25 18:08:34
+/* Smarty version 5.3.0, created on 2024-06-26 19:00:03
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667aeb82ec1ac6_99672668',
+  'unifunc' => 'content_667c4913d0c771_28076528',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95e254caa3fb077c93c700fa78d00931e0c8fb89' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719331710,
+      1 => 1719421200,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667aeb82ec1ac6_99672668 (\Smarty\Template $_smarty_tpl) {
+function content_667c4913d0c771_28076528 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1447987853667aeb82e9ee38_96811292', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_322718606667c4913c459b0_55822684', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1447987853667aeb82e9ee38_96811292 extends \Smarty\Runtime\Block
+class Block_322718606667c4913c459b0_55822684 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -99,8 +99,11 @@ $foreach1DoElse = false;
 </td>
                         <td><?php echo $_smarty_tpl->getValue('medico')['costo'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('medico')['valutazione'];?>
-/5&#9733;</td>
+                        <td><?php if ($_smarty_tpl->getValue('medico')['valutazione']['IdMedico']) {?>
+                                <?php echo $_smarty_tpl->getValue('medico')['valutazione']['valutazione'];?>
+
+                            <?php } else { ?>0
+                            <?php }?>/5&#9733;</td>
                         <td><a href="/Ambulacare/Paziente/dettagli_prenotazione/<?php echo $_smarty_tpl->getValue('medico')['IdMedico'];?>
 "
                                 class="btn btn-primary">Prenota</a></td>
