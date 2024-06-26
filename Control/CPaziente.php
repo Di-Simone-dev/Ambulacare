@@ -41,8 +41,8 @@ class CPaziente{
     //dovrebbe servire anche il nome della tipologia per visualizzarlo e per metterlo nella URL
     //bisogna mettere gli id dei medici nei bottoni per passarli poi al metodo successivo
     public static function ricercaesame(){
-        /* if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo */
-            $IdTipologia = $_POST["tipologia"];
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+            $IdTipologia = UHTTPMethods::post('tipologia');
             $nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
             $arraymedici = array();
@@ -63,7 +63,7 @@ class CPaziente{
             $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $view = new VPaziente();
             $view->showEsami($tipologie,$arraymedici, $IdTipologia);
-       /*  }  */
+        } 
     }
 
     //1.3 dettagli_prenotazione(medico)
@@ -80,7 +80,7 @@ class CPaziente{
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
     public static function dettagli_prenotazione($IdMedico,$weekdisplacement = 0){
-        /* if(CUtente::isLogged()){  *///possiamo tenerlo o toglierlo
+/*         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo */
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
             $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
@@ -99,12 +99,22 @@ class CPaziente{
                     "tipoimmagine" => FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(), 
                     "img" => base64_encode(FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati()),
             ];
+            if ($weekdisplacement == 0){
             $giorno[0] = date("d/m",strtotime('Monday this week'));
             $giorno[1] = date("d/m",strtotime('Tuesday this week'));
             $giorno[2] = date("d/m",strtotime('Wednesday this week'));
             $giorno[3] = date("d/m",strtotime('Thursday this week'));
             $giorno[4] = date("d/m",strtotime('Friday this week'));
             $giorno[5] = date("d/m",strtotime('Saturday this week'));
+            }
+            elseif ($weekdisplacement==1){
+                $giorno[0] = date("d/m",strtotime('Monday next week'));
+                $giorno[1] = date("d/m",strtotime('Tuesday next week'));
+                $giorno[2] = date("d/m",strtotime('Wednesday next week'));
+                $giorno[3] = date("d/m",strtotime('Thursday next week'));
+                $giorno[4] = date("d/m",strtotime('Friday next week'));
+                $giorno[5] = date("d/m",strtotime('Saturday next week'));
+            }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
             $view = new VPaziente();
             $view->PrenotaEsame($arraymedico,$orari_disponinibilità,$giorno);
        /*  }  */
@@ -132,7 +142,7 @@ class CPaziente{
             $data = new DateTime($dateTimeString);
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
-            $IdPaziente = USession::getSessionElement('id');
+            $IdPaziente = 3 /* USession::getSessionElement('id') */;
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
@@ -147,13 +157,13 @@ class CPaziente{
                     $appuntamento->setpaziente($IdPaziente);            //SETTIAMO IL PAZIENTE
                     $appuntamento->setFasciaoraria($IdFasciaOraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                     FAppuntamento::saveObj($appuntamento);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
-                }
-                
+                    $messaggio = "Prenotazione effettuata con successo!";
+                }else $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
                 //NELLA REALTà C'è UN'ALTRA PAGINA INTERMEDIA, basta spostare il codice
             }
 
-
-
+            $view = new VPaziente();
+            $view->messaggio($messaggio);
        /*  }  */
     }
 

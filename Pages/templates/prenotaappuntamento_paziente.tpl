@@ -51,6 +51,7 @@
                                     <br>
                                     <div>
                                         <label for="data">Seleziona una data e ora</label>
+                                        <input type="date" name="data" required>
                                         <select name="nslot" id="orario" class="form-select-m">
                                             <option value="1">14:30</option>
                                             <option value="2">15:30</option>
@@ -64,7 +65,7 @@
                     </div>
                     <br><br><br>
                     <div>
-                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                        <a class="btn btn-primary" id="annulla" href="/Ambulacare/Paziente/avviaprenotazione">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

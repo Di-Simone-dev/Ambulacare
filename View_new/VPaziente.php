@@ -230,4 +230,9 @@ class VPaziente
 	}
 
 
+	public function messaggio($messaggio){
+		$this->smarty->assign('messaggio',$messaggio);
+		$this->smarty->display('messaggio_paziente.tpl');
+	}
+
 }

@@ -577,7 +577,7 @@ class FEntityManagerSQL{
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
             $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data
                       FROM calendario,fascia_oraria
-                      WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' ORDER BY data;";//prendo solo l'ora per il controllo
+                      WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data->format('Y-m-d H:i:s') . "' ORDER BY data;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
             //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-25 19:18:58
+/* Smarty version 5.3.0, created on 2024-06-26 08:56:17
   from 'file:prenotaappuntamento_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667afc02825a41_17089062',
+  'unifunc' => 'content_667bbb91bd4415_55672505',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c50ff5a7ff8181894095e250db0ab60cd81eefd0' => 
     array (
       0 => 'prenotaappuntamento_paziente.tpl',
-      1 => 1719335936,
+      1 => 1719384975,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667afc02825a41_17089062 (\Smarty\Template $_smarty_tpl) {
+function content_667bbb91bd4415_55672505 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1934355850667afc027e1155_59511416', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1477897084667bbb91bb2fa8_07749482', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1934355850667afc027e1155_59511416 extends \Smarty\Runtime\Block
+class Block_1477897084667bbb91bb2fa8_07749482 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -115,6 +115,7 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                                     <br>
                                     <div>
                                         <label for="data">Seleziona una data e ora</label>
+                                        <input type="date" name="data" required>
                                         <select name="nslot" id="orario" class="form-select-m">
                                             <option value="1">14:30</option>
                                             <option value="2">15:30</option>
