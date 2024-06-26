@@ -46,18 +46,6 @@ class EFasciaoraria
         $this->data = $data;
     }
 
-    /*
-    public function getOrainizio()
-    {
-        return $this->ora_inizio;
-    }
-
-    public function setOrainizio(DateTime $ora_inizio): void
-    {
-        $this->ora_inizio = $ora_inizio;
-    }
-    */
-
     public function getCalendario()
     {
         return $this->calendario;

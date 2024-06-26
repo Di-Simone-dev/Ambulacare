@@ -169,7 +169,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento){ //CONVIE
         $arraypaziente["nome"] = $paziente->getNome();
         $arraypaziente["cognome"] = $paziente->getCognome();
         
-        $view = new VManagePost($arraymedico,$arraypaziente,$orari_disponinibilità); //servirebbe anche la fascia oraria
+        $view = new VAmministratore($arraymedico,$arraypaziente,$orari_disponinibilità); //servirebbe anche la fascia oraria
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -218,10 +218,40 @@ public static function modifica_appuntamento(){  //DA FARE
             
             
         }
-        $view = new VManagePost(); //servirebbe una cosa del genere NON SO COSA PASSARE 
+        $view = new VAmministratore(); //servirebbe una cosa del genere NON SO COSA PASSARE 
         header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
     } 
 }
+
+//[admin]caso d'uso 12 "gestione recensioni"
+
+//12.1) gestione_recensioni() per accedere alla schermata di visualizzazione 
+
+public static function  gestione_recensioni(){
+    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+
+        $recensioni = FEntityManagerSQL::getInstance()->retrieveall(FRecensione::getTable());
+        
+        $view = new VAmministratore($recensioni); //servirebbe una cosa del genere
+        header('Location: /appuntamento/esamidaprenotare');
+    } 
+}
+
+//12.2) ricerca_recensione(nome_medico, cognome_medico)
+
+public static function  gestione_recensioni(){
+    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+        $nomemedico = UHTTPMethods::post('cognomemedico');
+        $cognomemedico = UHTTPMethods::post('cognomemedico');
+        $recensioni = FEntityManagerSQL::getInstance()->retrieveall(FRecensione::getTable());
+        
+        $view = new VAmministratore($recensioni); //servirebbe una cosa del genere
+        header('Location: /appuntamento/esamidaprenotare');
+    } 
+}
+
+
+
 
 
 

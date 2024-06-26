@@ -55,7 +55,7 @@ class FAppuntamento{
         //$stmt->bindValue(':IdAppuntamento', NULL, PDO::PARAM_INT);
         $stmt->bindValue(':costo', $appuntamento->getCosto(), PDO::PARAM_STR);
         $stmt->bindValue(':IdPaziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
-        $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdFascia_oraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
 
     /** PER FARE LA LOAD DAL DB ed INSTANZIARE gli appuntamenti data query result l'array degli APPUNTAMENTI da istanziare
@@ -135,11 +135,9 @@ class FAppuntamento{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FAppuntamento::getClass(), $obj);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    //$saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if($saveUser){
-                        return $savePersonAndLastInsertedID;
-                    }
+                    return $savePersonAndLastInsertedID;
                 }else{
                     return false;
                 }

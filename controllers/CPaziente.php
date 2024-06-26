@@ -129,7 +129,7 @@ class CPaziente{
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
                     getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-            if($$exist){ //se il medico ha creato la disponibilità
+            if($exist){ //se il medico ha creato la disponibilità
                 $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
                 $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
                 (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 

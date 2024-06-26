@@ -5,7 +5,7 @@ class ERecensione
     private $titolo;
     private $contenuto;
     private float $valutazione;
-    private DateTime $data_creazione;
+    private $data_creazione;
 
     private $medico;  //FK senza id
     
