@@ -27,35 +27,35 @@
                         <input type="radio" id="star5b" name="voto" value="5" />
                         <label class="full" for="star5b">
                             <svg class="icon icon-lg">
-                                <use href="/Ambulacare/Pages/templates/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
+                                <use href="/Ambulacare/Pages/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
                             </svg>
                             <span class="visually-hidden">Valuta 5 stelle su 5</span>
                         </label>
                         <input type="radio" id="star4b" name="voto" value="4" checked />
                         <label class="full" for="star4b">
                             <svg class="icon icon-lg">
-                                <use href="/Ambulacare/Pages/templates/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
+                                <use href="/Ambulacare/Pages/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
                             </svg>
                             <span class="visually-hidden">Valuta 4 stelle su 5</span>
                         </label>
                         <input type="radio" id="star3b" name="voto" value="3" />
                         <label class="full" for="star3b">
                             <svg class="icon icon-lg">
-                                <use href="/Ambulacare/Pages/templates/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
+                                <use href="/Ambulacare/Pages/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
                             </svg>
                             <span class="visually-hidden">Valuta 3 stelle su 5</span>
                         </label>
                         <input type="radio" id="star2b" name="voto" value="2" />
                         <label class="full" for="star2b">
                             <svg class="icon icon-lg">
-                                <use href="/Ambulacare/Pages/templates/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
+                                <use href="/Ambulacare/Pages/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
                             </svg>
                             <span class="visually-hidden">Valuta 2 stelle su 5</span>
                         </label>
                         <input type="radio" id="star1b" name="voto" value="1" />
                         <label class="full" for="star1b">
                             <svg class="icon icon-lg">
-                                <use href="/Ambulacare/Pages/templates/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
+                                <use href="/Ambulacare/Pages/bootstrap-italia/svg/sprites.svg#it-star-full"></use>
                             </svg>
                             <span class="visually-hidden">Valuta 1 stelle su 5</span>
                         </label>
