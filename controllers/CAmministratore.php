@@ -12,17 +12,13 @@ public static function visualizza_medici(){
         $medici = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
         //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
 
-        $view = new VManagePost($medici); //servirebbe una cosa del genere
+        $view = new VAmministratore($medici); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
 
 //10.2)ricerca_utenti(nome,cognome, categoria) questa query potrebbe essere complessa e va realizzata ad hoc
 //deve essere possibile la ricerca anche per uno solo di questi input 
-//1 => NESSUN INPUT oppure metto il controllo di errore
-//2 => SOLO NOME
-//3 => SOLO COGNOME
-//4 => NOME E COGNOME
 
 public static function ricerca_medici(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
@@ -31,7 +27,7 @@ public static function ricerca_medici(){
         $cognomemedico = UHTTPMethods::post('cognomemedico');
         $medici = FEntityManagerSQL::getInstance()->ricercautenti($nomemedico,$cognomemedico,FMedico::getTable());
 
-        $view = new VManagePost($medici); //servirebbe una cosa del genere
+        $view = new VAmministratore($medici); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -52,12 +48,12 @@ public static function moderazione_medico($IdMedico){
         
         FMedico::saveObj($medico,$arraymodifica);
 
-        $view = new VManagePost(); //servirebbe una cosa del genere
+        $view = new VAmministratore(); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
 
-//10.1) visualizza_medici()  qui devo passare tutti i pazienti e tutti i medici della piattaforma
+//10.1) visualizza_pazienti()  qui devo passare tutti i pazienti e tutti i medici della piattaforma
 
 public static function visualizza_pazienti(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
@@ -65,7 +61,7 @@ public static function visualizza_pazienti(){
         $pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
         //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
 
-        $view = new VManagePost($pazienti); //servirebbe una cosa del genere
+        $view = new VAmministratore($pazienti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -84,7 +80,7 @@ public static function ricerca_pazienti(){
         $cognomepaziente = UHTTPMethods::post('cognomepaziente');
         $pazienti = FEntityManagerSQL::getInstance()->ricercautenti($nomepaziente,$cognomepaziente,FPaziente::getTable());
 
-        $view = new VManagePost($pazienti); //servirebbe una cosa del genere
+        $view = new VAmministratore($pazienti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -105,7 +101,7 @@ public static function moderazione_paziente($IdPaziente){
         
         FPaziente::saveObj($paziente,$arraymodifica);
 
-        $view = new VManagePost(); //servirebbe una cosa del genere
+        $view = new VAmministratore(); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -113,7 +109,7 @@ public static function moderazione_paziente($IdPaziente){
 //[admin]caso d'uso 11 "gestione appuntamenti"
 
 //11.1) gestione_appuntamenti() accedo alla schermata di gestione degli appuntamenti
-public static function  gestione_appuntamenti(){
+public static function gestione_appuntamenti(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
 
         $appuntamenti = FEntityManagerSQL::getInstance()->retrieveall(FAppuntamento::getTable());
@@ -239,22 +235,26 @@ public static function  gestione_recensioni(){
 
 //12.2) ricerca_recensione(nome_medico, cognome_medico)
 
-public static function  gestione_recensioni(){
+public static function  ricerca_recensioni(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
-        $nomemedico = UHTTPMethods::post('cognomemedico');
+        $nomemedico = UHTTPMethods::post('nomemedico');
         $cognomemedico = UHTTPMethods::post('cognomemedico');
-        $recensioni = FEntityManagerSQL::getInstance()->retrieveall(FRecensione::getTable());
-        
+        $recensioni = FEntityManagerSQL::getInstance()->ricercarecensioni($nomemedico,$cognomemedico);
         $view = new VAmministratore($recensioni); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
 
+//12.3) elimina_recensione(IdRecensione)
 
-
-
-
-
+public static function elimina_recensione($IdRecensione){
+    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+        
+        $recensione = FRecensione::eliminarecensione($IdRecensione);
+        $view = new VAmministratore(); //servirebbe una cosa del genere
+        header('Location: /appuntamento/esamidaprenotare');
+    } 
+}
 
 
 

@@ -906,7 +906,46 @@ class FEntityManagerSQL{
         }
     }
 
+    public static function ricercarecensioni($nomemedico = null,$cognomemedico = null){ 
+        
+        try{
+            $query = "SELECT * ";
+            $params = [];
 
+            $query .= "FROM recensione INNER JOIN Medico ON recensione.IdMedico = medico.IdMedico";
+
+            $query .= " WHERE 1=1"; //completo la query
+
+            if (isset($nomemedico)) {
+                $query .= " AND nome LIKE :nome";
+                $params[':nome'] = '%' . $nomemedico . '%';
+            }
+
+            if (isset($cognomemedico)) {
+                $query .= " AND cognome LIKE :cognome";
+                $params[':cognome'] = '%' . $cognomemedico . '%';
+            }
+
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute($params);
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; 
+                          
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
 
 
 

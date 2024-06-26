@@ -19,7 +19,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
         
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+        for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
 
@@ -41,7 +41,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VManagePost($arrayappuntamenti); //servirebbe una cosa del genere
+        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -68,7 +68,7 @@ public static function ricerca_storico_appuntamenti_medico(){
             //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
 
-        $view = new VManagePost($arrayappuntamenti); //servirebbe una cosa del genere
+        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
         }
     } 
@@ -99,7 +99,7 @@ public static function inserimento_referto($IdAppuntamento){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VManagePost($arrayappuntamento); //servirebbe una cosa del genere
+        $view = new VMedico($arrayappuntamento); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     }
 }
@@ -136,7 +136,7 @@ public static function caricamento_referto(){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VManagePost($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
+        $view = new VMedico($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     }
 }
@@ -158,7 +158,7 @@ public static function mostra_orari_disponibilità(){
         $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
         
         //servirebbe anche la valutazione del medico
-        $view = new VManagePost($orari_disponinibilità); //servirebbe una cosa del genere per il passaggio dei parametri
+        $view = new VMedico($orari_disponinibilità); //servirebbe una cosa del genere per il passaggio dei parametri
         header('Location: /appuntamento/esamidaprenotare/$idesame '); //che poi id esame sarebbe quello che del medico
     } 
 }
@@ -204,7 +204,7 @@ public static function conferma_orari_disponibilità(){  //questa funzione crea 
         }
         }
 
-        $view = new VManagePost(); //servirebbe una cosa del genere NON SO COSA PASSARE 
+        $view = new VMedico(); //servirebbe una cosa del genere NON SO COSA PASSARE 
         header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
     } 
 }
@@ -219,7 +219,7 @@ public static function visualizza_pazienti(){
     $arraypazienti = array();
     //$nmedici = count($pazienti);
     //ci devo aggiungere la tipologia per ogni medico
-    for($i=0;$i++;$i<count($pazienti)){
+    for($i=0;$i<count($pazienti);$i++){
         $arraypazienti[$i]["IdPaziente"] = $pazienti[$i]->getIdPaziente();
         $arraypazienti[$i]["nomepaziente"] = $pazienti[$i]->getNome();
         $arraypazienti[$i]["cognomepaziente"] = $pazienti[$i]->getCognome();
@@ -227,7 +227,7 @@ public static function visualizza_pazienti(){
     }
     
     $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-    //$view = new VManagePost($arraypazienti); //servirebbe una cosa del genere
+    $view = new VMedico($arraypazienti); //servirebbe una cosa del genere
     header('Location: /appuntamento/esamidaprenotare');
 }
 
@@ -241,7 +241,7 @@ public static function ricerca_pazienti(){
     $arraypazienti = array();
     //$nmedici = count($pazienti);
     //ci devo aggiungere la tipologia per ogni medico
-    for($i=0;$i++;$i<count($pazienti)){
+    for($i=0;$i<count($pazienti);$i++){
         $arraypazienti[$i]["IdPaziente"] = $pazienti[$i]->getIdPaziente();
         $arraypazienti[$i]["nomepaziente"] = $pazienti[$i]->getNome();
         $arraypazienti[$i]["cognomepaziente"] = $pazienti[$i]->getCognome();
@@ -249,7 +249,7 @@ public static function ricerca_pazienti(){
     }
     
     //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-    //$view = new VManagePost($arraypazienti); //servirebbe una cosa del genere
+    $view = new VMedico($arraypazienti); //servirebbe una cosa del genere
     header('Location: /appuntamento/esamidaprenotare');
 }
 
@@ -264,7 +264,7 @@ public static function dettagli_storico_paziente($IdPaziente){
         $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente));
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_paziente_conclusi)){
+        for($i=0;$i<count($appuntamenti_paziente_conclusi);$i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
                         ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento);
             $medico = FMedico::getObj($IdMedico);
@@ -285,7 +285,7 @@ public static function dettagli_storico_paziente($IdPaziente){
         //l'id dell'appuntamento va tenuto per associarlo ai bottoni di recensioni e di visualizzazione referto
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VManagePost($arrayappuntamenti); //servirebbe una cosa del genere
+        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -305,7 +305,7 @@ public static function visualizza_referto($IdAppuntamento){
         
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();     
-        $view = new VManagePost($arrayreferto); //servirebbe una cosa del genere
+        $view = new VMedico($arrayreferto); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -318,7 +318,7 @@ public static function visualizza_statistiche(){
     if(CUtente::isLogged()){ //BISOGNA TENERLO   
 
         
-        $view = new VManagePost(); //servirebbe una cosa del genere
+        $view = new VMedico(); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -332,13 +332,17 @@ public static function calcola_statistiche(){
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
         $data1 = UHTTPMethods::post('data1');
         $data2 = UHTTPMethods::post('data2');
+        //meccanismo per invertire le date nel caso la prima sia successiva alla seconda, potrebbe anche non servire
+        if($data1>$data2){
+            [$data1, $data2] = [$data2, $data1];
+        }
 
         $appuntamenti = FEntityManagerSQL::getInstance()->getstatistiche($IdMedico,$data1,$data2);
         $statistiche_tot = FEntityManagerSQL::getInstance()->getstatistichegenerali($IdMedico,$data1,$data2);
         $sommacosti = $statistiche_tot[0]["sommacosti"];
         $numappuntamenti = $statistiche_tot[0]["numappuntamenti"];
 
-        $view = new VManagePost($appuntamenti,$sommacosti,$numappuntamenti); //servirebbe una cosa del genere
+        $view = new VMedico($appuntamenti,$sommacosti,$numappuntamenti); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -355,7 +359,7 @@ public static function visualizza_recensioni(){
         $recensioni = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"$IdMedico",$IdMedico);
         //dovrebbe bastare passare il risultato della query visto che non sono oggetti
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
-        $view = new VManagePost($recensioni); //servirebbe una cosa del genere
+        $view = new VMedico($recensioni); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -367,10 +371,12 @@ public static function dettagli_recensione($IdRecensione){
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
 
         $recensione = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"IdRecensione",$IdRecensione);
+        $risposta = FEntityManagerSQL::getInstance()->retrieveObj(FRisposta::getTable(),"IdRecensione",$IdRecensione);
+        //passiamo anche la risposta se esiste
         //$valutazione = $recensione["valutazione"];
         //dovrebbe bastare passare il risultato della query visto che non sono oggetti
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
-        $view = new VManagePost($recensione); //servirebbe una cosa del genere
+        $view = new VMedico($recensione,$risposta); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -390,7 +396,7 @@ public static function inserisci_risposta(){
         $risposta->setRecensione(FRecensione::getObj($IdRecensione));
         $idr = FRisposta::saveObj($risposta); //setto tutto e salvo la risposta del medico
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
-        $view = new VManagePost(); //servirebbe una cosa del genere
+        $view = new VMedico(); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -408,7 +414,7 @@ public static function visualizza_agenda(){
             (FEntityManagerSQL::getInstance()->getagendamedico($IdMedico));
         //DOVREBBE BASTARE PASSARE QUESTA
 
-        $view = new VManagePost($agenda); //servirebbe una cosa del genere
+        $view = new VMedico($agenda); //servirebbe una cosa del genere
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -436,7 +442,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento){
         
         
         
-        $view = new VManagePost($nominativopaziente,$orari_disponinibilità,$vecchiadataeora); //servirebbe anche la fascia oraria
+        $view = new VMedico($nominativopaziente,$orari_disponinibilità,$vecchiadataeora); //servirebbe anche la fascia oraria
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
@@ -466,7 +472,7 @@ public static function modifica_appuntamento(){  //DA FARE
 
         $exist = FEntityManagerSQL::getInstance()->
                 existInDb(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-        if($$exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
+        if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
                     (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 
@@ -485,7 +491,7 @@ public static function modifica_appuntamento(){  //DA FARE
             
             
         }
-        $view = new VManagePost(); //servirebbe una cosa del genere NON SO COSA PASSARE 
+        $view = new VMedico(); //servirebbe una cosa del genere NON SO COSA PASSARE 
         header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
     } 
 }

@@ -94,7 +94,7 @@ class ERecensione
 
     public function getPaziente()
     {
-        return $this->medico;
+        return $this->paziente;
     }
 
     public function setPaziente($paziente)
