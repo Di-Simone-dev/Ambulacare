@@ -168,10 +168,11 @@ class VPaziente
 	 * @param $maxdim dimensione massima array fasce orarie
 	 * @throws SmartyException
 	 */
-	public function PrenotaEsame($medico,$foraria,$giorno){
+	public function PrenotaEsame($medico,$foraria,$giorno, $week=null){
         $this->smarty->assign('medico',$medico);
 		$this->smarty->assign('fasceorarie',$foraria);
 		$this->smarty->assign('giorno',$giorno);
+		$this->smarty->assign('week',$week);
         $this->smarty->display('prenotaappuntamento_paziente.tpl');
     }
 	/**

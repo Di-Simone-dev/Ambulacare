@@ -19,7 +19,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
         
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+        for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
 
@@ -42,6 +42,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
         $view = new VMedico();
+        $view->showAppHistory($arrayappuntamenti);
     } 
 }
 
@@ -54,7 +55,7 @@ public static function ricerca_storico_appuntamenti_medico(){
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform));
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+        for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
     
@@ -67,8 +68,8 @@ public static function ricerca_storico_appuntamenti_medico(){
             //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
 
-        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->showAppHistory($arrayappuntamenti);
         }
     } 
 }
@@ -98,8 +99,8 @@ public static function inserimento_referto($IdAppuntamento){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VMedico($arrayappuntamento); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->CaricaReferto($arrayappuntamento)
     }
 }
 
@@ -135,8 +136,8 @@ public static function caricamento_referto(){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VMedico($appuntamenti_medico_conclusi,$pazienti); //vedere cosa mettere nei parametri alla chiamata della funzione
-        header('Location: /appuntamento/esamidaprenotare');
+        $view = new VMedico(); //vedere cosa mettere nei parametri alla chiamata della funzione
+        $view->messaggio("Referto caricato!");
     }
 }
 

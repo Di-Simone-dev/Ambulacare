@@ -116,7 +116,7 @@ class CPaziente{
                 $giorno[5] = date("d/m",strtotime('Saturday next week'));
             }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
             $view = new VPaziente();
-            $view->PrenotaEsame($arraymedico,$orari_disponinibilità,$giorno);
+            $view->PrenotaEsame($arraymedico,$orari_disponinibilità,$giorno, ($weekdisplacement==1? true: false));
        /*  }  */
     }
 
@@ -142,7 +142,8 @@ class CPaziente{
             $data = new DateTime($dateTimeString);
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
-            $IdPaziente = 3 /* USession::getSessionElement('id') */;
+            $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
+            $IdPaziente = USession::getSessionElement('id');
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
@@ -158,7 +159,7 @@ class CPaziente{
                     $appuntamento->setFasciaoraria($IdFasciaOraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                     FAppuntamento::saveObj($appuntamento);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
                     $messaggio = "Prenotazione effettuata con successo!";
-                }else $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
+                }
                 //NELLA REALTà C'è UN'ALTRA PAGINA INTERMEDIA, basta spostare il codice
             }
 
@@ -173,15 +174,14 @@ class CPaziente{
 //PRENDO L'ID DEL PAZIENTE DALLA SESSIONE E CON QUESTO MI PRENDO TUTTI I SUOI APPUNTAMENTI CONCLUSI
 //QUINDI LA QUERY DEVE AVERE IN INPUT L'ID DEL PAZIENTE E OPERARE SULLA TABELLA DEGLI APPUNTAMENTI MA CONTROLLARE CHE LA DATA SIA PASSATA
 public static function visualizza_appuntamenti_effettuati(){
-    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
+     if(CUtente::isLogged()){  //BISOGNA TENERLO
         
-        /* $IdPaziente = USession::getSessionElement('id'); */
-        $IdPaziente = 1;
+        $IdPaziente = USession::getSessionElement('id');
         $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente));
 
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_paziente_conclusi)){
+        for($i=0;$i<count($appuntamenti_paziente_conclusi);$i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
                         ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento);
             $medico = FMedico::getObj($IdMedico);
@@ -206,7 +206,7 @@ public static function visualizza_appuntamenti_effettuati(){
         var_dump($tipologie); echo "\n"; var_dump($arrayappuntamenti);
         $view = new VPaziente();
         $view->showStoricoEsami($arrayappuntamenti,$tipologie);
-  /*   }  */
+     }  
 }
 
 //2.2 ricerca_esami_effettuati

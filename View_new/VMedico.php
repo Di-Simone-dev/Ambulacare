@@ -176,4 +176,14 @@ class VMedico
         $this->smarty->display('rispostarecensione_profilomedico.tpl'); //ancora implementata
     }
 
+	public function showAppHistory($app){
+        $this->smarty->assign('esami',$app);
+        $this->smarty->display('visualizzastoricoesami_medico.tpl');
+    }
+
+	public function messaggio($messaggio){
+		$this->$this->smarty->assign('messaggio',$messaggio);
+		$this->smarty->display('messaggio_medico.tpl');
+	}
+
 }

@@ -8,13 +8,13 @@
                 <br>
                 <h2>Caricamento Referto</h2>
                 <br>
-                <h3>Esame di {$esame.paziente}</h3>
+                <h3>Esame di {$esame.nomepaziente} {$esame.cognomepaziente}</h3>
                 <br>
-                <h3>Categoria : {$esame.tipologia} &ensp;&ensp;&ensp;&ensp;Costo: {$esame.costo}€</h3>
+                <h3>Costo: {$esame.costoappuntamento}€</h3>
                 <br>
-                <h3>Data : {$esame.data} &ensp;&ensp;&ensp;&ensp; Ora: {$esame.orario}</h3>
+                <h3>Data e ora: {$esame.dataeora}</h3>
                 <br><br>
-                <form action="" enctype="multipart/form-data" method="post">
+                <form action="/Ambulacare/Medico/caricamento_referto" enctype="multipart/form-data" method="post">
                     <h4><label for="oggettoref">Oggetto Referto: </label>
                         <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" required/>
                     </h4>
@@ -27,6 +27,7 @@
                     <input id="immagineref" name="immagineref"  type="file"></h4>
                     <br><br>
                     <div>
+                        <input type="hidden" value="{$esame.IdAppuntamento}" name="IdAppuntamento">
                         <a class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
