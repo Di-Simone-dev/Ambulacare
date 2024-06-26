@@ -440,24 +440,26 @@ public static function modifica_appuntamento(){  //DA FARE
         $IdPaziente = 3; /* USession::getSessionElement('id') */;
         //CONVIENE RIGETTARE l'ID DEL MEDICO usando l'id dell'appuntamento già prenotato
         $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
+        $IdFasciaOraria = (FEntityManagerSQL::getInstance()->
+        getIdFasciaOrariafromIdMedicondata($IdMedico[0]["IdMedico"],$data));
         $messaggio = "L'orario scelto non è disponibile!";
-        $exist = FEntityManagerSQL::getInstance()->
-                existInDb(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-        if($$exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
-            $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
+        $exist = is_int($IdFasciaOraria);
+        
+        if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
-                    (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 
+            (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria));
             if(!$busy){ //se la fascia non è occupata procediamo con la creazione dell'appuntamento
                 //CREARE APPUNTAMENTO
                 //$appuntamento = new EAppuntamento(); //BISOGNEREBBE METTERE LO STATO MA ANDREBBE TOLTO
                 $appuntamento = FAppuntamento::getObj($IdAppuntamento);
+                
                 //per la modifica ci serve il field array che è un array bidimensionale che in questo caso deve cambiare
                 //l'id della fascia oraria 
                 $arraymodifica[0][0] = "IdFasciaOraria";
                 $arraymodifica[0][1] = $IdFasciaOraria;
                 //$appuntamento->setpaziente($IdPaziente);            //SETTIAMO IL PAZIENTE
                 //$appuntamento->setFasciaoraria($IdFascia_oraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
-                FAppuntamento::saveObj($appuntamento,$arraymodifica);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
+                FAppuntamento::saveObj($appuntamento,$arraymodifica); //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
                 $messaggio = "Modifiche avvenute con successo!";
             }
             

@@ -153,7 +153,7 @@ class FAppuntamento{
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv)
                 {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    FEntityManagerSQL::getInstance()->updateObj(FAppuntamento::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FAppuntamento::getTable(), $fv[0], $fv[1], self::getKey(), $obj[0]->getIdAppuntamento());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;
