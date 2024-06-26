@@ -54,9 +54,8 @@ class FAppuntamento{
     public static function bind($stmt,EAppuntamento $appuntamento){
         //$stmt->bindValue(':IdAppuntamento', NULL, PDO::PARAM_INT);
         $stmt->bindValue(':costo', $appuntamento->getCosto(), PDO::PARAM_STR);
-        var_dump($appuntamento);
-        $stmt->bindValue(':paziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
-        $stmt->bindValue(':fascia_oraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdPaziente', $appuntamento->getPaziente()->getIdPaziente(), PDO::PARAM_STR);
+        $stmt->bindValue(':IdFasciaOraria', $appuntamento->getFasciaoraria()->getIdFasciaoraria(), PDO::PARAM_STR);
     }
 
     /** PER FARE LA LOAD DAL DB ed INSTANZIARE gli appuntamenti data query result l'array degli APPUNTAMENTI da istanziare
@@ -71,16 +70,16 @@ class FAppuntamento{
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
                 $paziente = FPaziente::getObj($queryResult[$i]['IdPaziente']);
-                $appuntamento->setPaziente($paziente);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
+                $appuntamento->setpaziente($paziente[0]);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
                 //Metto la fascia oraria (FOREIGN KEY)
                 //DA TESTARE
                 $fascia_oraria = FFasciaOraria::getObj($queryResult[$i]['IdFasciaOraria']);  //
-                $appuntamento->setFasciaoraria($fascia_oraria);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
+                $appuntamento->setFasciaoraria($fascia_oraria[0]);  //FK->GLI ASSEGNO DIRETTAMENTE L'OGGETTO
 
                 //ispirazione presa da FReport
-                //$recensioni[] = $appuntamento;
+                $appuntamenti[] = $appuntamento;
             }
             return $appuntamenti;   //ARRAY DEGLI APPUNTAMENTI
         }else{
@@ -129,18 +128,15 @@ class FAppuntamento{
     //if field null salva, sennò deve updetare la table
     //fieldArray è un array che deve contere array aventi nome del field e valore 
     //ALTRO MALLOPPONE CHE SERVE A SALVARE UN APPUNTAMENTO o AD AGGIORNARNE I DATI
-
     public static function saveObj($obj, $fieldArray = null){
-        if($fieldArray === null){   
+        if($fieldArray === null){
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FAppuntamento::getClass(), $obj);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
+                    //$saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if($saveUser){
-                        return $savePersonAndLastInsertedID;
-                    }
+                    return $savePersonAndLastInsertedID;
                 }else{
                     return false;
                 }
@@ -150,7 +146,7 @@ class FAppuntamento{
                 return false;
             }finally{
                 FEntityManagerSQL::getInstance()->closeConnection();
-            }  
+            }
         }else{   //QUA è NEL CASO DI UPDATE $fieldarray contiene i campi da updatare
             try{
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
@@ -167,7 +163,7 @@ class FAppuntamento{
                 return false;
             }finally{
                 FEntityManagerSQL::getInstance()->closeConnection();
-            }  
+            }
         }
     }
 

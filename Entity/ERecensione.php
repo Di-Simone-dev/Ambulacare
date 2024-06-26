@@ -5,7 +5,7 @@ class ERecensione
     private $titolo;
     private $contenuto;
     private float $valutazione;
-    private DateTime $data_creazione;
+    private $data_creazione;
 
     private $medico;  //FK senza id
     
@@ -94,7 +94,7 @@ class ERecensione
 
     public function getPaziente()
     {
-        return $this->medico;
+        return $this->paziente;
     }
 
     public function setPaziente($paziente)

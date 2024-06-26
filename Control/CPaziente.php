@@ -80,7 +80,7 @@ class CPaziente{
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
     public static function dettagli_prenotazione($IdMedico,$weekdisplacement = 0){
-/*         if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo */
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
             $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
@@ -117,7 +117,7 @@ class CPaziente{
             }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
             $view = new VPaziente();
             $view->PrenotaEsame($arraymedico,$orari_disponinibilità,$giorno, ($weekdisplacement==1? true: false));
-       /*  }  */
+        } 
     }
 
     //1.4 conferma_appuntamento(orario_disponibilità)
@@ -125,7 +125,7 @@ class CPaziente{
     //l'implementazione di un controllo aggiuntivo sull'esistenza della fascia oraria libera risulta necessario
     //PER LA CREAZIONE DELL'APPUNTAMENTO CI SERVE LA FASCIAORARIA E IL PAZIENTE (lo stato non serve)
     public static function conferma_appuntamento(){  //DA FARE
-        /* if(CUtente::isLogged()){ */ //possiamo tenerlo o toglierlo
+        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $IdMedico = UHTTPMethods::post('IdMedico');
@@ -143,15 +143,13 @@ class CPaziente{
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
             $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
-            $IdPaziente = 3;/* USession::getSessionElement('id'); */
+            $IdPaziente = USession::getSessionElement('id');
             $Paziente = FPaziente::getObj($IdPaziente);
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-            var_dump(FEntityManagerSQL::getInstance()->
-            getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
             $IdFasciaOraria = (FEntityManagerSQL::getInstance()->
             getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-            $exist = isset($IdFasciaOraria);
+            $exist = is_int($IdFasciaOraria);
             if($exist){ //se il medico ha creato la disponibilità
                 $FasciaOraria = FFasciaOraria::getObj($IdFasciaOraria);
                 $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
@@ -159,19 +157,17 @@ class CPaziente{
                 if(!$busy){ //se la fascia non è occupata procediamo con la creazione dell'appuntamento
                     //CREARE APPUNTAMENTO
                     $appuntamento = new EAppuntamento($costo); //INSERIAMO il costo attualmente del medico ma poi rimane fisso
-                    var_dump($Paziente[0]);
                     $appuntamento->setpaziente($Paziente[0]);            //SETTIAMO IL PAZIENTE
                     $appuntamento->setFasciaoraria($FasciaOraria[0]);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                     FAppuntamento::saveObj($appuntamento);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
                     $messaggio = "Prenotazione effettuata con successo!";
-                    var_dump($appuntamento);
                 }
                 //NELLA REALTà C'è UN'ALTRA PAGINA INTERMEDIA, basta spostare il codice
             }
 
             $view = new VPaziente();
             $view->messaggio($messaggio);
-       /*  }  */
+        } 
     }
 
 //[paziente]caso d'uso 2 "visualizzare un referto"
@@ -180,28 +176,31 @@ class CPaziente{
 //PRENDO L'ID DEL PAZIENTE DALLA SESSIONE E CON QUESTO MI PRENDO TUTTI I SUOI APPUNTAMENTI CONCLUSI
 //QUINDI LA QUERY DEVE AVERE IN INPUT L'ID DEL PAZIENTE E OPERARE SULLA TABELLA DEGLI APPUNTAMENTI MA CONTROLLARE CHE LA DATA SIA PASSATA
 public static function visualizza_appuntamenti_effettuati(){
-     if(CUtente::isLogged()){  //BISOGNA TENERLO
+     /* if(CUtente::isLogged()){ */  //BISOGNA TENERLO
         
-        $IdPaziente = USession::getSessionElement('id');
+        $IdPaziente =  3; /* USession::getSessionElement('id'); */
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente);
         $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento
-            (FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente));
+            ($app);
 
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_paziente_conclusi);$i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
-                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento);
+                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento())[0]["IdMedico"];
             $medico = FMedico::getObj($IdMedico);
-            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_paziente_conclusi[$i]->getIdFasciaoraria());
-            $datastring = $fasciaoraria[0]->getDatatostring();
-            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]["IdAppuntamento"];
+            $fasciaoraria = $appuntamenti_paziente_conclusi[$i]->getFasciaoraria();
+            $datastring = $fasciaoraria->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
+            $arrayappuntamenti[$i]["IdMedico"] = $medico[0]->getIdMedico();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]["costo"];
-            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]->getCosto();
+            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()[0]->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
+            isset($app[$i]["IdReferto"])? $arrayappuntamenti[$i]["referto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["referto"] = false;
         }
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
         //l'id dell'appuntamento va tenuto per associarlo ai bottoni di recensioni e di visualizzazione referto
@@ -209,10 +208,9 @@ public static function visualizza_appuntamenti_effettuati(){
         //serve passare anche le tipologie
         $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        var_dump($tipologie); echo "\n"; var_dump($arrayappuntamenti);
         $view = new VPaziente();
         $view->showStoricoEsami($arrayappuntamenti,$tipologie);
-     }  
+   /*   }   */
 }
 
 //2.2 ricerca_esami_effettuati
@@ -224,25 +222,28 @@ public static function ricerca_appuntamenti_effettuati(){
         $dataform = UHTTPMethods::post('data');
         $IdTipologia = UHTTPMethods::post('IdTipologia');
 
-        $IdPaziente = USession::getSessionElement('id');
-        $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
-            (FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente,$dataform,$IdTipologia));
+        $IdPaziente =  3; /* USession::getSessionElement('id'); */
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente);
+        $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento
+            ($app);
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_paziente_conclusi)){
+        for($i=0;$i<count($appuntamenti_paziente_conclusi); $i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
-                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento);
+                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento())[0]["IdMedico"];
             $medico = FMedico::getObj($IdMedico);
-            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_paziente_conclusi[$i]->getIdFasciaoraria());
-            $datastring = $fasciaoraria[0]->getDatatostring();
-            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]["IdAppuntamento"];
+            $fasciaoraria = $appuntamenti_paziente_conclusi[$i]->getFasciaoraria();
+            $datastring = $fasciaoraria->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
+            $arrayappuntamenti[$i]["IdMedico"] = $medico[0]->getIdMedico();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]["costo"];
-            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]->getCosto();
+            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()[0]->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
+            isset($app[$i]["IdReferto"])? $arrayappuntamenti[$i]["referto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["referto"] = false;
         }
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
         //l'id dell'appuntamento va tenuto per associarlo ai bottoni di recensioni e di visualizzazione referto
@@ -255,13 +256,13 @@ public static function ricerca_appuntamenti_effettuati(){
 
 //PREMENDO sul bottone viene passato anche l'id dell'appuntamento, quindi lo usiamo per andare a prendere il referto dal db
 //2.3 visualizza_referto()
-public static function visualizza_referto($IdAppuntamento){
+public static function visualizza_referto($IdReferto){
    /*  if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $arrayreferto = array();
-        $referto = FReferto::creareferto(
-            FEntityManagerSQL::getInstance()->retrieveObj("referto","IdAppuntamento",$IdAppuntamento));
+        $referto = FReferto::getObj($IdReferto);
 
+        /* var_dump($referto); */
         $arrayreferto["oggetto"] = $referto[0]->getOggetto();
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
@@ -270,6 +271,10 @@ public static function visualizza_referto($IdAppuntamento){
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
 
+        var_dump($arrayreferto);
+        $view = new VPaziente();
+        $view->messaggio("Referto da visualizzare!!");
+
    /*  }  */
 }
 
@@ -277,13 +282,13 @@ public static function visualizza_referto($IdAppuntamento){
 //PARTIAMO DIRETTAMENTE DALLA SCHERMATA DI VISUALIZZAZIONE DEGLI APPUNTAMENTI CONCLUSI 3.1 è già presente e concide con 2.1
 
 //3.2 accedi_schermata_recensioni
-public static function accedi_schermata_recensioni($IdAppuntamento){
+public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
    /*  if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
         //BISOGNERà PASSARE L'Id del medico a cui attribuire la recensione perchè serve nello step successivo per la creazione
         //quindi va tenuto, possibilmente anche in sessione se serve
         //SERVE PASSARE TUTTI I DATI RELATIVI AL MEDICO A CUI METTIAMO LA RECENSIONE
         
-        $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
+        $medico = FMedico::getObj($IdMedico);
         
         $costoapp = FAppuntamento::getObj($IdAppuntamento)[0]->getCosto(); //questo non dipende più dal medico
         $arraymedico = array();
@@ -293,12 +298,11 @@ public static function accedi_schermata_recensioni($IdAppuntamento){
         $arraymedico["cognome"] = $medico[0]->getCognome();
         $arraymedico["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
         $arraymedico["costo"] = $costoapp;
-        $arraymedico["nometipologia"] = $medico[0]->getTipologia()->getNometipologia(); 
+        $arraymedico["nometipologia"] = $medico[0]->getTipologia()[0]->getNometipologia(); 
         $arraymedico["tipoimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();
         
         $view = new VPaziente();
-        var_dump($arraymedico);
         $view->Recensione($arraymedico);
 
    /*  }  */
@@ -306,7 +310,7 @@ public static function accedi_schermata_recensioni($IdAppuntamento){
 
 //3.3 conferma_recensione(Titolo,contenuto,voto)
 public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRAVERSO LA SESSIONE
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
         
         $IdMedico = UHTTPMethods::post('IdMedico'); //prendendolo da un campo nascosto del form
         $medico = FMedico::getObj($IdMedico);
@@ -314,16 +318,18 @@ public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRA
         $contenuto = UHTTPMethods::post('contenuto');
         $valutazione = UHTTPMethods::post('voto');     //PRENDO I VALORI DAL FORM
         $data_creazione = new DateTime(); //data del momento della creazione
-        $IdPaziente = USession::getSessionElement('id'); //l'id del paziente per la creazione della recensione
+        $dataOraStringa = $data_creazione->format('Y-m-d');
+        $IdPaziente = 3; /* USession::getSessionElement('id'); */ //l'id del paziente per la creazione della recensione
         $paziente = FPaziente::getObj($IdPaziente);
 
-        $recensione = new ERecensione($titolo,$contenuto,$valutazione,$data_creazione);
-        $recensione->setPaziente($paziente);
-        $recensione->setMedico($medico);//setto gli oggetti instanziati all'interno della recensione
+        $recensione = new ERecensione($titolo,$contenuto,$valutazione,$dataOraStringa);
+        $recensione->setPaziente($paziente[0]);
+        $recensione->setMedico($medico[0]);//setto gli oggetti instanziati all'interno della recensione
         FRecensione::saveObj($recensione); //una volta settato tutto la salvo nel db
         
         $view = new VPaziente();
-    } 
+        $view->messaggio("Recensione caricata correttamente!");
+  /*   }  */
 }
 
 //[paziente]caso d'uso 9 "modifica appuntamento" 
@@ -332,10 +338,10 @@ public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRA
 //9.1 visualizza_appuntamenti_prenotati()
 //DOBBIAMO OPERARE SUGLI ESAMI PRENOTATI (QUINDI NON ANCORA SVOLTI)=>CONDIZIONE SULLA DATA NELLA QUERY
 public static function visualizza_appuntamenti_prenotati(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
         //a questo punto prendiamo l'id del paziente della sessione e ritorniamo gli appuntamenti non ancora svolti
 
-        $IdPaziente = USession::getSessionElement('id');
+        $IdPaziente = 3; /* USession::getSessionElement('id'); */
         $appuntamenti_paziente_prenotati = FAppuntamento::creaappuntamento
             (FEntityManagerSQL::getInstance()->getappuntamentiprenotatifromIdPaziente($IdPaziente));
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
@@ -363,7 +369,7 @@ public static function visualizza_appuntamenti_prenotati(){
         $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
         $view = new VPaziente();
         $view->ShowAppuntamentiPrenotati($arrayappuntamenti, $tipologie);
-    } 
+   /*  }  */
 }
 
 //9.2 dettagli_appuntamento()

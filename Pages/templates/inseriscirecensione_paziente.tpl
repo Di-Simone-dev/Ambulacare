@@ -63,6 +63,7 @@
                     <input type="hidden" name="IdMedico" value="{$medico.IdMedico}">
                     <br><br><br>
                     <div>
+                    <input type="hidden" name="IdMedico" value="{$medico.IdMedico}">
                         <a href="" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>

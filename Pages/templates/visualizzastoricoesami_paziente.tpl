@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <h2><label for="storico">Storico Esami</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select-m" required>
+                        <select name="IdTipologia" id="categ" class="form-select-m" required>
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}"
                                     {if $tipologia.IdTipologia == $Idtipologia}
@@ -46,9 +46,9 @@
                         <td>{$esame.nomemedico} {$esame.cognomemedico}</td>
                         <td>{$esame.nometipologiamedico}</td>
                         <td>{$esame.costomedico}</td>
-                        <td><a class="btn btn-primary" href="/Ambulcare/Paziente/accedi_schermata_recensioni/{$esame.IdAppuntamento}">Aggiungi Recensione</a>
+                        <td><a class="btn btn-primary" href="/Ambulacare/Paziente/accedi_schermata_recensioni/{$esame.IdMedico}/{$esame.IdAppuntamento}">Aggiungi Recensione</a>
                             {if $esame.referto}
-                                <a class="btn btn-primary" href="/Ambulcare/Paziente/visualizza_referto/{$esame.IdAppuntamento}>Visualizza Referto</a>
+                                <a class="btn btn-primary" href="/Ambulacare/Paziente/visualizza_referto/{$esame.referto}">Visualizza Referto</a>
                             {/if}
                         </td>
                     </tr>

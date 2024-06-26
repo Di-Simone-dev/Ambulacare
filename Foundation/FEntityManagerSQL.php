@@ -69,6 +69,7 @@ class FEntityManagerSQL{
             $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
             $stmt = self::$db->prepare($query);
             $stmt->execute();
+            /* var_dump($stmt); */
             $rowNum = $stmt->rowCount();
             if($rowNum > 0){
                 $result = array();
@@ -618,21 +619,29 @@ class FEntityManagerSQL{
         try{
 
             if($data && $IdTipologia && $past){ //se passiamo anche questi la query include questi parametri
-                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdTipologia,IdMedico
-                          FROM appuntamento,fascia_oraria,calendario,medico
-                          WHERE IdPaziente = '" . $IdPaziente . "'AND data = '" . $data . "' 
-                          AND IdTipologia = '" . $IdTipologia . " ORDER BY data DESC;";
+                $query = "SELECT appuntamento.IdAppuntamento,IdPaziente, appuntamento.IdFasciaOraria,IdTipologia, medico.IdMedico, appuntamento.costo, referto.IdReferto
+                          FROM appuntamento 
+                          Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                          INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
+                          LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND CAST(data as DATE) = '" . $data . "' 
+                          AND IdTipologia = '" . $IdTipologia . "' ORDER BY data DESC;";
             }
             else
             {   //l'id medico serve per la recensione in ogni caso
-                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico 
-                          FROM appuntamento,fascia_oraria,calendario,medico
-                          WHERE IdPaziente = '" . $IdPaziente . "'AND GETDATE()<=data ORDER BY data DESC;";
+                $query = "SELECT appuntamento.IdAppuntamento,IdPaziente,appuntamento.IdFasciaOraria, medico.IdMedico, appuntamento.costo, referto.IdReferto
+                          FROM appuntamento
+                          Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                          INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
+                          LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento
+                          WHERE IdPaziente = '" . $IdPaziente . "'AND CURDATE()>=data ORDER BY data DESC;";
             }
            
             
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
+            /* var_dump($query); */
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){
@@ -655,10 +664,12 @@ class FEntityManagerSQL{
     public static function getIdMedicofromIdAppuntamento($IdAppuntamento){ 
         try{ 
             $query = "SELECT IdAppuntamento,IdMedico 
-                          FROM appuntamento,fascia_oraria,calendario
-                          WHERE IdAppuntamento = '" . $IdAppuntamento . ";";
+                          FROM appuntamento
+                          INNER JOIN fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                          INNER JOIN calendario on calendario.IdCalendario = fascia_oraria.IdCalendario
+                          WHERE IdAppuntamento = '" . $IdAppuntamento . "';";
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
+            /* var_dump($stmt); */
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){

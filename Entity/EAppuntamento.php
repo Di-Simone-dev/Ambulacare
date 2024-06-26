@@ -39,7 +39,7 @@ class EAppuntamento
 
     public function setCosto($costo)
     {
-        $this->stato = $costo;
+        $this->costo = $costo;
     }
     
 
@@ -54,7 +54,7 @@ class EAppuntamento
     }
     public function getFasciaoraria()
     {
-        return $this->paziente;
+        return $this->fascia_oraria;
     }
 
     public function setFasciaoraria($IdFascia_oraria)

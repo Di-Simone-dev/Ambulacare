@@ -215,7 +215,7 @@ class VPaziente
 	 */
     public function Recensione($medico){
         $this->smarty->assign('medico',$medico);
-        $this->smarty->display('inseriscirecensione.tpl');
+        $this->smarty->display('inseriscirecensione_paziente.tpl');
     }
 
 	public function showEsami($tipologie, $medici, $Idtipologia = false){

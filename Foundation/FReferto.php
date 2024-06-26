@@ -66,13 +66,13 @@ class FReferto {
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
                 $immagine = FImmagine::getObj($queryResult[$i]['IdImmagine']);  //il campo IdPaziente è proprio l'id
-                $referto->setIdImmagine($immagine);
+                $referto->setIdImmagine($immagine[0]->getIdImmagine());
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)
                 //DA TESTARE
                 $appuntamento = FAppuntamento::getObj($queryResult[$i]['IdAppuntamento']);  //il campo IdMedico è proprio l'id
-                $referto->setAppuntamento($appuntamento);
+                $referto->setAppuntamento($appuntamento[0]);
 
                 //ispirazione presa da FReport
                 $referti[] = $referto;
