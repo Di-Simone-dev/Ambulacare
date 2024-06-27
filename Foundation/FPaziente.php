@@ -223,7 +223,23 @@ class FPaziente  {
     }
 
 
+    public static function getPazientinonBannati()
+    {
+        $result = FEntityManagerSQL::getInstance()->retrieveattivi(self::getTable());
+        //$result contiene i medici con IdTipologia e NON bannati
+        //il controllo sul ban viene effettuato direttamente nel metodo objectListNotRemoved
+        if(count($result) == 1){
+            $medici = array();
+            $medico = self::creapaziente($result);
+            $medici[] = $medico;
+            return $medici;
+        }elseif(count($result) > 1){
+            return self::creapaziente($result);
+        }else{
+            return $result;
+        }
 
+    }
 
     
 

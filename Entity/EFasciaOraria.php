@@ -5,7 +5,7 @@ class EFasciaoraria
 
     private $IdFascia_oraria;
 
-    private DateTime $data;
+    private $data;
 
 
     private $calendario;   //FK
@@ -15,8 +15,8 @@ class EFasciaoraria
     public function __construct($data)
     {
         //$this->IdFascia_oraria;  l'id non va nel costruttore, perchè si mette con il metodo setIdFasciaOraria()
-        $time = new DateTime($data);
-        $this->data=$time;
+        /* $time = new DateTime($data); */
+        $this->data=$data;
         //$this->ora_inizio=$ora_inizio;
 
     }
@@ -38,11 +38,11 @@ class EFasciaoraria
 
     public function getDatatostring()
     {
-        return $this->data->format('G:i d/m/y');
+        return $this->data;
         //$format4 = $dateTime->format('G:i d/m/y'); // Output:03/06/23 03:45
     }
 
-    public function setData(DateTime $data): void
+    public function setData($data): void
     {
         $this->data = $data;
     }

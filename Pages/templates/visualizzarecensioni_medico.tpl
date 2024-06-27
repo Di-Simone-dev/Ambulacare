@@ -39,10 +39,10 @@
             <tbody style="text-align: center;">
             {foreach $recensioni as $recensione}
                 <tr>
-                    <td>{$recensione.paziente}</td>
-                    <td>{$recensione.data}</td>
+                    <td>{$recensione.nominativopaziente}</td>
+                    <td>{$recensione.data_creazione}</td>
                     <td>{$recensione.valutazione}/5&#9733;</td>
-                    <td><button class="btn btn-primary">Dettagli</button></td>
+                    <td><a href="/Ambulacare/Medico/dettagli_recensione/{$recensione.IdRecensione}" class="btn btn-primary">Dettagli</a></td>
                 </tr>
             {/foreach}
             </tbody>

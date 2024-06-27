@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Storico Esami di {$nomePaziente} {$cognomePaziente}</h2>
+                <h2>Storico Esami di {$paziente.nome} {$paziente.cognome}</h2>
             </div>
         </div>
     </div>
@@ -15,8 +15,7 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Ora</th>
+                    <th scope="col">Data e ora</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Azione</th>
@@ -25,13 +24,12 @@
             <tbody style="text-align: center;">
             {foreach $esami as $esame}
                 <tr>
-                    <td>{$esame.data}</td>
-                    <td>{$esame.orario}</td>
-                    <td>{$esame.categoria}</td>
-                    <td>{$esame.medico.nome}</td>
+                    <td>{$esame.dataeora}</td>
+                    <td>{$esame.nometipologiamedico}</td>
+                    <td>{$esame.nomemedico} {$esame.cognomemedico}</td>
                     <td>
-                        {if $esame.referto}
-                            <a href=""><button class="btn btn-primary">Visualizza Referto</button></a>
+                        {if $esame.IdReferto}
+                            <a href="/Ambulacare/Medico/visualizza_referto/{$esame.IdReferto}" class="btn btn-primary">Visualizza Referto</a>
                         {/if}
                     </td>
                 </tr>

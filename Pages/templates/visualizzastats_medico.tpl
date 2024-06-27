@@ -10,7 +10,7 @@
         function getData() {
             return [
             {foreach $statistiche as $esame}
-                ['{$esame.data}',{$esame.numero}],
+                ['{$esame.data}',{$esame.NumEsami}],
             {/foreach}
             ];
         }

@@ -106,18 +106,23 @@ class FPersistentManager{
         //prende tutte le info del Paziente (per la visualizzazione della schermata di profilo)
         $paziente = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), 'IdPaziente', $IdPaziente);
         $infopaziente = array();
-        $infopaziente['nome'] = $paziente[0]->getNome();
-        $infopaziente['cognome'] = $paziente[0]->getCognome();
-        $infopaziente['email'] = $paziente[0]->getEmail();
-        $infopaziente['codice_fiscale'] = $paziente[0]->getCodiceFiscale();
-        $infopaziente['data_nascita'] = $paziente[0]->getDataNascita();
-        $infopaziente['luogo_nascita'] = $paziente[0]->getLuogoNascita();
-        $infopaziente['residenza'] = $paziente[0]->getResidenza();
-        $infopaziente['numero_telefono'] = $paziente[0]->getNumerotelefono();
+        $infopaziente['nome'] = $paziente[0]["nome"];
+        $infopaziente['cognome'] = $paziente[0]["cognome"];
+        $infopaziente['email'] = $paziente[0]["email"];
+        $infopaziente['codice_fiscale'] = $paziente[0]["codice_fiscale"];
+        $infopaziente['data_nascita'] = $paziente[0]["data_nascita"];
+        $infopaziente['luogo_nascita'] = $paziente[0]["luogo_nascita"];
+        $infopaziente['residenza'] = $paziente[0]["residenza"];
+        $infopaziente['numero_telefono'] = $paziente[0]["numero_telefono"];
 
         return $infopaziente;
     }
 
+    public static function retrievepazientiattivi()
+    {
+        $result = FPaziente::getPazientinonBannati();
+        return $result;
+    }
 
 
     //MEDICO

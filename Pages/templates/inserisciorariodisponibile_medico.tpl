@@ -6,13 +6,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Medico/conferma_orari_disponibilita" method="post">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
                             <br>
                             <a class="bottonitab">
-                                <</a>
+                                << /a>
                                     <a class="bottonitab">></a>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
@@ -27,9 +27,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {for $i=1; $i<7; $i++}
+                                            {for $j=1; $j<6; $j++}
                                                 <tr>
-                                                    {for $j = 1; $j<5; $j++}
+                                                    {for $i = 1; $i<7; $i++}
                                                         {if $fasceorarie[$i][$j]}
                                                             <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
                                                                 {13+$j}:30</td>
@@ -46,11 +46,17 @@
                                             name="datadisp" />
                                         <br>
                                         <label>Orario di Disponibilità: </label><br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="14:30"/>14:30-15:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="15:30"/>15:30-16:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="16:30"/>16:30-17:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="17:30"/>17:30-18:30<br>
-                                    <input type="checkbox" id="orariodisp" name="orariodisp" value="18:30"/>18:30-19:30</h3>
+                                        <input type="checkbox" id="orariodisp" name="orariodisp[]"
+                                            value="14:30" />14:30-15:30<br>
+                                        <input type="checkbox" id="orariodisp" name="orariodisp[]"
+                                            value="15:30" />15:30-16:30<br>
+                                        <input type="checkbox" id="orariodisp" name="orariodisp[]"
+                                            value="16:30" />16:30-17:30<br>
+                                        <input type="checkbox" id="orariodisp" name="orariodisp[]"
+                                            value="17:30" />17:30-18:30<br>
+                                        <input type="checkbox" id="orariodisp" name="orariodisp[]"
+                                            value="18:30" />18:30-19:30
+                                        </h3>
                                     </div>
                         </div>
                     </div>

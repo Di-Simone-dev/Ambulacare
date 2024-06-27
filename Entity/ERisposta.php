@@ -3,7 +3,7 @@ class ERisposta
 {
     private $IdRisposta;
     private $contenuto;
-    private DateTime $data_creazione;
+    private $data_creazione;
     private $recensione;   //FK senza ID
     private $medico;  //FK SENZA ID
     private static $entity = ERisposta::class;
@@ -42,7 +42,8 @@ class ERisposta
         return $this->data_creazione;
     }
     private function setDatacreazioneora(){
-        $this->data_creazione = new DateTime("now");  //in teoria dovrebbe settare un valore sensato
+        $data = new DateTime("now");
+        $this->data_creazione = $data->format('Y-m-d H:i:s');  //in teoria dovrebbe settare un valore sensato
     }
 
     public function getData_creazionestringa()   //ritorna una stringa

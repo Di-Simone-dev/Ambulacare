@@ -6,21 +6,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Medico/ricerca_pazienti" method="post">
                     <div class="form-group" >
                     <h2>Ricerca Pazienti</h2>
                     <br>
-                        <input type="text" id="nomepaziente" placeholder="Nome Paziente" name="nomepaziente" required>
+                        <input type="text" id="nomepaziente" placeholder="Nome Paziente" name="nome" required>
                         <br><br>
-                        <input type="text" id="cognomepaziente" placeholder="Cognome Paziente" name="cognomepaziente" required>
-                        
+                        <input type="text" id="cognomepaziente" placeholder="Cognome Paziente" name="cognome" required>
                     <br><br>
-                        <select name="ordinaricerca" id="ordina" class="form-select" required>
-                            <option value="">Ordina per...</option>
-                            <option value="nome">Nome</option>
-                            <option value="cognome">Cognome</option>
-                        </select>
-                    <br>
                     <button type="submit" class="btn btn-primary">Avvia Ricerca Paziente</button>
                 </div>
                 </form>
@@ -41,11 +34,12 @@
             <tbody style="text-align: center;">
             {foreach $pazienti as $paziente}
                 <tr>
-                    <td>{$paziente.nome}</td>
-                    <td>{$paziente.cognome}</td>
-                    <td>{$paziente.datanascita}</td>
-                    <td><a href=""><button class="btn btn-primary">Visualizza Storico Esami</button></a></td>
+                    <td>{$paziente.nomepaziente}</td>
+                    <td>{$paziente.cognomepaziente}</td>
+                    <td>{$paziente.data_nascita}</td>
+                    <td><a href="/Ambulacare/Medico/dettagli_storico_paziente/{$paziente.IdPaziente}" class="btn btn-primary">Visualizza Storico Esami</a></td>
                 </tr>
+            {/foreach}
             </tbody>
         </table>
     </div>

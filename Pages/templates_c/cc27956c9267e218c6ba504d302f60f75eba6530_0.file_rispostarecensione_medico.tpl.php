@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 16:34:36
+/* Smarty version 5.3.0, created on 2024-06-27 17:28:26
   from 'file:rispostarecensione_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66719afc8fd950_35928370',
+  'unifunc' => 'content_667d851a7434f3_15921160',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cc27956c9267e218c6ba504d302f60f75eba6530' => 
     array (
       0 => 'rispostarecensione_medico.tpl',
-      1 => 1718721274,
+      1 => 1719502103,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66719afc8fd950_35928370 (\Smarty\Template $_smarty_tpl) {
+function content_667d851a7434f3_15921160 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_78498073066719afc8ef478_23477946', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_319697105667d851a73ba36_35108187', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_78498073066719afc8ef478_23477946 extends \Smarty\Runtime\Block
+class Block_319697105667d851a73ba36_35108187 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -41,32 +41,36 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
     <div class="container">
         <div class="row">
             <div class="col">
-                <br>
-                <h1>Risposta Recensione</h1>
-                <br><br>
-                <h2>Paziente : <?php echo $_smarty_tpl->getValue('esame')['paziente'];?>
+                <h2>Titolo Recensione: <?php echo $_smarty_tpl->getValue('recensione')['titolo'];?>
 </h2>
+                <h3>Oggetto Recensione: <?php echo $_smarty_tpl->getValue('recensione')['contenuto'];?>
+</h3>
+            </div>
+            <div class="col">
                 <br>
-                <h2>Categoria : <?php echo $_smarty_tpl->getValue('esame')['nome'];?>
- &ensp;&ensp;&ensp;&ensp;Costo: <?php echo $_smarty_tpl->getValue('esame')['costo'];?>
-€</h2>
+                <h2>Risposta Recensione</h2>
                 <br>
-                <h2>Data : <?php echo $_smarty_tpl->getValue('esame')['data'];?>
- &ensp;&ensp;&ensp;&ensp; Ora: <?php echo $_smarty_tpl->getValue('esame')['orario'];?>
-</h2>
+                <h3>Paziente : <?php echo $_smarty_tpl->getValue('recensione')['nominativopaziente'];?>
+</h3>
                 <br>
-                <form action="#">
+                <h3>Data : <?php echo $_smarty_tpl->getValue('recensione')['data_creazione'];?>
+</h3>
+                <br>
+                <form action="/Ambulacare/Medico/inserisci_risposta" method="post">
                     <div class="form-group"></div>
-                    <h3><label for="oggetto">Oggetto Risposta: </label>
-                        <input id="oggetto" name="oggetto" placeholder="Oggetto" style="width: 800px;height: 35px;">
+                    <h4><label for="oggetto">Oggetto Risposta: </label>
+                        <input type="text" id="oggetto" name="oggetto" placeholder="Oggetto"
+                            style="width: 800px;height: 35px;">
                         <br><br><label for="contenuto">Contenuto Risposta:</label>
-                        <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;">
-                    </h3>
-                    <br><br><br><br><br>
+                        <textarea id="contenuto" name="contenuto" style="width: 800px;height: 170px;">Scrivi qua</textarea>
+                        <input type="hidden" name="IdRecensione" value="<?php echo $_smarty_tpl->getValue('recensione')['IdRecensione'];?>
+">
+                    </h4>
+                    <br><br>
                     <div>
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                            <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
             </div>
             </form>

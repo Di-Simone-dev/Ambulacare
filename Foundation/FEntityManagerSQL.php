@@ -189,6 +189,7 @@ class FEntityManagerSQL{
     {
         try{
             $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValues();
+            /* var_dump($query); */
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt, $obj);
             $stmt->execute();
@@ -423,8 +424,11 @@ class FEntityManagerSQL{
     public static function getagendamedico($IdMedico){
         
         try{
-            $query = "SELECT IdMedico,IdFasciaOraria,IdAppuntamento,IdPaziente FROM calendario,fascia_oraria,appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=data ORDER BY data;";
+            $query = "SELECT calendario.IdMedico, fascia_oraria.IdFasciaOraria,appuntamento.IdAppuntamento, appuntamento.IdPaziente, costo, appuntamento.IdPaziente
+                      FROM calendario
+                      INNER JOIN fascia_oraria ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                      INNER JOIN appuntamento ON appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                      WHERE IdMedico = '" . $IdMedico . "'AND CURDATE()<=data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
@@ -438,15 +442,18 @@ class FEntityManagerSQL{
                 }
                 //return $result;
                 $agenda=array();
-                for($i=0;$i++;$i<$rowNum)
+                for($i=0;$i<$rowNum;$i++)
                 {
                     //devo construire l'array da restituire
                     $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
                     $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
                     
-                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome()+" "+$paziente[0]->getNome(); //da testare
+                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome() . " ". $paziente[0]->getNome(); //da testare
                     $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData();  //da testare 
-                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"];  //da testare    
+                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"];  //da testare
+                    $agenda[$i]["costo"] = $result[$i]["costo"];
+                    $agenda[$i]["IdPaziente"] = $result[$i]["IdPaziente"];
+                    $agenda[$i]["IdFasciaOraria"] = $result[$i]["IdFasciaOraria"];    
                 }
                 return $agenda;
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
@@ -576,8 +583,9 @@ class FEntityManagerSQL{
     public static function getIdFasciaOrariafromIdMedicondata($IdMedico,$data){ 
         
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
-            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data
-                      FROM calendario,fascia_oraria
+            $query = "SELECT IdMedico, IdFasciaOraria,fascia_oraria.data
+                      FROM calendario
+                      INNER JOIN fascia_oraria on calendario.IdCalendario = fascia_oraria.IdCalendario 
                       WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data->format('Y-m-d H:i:s') . "' ORDER BY data;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
@@ -777,10 +785,12 @@ class FEntityManagerSQL{
     public static function getstatistiche($IdMedico,$data1,$data2){ 
         
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
-            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data,costo
-                      FROM calendario,fascia_oraria,appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "' AND data BETWEEN '" . $data1 . "' AND '" . $data2 . "'
-                      ORDER BY data ASC;";//prendo solo l'ora per il controllo
+            $query = "SELECT COUNT(*) as NumEsami, data, SUM(appuntamento.costo) as guadagno
+                      FROM calendario
+                      INNER JOIN fascia_oraria ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                      INNER JOIN appuntamento ON appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria 
+                      WHERE IdMedico = '" . $IdMedico . "' AND DATE_FORMAT(fascia_oraria.data, '%Y-%m-%d') BETWEEN '" . $data1 . "' AND '" . $data2 . "'
+                      GROUP BY data ORDER BY data ASC;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
             //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
@@ -813,10 +823,12 @@ class FEntityManagerSQL{
     public static function getstatistichegenerali($IdMedico,$data1,$data2){ 
         
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
-            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data,SUM(costo) as sommacosti,COUNT(IdFasciaOraria) as numappuntamenti
-                      FROM calendario,fascia_oraria,appuntamento
-                      WHERE IdMedico = '" . $IdMedico . "' AND data BETWEEN '" . $data1 . "' AND '" . $data2 . "'
-                      GROUP BY IdMedico;";//prendo solo l'ora per il controllo
+            $query = "SELECT IdMedico, fascia_oraria.IdFasciaOraria, SUM(costo) as sommacosti, COUNT(fascia_oraria.IdFasciaOraria) as numappuntamenti,  DATE_FORMAT(fascia_oraria.data, '%Y-%m-%d') as data
+                      FROM calendario
+                      INNER JOIN fascia_oraria ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                      INNER JOIN appuntamento ON appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria 
+                      WHERE IdMedico = '" . $IdMedico . "' AND  DATE_FORMAT(fascia_oraria.data, '%Y-%m-%d') BETWEEN '" . $data1 . "' AND '" . $data2 . "'
+                      GROUP BY data ORDER BY data ASC;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
             //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
@@ -826,7 +838,7 @@ class FEntityManagerSQL{
             //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
             
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
+            var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
             if($rowNum > 0){

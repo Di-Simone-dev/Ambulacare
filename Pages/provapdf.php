@@ -4,7 +4,7 @@ require('./fpdf186/fpdf.php');
 $pdf=new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial','B',22);
-$pdf->Write(5,'Referto esame di rettoscopia Sig. Andrea Iannotti');
+$pdf->Write(5,'Referto esame di rettoscopia Sig. Piero Marcozzi');
 $pdf->Ln(15);
 $pdf->SetFont('Arial','B',18);
 $pdf->Write(4,'Medico: Dr. Emanuele Papile');

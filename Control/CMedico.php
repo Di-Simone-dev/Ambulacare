@@ -149,32 +149,48 @@ public static function caricamento_referto(){
 //[medico]caso d'uso 5 "inserimento orari di disponibilità"
 
 //5.1 mostra_orari()
-public static function mostra_orari_disponibilità(){
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+public static function mostra_orari_disponibilita($weekdisplacement=0){
+    /* if(CUtente::isLogged()){ */ //possiamo tenerlo o toglierlo
         
-        $IdMedico = USession::getSessionElement('id');
+        $IdMedico = 3 /* USession::getSessionElement('id') */;
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
         $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
-        $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
-        
+        $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
         //servirebbe anche la valutazione del medico
-        $view = new VMedico($orari_disponinibilità); //servirebbe una cosa del genere per il passaggio dei parametri
-        header('Location: /appuntamento/esamidaprenotare/$idesame '); //che poi id esame sarebbe quello che del medico
-    } 
+        if ($weekdisplacement == 0){
+            $giorno[0] = date("d/m",strtotime('Monday this week'));
+            $giorno[1] = date("d/m",strtotime('Tuesday this week'));
+            $giorno[2] = date("d/m",strtotime('Wednesday this week'));
+            $giorno[3] = date("d/m",strtotime('Thursday this week'));
+            $giorno[4] = date("d/m",strtotime('Friday this week'));
+            $giorno[5] = date("d/m",strtotime('Saturday this week'));
+            }
+            elseif ($weekdisplacement==1){
+                $giorno[0] = date("d/m",strtotime('Monday next week'));
+                $giorno[1] = date("d/m",strtotime('Tuesday next week'));
+                $giorno[2] = date("d/m",strtotime('Wednesday next week'));
+                $giorno[3] = date("d/m",strtotime('Thursday next week'));
+                $giorno[4] = date("d/m",strtotime('Friday next week'));
+                $giorno[5] = date("d/m",strtotime('Saturday next week'));
+            }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
+        $view = new VMedico(); //servirebbe una cosa del genere per il passaggio dei parametri
+        $view->ShowPageOrari($orari_disponinibilità,$giorno); //che poi id esame sarebbe quello che del medico
+   /*  }  */
 }
 
 //5.2 conferma_orari_disponibilità(data,slot1,slot2,.....)
 
-public static function conferma_orari_disponibilità(){  //questa funzione crea le fasce orarie
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+public static function conferma_orari_disponibilita(){  //questa funzione crea le fasce orarie
+    /* if(CUtente::isLogged()){ */ //possiamo tenerlo o toglierlo
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
-        $dataform = UHTTPMethods::post('data');
-        $slotarray = UHTTPMethods::post('slotarray');  //$slotarray = ["14:30","15:30","17:30"]
+        $messaggio = "Errore con la fascia oraria";
+        $dataform = UHTTPMethods::post('datadisp');
+        $slotarray = UHTTPMethods::post('orariodisp');  //$slotarray = ["14:30","15:30","17:30"]
         //su slot potrei farmi passare anche solo un valore di questo array da 1 a 5
         //$orari = ["0","14:30:00","15:30:00","16:30:00","17:30:00","18:30:00"];
         //$ora = $orari[$nslot]; //bisogna vederla nel ciclo per la creazione
@@ -186,7 +202,7 @@ public static function conferma_orari_disponibilità(){  //questa funzione crea 
             $data = new DateTime($dateTimeString);
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
-            $IdMedico = USession::getSessionElement('id');
+            $IdMedico = 3;/* USession::getSessionElement('id') */;
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
@@ -197,20 +213,21 @@ public static function conferma_orari_disponibilità(){  //questa funzione crea 
             // la creazione, subito successivo alla creazione del medico, quindi assumiamo che ci sia già
             //$IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
             //$busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
-            $fascia_oraria = new EFasciaoraria($data);
+            $fascia_oraria = new EFasciaoraria($data->format("Y-m-d H:i:s"));
+            var_dump($fascia_oraria);
             $IdCalendario = FEntityManagerSQL::getInstance()->retrieveObj("calendario", "IdMedico" ,$IdMedico)[0]["IdCalendario"];
             $calendario = FCalendario::getObj($IdCalendario);
 
             $fascia_oraria->setCalendario($calendario[0]);
-
             FFasciaOraria::saveObj($fascia_oraria);  //QUESTA OPERAZIONE VA CICLATA IN BASE AI VALORI PASSATI IN INPUT DALLE CHECKBOX
+            $messaggio = "Fasce caricate correttamente!";
             
         }
         }
 
         $view = new VMedico(); //servirebbe una cosa del genere NON SO COSA PASSARE 
-        header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
-    } 
+        $view->messaggio($messaggio);
+   /*  }  */
 }
 
 //[medico]caso d'uso 6 "visualizzare lo storico esami di un paziente
@@ -231,8 +248,8 @@ public static function visualizza_pazienti(){
     }
     
     $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-    $view = new VMedico($arraypazienti); //servirebbe una cosa del genere
-    header('Location: /appuntamento/esamidaprenotare');
+    $view = new VMedico(); //servirebbe una cosa del genere
+    $view->listaPazienti($arraypazienti);
 }
 
 //6.2 ricerca_pazienti() dobbiamo visualizzare tutti i pazienti attivi sulla piattaforma
@@ -253,54 +270,55 @@ public static function ricerca_pazienti(){
     }
     
     //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-    $view = new VMedico($arraypazienti); //servirebbe una cosa del genere
-    header('Location: /appuntamento/esamidaprenotare');
+    $view = new VMedico(); //servirebbe una cosa del genere
+    $view->listaPazienti($arraypazienti);
 }
 
 //6.3) dettagli_paziente(paziente) grazie all'id inserito possiamo accedere allo storico esami del paziente selezionato 
 //MOLTO SIMILE A 2.1
 
 public static function dettagli_storico_paziente($IdPaziente){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
         
-        
+        $paziente = FPersistentManager::retrieveinfopaziente($IdPaziente);
         //$IdPaziente = USession::getSessionElement('id');
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente);
         $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
-            (FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente));
+            ($app);
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_paziente_conclusi);$i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
-                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento);
-            $medico = FMedico::getObj($IdMedico);
-            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_paziente_conclusi[$i]->getIdFasciaoraria());
+                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento());
+            $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
+            $fasciaoraria = FFasciaOraria::getObj($app[$i]["IdFasciaOraria"]);
             $datastring = $fasciaoraria[0]->getDatatostring();
-            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]["IdAppuntamento"];
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_paziente_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomemedico"] = $medico[0]->getNome();
             $arrayappuntamenti[$i]["cognomemedico"] = $medico[0]->getCognome();
             $arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
-            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]["costo"];
-            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
+            $arrayappuntamenti[$i]["costomedico"] = $appuntamenti_paziente_conclusi[$i]->getCosto();
+            $arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()[0]->getNometipologia(); 
             $arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             $arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
+            $app[$i]["IdReferto"]? $arrayappuntamenti[$i]["IdReferto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["IdReferto"] = false;
             //SERVE CONTROLLARE LA PRESENZA DEL REFERTO E SE PRESENTE INSERIRE L'ID SUL BOTTONE PER IL PROSSIMO PUNTO
         }
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
         //l'id dell'appuntamento va tenuto per associarlo ai bottoni di recensioni e di visualizzazione referto
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->showStoricoEsami($paziente,$arrayappuntamenti);
+   /*  }  */
 }
 
 //6.4) visualizza_referto()
-public static function visualizza_referto($IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+public static function visualizza_referto($IdReferto){
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $arrayreferto = array();
-        $referto = FReferto::creareferto(
-            FEntityManagerSQL::getInstance()->retrieveObj("referto","IdAppuntamento",$IdAppuntamento));
+        $referto = FReferto::getObj($IdReferto);
 
         $arrayreferto["oggetto"] = $referto[0]->getOggetto();
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
@@ -309,9 +327,8 @@ public static function visualizza_referto($IdAppuntamento){
         
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();     
-        $view = new VMedico($arrayreferto); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        var_dump($arrayreferto);
+   /*  }  */
 }
 
 //[medico]caso d'uso 7 "visualizzare esami complessivi e guadagni in un periodo di tempo
@@ -319,21 +336,21 @@ public static function visualizza_referto($IdAppuntamento){
 //7.1)visualizza_statistiche() qui non dovrei passare nulla per ora perchè servono le date
 
 public static function visualizza_statistiche(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         
         $view = new VMedico(); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view->ShowDataStatistiche();
+   /*  }  */
 }
 
 //7.2) calcola_statistiche(data1,data2) qui devo passare a view il numero complessivo di appuntamenti nel periodo di tempo selezionato
 //ed anche la somma dei costi degli appuntamenti, oltre che un array per il grafico effettivo
 
 public static function calcola_statistiche(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
-        $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
+        $IdMedico = 3 /* USession::getSessionElement('id') */; //prendiamo l'id dalla sessione
         $data1 = UHTTPMethods::post('data1');
         $data2 = UHTTPMethods::post('data2');
         //meccanismo per invertire le date nel caso la prima sia successiva alla seconda, potrebbe anche non servire
@@ -346,9 +363,10 @@ public static function calcola_statistiche(){
         $sommacosti = $statistiche_tot[0]["sommacosti"];
         $numappuntamenti = $statistiche_tot[0]["numappuntamenti"];
 
-        $view = new VMedico($appuntamenti,$sommacosti,$numappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        var_dump($appuntamenti);
+        $view->ShowStatistiche($appuntamenti,$data1,$data2,$sommacosti);
+   /*  }  */
 }
 
 //[medico]caso d'uso 8 "visualizzare e rispondere ad una recensione"
@@ -356,53 +374,59 @@ public static function calcola_statistiche(){
 //8.1) visualizza_recensioni()
 
 public static function visualizza_recensioni(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
-        $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
+        $IdMedico = 3 /* USession::getSessionElement('id') */; //prendiamo l'id dalla sessione
 
         $recensioni = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"$IdMedico",$IdMedico);
+        for ($i=0; $i<count($recensioni); $i++){
+            $paziente = FPaziente::getObj($recensioni[$i]["IdPaziente"]);
+            $recensioni[$i]["nominativopaziente"] = $paziente[0]->getNome() . " " . $paziente[0]->getCognome();
+        }
         //dovrebbe bastare passare il risultato della query visto che non sono oggetti
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
-        $view = new VMedico($recensioni); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->showRevPage($recensioni);
+    /* } */ 
 }
 
 //8.2) dettagli_recensione() nella schermata di dettaglio possiamo inserire la risposta alla recensione
 public static function dettagli_recensione($IdRecensione){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
-        $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
-
+        $IdMedico = 3 /* USession::getSessionElement('id') */; //prendiamo l'id dalla sessione
         $recensione = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"IdRecensione",$IdRecensione);
         $risposta = FEntityManagerSQL::getInstance()->retrieveObj(FRisposta::getTable(),"IdRecensione",$IdRecensione);
+        $paziente = FPaziente::getObj($recensione[0]["IdPaziente"]);
+        $recensione[0]["nominativopaziente"] = $paziente[0]->getNome() . " " . $paziente[0]->getCognome();
         //passiamo anche la risposta se esiste
         //$valutazione = $recensione["valutazione"];
         //dovrebbe bastare passare il risultato della query visto che non sono oggetti
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
-        $view = new VMedico($recensione,$risposta); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->RispostaRecensione($recensione[0]);
+    /* }  */
 }
 
 //8.3) inserisci_risposta() prendiamo i dati dal form e creiamo la risposta per salvarla nel db 
 public static function inserisci_risposta(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
-
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
+        $messaggio = "Errore nel caricamento della recensione";
         $IdRecensione = UHTTPMethods::post("IdRecensione");
-        $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
+        $IdMedico = 3 /* USession::getSessionElement('id') */; //prendiamo l'id dalla sessione
         
         $contenuto = UHTTPMethods::post("contenuto"); //contenuto della risposta
         $data = getdate();//data attuale
 
-        $risposta = new ERisposta($contenuto,$data);
+        $risposta = new ERisposta($contenuto);
         $risposta->setMedico(FMedico::getObj($IdMedico)[0]);
         $risposta->setRecensione(FRecensione::getObj($IdRecensione));
         $idr = FRisposta::saveObj($risposta); //setto tutto e salvo la risposta del medico
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
+        $messaggio = "Risposta caricata correttamente!";
         $view = new VMedico(); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view->messaggio($messaggio);
+   /*  }  */
 }
 
 //[medico]caso d'uso 9 "modifica appuntamento"
@@ -410,51 +434,70 @@ public static function inserisci_risposta(){
 //9.1 visualizza_agenda()
 
 public static function visualizza_agenda(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
         //a questo punto prendiamo l'id del paziente della sessione e ritorniamo gli appuntamenti non ancora svolti
 
-        $IdMedico = USession::getSessionElement('id');
-        $agenda = FAppuntamento::creaappuntamento
-            (FEntityManagerSQL::getInstance()->getagendamedico($IdMedico));
+        $IdMedico = 3/* USession::getSessionElement('id') */;
+        $agenda =FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
         //DOVREBBE BASTARE PASSARE QUESTA
-
-        $view = new VMedico($agenda); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->ShowAgenda($agenda);
+   /*  }  */
 }
 
 //9.2 dettagli_appuntamento()
 //con questo accediamo alla schermata di modifica dell'appuntamento 
 //PASSIAMO LE DISPONIBILITà, IL NOMINATIVO DEL PAZIENTE E LE VECCHIE DATE ED ORA DELL'APPUNTAMENTO
-public static function dettagli_appuntamento_modifica($IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisplacement = 0){
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
         //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
         $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
         $fasciaoraria = FFasciaOraria::getObj($appuntamento[0]->getFasciaoraria()->getIdFasciaoraria());
         $vecchiadataeora = $fasciaoraria[0]->getDatatostring();
-        $IdMedico = USession::getSessionElement('id');
+        $IdMedico = 3/* USession::getSessionElement('id') */;
         $paziente = FPaziente::getObj($appuntamento[0]->getPaziente()->getIdPaziente());
-        $nominativopaziente = $paziente[0]->getNome()+" "+$paziente[0]->getCognome();
+        $nominativopaziente = $paziente[0]->getNome()." ".$paziente[0]->getCognome();
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
         $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
-        $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno);
+        $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
         //DOVRO IMPLEMENTARE IL MODO DI CAMBIARE SETTIMANA DI VISUALIZZAZIONE
         
+        if ($weekdisplacement == 0){
+            $giorno[0] = date("d/m",strtotime('Monday this week'));
+            $giorno[1] = date("d/m",strtotime('Tuesday this week'));
+            $giorno[2] = date("d/m",strtotime('Wednesday this week'));
+            $giorno[3] = date("d/m",strtotime('Thursday this week'));
+            $giorno[4] = date("d/m",strtotime('Friday this week'));
+            $giorno[5] = date("d/m",strtotime('Saturday this week'));
+            }
+            elseif ($weekdisplacement==1){
+                $giorno[0] = date("d/m",strtotime('Monday next week'));
+                $giorno[1] = date("d/m",strtotime('Tuesday next week'));
+                $giorno[2] = date("d/m",strtotime('Wednesday next week'));
+                $giorno[3] = date("d/m",strtotime('Thursday next week'));
+                $giorno[4] = date("d/m",strtotime('Friday next week'));
+                $giorno[5] = date("d/m",strtotime('Saturday next week'));
+            }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
         
-        
-        $view = new VMedico($nominativopaziente,$orari_disponinibilità,$vecchiadataeora); //servirebbe anche la fascia oraria
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $app = [
+            "IdAppuntamento" => $IdAppuntamento,
+            "costo" => $appuntamento[0]->getCosto(),
+            "data" => $fasciaoraria[0]->getData(),
+        ];
+        $view = new VMedico(); //servirebbe anche la fascia oraria
+        $view->ModificaAppuntamento($app,$orari_disponinibilità,$giorno);
+   /*  }  */
 }
 
 //9.3 modifica_appuntamento()
 //PROBABILMENTE I METODI POSSONO ESSERE RIUTILIZZATI CON QUALCHE ACCORTEZZA
 public static function modifica_appuntamento(){  //DA FARE
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+    /* if(CUtente::isLogged()){ */ //possiamo tenerlo o toglierlo
+        $messaggio="Errore nella modifica!";
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
         $IdAppuntamento = UHTTPMethods::post('IdAppuntamento');
@@ -470,12 +513,12 @@ public static function modifica_appuntamento(){  //DA FARE
         $data = new DateTime($dateTimeString);
         //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
         //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
-        $IdPaziente = USession::getSessionElement('id');
+        $IdMedico = 3/* USession::getSessionElement('id') */;
         //CONVIENE RIGETTARE l'ID DEL MEDICO usando l'id dell'appuntamento già prenotato
-        $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
-
+        var_dump(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
         $exist = FEntityManagerSQL::getInstance()->
                 existInDb(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+        var_dump($exist);
         if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
@@ -491,13 +534,14 @@ public static function modifica_appuntamento(){  //DA FARE
                 //$appuntamento->setpaziente($IdPaziente);            //SETTIAMO IL PAZIENTE
                 //$appuntamento->setFasciaoraria($IdFascia_oraria);   //SETTIAMO LA FASCIA ORARIA CORRISPONDENTE 
                 FAppuntamento::saveObj($appuntamento,$arraymodifica);  //QUI LO ANDIAMO EFFETTIVAMENTE A SALVARE SUL DB DOPO
+                $messaggio = "Modifica avvenuta con successo!";
             }
             
             
         }
         $view = new VMedico(); //servirebbe una cosa del genere NON SO COSA PASSARE 
-        header('Location: /appuntamento/riepilogoappuntamento/$idappuntamento/$fasciaoraria ');
-    } 
+        $view->messaggio($messaggio);
+   /*  }  */
 }
 
 

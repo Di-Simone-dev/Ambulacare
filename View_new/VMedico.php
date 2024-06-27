@@ -108,15 +108,16 @@ class VMedico
         $this->smarty->assign('esame',$app);
 		$this->smarty->assign('fasceorarie',$fasceorarie);
 		$this->smarty->assign('giorno',$giorno);
-        $this->smarty->display('modificaappuntamento_medicomedico.tpl');
+        $this->smarty->display('modificaappuntamento_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per il caricamento di orari per appuntamenti
 	 * @throws SmartyException
 	 */
-	public function ShowPageOrari($fasceorarie){
+	public function ShowPageOrari($fasceorarie,$giorno){
         $this->smarty->assign('fasceorarie',$fasceorarie);
-        $this->smarty->display('inseriscislotorario_medico.tpl');
+		$this->smarty->assign('giorno',$giorno);
+        $this->smarty->display('inserisciorariodisponibile_medico.tpl');
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per l'inserimento dei dati per la visualizzazione delle statistiche
@@ -172,8 +173,8 @@ class VMedico
 	 * @throws SmartyException
 	 */
     public function RispostaRecensione($rec){
-        $this->smarty->assign('recensioni',$rec);
-        $this->smarty->display('rispostarecensione_profilomedico.tpl'); //ancora implementata
+        $this->smarty->assign('recensione',$rec);
+        $this->smarty->display('rispostarecensione_medico.tpl'); //ancora implementata
     }
 
 	public function showAppHistory($app){
@@ -184,6 +185,12 @@ class VMedico
 	public function messaggio($messaggio){
 		$this->smarty->assign('messaggio',$messaggio);
 		$this->smarty->display('messaggio_medico.tpl');
+	}
+
+
+	public function listaPazienti($pazienti){
+		$this->smarty->assign('pazienti',$pazienti);
+		$this->smarty->display("visualizzastoricoesamiperpaziente_medico.tpl");
 	}
 
 }
