@@ -738,7 +738,7 @@ class FEntityManagerSQL{
                           INNER JOIN fascia_oraria ON fascia_oraria.IdFasciaOraria = appuntamento.IdFasciaOraria
                           INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
                           INNER JOIN medico on medico.IdMedico = calendario.IdMedico
-                          WHERE medico.IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' 
+                          WHERE medico.IdMedico = '" . $IdMedico . "'AND data BETWEEN '" . $data." 00:00:00' AND '". $data ." 23:59:59'
                              ORDER BY data DESC;";
             }
             else
@@ -752,7 +752,7 @@ class FEntityManagerSQL{
             }
            
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
+            var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){

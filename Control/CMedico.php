@@ -54,14 +54,13 @@ public static function ricerca_storico_appuntamenti_medico(){
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform));
         $arrayappuntamenti = array();
-        var_dump($$appuntamenti_medico_conclusi);
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
-            $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
-    
-            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_medico_conclusi[$i]->getIdFasciaoraria());
-            $datastring = $fasciaoraria[0]->getDatatostring();
-            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]["IdAppuntamento"];
+            $paziente = $appuntamenti_medico_conclusi[$i]->getPaziente();
+
+            $fasciaoraria = $appuntamenti_medico_conclusi[$i]->getFasciaoraria();
+            $datastring = $fasciaoraria->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomepaziente"] = $paziente->getNome();
             $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
