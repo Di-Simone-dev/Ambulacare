@@ -6,9 +6,9 @@ class EAppuntamento
 
     private $costo; //per conservare la storia integra se il medico cambia il suo costo
     
-    private $paziente;  //Oggetto Paziente legato con l'IdPaziente in foundation
+    private $paziente;  //FK BISOGNA CAPIRE SE METTERE L'ID O NO 
 
-    private $fascia_oraria;   //Oggetto FasciaOraria legato con l'IdPaziente in foundation
+    private $fascia_oraria;   //FK
 
     private static $entity = EAppuntamento::class;
     //costruttore
@@ -39,7 +39,7 @@ class EAppuntamento
 
     public function setCosto($costo)
     {
-        $this->stato = $costo;
+        $this->costo = $costo;
     }
     
 
@@ -57,9 +57,9 @@ class EAppuntamento
         return $this->fascia_oraria;
     }
 
-    public function setFasciaoraria($Fascia_oraria)
+    public function setFasciaoraria($IdFascia_oraria)
     {
-        $this->fascia_oraria = $Fascia_oraria;
+        $this->fascia_oraria = $IdFascia_oraria;
     }
 
 }

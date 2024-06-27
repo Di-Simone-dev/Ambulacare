@@ -12,7 +12,7 @@ class EMedico
 
     private $password;
 
-    private $attivo;
+    private $attivo=true;
 
     private float $costo;    //Un int è più semplice ma possiamo tenere float
 
@@ -21,24 +21,20 @@ class EMedico
 
     private static $entity = EMedico::class;
     //costruttore
-    public function __construct($nome,$cognome,$email, $password, $attivo='1',$costo)
+    public function __construct($nome,$cognome,$email, $password, $attivo,$costo)
     {
         //$this->IdMedico= $IdMedico; PRIMARY KEY AUTO INCREMENT=> NON VA MESSA NEL COSTRUTTORE
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
-        $this->attivo=$attivo;
+        $this->attivo=true;
         $this->costo=$costo;
         //$this->tipologia=$tipologia; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
-        //$this->immagine=$immazgine; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
+        //$this->immagine=$immagine; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
 
     }
 
-    public static function getEntity(): string
-    {
-        return self::$entity;
-    }
     //metodi
     public function getIdMedico()
     {
