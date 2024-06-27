@@ -170,7 +170,7 @@ class FEntityManagerSQL{
         try{
             $query = "UPDATE " . $table . " SET ". $field. " = '" . $fieldValue . "' WHERE " . $cond . " = '" . $condValue . "';";
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
+            var_dump($stmt);
             $stmt->execute();
             return true;
         }catch(Exception $e){
@@ -860,30 +860,31 @@ class FEntityManagerSQL{
 
     public static function ricercautenti($nomeutente = null,$cognomeutente = null,$categoriautente = null){ 
         
+
         try{
             $query = "SELECT * ";
-            $params = [];
+            /* $params = []; */
 
             if (isset($categoriautente)) {
-                $query .= "FROM :categoriautente"; //la tabella è la categoria inserita
-                $params[':categoriautente'] = '%' . $categoriautente . '%';
+                $query .= "FROM $categoriautente"; //la tabella è la categoria inserita
+                /* $params[':categoriautente'] = '%' . $categoriautente . '%'; */
             }
 
             $query .= " WHERE 1=1"; //completo la query
 
             if (isset($nomeutente)) {
-                $query .= " AND nome LIKE :nome";
-                $params[':nome'] = '%' . $nomeutente . '%';
+                $query .= " AND nome LIKE '%".$nomeutente."%'";
+               /*  $params[':nome'] = '%' . $nomeutente . '%'; */
             }
 
             if (isset($cognomeutente)) {
-                $query .= " AND cognome LIKE :cognome";
-                $params[':cognome'] = '%' . $cognomeutente . '%';
+                $query .= " AND cognome LIKE '%". $cognomeutente ."%';";
+               /*  $params[':cognome'] = '%' . $cognomeutente . '%'; */
             }
 
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
-            $stmt->execute($params);
+            var_dump($stmt);
+            $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){
                 $result = array();

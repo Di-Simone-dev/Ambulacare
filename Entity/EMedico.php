@@ -12,7 +12,7 @@ class EMedico
 
     private $password;
 
-    private $attivo=true;
+    private $attivo;
 
     private float $costo;    //Un int è più semplice ma possiamo tenere float
 
@@ -28,7 +28,7 @@ class EMedico
         $this->cognome=$cognome;
         $this->email=$email;
         $this->password=$password;
-        $this->attivo=true;
+        $this->attivo=$attivo;
         $this->costo=$costo;
         //$this->tipologia=$tipologia; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE
         //$this->immagine=$immagine; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE

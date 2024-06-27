@@ -169,4 +169,14 @@ class VAmministratore
 		$this->smarty->assign('fasceorarie', $fasceorarie);
 		$this->smarty->display('modificaappuntamento_admin.tpl');
 	}
+
+	public function messaggio($messaggio){
+		$this->smarty->assign('messaggio', $messaggio);
+		$this->smarty->display('messaggio_admin.tpl');
+	}
+
+	public function moderazionepazienti($pazienti){
+		$this->smarty->assign('pazienti', $pazienti);
+		$this->smarty->display('moderazioneaccountpaz_admin.tpl');
+	}
 }

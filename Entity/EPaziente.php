@@ -27,7 +27,7 @@ class EPaziente
         $this->luogo_nascita=$luogo_nascita;
         $this->residenza=$residenza;
         $this->numero_telefono=$numero_telefono;
-        $this->attivo;  //FARE ATTENZIONE QUI
+        $this->attivo=$attivo;
 
     }
     //metodi

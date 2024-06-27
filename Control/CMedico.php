@@ -547,8 +547,169 @@ public static function modifica_appuntamento(){  //DA FARE
    /*  }  */
 }
 
+//FUNZIONI DI CONTROL AGGIUNTIVE
+
+    /**
+     * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
+     * the User is redirected in the homepage
+     */
+    public static function checkLoginMedico(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+        $view = new VMedico();
+        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
+        $exist = FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email'));  
+        //SE ESISTE NEL DB ALLORA CONTINUO                                          
+        if($exist)
+        {
+            $medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('username'));  
+            //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
+            //password_verify è una funzione NATIVA DI PHP
+            if(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()))  
+            {
+                if(!($medico[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                {
+                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
+                }
+                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+                {
+                    USession::getInstance();
+                    USession::setSessionElement('tipo_utente', 'medico');
+                    USession::setSessionElement('id', $medico[0]->getIdMedico());
+                    header('Location: /Ambulacare');
+                }
+            }
+            else
+            {
+                $view->loginError();
+            }
+        }
+        else
+        {
+            $view->loginError();
+        }
+    }
 
 
+
+   /**
+     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
+     * load the settings page compiled with the user data
+     */
+    public static function settingsmedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            $Idmedico = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
+            $view->settings($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+
+    /**
+     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
+     * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
+     */
+    public static function setInfoMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico->setNome(UHTTPMethods::post('Nome'));
+            $medico->setCognome(UHTTPMethods::post('Cognome'));
+            //$medico->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
+            $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
+                                                            //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
+            
+            FPersistentManager::getInstance()->updateinfomedico($medico);
+
+            header('Location: /medico/profilopersonale');
+        }
+    }
+
+
+    /**
+     * QUESTO VA APPLICATO PER UN CAMBIO MAIL DEL MEDICO
+     * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
+     */
+    public static function setEmailMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            
+            if($medico->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
+                header('Location: /medico/profilopersonale');
+            }else{
+                if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('Email')) == false)
+                {
+                    $medico->setEmail(UHTTPMethods::post('Email'));
+                    FPersistentManager::getInstance()->updatemailmedico($medico);
+                    header('Location: /medico/profilopersonale');
+                }else
+                {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
+                    $view = new VMedico();
+                    //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+                    $view->usernameError($userAndPropic , true);  //EMAIL ERROR
+                }
+            }
+        }
+    }
+
+     /**
+     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL MEDICO
+     * Take the compiled form and update the user password
+     */
+    public static function setPasswordMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $newPass = UHTTPMethods::post('password');
+            $medico->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordmedico($medico);
+
+            header('Location: /medico/profilopersonale');
+        }
+    }
+
+        /*
+     * APPLICATO PER UN CAMBIO PROPIC DI UN MEDICO
+     * Take the file, check if there is an upload error, if not update the user image and delete the old one 
+     */
+    public static function setProPicMedico(){
+        if(CUtente::isLogged()){
+            $IdMedico = USession::getInstance()->getSessionElement('id');
+            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            
+            if(UHTTPMethods::files('imageFile','size') > 0){  //MMH
+                $uploadedImage = UHTTPMethods::files('imageFile');
+                $checkUploadImage = FPersistentManager::getInstance()->caricaimmagine($uploadedImage);
+                if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
+                {   //ENTRIAMO QUI SE L'IMMAGINE NON VA BENE
+                    $view = new VMedico();  
+                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($IdMedico);  //BOH
+
+                    $view->FileError($userAndPropic);  //MESSAGGIO DI ERRORE DEL FILE
+                }else{
+                    $idImage = FPersistentManager::getInstance()->uploadObj($checkUploadImage);
+                    if($medico->getIdImmagine() != 1)  //SE è DIVERSA DA QUELLA DI DEFAULT CANCELLIAMO QUELLA CHE AVEVA DAL DB
+                    {
+                        if(FPersistentManager::getInstance()->cancellaImmagine($medico->getIdImmagine())){
+                            $medico->setIdImmagine($idImage);
+                            FPersistentManager::getInstance()->updatemedicopropic($medico);
+                        }
+                        header('Location: /medico/profilopersonale');
+                    }
+                    else
+                    {   //se ha quella di default, basta settarla senza cancellarla
+                        $medico->setIdImage($idImage);
+                        FPersistentManager::getInstance()->updatemedicopropic($medico);
+                    }
+                    header('Location: /medico/profilopersonale');
+                }
+            }else{
+                header('Location: /medico/profilopersonale');
+            }
+        }
+    }
 
 
 

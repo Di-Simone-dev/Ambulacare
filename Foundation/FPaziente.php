@@ -202,7 +202,7 @@ class FPaziente  {
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv)
                 {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    FEntityManagerSQL::getInstance()->updateObj(FPaziente::getTable(), $fv[0], $fv[1], self::getKey(), $paziente->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FPaziente::getTable(), $fv[0], $fv[1], self::getKey(), $paziente->getIdPaziente());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;

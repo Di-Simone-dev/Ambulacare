@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-20 11:23:13
+/* Smarty version 5.3.0, created on 2024-06-27 23:12:59
   from 'file:visualizzaappuntamenti_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6673f501294550_11138719',
+  'unifunc' => 'content_667dd5db248514_19598431',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cc5db144c79b971753648aee3466974a52655439' => 
     array (
       0 => 'visualizzaappuntamenti_admin.tpl',
-      1 => 1718874990,
+      1 => 1719522776,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6673f501294550_11138719 (\Smarty\Template $_smarty_tpl) {
+function content_667dd5db248514_19598431 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_11888435626673f50127e998_18715568', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1560988047667dd5db21f0a1_78557063', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_11888435626673f50127e998_18715568 extends \Smarty\Runtime\Block
+class Block_1560988047667dd5db21f0a1_78557063 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -46,25 +46,22 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select">
+                        <select name="tipologia" id="categ" class="form-select-m">
                             <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('categorie'), 'categoria');
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('tipologie'), 'tipologia');
 $foreach0DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('tipologia')->value) {
 $foreach0DoElse = false;
 ?>
-                                <option value="<?php echo $_smarty_tpl->getValue('categoria')['id'];?>
-"><?php echo $_smarty_tpl->getValue('categoria')['nome'];?>
+                                <option value="<?php echo $_smarty_tpl->getValue('tipologia')['IdTipologia'];?>
+"><?php echo $_smarty_tpl->getValue('tipologia')['nome_tipologia'];?>
 </option>
                             <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" placeholder="Data prenotazione" name="dataprenot" />
-                        <br><br>
-                        <input type="time" id="oraprenotinizio" placeholder="Orario prenotazione" name="oraprenotinizio" />
-                        <input type="time" id="oraprenotfine" placeholder="Orario prenotazione" name="oraprenotfine" />
+                        <input type="date" id="dataprenot" name="dataprenot" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
@@ -78,9 +75,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <thead style="text-align: center;">
                 <tr>
                     <th scope="col">Data</th>
-                    <th scope="col">Ora</th>
                     <th scope="col">Medico</th>
-                    <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
                     <th scope="col">Azioni</th>
                 </tr>
@@ -96,15 +91,11 @@ $foreach1DoElse = false;
                     <tr>
                         <td><?php echo $_smarty_tpl->getValue('appuntamento')['data'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['orario'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['medico'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['categoria'];?>
+                        <td><?php echo $_smarty_tpl->getValue('appuntamento')['nominativomedico'];?>
 </td>
                         <td><?php echo $_smarty_tpl->getValue('appuntamento')['costo'];?>
 €</td>
-                        <td><a href="/Ambulacare/Admin/modificaapp/<?php echo $_smarty_tpl->getValue('appuntamento')['id'];?>
+                        <td><a href="/Ambulacare/Admin/dettagli_appuntamento_modifica/<?php echo $_smarty_tpl->getValue('appuntamento')['IdAppuntamento'];?>
 "><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>

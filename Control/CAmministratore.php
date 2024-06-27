@@ -11,59 +11,55 @@ public static function visualizza_medici(){
 
         $medici = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
         //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
-
-        $view = new VAmministratore();
+        $view = new VAmministratore(); //servirebbe una cosa del genere
         $view->moderazionemedici($medici);
-  /*   }  */
+   /*  }  */
 }
 
 //10.2)ricerca_utenti(nome,cognome, categoria) questa query potrebbe essere complessa e va realizzata ad hoc
 //deve essere possibile la ricerca anche per uno solo di questi input 
 
 public static function ricerca_medici(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $nomemedico = UHTTPMethods::post('nomemedico');
         $cognomemedico = UHTTPMethods::post('cognomemedico');
         $medici = FEntityManagerSQL::getInstance()->ricercautenti($nomemedico,$cognomemedico,FMedico::getTable());
-
-        $view = new VAmministratore($medici); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VAmministratore(); //servirebbe una cosa del genere
+        $view->moderazionemedici($medici);
+    /* } */ 
 }
 
 //10.3) moderazione_medico(utente, operazione) qui dobbiamo distinguere medici da pazienti 
 public static function moderazione_medico($IdMedico){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $medico = FMedico::getObj($IdMedico);
         //serve cambiare il campo "attivo" del medico e salvare la modifica sul db
-
+        var_dump($medico[0]->getAttivo());
         $arraymodifica[0][0] = "attivo";
-        if($medico[0]->getAttivo() == "1"){  //se è attivo lo disattiviamo altrimento lo riattiviamo
+        if($medico[0]->getAttivo()){  //se è attivo lo disattiviamo altrimento lo riattiviamo
             $arraymodifica[0][1] = "0";
         }else{
             $arraymodifica[0][1] = "1";
         }
-        
-        FMedico::saveObj($medico,$arraymodifica);
+        FMedico::saveObj($medico[0],$arraymodifica);
 
         $view = new VAmministratore(); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view->messaggio("Operazione avvenuta con successo!");
+  /*   }  */
 }
 
 //10.1) visualizza_pazienti()  qui devo passare tutti i pazienti e tutti i medici della piattaforma
 
 public static function visualizza_pazienti(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
         //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
-
-        $view = new VAmministratore($pazienti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VAmministratore(); //servirebbe una cosa del genere
+        $view->moderazionepazienti($pazienti);
+   /*  }  */
 }
 
 //10.2)ricerca_utenti(nome,cognome, categoria) questa query potrebbe essere complessa e va realizzata ad hoc
@@ -74,20 +70,19 @@ public static function visualizza_pazienti(){
 //4 => NOME E COGNOME
 
 public static function ricerca_pazienti(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $nomepaziente = UHTTPMethods::post('nomepaziente');
         $cognomepaziente = UHTTPMethods::post('cognomepaziente');
         $pazienti = FEntityManagerSQL::getInstance()->ricercautenti($nomepaziente,$cognomepaziente,FPaziente::getTable());
-
-        $view = new VAmministratore($pazienti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VAmministratore(); //servirebbe una cosa del genere
+        $view->moderazionepazienti($pazienti);
+    /* }  */
 }
 
 //10.3) moderazione_paziente(utente, operazione) 
 public static function moderazione_paziente($IdPaziente){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $paziente = FPaziente::getObj($IdPaziente);
         //serve cambiare il campo "attivo" del paziente e salvare la modifica sul db
@@ -98,25 +93,33 @@ public static function moderazione_paziente($IdPaziente){
         }else{
             $arraymodifica[0][1] = "1";
         }
-        
-        FPaziente::saveObj($paziente,$arraymodifica);
+        FPaziente::saveObj($paziente[0],$arraymodifica);
 
         $view = new VAmministratore(); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view->messaggio("Operazione avvenuta con successo");
+   /*  }  */
 }
 
 //[admin]caso d'uso 11 "gestione appuntamenti"
 
 //11.1) gestione_appuntamenti() accedo alla schermata di gestione degli appuntamenti
 public static function gestione_appuntamenti(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $appuntamenti = FEntityManagerSQL::getInstance()->retrieveall(FAppuntamento::getTable());
         $tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());
-        $view = new VManagePost($appuntamenti,$tipologie); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        for($i=0; $i<count($appuntamenti); $i++){
+            /* $appuntamenti[$i]["nominativopaziente"]= FPaziente::getObj($appuntamenti[$i]["IdPazienti"])[0]->getNome(). " " . FPaziente::getObj($appuntamenti[$i]["IdPazienti"])[0]->getCognome(); */
+            /* $appuntamenti[$i]["nominativomedico"] = FMedico::getObj($appuntamenti[$i]["IdMedico"])[0]->getNome(). " " .FMedico::getObj($appuntamenti[$i]["IdMedico"])[0]->getCognome(); */
+            $idapp = $appuntamenti[$i]["IdAppuntamento"];
+            $IdMedico = FEntityManagerSQL::getIdMedicofromIdAppuntamento($idapp)[0]["IdMedico"];
+            $appuntamenti[$i]["nominativomedico"] = FMedico::getObj($IdMedico)[0]->getCognome(). " " . FMedico::getObj($IdMedico)[0]->getNome();
+            $appuntamenti[$i]["data"] = FFasciaOraria::getObj($appuntamenti[$i]["IdFasciaOraria"])[0]->getData();
+        }
+        var_dump($tipologie);
+        $view = new VAmministratore(); //servirebbe una cosa del genere
+        $view->showAppuntPage($appuntamenti,$tipologie);
+/*     }  */
 }
 
 //11.2 ricerca_appuntamenti(data,ora,categoria,)
@@ -255,6 +258,35 @@ public static function elimina_recensione($IdRecensione){
         header('Location: /appuntamento/esamidaprenotare');
     } 
 }
+
+//CASI D'USO AGGIUNTIVI
+
+    /**
+     * 
+     * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
+     * @return void
+     */
+    public static function registrazionemedico(){   //registrazione del medico usata (dall'admin)
+        //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+            $view = new VMedico();  
+            //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
+            if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
+                    //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                    $medico = new EMedico(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                    UHTTPMethods::post('password'),'1',UHTTPMethods::post('costo'));
+                    $medico->setIdImmagine('1');//imposto la propic di default che avrà id=1
+                    //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
+                    FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
+                    
+                    $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
+            }
+            else
+            {
+                $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
+            }
+    }
+
+
 
 
 

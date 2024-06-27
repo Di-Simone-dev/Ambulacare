@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#" id="tendina" method="post">
+                <form action="/Ambulacare/Amministratore/ricerca_pazienti" id="tendina" method="post">
                     <div class="form-group">
                         <h2>Moderazione Pazienti</h2>
                         <br>
@@ -37,11 +37,11 @@
                     <tr>
                         <td>{$paziente.nome}</td>
                         <td>{$paziente.cognome}</td>
-                        <td>{$paziente.stato}</td>
-                        {if $paziente.stato == "Sbloccato"}
-                            <td><a href="" class="btn btn-primary">Blocca</a></td>
+                        <td>{$paziente.attivo==1? "attivo" : "bloccato"}</td>
+                        {if $paziente.attivo == 1}
+                            <td><a href="/Ambulacare/Amministratore/moderazione_paziente/{$paziente.IdPaziente}" class="btn btn-primary">Blocca</a></td>
                         {else}
-                            <td><a href="" class="btn btn-primary">Sblocca</a></td>
+                            <td><a href="/Ambulacare/Amministratore/moderazione_paziente/{$paziente.IdPaziente}" class="btn btn-primary">Sblocca</a></td>
                         {/if}
                     </tr>
                 {/foreach}

@@ -12,15 +12,11 @@
                         <br>
                         <select name="tipologia" id="categ" class="form-select-m">
                             {foreach $tipologie as $tipologia}
-                                <option value="{$tipologia.id}">{$tipologia.nome}</option>
+                                <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>
                         <input type="date" id="dataprenot" name="dataprenot" />
-                        <br><br>
-                        <input type="time" id="oraprenotinizio"  name="oraprenotinizio" />
-
-                        <input type="time" id="oraprenotfine" name="oraprenotfine" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
@@ -34,9 +30,7 @@
             <thead style="text-align: center;">
                 <tr>
                     <th scope="col">Data</th>
-                    <th scope="col">Ora</th>
                     <th scope="col">Medico</th>
-                    <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
                     <th scope="col">Azioni</th>
                 </tr>
@@ -46,11 +40,9 @@
                     {foreach $appuntamenti as $appuntamento}
                     <tr>
                         <td>{$appuntamento.data}</td>
-                        <td>{$appuntamento.orario}</td>
-                        <td>{$appuntamento.medico}</td>
-                        <td>{$appuntamento.categoria}</td>
+                        <td>{$appuntamento.nominativomedico}</td>
                         <td>{$appuntamento.costo}€</td>
-                        <td><a href="/Ambulacare/Admin/modificaapp/{$appuntamento.id}"><button
+                        <td><a href="/Ambulacare/Admin/dettagli_appuntamento_modifica/{$appuntamento.IdAppuntamento}"><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>
                 {/foreach}

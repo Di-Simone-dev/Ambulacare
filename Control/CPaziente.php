@@ -468,4 +468,156 @@ public static function modifica_appuntamento(){  //DA FARE
         $view->messaggio($messaggio);
     /* } */ 
 }
+
+//ALTRI METODI OLTRE I CASI D'USO
+
+    /**
+     * QUI ANDREBBE FATTA LA SUDDIVISIONE TRA LE REGISTRAZIONI DI MEDICI E PAZIENTI
+     * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
+     * @return void
+     */
+    public static function registrazionepaziente()
+    {   //registrazione del paziente
+    //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+        $view = new VPaziente();  
+        //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
+        if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
+                //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                $paziente = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                UHTTPMethods::post('password'),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
+                                UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),'1');
+                //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
+                FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
+                
+                $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
+        }else
+        {
+            $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
+        }
+    }
+
+
+    /**
+     * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
+     * the User is redirected in the homepage
+     */
+    public static function checkLoginPaziente(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+        $view = new VPaziente();
+        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
+        $exist = FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email'));  
+        //SE ESISTE NEL DB ALLORA CONTINUO                                          
+        if($exist)
+        {
+            $paziente = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('username'));  
+            //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
+            //password_verify è una funzione NATIVA DI PHP
+            if(password_verify(UHTTPMethods::post('password'), $paziente[0]->getPassword()))  
+            {
+                if(!($paziente[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+                {
+                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
+                }
+                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+                {
+                    USession::getInstance();
+                    USession::setSessionElement('tipo_utente', 'paziente');
+                    USession::setSessionElement('id', $paziente[0]->getIdPaziente());
+                    header('Location: /Ambulacare');
+                }
+            }
+            else
+            {
+                $view->loginError();
+            }
+        }
+        else
+        {
+            $view->loginError();
+        }
+    }
+
+    /**
+     * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
+     * load the settings page compiled with the user data
+     */
+    public static function settingspaziente(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VPaziente();
+
+            $userId = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal paziente
+            $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($userId);    
+            $view->settings($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+
+    /**
+     * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
+     * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
+     */
+    public static function setInfoPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            $paziente[0]->setNome(UHTTPMethods::post('Nome'));
+            $paziente[0]->setCognome(UHTTPMethods::post('Cognome'));
+            //$paziente->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
+            $paziente[0]->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
+            $paziente[0]->setCodiceFiscale(UHTTPMethods::post('CodiceFiscale'));
+            $paziente[0]->setDataNascita(UHTTPMethods::post('DataNascita'));
+            $paziente[0]->setLuogoNascita(UHTTPMethods::post('LuogoNascita'));
+            $paziente[0]->setResidenza(UHTTPMethods::post('Residenza'));
+            $paziente[0]->setNumerotelefono(UHTTPMethods::post('Numerotelefono'));
+            
+            FPersistentManager::getInstance()->updateinfopaziente($paziente[0]);
+
+            header('Location: /paziente/profilopersonale');
+        }
+    }
+
+        /**
+     * QUESTO VA APPLICATO PER UN CAMBIO MAIL DEL PAZIENTE
+     * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
+     */
+    public static function setEmailPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            
+            if($paziente->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
+                header('Location: /paziente/profilopersonale');
+            }else{
+                if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('Email')) == false)
+                {
+                    $paziente->setEmail(UHTTPMethods::post('Email'));
+                    FPersistentManager::getInstance()->updatemailpaziente($paziente);
+                    header('Location: /paziente/profilopersonale');
+                }else
+                {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
+                    $view = new VPaziente();
+                    //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+                    $view->usernameError($userAndPropic , true);
+                }
+            }
+        }
+    }
+
+    /**
+     * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL PAZIENTE
+     * Take the compiled form and update the user password
+     */
+    public static function setPasswordPaziente(){
+        if(CUtente::isLogged()){
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            $newPass = UHTTPMethods::post('password');
+            $paziente->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordpaziente($paziente);
+
+            header('Location: /paziente/profilopersonale');
+        }
+    }
+
+
+
 }
