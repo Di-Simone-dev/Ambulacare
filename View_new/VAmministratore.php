@@ -149,10 +149,10 @@ class VAmministratore
 	 * 
 	 * @return [type]
 	 */
-	public function moderazione($medici)
+	public function moderazionemedici($medici)
 	{
 		$this->smarty->assign('medici', $medici);
-		$this->smarty->display('moderazioneaccount_admin.tpl');
+		$this->smarty->display('moderazioneaccountmedici_admin.tpl');
 	}
 
 	/**

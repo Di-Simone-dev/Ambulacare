@@ -7,14 +7,14 @@ class CAmministratore{
 //10.1) visualizza_medici()  qui devo passare tutti i pazienti e tutti i medici della piattaforma
 
 public static function visualizza_medici(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
 
         $medici = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
         //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
 
-        $view = new VAmministratore($medici); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VAmministratore();
+        $view->moderazionemedici($medici);
+  /*   }  */
 }
 
 //10.2)ricerca_utenti(nome,cognome, categoria) questa query potrebbe essere complessa e va realizzata ad hoc

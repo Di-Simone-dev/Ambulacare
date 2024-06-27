@@ -1,32 +1,29 @@
 <?php
-require('./fpdf186/fpdf.php');
+require __DIR__.'/fpdf186/fpdf.php';
 class UPdf{
-    public static function crea_scarica_pdf(){
+    public static function crea_scarica_pdf($arrayreferto){
         $pdf=new FPDF();
         $pdf->Settitle('referto');
         $pdf->AddPage();
+        $lineHeight = 8;
         $pdf->SetFont('Arial','B',22);
-        $pdf->Write(5,'Referto esame di'.'{$nometipologia}'.'Sig.'.'{$nomepaziente}'.'{$cognomepaziente}');
+        $pdf->Write(5,'Referto esame di '.$arrayreferto["nominativopaziente"]);
         $pdf->Ln(15);
         $pdf->SetFont('Arial','B',18);
-        $pdf->Write(4,'Medico: Dr.'.'{$nomemedico}'.'{$cognomemedico}');
+        $pdf->Write(4,'Medico: Dr. '.$arrayreferto["nominativomedico"]);
         $pdf->Ln(15);
         $pdf->SetFont('Arial','B',14);
         $pdf->Write(3,'Oggetto del Referto: ');
         $pdf->Ln(6);
         $pdf->SetFont('Arial','',12);
-        $pdf->Write(2,'{$oggettoref}');
+        $pdf->Write(2,$arrayreferto["oggetto"]);
         $pdf->Ln(15);
         $pdf->SetFont('Arial','B',14);
         $pdf->Write(2,'Contenuto del referto: ');
         $pdf->Ln(6);
         $pdf->SetFont('Arial','',12);
-        $pdf->Write(2,'{$contenutoref}');
-        $nome_file=$pdf->Output(referto.pdf);
-        header("Content-type: Application/octet-stream");
-        header("Content-Disposition: attachment; filename=\"$nome_file\"");
-        header("Content-Length: . filesize($nome_file)");
-        readfile($nome_file);
+        $pdf->MultiCell(0, $lineHeight, $arrayreferto["contenuto"]);
+        $pdf->Output('D', 'report.pdf');
     }
 }
 ?>

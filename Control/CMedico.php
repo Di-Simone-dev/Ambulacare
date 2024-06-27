@@ -323,13 +323,14 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
-        
+        $arrayreferto["nominativopaziente"]= "Gerry Scotti";
+        $arrayreferto["nominativomedico"]= "Pippo Baudo";
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
         /*if(isset($immagine[0])){
             
         }*/
-        UPdf::crea_scarica_pdf();
+        UPdf::crea_scarica_pdf($arrayreferto);
         //var_dump($arrayreferto);
    /*  }  */
 }
