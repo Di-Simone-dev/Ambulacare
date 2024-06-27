@@ -8,24 +8,23 @@ class CMedico{
 
 //per mostrare gli appuntamenti conclusi di un medico ci basta prendere il suo id dalla sessione
 public static function visualizza_storico_appuntamenti_medico(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
         
-        $IdMedico = USession::getSessionElement('id');
+        $IdMedico = 3 /* USession::getSessionElement('id') */;
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico));
         //dobbiamo prendere anche i pazienti per visualizzarne le informazioni
         //$pazienti = array();
         //foreach($appuntamenti_medico_conclusi as $ap)
         //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
-        
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
-            $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
+            $paziente = $appuntamenti_medico_conclusi[$i]->getPaziente();
 
-            $fasciaoraria = FFasciaOraria::getObj($appuntamenti_medico_conclusi[$i]->getIdFasciaoraria());
-            $datastring = $fasciaoraria[0]->getDatatostring();
-            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]["IdAppuntamento"];
+            $fasciaoraria = $appuntamenti_medico_conclusi[$i]->getFasciaoraria();
+            $datastring = $fasciaoraria->getDatatostring();
+            $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomepaziente"] = $paziente->getNome();
             $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
@@ -41,21 +40,22 @@ public static function visualizza_storico_appuntamenti_medico(){
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->showAppHistory($arrayappuntamenti);
+   /*  }  */
 }
 
 //4.2 ricerca_storico_esami(data)
 public static function ricerca_storico_appuntamenti_medico(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
         
         $dataform = UHTTPMethods::post('data');
-        $IdMedico = USession::getSessionElement('id');
+        $IdMedico = 3; /* USession::getSessionElement('id') */;
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
             (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform));
         $arrayappuntamenti = array();
-        for($i=0;$i++;$i<count($appuntamenti_medico_conclusi)){
+        var_dump($$appuntamenti_medico_conclusi);
+        for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = FPaziente::getObj($appuntamenti_medico_conclusi[$i]->getIdPaziente())[0];
     
@@ -68,10 +68,10 @@ public static function ricerca_storico_appuntamenti_medico(){
             //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
 
-        $view = new VMedico($arrayappuntamenti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
         }
-    } 
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->showAppHistory($arrayappuntamenti);
+   /*  } */ 
 }
 
 //4.3 inserimento_referto(appuntamento)

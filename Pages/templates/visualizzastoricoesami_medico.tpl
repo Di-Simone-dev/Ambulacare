@@ -7,7 +7,7 @@
         <h2>Filtra per data</h2>
         <form action="/Ambulacare/Medico/ricerca_storico_appuntamenti_medico" method="post">
             <input type="date" name="data" required>
-            <button type="submit">procedi</button>
+            <button type="submit">Procedi</button>
         </form>
     </div>
 

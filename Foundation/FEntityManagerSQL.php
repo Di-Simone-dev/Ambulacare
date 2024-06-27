@@ -733,16 +733,22 @@ class FEntityManagerSQL{
         try{
             //la tipologia possiamo toglierla ma ci servono i dati del paziente
             if($data && $past){ //se passiamo anche questi la query include questi parametri
-                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico,IdPaziente
-                          FROM appuntamento,fascia_oraria,calendario,medico
-                          WHERE IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' 
+                $query = "SELECT appuntamento.IdAppuntamento, appuntamento.IdPaziente, fascia_oraria.IdFasciaOraria, medico.IdMedico, appuntamento.costo
+                          FROM appuntamento
+                          INNER JOIN fascia_oraria ON fascia_oraria.IdFasciaOraria = appuntamento.IdFasciaOraria
+                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                          INNER JOIN medico on medico.IdMedico = calendario.IdMedico
+                          WHERE medico.IdMedico = '" . $IdMedico . "'AND data = '" . $data . "' 
                              ORDER BY data DESC;";
             }
             else
             {   
-                $query = "SELECT IdAppuntamento,IdPaziente,IdFasciaOraria,IdMedico,IdPaziente 
-                          FROM appuntamento,fascia_oraria,calendario,medico
-                          WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=data ORDER BY data DESC;";
+                $query = "SELECT appuntamento.IdAppuntamento, appuntamento.IdPaziente, fascia_oraria.IdFasciaOraria, medico.IdMedico, appuntamento.costo
+                          FROM appuntamento
+                          INNER JOIN fascia_oraria ON fascia_oraria.IdFasciaOraria = appuntamento.IdFasciaOraria
+                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                          INNER JOIN medico on medico.IdMedico = calendario.IdMedico
+                          WHERE medico.IdMedico = '" . $IdMedico . "'AND CURDATE()>=data ORDER BY data DESC;";
             }
            
             $stmt = self::$db->prepare($query);
