@@ -439,6 +439,7 @@ public static function visualizza_agenda(){
 
         $IdMedico = 3/* USession::getSessionElement('id') */;
         $agenda =FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
+        var_dump($agenda);
         //DOVREBBE BASTARE PASSARE QUESTA
         $view = new VMedico(); //servirebbe una cosa del genere
         $view->ShowAgenda($agenda);
@@ -515,9 +516,7 @@ public static function modifica_appuntamento(){  //DA FARE
         //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
         $IdMedico = 3/* USession::getSessionElement('id') */;
         //CONVIENE RIGETTARE l'ID DEL MEDICO usando l'id dell'appuntamento già prenotato
-        var_dump(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-        $exist = FEntityManagerSQL::getInstance()->
-                existInDb(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+        $exist = is_int(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
         var_dump($exist);
         if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
