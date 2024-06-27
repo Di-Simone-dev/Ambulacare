@@ -88,7 +88,7 @@ public static function inserimento_referto($IdAppuntamento){
         $arrayappuntamento = array();
         
         $arrayappuntamenti = array();  
-        var_dump($appuntamento);  
+        //var_dump($appuntamento);  
         $paziente = $appuntamento[0]->getPaziente();
     
         $fasciaoraria = $appuntamento[0]->getFasciaoraria();
@@ -99,7 +99,7 @@ public static function inserimento_referto($IdAppuntamento){
         $arrayappuntamento["cognomepaziente"] =$paziente->getCognome();
         //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
         $arrayappuntamento["costoappuntamento"] = $appuntamento[0]->getCosto();
-       
+        
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
@@ -319,15 +319,18 @@ public static function visualizza_referto($IdReferto){
 
         $arrayreferto = array();
         $referto = FReferto::getObj($IdReferto);
-
         $arrayreferto["oggetto"] = $referto[0]->getOggetto();
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
         
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
-        $arrayreferto["datiimmagine"] = $immagine[0]->getDati();     
-        var_dump($arrayreferto);
+        $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
+        /*if(isset($immagine[0])){
+            
+        }*/
+        UPdf::crea_scarica_pdf();
+        //var_dump($arrayreferto);
    /*  }  */
 }
 

@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <h2><label for="storico">Storico Esami</label></h2>
                         <br>
-                        <select name="IdTipologia" id="categ" class="form-select-m" required>
+                        <select name="IdTipologia" class="form-select-m" required>
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}"
                                     {if $tipologia.IdTipologia == $Idtipologia}
