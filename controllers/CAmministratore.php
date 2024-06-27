@@ -256,6 +256,35 @@ public static function elimina_recensione($IdRecensione){
     } 
 }
 
+//CASI D'USO AGGIUNTIVI
+
+    /**
+     * 
+     * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
+     * @return void
+     */
+    public static function registrazionemedico(){   //registrazione del medico usata (dall'admin)
+        //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
+            $view = new VMedico();  
+            //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
+            if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
+                    //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                    $medico = new EMedico(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
+                                    UHTTPMethods::post('password'),'1',UHTTPMethods::post('costo'));
+                    $medico->setIdImmagine('1');//imposto la propic di default che avrà id=1
+                    //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
+                    FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
+                    
+                    $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
+            }
+            else
+            {
+                $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
+            }
+    }
+
+
+
 
 
 }
