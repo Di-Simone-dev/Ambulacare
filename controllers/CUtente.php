@@ -352,8 +352,8 @@ class CUtente{
 
             $Idmedico = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
-            $datipaziente = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
-            $view->settings($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+            $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
+            $view->settings($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
     
@@ -536,99 +536,6 @@ class CUtente{
     }
 
 
-
-    /**
-     * POTREBBE ESSERE ANALOGO AL MOSTRARE GLI APPUNTAMENTI PRENOTABILI DAL PAZIENTE (QUINDI I MEDICI ATTIVI)
-     * load all the post finded by a specifyc category
-     * @param String $category Refers to a name of a category
-     */
-    public static function category($category)
-    {
-        if(CUser::isLogged()){
-            $view = new VUser();
-        
-            $userId = USession::getInstance()->getSessionElement('user');
-            $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
-
-            //load the VIP Users, their profile Images and the foillower number
-            $arrayVipUserPropicFollowNumb = FPersistentManager::getInstance()->loadVip();
-
-            $postCategory = FPersistentManager::getInstance()->loadPostPerCategory($category);
-
-            $view->prenotaappumento($userAndPropic, $postCategory, $arrayVipUserPropicFollowNumb); //d'esempio
-        }
-    }
-
-    /**
-     * BOH
-     * load a limit number of posts that are not belonged to the logged user, so this page is for discover new Users
-     */
-    public static function explore()
-    {
-        if(CUser::isLogged()){
-            $view = new VUser();
-                
-            $userId = USession::getInstance()->getSessionElement('user');
-            $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
-
-            ///load the VIP Users, their profile Images and the foillower number
-            $arrayVipUserPropicFollowNumb = FPersistentManager::getInstance()->loadVip();
-
-            $postExplore = FPersistentManager::getInstance()->loadPostInExplore($userId);
-
-                
-            $view->explore($userAndPropic, $postExplore, $arrayVipUserPropicFollowNumb);
-        }
-    }
-
-    /**
-     * POSSIAMO PENSARE A QUALCOSA COME I PAZIENTI VISITATI PER UN MEDICO
-     * QUINDI TUTTI GLI APPUNTAMENTI CONCLUSI RELATIVI AD UN MEDICO
-     * return a page with a list of Users who are followed by the User logged 
-     * @param int $idUser Refers to the id of a user
-     */
-    public static function followers($idUser)
-    {
-        if(CUser::isLogged()){
-            $usersListAndPropic = FPersistentManager::getInstance()->getFollowedList($idUser);
-                
-            $view = new VManagePost();
-            $view->showUsersList($usersListAndPropic, 'followers');
-        }       
-    }
-
-    /**
-     * QUI POTREMMO METTERE IL CASO SIMMETRICO, OVVERO GLI APPUNTAMENTI PASSATI DI UN PAZIENTE
-     * return a page with a list of Users who are following the User logged 
-     * @param int $idUser Refers to the id of a user
-     */
-    public static function followed($idUser)
-    {
-        if(CUser::isLogged()){
-            $usersListAndPropic = FPersistentManager::getInstance()->getFollowerList($idUser);
-                
-            $view = new VManagePost();
-            $view->showUsersList($usersListAndPropic, 'followed');
-        }
-    }
-
-    /**
-     * POSSIBILE DA MODIFICARE PER LA PRENOTAZIONE DEGLI APPUNTAMENTI (CREAZIONE EFFETTIVA)
-     * method to follow a user, the check is in the profile() method
-     * @param int $followerId Refers to the id of a user
-     */
-    public static function follow($followedId){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-
-            //new Follow Object
-            $follow = new EUserFollow($userId, $followedId);
-            FPersistentManager::getInstance()->uploadObj($follow);
-            $visitedUser = FPersistentManager::getInstance()->retriveObj(EUser::getEntity(), $followedId);
-            header('Location: /Agora/User/profile/' . $visitedUser->getUsername());
-        }       
-    }
-
     /**
      * CANCELLAZIONE APPUNTAMENTO   PROBABILMENTE SERVE CREARE CAppuntamento
      * method to unfollow a user, the check is in the profile() method
@@ -644,7 +551,7 @@ class CUtente{
         } 
     }
 
-//QUI PARTO CON I METODI PRESI DALL'SSD
+
 
 
 

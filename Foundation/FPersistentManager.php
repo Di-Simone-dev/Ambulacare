@@ -250,13 +250,13 @@ class FPersistentManager{
 
     public static function retrieveinfomedico($IdMedico){
         //prende tutte le info del Medico (per la visualizzazione della schermata di profilo)
-        $medico = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), 'IdMedico', $IdMedico);
+        $medico = FMedico::getObj($IdMedico);
         $infomedico = array();
         $infomedico['nome'] = $medico[0]->getNome();
         $infomedico['cognome'] = $medico[0]->getCognome();
         $infomedico['email'] = $medico[0]->getEmail();
-        $infomedico['costo'] = $medico[0]->getCodiceFiscale();
-        $infomedico['propic'] = self::retrievemedicipropic($medico);
+        $infomedico['costo'] = $medico[0]->getCosto();
+        $infomedico['propic'] = self::retrievemedicipropic($medico[0]);
         //oppure 
         //$infomedico['propic'] = $medico[0]->getImmaginefromid();
         return $infomedico;
@@ -377,7 +377,7 @@ class FPersistentManager{
         $check = self::validaimmagine($file);  //se l'immagine è valida $check[0]=true $check[1]=false
         if($check[0]){
             //create new Image Obj ad perist it
-            $immagine = new EImmagine($file['nome'], $file['type'], $file['size'], file_get_contents($file['tmpname']));
+            $immagine = new EImmagine($file['name'], $file['type'], $file['size'], file_get_contents($file['tmpname']));
             //file_get_contents è un metodo php che prende tutto e butta 
             return $immagine;
         }else{
@@ -398,7 +398,7 @@ class FPersistentManager{
         
         //create new Image Obj ad perist it
         $immagine = new EImmagine($file['nome'], $file['dimensione'], $file['tipo'], file_get_contents($file['tmp_name']));
-        return $immagine;                                                            //????????????????????????????????
+        return $immagine;      
     }else{
         return $check[1];
     }
@@ -412,7 +412,10 @@ class FPersistentManager{
      * @param \EPaziente $paziente
      */
     public static function updateinfopaziente($paziente){
-        $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
+        $field = [['nome', $paziente->getNome()],['cognome', $paziente->getCognome()],
+        ['password', $paziente->getPassword()],['codice_fiscale', $paziente->getCodiceFiscale()],
+        ['data_nascita', $paziente->getDataNascita()],['luogo_nascita', $paziente->getLuogoNascita()],
+        ['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
         $result = FPaziente::saveObj($paziente, $field);
 
         return $result;

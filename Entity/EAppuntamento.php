@@ -54,12 +54,12 @@ class EAppuntamento
     }
     public function getFasciaoraria()
     {
-        return $this->paziente;
+        return $this->fascia_oraria;
     }
 
-    public function setFasciaoraria($IdFascia_oraria)
+    public function setFasciaoraria($Fascia_oraria)
     {
-        $this->fascia_oraria = $IdFascia_oraria;
+        $this->fascia_oraria = $Fascia_oraria;
     }
 
 }
