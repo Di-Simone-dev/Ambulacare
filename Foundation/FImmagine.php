@@ -12,7 +12,7 @@ class FImmagine{
         return self::$table;
     }
 
-    public static function getValue(){
+    public static function getValues(){
         return self::$value;
     }
 

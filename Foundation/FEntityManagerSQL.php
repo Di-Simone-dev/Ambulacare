@@ -774,6 +774,210 @@ class FEntityManagerSQL{
         }
     }
     
+    public static function getstatistiche($IdMedico,$data1,$data2){ 
+        
+        try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
+            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data,costo
+                      FROM calendario,fascia_oraria,appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "' AND data BETWEEN '" . $data1 . "' AND '" . $data2 . "'
+                      ORDER BY data ASC;";//prendo solo l'ora per il controllo
+            //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
+            //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
+            //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
+            //questo per controllare l'occupazione della fascia, ma per avere l'informazione della disponibilità del medico
+            //posso passarla implicitamente per esclusione
+            //conviene prima riempire un array subito con gli slot? se tengo l'id risulta facile il controllo ma ce l'ho già
+            //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                //return $result;
+                return $result;     
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function getstatistichegenerali($IdMedico,$data1,$data2){ 
+        
+        try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
+            $query = "SELECT IdMedico,IdFasciaOraria,fascia_oraria.data,SUM(costo) as sommacosti,COUNT(IdFasciaOraria) as numappuntamenti
+                      FROM calendario,fascia_oraria,appuntamento
+                      WHERE IdMedico = '" . $IdMedico . "' AND data BETWEEN '" . $data1 . "' AND '" . $data2 . "'
+                      GROUP BY IdMedico;";//prendo solo l'ora per il controllo
+            //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
+            //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
+            //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
+            //questo per controllare l'occupazione della fascia, ma per avere l'informazione della disponibilità del medico
+            //posso passarla implicitamente per esclusione
+            //conviene prima riempire un array subito con gli slot? se tengo l'id risulta facile il controllo ma ce l'ho già
+            //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
+            
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                //return $result;
+                return $result; //contiene l'id della fascia oraria               
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function ricercautenti($nomeutente = null,$cognomeutente = null,$categoriautente = null){ 
+        
+        try{
+            $query = "SELECT * ";
+            $params = [];
+
+            if (isset($categoriautente)) {
+                $query .= "FROM :categoriautente"; //la tabella è la categoria inserita
+                $params[':categoriautente'] = '%' . $categoriautente . '%';
+            }
+
+            $query .= " WHERE 1=1"; //completo la query
+
+            if (isset($nomeutente)) {
+                $query .= " AND nome LIKE :nome";
+                $params[':nome'] = '%' . $nomeutente . '%';
+            }
+
+            if (isset($cognomeutente)) {
+                $query .= " AND cognome LIKE :cognome";
+                $params[':cognome'] = '%' . $cognomeutente . '%';
+            }
+
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute($params);
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; 
+                          
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function ricercaappuntamenti($data = null,$IdTipologia = null){ 
+        
+        $anno = $data->format('o'); //anno attuale (es 2024)
+        $mese = $data->format('n'); //numero del mese senza zeri
+        $giorno = $data->format('j'); //numero del giorno senza zeri
+        try{
+            
+            $query = "SELECT * ";
+            $params = [];
+
+            $query .= " FROM Appuntamento,Fascia_oraria,Calendario,Medico";
+            $query .= " WHERE 1=1"; //completo la query
+
+            if (isset($data)) {
+                $query .= " AND YEAR(data) = :anno";
+                $params[':anno'] = $anno;
+                $query .= " AND MONTH(data) = :mese";
+                $params[':mese'] = $mese;
+                $query .= " AND DAY(data) = :giorno";
+                $params[':giorno'] = $giorno;
+            }
+
+            if (isset($IdTipologia)) {
+                $query .= " AND IdTipologia = :IdTipologia";
+                $params[':IdTipologia'] = $IdTipologia;
+            }
+
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute($params);
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; 
+                          
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function ricercarecensioni($nomemedico = null,$cognomemedico = null){ 
+        
+        try{
+            $query = "SELECT * ";
+            $params = [];
+
+            $query .= "FROM recensione INNER JOIN Medico ON recensione.IdMedico = medico.IdMedico";
+
+            $query .= " WHERE 1=1"; //completo la query
+
+            if (isset($nomemedico)) {
+                $query .= " AND nome LIKE :nome";
+                $params[':nome'] = '%' . $nomemedico . '%';
+            }
+
+            if (isset($cognomemedico)) {
+                $query .= " AND cognome LIKE :cognome";
+                $params[':cognome'] = '%' . $cognomemedico . '%';
+            }
+
+            $stmt = self::$db->prepare($query);
+            //var_dump($stmt);
+            $stmt->execute($params);
+            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;  //aggiungiamo la row all'array result 
+                }
+                return $result; 
+                          
+                }else{
+                return array();
+            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return false;
+        }
+    }
 
 
 

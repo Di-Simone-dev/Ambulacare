@@ -120,15 +120,14 @@ public static function caricamento_referto(){
         $contenuto = UHTTPMethods::post('contenuto');
         $referto = new EReferto($oggetto,$contenuto);
         $appuntamento = FAppuntamento::getObj($IdAppuntamento);
-        $referto->setAppuntamento($appuntamento);
+        $referto->setAppuntamento($appuntamento[0]);
         $IdReferto = FReferto::saveObj($referto); //LO SALVO NEL DB
         $referto->setIdReferto($IdReferto);
         //SE C'è ANCHE L'IMMAGINE DEVO MODIFICARLO AL VOLO
 
         //MANCA ANCHE SALVARE L'IMMAGINE NEL DB SE PRESENTE
         $check = UHTTPMethods::files('immagineref','error');                                       
-        //var_dump($check);
-        if($check > 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
+        if($check == 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
             $immaginereferto = UHTTPMethods::files('immagineref'); //EQUIVALENTE AD ACCEDERE A $_FILES['immagineref']
             $check = FPersistentManager::getInstance()->manageImages($immaginereferto, $referto);
             if($check){

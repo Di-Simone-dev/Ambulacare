@@ -117,11 +117,9 @@ class FReferto {
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FReferto::getClass(), $referto);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $referto, $savePersonAndLastInsertedID);
+                    //$saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if($saveUser){
-                        return $savePersonAndLastInsertedID;
-                    }
+                    return $savePersonAndLastInsertedID;
                 }else{
                     return false;
                 }
@@ -138,7 +136,7 @@ class FReferto {
                 //var_dump($fieldArray);
                 foreach($fieldArray as $fv)
                 {   //fv[0] è il campo da aggiornare e fv[1] ne contiene il valore 
-                    FEntityManagerSQL::getInstance()->updateObj(FReferto::getTable(), $fv[0], $fv[1], self::getKey(), $referto->getId());
+                    FEntityManagerSQL::getInstance()->updateObj(FReferto::getTable(), $fv[0], $fv[1], self::getKey(), $referto->getIdReferto());
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;

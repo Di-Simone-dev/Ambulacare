@@ -348,7 +348,7 @@ class FPersistentManager{
         ];
         
         //check if the uploaded image is ok 
-        $checkUploadImage = self::creaoggettoimmagine($file);  
+        $checkUploadImage = self::creaoggettoimmagine($file); 
         if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
         {
             self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
@@ -372,7 +372,7 @@ class FPersistentManager{
         $check = self::validaimmagine($file);  //se l'immagine è valida $check[0]=true $check[1]=false
         if($check[0]){
             //create new Image Obj ad perist it
-            $immagine = new EImmagine($file['nome'], $file['type'], $file['size'], file_get_contents($file['tmpname']));
+            $immagine = new EImmagine($file['name'], $file['size'], $file['type'], file_get_contents($file['tmpname']));
             //file_get_contents è un metodo php che prende tutto e butta 
             return $immagine;
         }else{

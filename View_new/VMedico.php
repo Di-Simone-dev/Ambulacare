@@ -182,7 +182,7 @@ class VMedico
     }
 
 	public function messaggio($messaggio){
-		$this->$this->smarty->assign('messaggio',$messaggio);
+		$this->smarty->assign('messaggio',$messaggio);
 		$this->smarty->display('messaggio_medico.tpl');
 	}
 
