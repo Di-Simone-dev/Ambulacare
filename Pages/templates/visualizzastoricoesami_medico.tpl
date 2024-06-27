@@ -30,9 +30,15 @@
                         <td>{$esame.nomepaziente}</td>
                         <td>{$esame.cognomepaziente}</td>
                         <td>{$esame.costoappuntamento}</td>
-                        <td><a href="/Ambulacare/Medico/" class="btn btn-primary">Referto</a></td>
+                        <td>
+                        {if $esame.IdReferto}
+                        <a href="/Ambulacare/Medico/visualizza_referto/{$esame.IdReferto}" class="btn btn-primary">Visualizza Referto</a>
+                        {else}
+                            <a href="/Ambulacare/Medico/inserimento_referto/{$esame.IdAppuntamento}" class="btn btn-primary">Carica Referto</a>
+                        {/if}
+                        </td>
                     </tr>
-                {{/foreach}}
+                {/foreach}
             </tbody>
         </table>
     </div>

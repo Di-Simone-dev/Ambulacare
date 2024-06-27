@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 09:29:07
+/* Smarty version 5.3.0, created on 2024-06-27 10:12:22
   from 'file:visualizzastoricoesami_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667d14c3a75237_72093292',
+  'unifunc' => 'content_667d1ee6c43da4_19027233',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5b350a016232ecb88f606888f793e536cbb49dc7' => 
     array (
       0 => 'visualizzastoricoesami_medico.tpl',
-      1 => 1719473315,
+      1 => 1719475940,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667d14c3a75237_72093292 (\Smarty\Template $_smarty_tpl) {
+function content_667d1ee6c43da4_19027233 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1259197759667d14c3a65567_81640503', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_628779891667d1ee6b16178_03738822', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1259197759667d14c3a65567_81640503 extends \Smarty\Runtime\Block
+class Block_628779891667d1ee6b16178_03738822 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -75,14 +75,19 @@ $foreach0DoElse = false;
 </td>
                         <td><?php echo $_smarty_tpl->getValue('esame')['costoappuntamento'];?>
 </td>
-                        <td><a href="/Ambulacare/Medico/" class="btn btn-primary">Referto</a></td>
+                        <td>
+                        <?php if ($_smarty_tpl->getValue('esame')['IdReferto']) {?>
+                        <a href="/Ambulacare/Medico/visualizza_referto/<?php echo $_smarty_tpl->getValue('esame')['IdReferto'];?>
+" class="btn btn-primary">Visualizza Referto</a>
+                        <?php } else { ?>
+                            <a href="/Ambulacare/Medico/inserimento_referto/<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
+" class="btn btn-primary">Carica Referto</a>
+                        <?php }?>
+                        </td>
                     </tr>
-                <?php ob_start();
+                <?php
 }
-$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);
-$_prefixVariable1 = ob_get_clean();
-echo $_prefixVariable1;?>
-
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             </tbody>
         </table>
     </div>

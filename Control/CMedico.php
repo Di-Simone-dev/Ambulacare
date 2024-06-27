@@ -11,13 +11,14 @@ public static function visualizza_storico_appuntamenti_medico(){
     /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO
         
         $IdMedico = 3 /* USession::getSessionElement('id') */;
-        $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento
-            (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico));
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico);
+        $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento($app);
         //dobbiamo prendere anche i pazienti per visualizzarne le informazioni
         //$pazienti = array();
         //foreach($appuntamenti_medico_conclusi as $ap)
         //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
         $arrayappuntamenti = array();
+        var_dump($app);
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = $appuntamenti_medico_conclusi[$i]->getPaziente();
@@ -30,6 +31,7 @@ public static function visualizza_storico_appuntamenti_medico(){
             $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
             //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
+            $app[$i]["IdReferto"]? $arrayappuntamenti[$i]["IdReferto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["IdReferto"] = false;
             //$arrayappuntamenti[$i]["nometipologiamedico"] = $medico[0]->getTipologia()->getNometipologia(); 
             //$arrayappuntamenti[$i]["tipoimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
             //$arrayappuntamenti[$i]["datiimmaginemedico"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
@@ -51,8 +53,9 @@ public static function ricerca_storico_appuntamenti_medico(){
         
         $dataform = UHTTPMethods::post('data');
         $IdMedico = 3; /* USession::getSessionElement('id') */;
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico);
         $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
-            (FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform));
+            ($app);
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
@@ -66,6 +69,7 @@ public static function ricerca_storico_appuntamenti_medico(){
             $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
             //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
+            $app[$i]["IdReferto"]? $arrayappuntamenti[$i]["IdReferto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["IdReferto"] = false;
 
         }
         $view = new VMedico(); //servirebbe una cosa del genere
@@ -77,17 +81,18 @@ public static function ricerca_storico_appuntamenti_medico(){
 
 //PENSIAMO AD UN METODO CHE CARICHI IL REFERTO SOLO SE TUTTO è OK ALTRIMENTI MANDI UN MESSAGGIO DI ERRORE
 public static function inserimento_referto($IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
         //DOBBIAMO MOSTRARE I DATI RELATIVI ALL'APPUNTAMENTO (PAZIENTE, COSTO, DATA) PARTENDO DA ID APPUNTAMENTO
         //$medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
         $appuntamento = FAppuntamento::getObj($IdAppuntamento);
         $arrayappuntamento = array();
         
-        $arrayappuntamenti = array();    
-        $paziente = FPaziente::getObj($appuntamento[0]->getIdPaziente())[0];
+        $arrayappuntamenti = array();  
+        var_dump($appuntamento);  
+        $paziente = $appuntamento[0]->getPaziente();
     
-        $fasciaoraria = FFasciaOraria::getObj($appuntamento[0]->getIdFasciaoraria());
-        $datastring = $fasciaoraria[0]->getDatatostring();
+        $fasciaoraria = $appuntamento[0]->getFasciaoraria();
+        $datastring = $fasciaoraria->getDatatostring();
         $arrayappuntamento["IdAppuntamento"] = $IdAppuntamento;
         $arrayappuntamento["dataeora"] = $datastring;
         $arrayappuntamento["nomepaziente"] = $paziente->getNome();
@@ -98,17 +103,17 @@ public static function inserimento_referto($IdAppuntamento){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VMedico($arrayappuntamento); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    }
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->CaricaReferto($arrayappuntamento);
+    /* } */
 }
 
 //4.4 caricamento_referto(appuntamento)
 
 //PENSIAMO AD UN METODO CHE CARICHI IL REFERTO SOLO SE TUTTO è OK ALTRIMENTI MANDI UN MESSAGGIO DI ERRORE
 public static function caricamento_referto(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
-        
+    /* if(CUtente::isLogged()){ */ //BISOGNA TENERLO   
+        $messaggio = "Errore con il caricamento del referto!";
         $IdAppuntamento = UHTTPMethods::post('IdAppuntamento');
         //BISOGNA PRENDERE L'OGGETTO ed il contenuto dal form
         $oggetto = UHTTPMethods::post('oggetto');
@@ -126,8 +131,9 @@ public static function caricamento_referto(){
         if($check > 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
             $immaginereferto = UHTTPMethods::files('immagineref'); //EQUIVALENTE AD ACCEDERE A $_FILES['immagineref']
             $check = FPersistentManager::getInstance()->manageImages($immaginereferto, $referto);
-            if(!$check){
+            if($check){
                 //$view->uploadFileError($check);
+                $messaggio="Referto caricato correttamente!";
             }
         }//L'IMMAGINE VIENE CREATA E SALVATA IN FOUNDATION?
 
@@ -135,9 +141,9 @@ public static function caricamento_referto(){
         //$referto->setIdImmagine();  //DA FARE
         //FReferto::saveObj($referto); //LO SALVO NEL DB
 
-        $view = new VMedico($appuntamenti_medico_conclusi,$pazienti); //servirebbe una cosa del genere
-        header('Location: /appuntamento/esamidaprenotare');
-    }
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->messaggio($messaggio);
+    /* } */
 }
 
 

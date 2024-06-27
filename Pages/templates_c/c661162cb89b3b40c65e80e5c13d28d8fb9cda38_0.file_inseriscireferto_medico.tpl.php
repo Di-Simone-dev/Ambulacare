@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-18 10:28:39
+/* Smarty version 5.3.0, created on 2024-06-27 10:16:49
   from 'file:inseriscireferto_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66714537208c82_63902793',
+  'unifunc' => 'content_667d1ff1bc17e7_88582464',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c661162cb89b3b40c65e80e5c13d28d8fb9cda38' => 
     array (
       0 => 'inseriscireferto_medico.tpl',
-      1 => 1718699121,
+      1 => 1719395847,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66714537208c82_63902793 (\Smarty\Template $_smarty_tpl) {
+function content_667d1ff1bc17e7_88582464 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1986829974667145371f9d19_20043043', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1583267059667d1ff1bb4fc8_99092626', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1986829974667145371f9d19_20043043 extends \Smarty\Runtime\Block
+class Block_1583267059667d1ff1bb4fc8_99092626 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -42,32 +42,36 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
         <div class="row">
             <div class="col">
                 <br>
-                <h1>Caricamento Referto</h1>
+                <h2>Caricamento Referto</h2>
                 <br>
-                <h2>Esame di <?php echo $_smarty_tpl->getValue('esame')['paziente'];?>
-</h2>
+                <h3>Esame di <?php echo $_smarty_tpl->getValue('esame')['nomepaziente'];?>
+ <?php echo $_smarty_tpl->getValue('esame')['cognomepaziente'];?>
+</h3>
                 <br>
-                <h2>Categoria : <?php echo $_smarty_tpl->getValue('esame')['categoria'];?>
- &ensp;&ensp;&ensp;&ensp;Costo: <?php echo $_smarty_tpl->getValue('esame')['costo'];?>
-€</h2>
+                <h3>Costo: <?php echo $_smarty_tpl->getValue('esame')['costoappuntamento'];?>
+€</h3>
                 <br>
-                <h2>Data : <?php echo $_smarty_tpl->getValue('esame')['data'];?>
- &ensp;&ensp;&ensp;&ensp; Ora: <?php echo $_smarty_tpl->getValue('esame')['orario'];?>
-</h2>
+                <h3>Data e ora: <?php echo $_smarty_tpl->getValue('esame')['dataeora'];?>
+</h3>
                 <br><br>
-                <form action="#">
-                    <h3><label for="oggetto">Oggetto Referto: </label>
-                        <input id="oggetto" name="oggetto" placeholder="Oggetto" style="width: 800px;height: 35px;" />
-                    </h3>
+                <form action="/Ambulacare/Medico/caricamento_referto" enctype="multipart/form-data" method="post">
+                    <h4><label for="oggettoref">Oggetto Referto: </label>
+                        <input id="oggetto" name="oggetto" style="width: 800px;height: 35px;" required/>
+                    </h4>
                     <br>
-                    <h3><label for="contenuto">Contenuto Referto:</label>
-                        <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;">
-                    </h3>
-                    <br><br><br><br>
-                    <div style="position: absolute;left: 550px;">
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</button>
+                    <h4><label for="contenutoref">Contenuto Referto:</label>
+                        <input id="contenuto" name="contenuto" style="width: 800px;height: 170px;" required/>
+                    </h4>
+		    <br><br>
+                    <h4><label for="immagineref">Immagine Referto: </label>
+                    <input id="immagineref" name="immagineref"  type="file"></h4>
+                    <br><br>
+                    <div>
+                        <input type="hidden" value="<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
+" name="IdAppuntamento">
+                        <a class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                        <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
 
                 </form>

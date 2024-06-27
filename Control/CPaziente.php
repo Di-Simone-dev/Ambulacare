@@ -275,7 +275,6 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
 
-        var_dump($arrayreferto);
         $view = new VPaziente();
         $view->messaggio("Referto da visualizzare!!");
 
