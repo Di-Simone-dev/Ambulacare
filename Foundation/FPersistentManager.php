@@ -39,6 +39,7 @@ class FPersistentManager{
     public static function retrieveObj($class, $id){
        
         $foundClass = "F" . substr($class, 0);
+        var_dump($foundClass);
         $staticMethod = "getObj";    //il metodo della classe si deve chiamare così
 
         $result = call_user_func([$foundClass, $staticMethod], $id);
