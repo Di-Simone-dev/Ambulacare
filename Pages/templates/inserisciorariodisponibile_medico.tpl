@@ -11,8 +11,7 @@
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
                             <br>
-                            <a class="bottonitab">
-                                << /a>
+                            <a class="bottonitab"><</a>
                                     <a class="bottonitab">></a>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
@@ -60,7 +59,7 @@
                                     </div>
                         </div>
                     </div>
-                    <br><br><br>
+                    <br><br>
                     <div>
                         <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;

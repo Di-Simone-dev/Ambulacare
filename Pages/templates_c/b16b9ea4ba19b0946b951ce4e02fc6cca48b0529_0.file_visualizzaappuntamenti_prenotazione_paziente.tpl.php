@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 16:31:09
+/* Smarty version 5.3.0, created on 2024-06-28 17:49:37
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ec92d12df96_45090801',
+  'unifunc' => 'content_667edb913b9415_19817750',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b16b9ea4ba19b0946b951ce4e02fc6cca48b0529' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719584609,
+      1 => 1719589775,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ec92d12df96_45090801 (\Smarty\Template $_smarty_tpl) {
+function content_667edb913b9415_19817750 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2052199059667ec92d1157a9_42848289', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1400990093667edb9139abf4_89327605', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_2052199059667ec92d1157a9_42848289 extends \Smarty\Runtime\Block
+class Block_1400990093667edb9139abf4_89327605 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -72,7 +72,6 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Img</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -88,11 +87,10 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('medico')->value) {
 $foreach1DoElse = false;
 ?>
                     <tr>
-                        <td><img class="rounded-circle ml-3" width="60" height="60"
+                        <td><img style="padding:2px" class="rounded-circle ml-3" width="60" height="60"
                                 src="data:<?php echo $_smarty_tpl->getValue('medico')['tipoimmagine'];?>
 ;base64,<?php echo $_smarty_tpl->getValue('medico')['img'];?>
-" alt="profile picture" /></td>
-                        <td><?php echo $_smarty_tpl->getValue('medico')['nome'];?>
+" alt="profile picture" /><?php echo $_smarty_tpl->getValue('medico')['nome'];?>
  <?php echo $_smarty_tpl->getValue('medico')['cognome'];?>
 </td>
                         <td><?php echo $_smarty_tpl->getValue('medico')['nometipologia'];?>

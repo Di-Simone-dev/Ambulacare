@@ -18,7 +18,6 @@ public static function visualizza_storico_appuntamenti_medico(){
         //foreach($appuntamenti_medico_conclusi as $ap)
         //    $pazienti = FPaziente::getObj($ap->getIdPaziente()); //aggiungo il paziente all'array
         $arrayappuntamenti = array();
-        var_dump($app);
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
             
             $paziente = $appuntamenti_medico_conclusi[$i]->getPaziente();
@@ -327,8 +326,15 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
+        $img=FALSE;
+        if(isset($immagine)){
+            $img=TRUE;
+            $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
+            $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
+        }
         $arrayreferto["nominativopaziente"]= "Gerry Scotti";
         $arrayreferto["nominativomedico"]= "Pippo Baudo";
+<<<<<<< HEAD
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
         if(isset($immagine)){
@@ -338,6 +344,10 @@ public static function visualizza_referto($IdReferto){
             UPdf::crea_scarica_pdf_noimg($arrayreferto);
         }
 }}
+=======
+        UPdf::crea_scarica_pdf($arrayreferto,$img);
+}
+>>>>>>> 64381a3 (modifiche grafiche e creazione pdf)
 
 //[medico]caso d'uso 7 "visualizzare esami complessivi e guadagni in un periodo di tempo
 
@@ -447,7 +457,7 @@ public static function visualizza_agenda(){
 
         $IdMedico = USession::getSessionElement('id');
         $agenda =FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
-        var_dump($agenda);
+        //var_dump($agenda);
         //DOVREBBE BASTARE PASSARE QUESTA
         $view = new VMedico(); //servirebbe una cosa del genere
         $view->ShowAgenda($agenda);

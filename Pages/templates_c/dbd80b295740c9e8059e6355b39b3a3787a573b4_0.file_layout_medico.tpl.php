@@ -1,5 +1,51 @@
-{extends file="structure.tpl"}
-{block name=head}
+<?php
+/* Smarty version 5.3.0, created on 2024-06-28 18:48:54
+  from 'file:layout_medico.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_667ee9764d8920_50096758',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'dbd80b295740c9e8059e6355b39b3a3787a573b4' => 
+    array (
+      0 => 'layout_medico.tpl',
+      1 => 1719593332,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_667ee9764d8920_50096758 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+$_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
+?>
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_797186468667ee9764cbd81_36420009', 'head');
+?>
+
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_975295516667ee9764d6208_05346210', 'nav');
+?>
+
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1317569067667ee9764d7058_58587476', 'footer');
+$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "structure.tpl", $_smarty_current_dir);
+}
+/* {block 'head'} */
+class Block_797186468667ee9764cbd81_36420009 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+?>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,13 +70,23 @@
     <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
-    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+    <?php echo '<script'; ?>
+ src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"><?php echo '</script'; ?>
+>
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet"> 
     <link rel="stylesheet" href="logregstyle.css">
     <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
-{/block}
+<?php
+}
+}
+/* {/block 'head'} */
+/* {block 'nav'} */
+class Block_975295516667ee9764d6208_05346210 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+?>
 
-{block name=nav}
 
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
         <div class="container">
@@ -50,15 +106,15 @@
                         <a class="nav-link" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_storico_appuntamenti_medico">Storico
+                        <a class="nav-link" href="">Storico
                             esami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_agenda">Agenda</a>
+                        <a class="nav-link" href="">Agenda</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/mostra_orari_disponibilita">Disponibilità orari</a>
+                        <a class="nav-link" href="">Disponibilità orari</a>
                     </li>
 
                     <div class="navbar-brand d-none d-lg-block">
@@ -66,17 +122,17 @@
                         <strong class="d-block">HEALTH SPECIALISTS</strong>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_statistiche">Statistiche</a>
+                        <a class="nav-link" href="">Statistiche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_pazienti">Elenco
+                        <a class="nav-link" href="">Elenco
                             pazienti</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_recensioni">Recensioni</a>
+                        <a class="nav-link" href="">Recensioni</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Medico/settingsmedico">Profilo Personale</a>
+                        <a class="nav-link" href="">Profilo Personale</a>
                     </li>
                 </ul>
             </div>
@@ -84,9 +140,17 @@
         </div>
     </nav>
 
-{/block}
+<?php
+}
+}
+/* {/block 'nav'} */
+/* {block 'footer'} */
+class Block_1317569067667ee9764d7058_58587476 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+?>
 
-{block name=footer}
     <footer class="site-footer section-padding" id="contact">
         <div class="container">
             <div class="row">
@@ -140,9 +204,23 @@
             </div>
     </footer>
 	<!-- JAVASCRIPT FILES -->
-        <script src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"></script>
-        <script src="/Ambulacare/Pages/js/custom.js"></script>
-        <script src="/Ambulacare/Pages/js/jquery.min.js"></script>
-        <script src="/Ambulacare/Pages/js/owl.carousel.min.js"></script>
-        <script src="/Ambulacare/Pages/js/scrollspy.min.js"></script>
-{/block}
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/custom.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/jquery.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/scrollspy.min.js"><?php echo '</script'; ?>
+>
+<?php
+}
+}
+/* {/block 'footer'} */
+}
