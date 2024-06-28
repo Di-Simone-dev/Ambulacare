@@ -1,6 +1,6 @@
 <?php
 
-//require_once(__DIR__ . '/../../../../config/config.php');
+require_once(__DIR__ . '../config/config.php');
 
 class FEntityManagerSQL{
     /**
@@ -13,12 +13,12 @@ class FEntityManagerSQL{
 
 
      private function __construct(){
-
+        
         //global $host, $database, $username, $password;
-		$host = "127.0.0.1"; //localhost
-		$database = "ambulacare";
-		$username = "root";
-		$password = "";
+		$host = DB_HOST; //localhost
+		$database = DB_NAME;
+		$username = DB_USER;
+		$password = DB_PASS;
 
 
         try{
