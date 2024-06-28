@@ -9,7 +9,7 @@ class CAmministratore
 
     public static function visualizza_medici()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $medici = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
             //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
@@ -23,7 +23,7 @@ class CAmministratore
 
     public static function ricerca_medici()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $nomemedico = UHTTPMethods::post('nomemedico');
             $cognomemedico = UHTTPMethods::post('cognomemedico');
@@ -36,7 +36,7 @@ class CAmministratore
     //10.3) moderazione_medico(utente, operazione) qui dobbiamo distinguere medici da pazienti 
     public static function moderazione_medico($IdMedico)
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $medico = FMedico::getObj($IdMedico);
             //serve cambiare il campo "attivo" del medico e salvare la modifica sul db
@@ -58,7 +58,7 @@ class CAmministratore
 
     public static function visualizza_pazienti()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
             //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
@@ -76,7 +76,7 @@ class CAmministratore
 
     public static function ricerca_pazienti()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $nomepaziente = UHTTPMethods::post('nomepaziente');
             $cognomepaziente = UHTTPMethods::post('cognomepaziente');
@@ -89,7 +89,7 @@ class CAmministratore
     //10.3) moderazione_paziente(utente, operazione) 
     public static function moderazione_paziente($IdPaziente)
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $paziente = FPaziente::getObj($IdPaziente);
             //serve cambiare il campo "attivo" del paziente e salvare la modifica sul db
@@ -112,7 +112,7 @@ class CAmministratore
     //11.1) gestione_appuntamenti() accedo alla schermata di gestione degli appuntamenti
     public static function gestione_appuntamenti()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $appuntamenti = FEntityManagerSQL::getInstance()->retrieveall(FAppuntamento::getTable());
             $tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());
@@ -132,7 +132,7 @@ class CAmministratore
     //11.2 ricerca_appuntamenti(data,ora,categoria,)
     public static function  ricerca_appuntamenti()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $data = UHTTPMethods::post('data');
             $IdTipologia = UHTTPMethods::post('IdTipologia');
@@ -155,7 +155,7 @@ class CAmministratore
     //11.3) dettagli_appuntamento(appuntamento) PER LA SCHERMATA DI MODIFICA
     public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisplacement = 0)
     { //CONVIENE VISUALIZZARE ANCHE I DATI DEL PAZIENTE
-        if (CUtente::isLogged()) { //BISOGNA TENERLO
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO
             //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
             $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
             $paziente = $appuntamento[0]->getPaziente();
@@ -210,7 +210,7 @@ class CAmministratore
 
     public static function modifica_appuntamento()
     {  //DA FARE
-        if (CUtente::isLogged()) { //possiamo tenerlo o toglierlo
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //possiamo tenerlo o toglierlo
             $messaggio = "Errore con la modifica dell'appuntamento!";
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
@@ -260,7 +260,7 @@ class CAmministratore
 
     public static function  gestione_recensioni()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $recensioni = FEntityManagerSQL::getInstance()->retrieveall(FRecensione::getTable());
             /* var_dump($recensioni); */
@@ -277,7 +277,7 @@ class CAmministratore
 
     public static function  ricerca_recensioni()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
             $nomemedico = UHTTPMethods::post('nomemedico');
             $cognomemedico = UHTTPMethods::post('cognomemedico');
             $recensioni = FEntityManagerSQL::getInstance()->ricercarecensioni($nomemedico, $cognomemedico);
@@ -294,7 +294,7 @@ class CAmministratore
 
     public static function elimina_recensione($IdRecensione)
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $recensione = FRecensione::eliminarecensione($IdRecensione);
             $view = new VAmministratore(); //servirebbe una cosa del genere
@@ -311,7 +311,7 @@ class CAmministratore
      */
     public static function registrazionemedico()
     {   //registrazione del medico usata (dall'admin)
-        if (CUtente::isLogged()) {
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") {
             //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
             $view = new VMedico();
             //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
@@ -341,7 +341,7 @@ class CAmministratore
 
     public static function formregistrazione()
     {
-        if (CUtente::isLogged()) { //BISOGNA TENERLO   
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
             $view = new VAmministratore(); //servirebbe una cosa del genere
             $tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());

@@ -116,85 +116,20 @@ class CUtente{
     }
 
     /**
-     * load all the Posts in homepage (Posts of the Users that the logged User are following). Also are loaded Information about vip User and
-     * about profile Images of all the involved User
+     *
      */
-    public static function home(){  //questa roba non ha proprio un corrispettivo, si può usare per una struttura comune per richieste e load
+    public static function home(){  
         if(CUtente::isLogged())
         {   //questa obbligatorietò del login potrebbe essere tolta e messa nei punti cardine(creazione effettiva appuntamento)
-            $view = new VPaziente();
+            //$view = new VPaziente();
 
             $userId = USession::getInstance()->getSessionElement('user');
             $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
 
-            //load all the posts of the users who you follow(post have user attribute) and the profile pic of the author of teh post
-            //$postInHome = FPersistentManager::getInstance()->loadHomePage($userId);
-            
-            //load the VIP Users, their profile Images and the foillower number
-            //$arrayVipUserPropicFollowNumb = FPersistentManager::getInstance()->loadVip();
+           
         
             $view->home($userAndPropic, $postInHome,$arrayVipUserPropicFollowNumb);
         }  
     }
-
-    /*
-     * NON ESATTAMENTE CON CORRISPETTIVO
-     * load Posts belonged to the logged User and his Bio information
-     */
-    /*
-    public static function personalProfile(){ //NON DOVREBBE ESSERE POSSIBILE APRIRE I PROFILI DI ALTRI PAZIENTI, PROBABILMENTE SOLO DEI MEDICI
-        if(CUser::isLogged()){ 
-            $view = new VUser();
-
-            $userId = USession::getInstance()->getSessionElement('user');
-            $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
-                
-            //load all the Posts belonged to a User that are not Banned
-            //$postProfileAndLikes = FPersistentManager::getInstance()->loadUserPage($userId);
-
-            //load the number of followed and following users
-            //$followerNumb = FPersistentManager::getInstance()->getFollowerNumb($userId);
-            //$followedNumb = FPersistentManager::getInstance()->getFollowedNumb($userId);
-
-            $view->uploadPersonalUserInfo($userAndPropic, $postProfileAndLikes, $followerNumb, $followedNumb);
-        }
-    }
-    */
-
-    /*
-     * load post belonged to the visited User and his informations
-     * @param String $username Refers to the username of a user
-     */
-    /*
-    public static function profile($username)
-    {
-        if(CUtente::isLogged()){
-            $personalUserId =  USession::getInstance()->getSessionElement('user');
-            $personalUserAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($personalUserId);
-            if($personalUserAndPropic[0][0]->getUsername() != $username){
-                if(FPersistentManager::getInstance()->verifyUserUsername($username)){
-                    $user = FPersistentManager::getInstance()->retriveUserOnUsername($username);
-                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($user->getId());
-
-                    $postUser = FPersistentManager::getInstance()->loadUserPage($user->getId());
-                    $follow = FPersistentManager::getInstance()->retriveFollow($personalUserId, $user->getId());
-
-                    $followerNumb = FPersistentManager::getInstance()->getFollowerNumb($user->getId());
-                    $followedNumb = FPersistentManager::getInstance()->getFollowedNumb($user->getId());
-                    $view = new VUser();
-                        
-
-                    $view->uploadUserInfo($userAndPropic, $personalUserAndPropic, $postUser,  $follow, $followerNumb, $followedNumb);
-                }else{
-                    header('Location: /Agora/User/home');
-                }
-            }else{
-                header('Location: /Agora/User/personalProfile');
-            }    
-        }
-    }*/
-
-
-
 
 }

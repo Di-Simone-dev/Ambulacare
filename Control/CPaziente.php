@@ -41,7 +41,7 @@ class CPaziente{
     //dovrebbe servire anche il nome della tipologia per visualizzarlo e per metterlo nella URL
     //bisogna mettere gli id dei medici nei bottoni per passarli poi al metodo successivo
     public static function ricercaesame(){
-        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             $IdTipologia = UHTTPMethods::post('tipologia');
             $nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
@@ -81,7 +81,7 @@ class CPaziente{
     //qualcosa del tipo $data = $data + $weekdisplacement*7*giorni
 
     public static function dettagli_prenotazione($IdMedico,$weekdisplacement = 0){
-        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
             $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
@@ -127,7 +127,7 @@ class CPaziente{
     //l'implementazione di un controllo aggiuntivo sull'esistenza della fascia oraria libera risulta necessario
     //PER LA CREAZIONE DELL'APPUNTAMENTO CI SERVE LA FASCIAORARIA E IL PAZIENTE (lo stato non serve)
     public static function conferma_appuntamento(){  //DA FARE
-        if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
             $IdMedico = UHTTPMethods::post('IdMedico');
@@ -178,7 +178,7 @@ class CPaziente{
 //PRENDO L'ID DEL PAZIENTE DALLA SESSIONE E CON QUESTO MI PRENDO TUTTI I SUOI APPUNTAMENTI CONCLUSI
 //QUINDI LA QUERY DEVE AVERE IN INPUT L'ID DEL PAZIENTE E OPERARE SULLA TABELLA DEGLI APPUNTAMENTI MA CONTROLLARE CHE LA DATA SIA PASSATA
 public static function visualizza_appuntamenti_effettuati(){
-    if(CUtente::isLogged()){  //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){  //BISOGNA TENERLO
         
         $IdPaziente = USession::getSessionElement('id'); 
         $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente);
@@ -218,7 +218,7 @@ public static function visualizza_appuntamenti_effettuati(){
 //qui raffino i risultati visti in precedenza con l'aggiunta di tipologia e data che si prendono dal form
 //POTREBBE ESSERE UNITO AL PRECEDENTE
 public static function ricerca_appuntamenti_effettuati(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO   
         
         $dataform = UHTTPMethods::post('data');
         $IdTipologia = UHTTPMethods::post('IdTipologia');
@@ -258,7 +258,7 @@ public static function ricerca_appuntamenti_effettuati(){
 //PREMENDO sul bottone viene passato anche l'id dell'appuntamento, quindi lo usiamo per andare a prendere il referto dal db
 //2.3 visualizza_referto()
 public static function visualizza_referto($IdReferto){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO   
 
         $arrayreferto = array();
         $referto = FReferto::getObj($IdReferto);
@@ -283,7 +283,7 @@ public static function visualizza_referto($IdReferto){
 
 //3.2 accedi_schermata_recensioni
 public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO   
         //BISOGNERà PASSARE L'Id del medico a cui attribuire la recensione perchè serve nello step successivo per la creazione
         //quindi va tenuto, possibilmente anche in sessione se serve
         //SERVE PASSARE TUTTI I DATI RELATIVI AL MEDICO A CUI METTIAMO LA RECENSIONE
@@ -310,7 +310,7 @@ public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
 
 //3.3 conferma_recensione(Titolo,contenuto,voto)
 public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRAVERSO LA SESSIONE
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO   
         
         $IdMedico = UHTTPMethods::post('IdMedico'); //prendendolo da un campo nascosto del form
         $medico = FMedico::getObj($IdMedico);
@@ -338,10 +338,10 @@ public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRA
 //9.1 visualizza_appuntamenti_prenotati()
 //DOBBIAMO OPERARE SUGLI ESAMI PRENOTATI (QUINDI NON ANCORA SVOLTI)=>CONDIZIONE SULLA DATA NELLA QUERY
 public static function visualizza_appuntamenti_prenotati(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO
         //a questo punto prendiamo l'id del paziente della sessione e ritorniamo gli appuntamenti non ancora svolti
 
-        $IdPaziente = 3; /* USession::getSessionElement('id'); */
+        $IdPaziente = USession::getSessionElement('id'); 
         $appuntamenti_paziente_prenotati = FAppuntamento::creaappuntamento
             (FEntityManagerSQL::getInstance()->getappuntamentiprenotatifromIdPaziente($IdPaziente));
         //dentro questo array abbiamo gli oggetti appuntamento conclusi per essere visualizzati 
@@ -377,7 +377,7 @@ public static function visualizza_appuntamenti_prenotati(){
 //VISTO CHE NON ABBIAMO SCHERMATE INTERMEDIE QUA DEVO PRENDERE ANCHE IL RESTO DELLE INFORMAZIONI
 //va passato il medico
 public static function dettagli_appuntamento_modifica($IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO
         //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
         $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
         $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
@@ -417,7 +417,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento){
 //9.3 modifica_appuntamento()
 //PROBABILMENTE I METODI POSSONO ESSERE RIUTILIZZATI CON QUALCHE ACCORTEZZA
 public static function modifica_appuntamento(){  //DA FARE
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
         $IdAppuntamento = UHTTPMethods::post('IdAppuntamento');
@@ -541,7 +541,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * load the settings page compiled with the user data
      */
     public static function settingspaziente(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $view = new VPaziente();
 
             $userId = USession::getInstance()->getSessionElement('id');
@@ -556,7 +556,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
      */
     public static function setInfoPaziente(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $paziente[0]->setNome(UHTTPMethods::post('Nome'));
@@ -580,7 +580,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
     public static function setEmailPaziente(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             
@@ -607,7 +607,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * Take the compiled form and update the user password
      */
     public static function setPasswordPaziente(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $newPass = UHTTPMethods::post('password');

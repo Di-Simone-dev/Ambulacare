@@ -8,7 +8,7 @@ class CMedico{
 
 //per mostrare gli appuntamenti conclusi di un medico ci basta prendere il suo id dalla sessione
 public static function visualizza_storico_appuntamenti_medico(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO
         
         $IdMedico =  USession::getSessionElement('id');
         $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico);
@@ -48,7 +48,7 @@ public static function visualizza_storico_appuntamenti_medico(){
 
 //4.2 ricerca_storico_esami(data)
 public static function ricerca_storico_appuntamenti_medico(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
         
         $dataform = UHTTPMethods::post('data');
         $IdMedico = USession::getSessionElement('id');
@@ -80,7 +80,7 @@ public static function ricerca_storico_appuntamenti_medico(){
 
 //PENSIAMO AD UN METODO CHE CARICHI IL REFERTO SOLO SE TUTTO è OK ALTRIMENTI MANDI UN MESSAGGIO DI ERRORE
 public static function inserimento_referto($IdAppuntamento){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
         //DOBBIAMO MOSTRARE I DATI RELATIVI ALL'APPUNTAMENTO (PAZIENTE, COSTO, DATA) PARTENDO DA ID APPUNTAMENTO
         //$medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
         $appuntamento = FAppuntamento::getObj($IdAppuntamento);
@@ -111,7 +111,7 @@ public static function inserimento_referto($IdAppuntamento){
 
 //PENSIAMO AD UN METODO CHE CARICHI IL REFERTO SOLO SE TUTTO è OK ALTRIMENTI MANDI UN MESSAGGIO DI ERRORE
 public static function caricamento_referto(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
         $messaggio = "Errore con il caricamento del referto!";
         $IdAppuntamento = UHTTPMethods::post('IdAppuntamento');
         //BISOGNA PRENDERE L'OGGETTO ed il contenuto dal form
@@ -149,7 +149,7 @@ public static function caricamento_referto(){
 
 //5.1 mostra_orari()
 public static function mostra_orari_disponibilita($weekdisplacement=0){
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //possiamo tenerlo o toglierlo
         
         $IdMedico = USession::getSessionElement('id');
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
@@ -184,7 +184,7 @@ public static function mostra_orari_disponibilita($weekdisplacement=0){
 //5.2 conferma_orari_disponibilità(data,slot1,slot2,.....)
 
 public static function conferma_orari_disponibilita(){  //questa funzione crea le fasce orarie
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //possiamo tenerlo o toglierlo
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
         $messaggio = "Errore con la fascia oraria";
@@ -234,7 +234,7 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
 //6.1 visualizza_pazienti() dobbiamo visualizzare tutti i pazienti attivi sulla piattaforma
 
 public static function visualizza_pazienti(){ 
-    if(CUtente::isLogged()){ 
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ 
     $pazienti = FPersistentManager::getInstance()->retrievepazientiattivi(); //è l'array dei pazienti attivi, ma deve essere raffinato
     
     $arraypazienti = array();
@@ -256,7 +256,7 @@ public static function visualizza_pazienti(){
 //6.2 ricerca_pazienti() dobbiamo visualizzare tutti i pazienti attivi sulla piattaforma
 
 public static function ricerca_pazienti(){ 
-    if(CUtente::isLogged()){ 
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ 
     $nomepaziente = UHTTPMethods::post('nome');
     $cognomepaziente = UHTTPMethods::post('cognome');
     $pazienti = FPaziente::getpazientefromnome_cognome($nomepaziente,$cognomepaziente); //ATTENZIONE SONO PRESENTI ANCHE QUELLI BANNATI
@@ -281,7 +281,7 @@ public static function ricerca_pazienti(){
 //MOLTO SIMILE A 2.1
 
 public static function dettagli_storico_paziente($IdPaziente){
-     if(CUtente::isLogged()){  //BISOGNA TENERLO   
+     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){  //BISOGNA TENERLO   
         
         $paziente = FPersistentManager::retrieveinfopaziente($IdPaziente);
         //$IdPaziente = USession::getSessionElement('id');
@@ -318,7 +318,7 @@ public static function dettagli_storico_paziente($IdPaziente){
 
 //6.4) visualizza_referto()
 public static function visualizza_referto($IdReferto){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
         $arrayreferto = array();
         $referto = FReferto::getObj($IdReferto);
@@ -343,7 +343,7 @@ public static function visualizza_referto($IdReferto){
 //7.1)visualizza_statistiche() qui non dovrei passare nulla per ora perchè servono le date
 
 public static function visualizza_statistiche(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
         
         $view = new VMedico(); //servirebbe una cosa del genere
@@ -355,7 +355,7 @@ public static function visualizza_statistiche(){
 //ed anche la somma dei costi degli appuntamenti, oltre che un array per il grafico effettivo
 
 public static function calcola_statistiche(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
         $data1 = UHTTPMethods::post('data1');
@@ -381,7 +381,7 @@ public static function calcola_statistiche(){
 //8.1) visualizza_recensioni()
 
 public static function visualizza_recensioni(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
 
@@ -399,7 +399,7 @@ public static function visualizza_recensioni(){
 
 //8.2) dettagli_recensione() nella schermata di dettaglio possiamo inserire la risposta alla recensione
 public static function dettagli_recensione($IdRecensione){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
         $recensione = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"IdRecensione",$IdRecensione);
@@ -417,7 +417,7 @@ public static function dettagli_recensione($IdRecensione){
 
 //8.3) inserisci_risposta() prendiamo i dati dal form e creiamo la risposta per salvarla nel db 
 public static function inserisci_risposta(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO   
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
         $messaggio = "Errore nel caricamento della recensione";
         $IdRecensione = UHTTPMethods::post("IdRecensione");
         $IdMedico = USession::getSessionElement('id'); //prendiamo l'id dalla sessione
@@ -441,7 +441,7 @@ public static function inserisci_risposta(){
 //9.1 visualizza_agenda()
 
 public static function visualizza_agenda(){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO
         //a questo punto prendiamo l'id del paziente della sessione e ritorniamo gli appuntamenti non ancora svolti
 
         $IdMedico = USession::getSessionElement('id');
@@ -457,7 +457,7 @@ public static function visualizza_agenda(){
 //con questo accediamo alla schermata di modifica dell'appuntamento 
 //PASSIAMO LE DISPONIBILITà, IL NOMINATIVO DEL PAZIENTE E LE VECCHIE DATE ED ORA DELL'APPUNTAMENTO
 public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisplacement = 0){
-    if(CUtente::isLogged()){ //BISOGNA TENERLO
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO
         //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
         $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
         $fasciaoraria = FFasciaOraria::getObj($appuntamento[0]->getFasciaoraria()->getIdFasciaoraria());
@@ -504,7 +504,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisp
 //9.3 modifica_appuntamento()
 //PROBABILMENTE I METODI POSSONO ESSERE RIUTILIZZATI CON QUALCHE ACCORTEZZA
 public static function modifica_appuntamento(){  //DA FARE
-    if(CUtente::isLogged()){ //possiamo tenerlo o toglierlo
+    if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //possiamo tenerlo o toglierlo
         $messaggio="Errore nella modifica!";
         //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
         //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
@@ -592,7 +592,7 @@ public static function logout()
      * load the settings page compiled with the user data
      */
     public static function settingsmedico(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
 
             $Idmedico = USession::getInstance()->getSessionElement('id');
@@ -605,7 +605,7 @@ public static function logout()
     }
 
     public static function formSetInfoMedico(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
 
             $Idmedico = USession::getInstance()->getSessionElement('id');
@@ -620,7 +620,7 @@ public static function logout()
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
      */
     public static function setInfoMedico(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $IdMedico = USession::getInstance()->getSessionElement('id');
             $medico = FMedico::getObj($IdMedico)[0];
             $medico->setNome(UHTTPMethods::post('Nome'));
@@ -637,10 +637,10 @@ public static function logout()
     }
 
     public static function formEmailMedico(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
 
-            /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
+            $Idmedico = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
             /* $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);   */  
             $view->formmodificaemail();  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
@@ -653,7 +653,7 @@ public static function logout()
      * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
     public static function setEmailMedico(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
             $IdMedico = USession::getInstance()->getSessionElement('id');
             $medico = FMedico::getObj($IdMedico)[0];
@@ -680,7 +680,7 @@ public static function logout()
      * Take the compiled form and update the user password
      */
     public static function setPasswordMedico(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $IdMedico = USession::getInstance()->getSessionElement('id');
             $medico = FMedico::getObj($IdMedico)[0];
             $newPass = UHTTPMethods::post('password');
@@ -693,7 +693,7 @@ public static function logout()
     }
 
     public static function formPasswordMedico(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
 
             /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
@@ -704,7 +704,7 @@ public static function logout()
     }
 
     public static function formImgMedico(){  //POTREBBE ESSERE RINOMINATO
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
 
             /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
@@ -719,7 +719,7 @@ public static function logout()
      * Take the file, check if there is an upload error, if not update the user image and delete the old one 
      */
     public static function setProPicMedico(){
-        if(CUtente::isLogged()){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
             $IdMedico = USession::getInstance()->getSessionElement('id');
             $medico = FMedico::getObj($IdMedico)[0];
