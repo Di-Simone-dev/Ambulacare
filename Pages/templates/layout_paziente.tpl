@@ -42,14 +42,14 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="" >Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Prenota appuntamento</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Paziente/" >Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Elenco appuntamenti</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/avviaprenotazione">Prenota appuntamento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Paziente/visualizza_appuntamenti_prenotati">Elenco appuntamenti</a>
                 </li>
 
                 <div class="navbar-brand d-none d-lg-block">
@@ -58,13 +58,9 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">Storico Esami</a>
-                </li>
-		<li class="nav-item">
-                    <a class="nav-link" href="">Le mie recensioni</a>
-                </li>
+                    <a class="nav-link" href="/Ambulacare/Paziente/visualizza_appuntamenti_effettuati">Storico Esami</a>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Profilo Personale</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/settingspaziente">Profilo Personale</a>
                 </li>
             </ul>
         </div>

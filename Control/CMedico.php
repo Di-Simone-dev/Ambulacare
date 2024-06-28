@@ -718,6 +718,7 @@ public static function logout()
      */
     public static function setProPicMedico(){
         if(CUtente::isLogged()){
+            $view = new VMedico();
             $IdMedico = USession::getInstance()->getSessionElement('id');
             $medico = FMedico::getObj($IdMedico)[0];
             
@@ -727,9 +728,9 @@ public static function logout()
                 if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
                 {   //ENTRIAMO QUI SE L'IMMAGINE NON VA BENE
                     $view = new VMedico();  
-                    $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($IdMedico);  //BOH
+                    /* $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($IdMedico); */  //BOH
 
-                    $view->FileError($userAndPropic);  //MESSAGGIO DI ERRORE DEL FILE
+                    $view->messaggio("Errore");  //MESSAGGIO DI ERRORE DEL FILE
                 }else{
                     $idImage = FPersistentManager::getInstance()->uploadObj($checkUploadImage);
                     if($medico->getIdImmagine() != 1)  //SE è DIVERSA DA QUELLA DI DEFAULT CANCELLIAMO QUELLA CHE AVEVA DAL DB
@@ -738,17 +739,17 @@ public static function logout()
                             $medico->setIdImmagine($idImage);
                             FPersistentManager::getInstance()->updatemedicopropic($medico);
                         }
-                        header('Location: /medico/profilopersonale');
+                        $view->messaggio("Errore");
                     }
                     else
                     {   //se ha quella di default, basta settarla senza cancellarla
-                        $medico->setIdImage($idImage);
+                        $medico->setIdImmagine($idImage);
                         FPersistentManager::getInstance()->updatemedicopropic($medico);
                     }
-                    header('Location: /medico/profilopersonale');
+                    $view->messaggio("Caricamento Completato");
                 }
             }else{
-                header('Location: /medico/profilopersonale');
+                $view->messaggio("Errore");
             }
         }
     }

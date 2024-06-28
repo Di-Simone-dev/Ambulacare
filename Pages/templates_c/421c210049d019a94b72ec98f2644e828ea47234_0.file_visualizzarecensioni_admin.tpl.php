@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 10:41:14
+/* Smarty version 5.3.0, created on 2024-06-28 17:07:37
   from 'file:visualizzarecensioni_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667e772abdc7c2_38353485',
+  'unifunc' => 'content_667ed1b9e36997_50295441',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '421c210049d019a94b72ec98f2644e828ea47234' => 
     array (
       0 => 'visualizzarecensioni_admin.tpl',
-      1 => 1719564063,
+      1 => 1719585363,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667e772abdc7c2_38353485 (\Smarty\Template $_smarty_tpl) {
+function content_667ed1b9e36997_50295441 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1090695897667e772abb2fc2_43058274', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_88532103667ed1b9e1f175_40907440', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1090695897667e772abb2fc2_43058274 extends \Smarty\Runtime\Block
+class Block_88532103667ed1b9e1f175_40907440 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -44,7 +44,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
             <div class="col">
                 <form action="/Ambulacare/Amministratore/ricerca_recensioni" method="post">
                     <div class="form-group">
-                        <h2>Visualizza recensioni</h2>
+                        <h2>Elenco Recensioni</h2>
                         <br>
                         <input type="text" id="nomemedico" placeholder="Nome Medico" name="nomemedico" />
                         <br><br>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 09:15:52
+/* Smarty version 5.3.0, created on 2024-06-28 16:36:50
   from 'file:layout_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667d11a83530f3_30478397',
+  'unifunc' => 'content_667eca82148b41_24045960',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16c7fd43caa403e3facb04f5894cd0991278c9c5' => 
     array (
       0 => 'layout_medico.tpl',
-      1 => 1719076071,
+      1 => 1719585363,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667d11a83530f3_30478397 (\Smarty\Template $_smarty_tpl) {
+function content_667eca82148b41_24045960 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_187675309667d11a834ec49_46668334', 'head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1799465811667eca821465a4_83081178', 'head');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_582109704667d11a8350796_03071687', 'nav');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_148001681667eca82147491_05938171', 'nav');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_923171938667d11a8351f62_31315142', 'footer');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_510045595667eca82148140_97387072', 'footer');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "structure.tpl", $_smarty_current_dir);
 }
 /* {block 'head'} */
-class Block_187675309667d11a834ec49_46668334 extends \Smarty\Runtime\Block
+class Block_1799465811667eca821465a4_83081178 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -80,7 +80,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'head'} */
 /* {block 'nav'} */
-class Block_582109704667d11a8350796_03071687 extends \Smarty\Runtime\Block
+class Block_148001681667eca82147491_05938171 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -144,7 +144,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'nav'} */
 /* {block 'footer'} */
-class Block_923171938667d11a8351f62_31315142 extends \Smarty\Runtime\Block
+class Block_510045595667eca82148140_97387072 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -185,9 +185,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <h5 class="mb-lg-4 mb-3">SOCIAL MEDIA</h5>
 
                     <ul class="social-icon">
-                        <li><a href="https://www.facebook.com/" class="social-icon-link bi-facebook"></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61561622310874" class="social-icon-link bi-facebook"></a></li>
 
-                        <li><a href="https://www.instagram.com/" class="social-icon-link bi-instagram"></a></li>
+                        <li><a href="https://www.instagram.com/ambulacare/" class="social-icon-link bi-instagram"></a></li>
                     </ul>
                 </div>
 

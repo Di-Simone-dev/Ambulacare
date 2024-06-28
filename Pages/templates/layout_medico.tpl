@@ -49,15 +49,15 @@
                         <a class="nav-link" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Storico
+                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_storico_appuntamenti_medico">Storico
                             esami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Agenda</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_agenda">Agenda</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="">Disponibilità orari</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/mostra_orari_disponibilita">Disponibilità orari</a>
                     </li>
 
                     <div class="navbar-brand d-none d-lg-block">
@@ -65,17 +65,17 @@
                         <strong class="d-block">HEALTH SPECIALISTS</strong>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Statistiche</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_statistiche">Statistiche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Elenco
+                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_pazienti">Elenco
                             pazienti</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Recensioni</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/visualizza_recensioni">Recensioni</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Profilo Personale</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/settingsmedico">Profilo Personale</a>
                     </li>
                 </ul>
             </div>

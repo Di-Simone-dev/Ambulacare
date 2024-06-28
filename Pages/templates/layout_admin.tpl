@@ -47,26 +47,20 @@
                     <a class="nav-link" href="">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Moderazione medici</a>
+                    <a class="nav-link" href="/Ambulacare/Amministratore/visualizza_medici">Moderazione medici</a>
                 </li>
 		<li class="nav-item active">
-                    <a class="nav-link" href="">Moderazione pazienti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Gestione appuntamenti</a>
+                    <a class="nav-link" href="/Ambulacare/Amministratore/visualizza_pazienti">Moderazione pazienti</a>
                 </li>
                 <div class="navbar-brand d-none d-lg-block">
-                    AmbulaCare
-                    <strong class="d-block">HEALTH SPECIALISTS</strong>
-                </div>
+                AmbulaCare
+                <strong class="d-block">HEALTH SPECIALISTS</strong>
+            </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Elenco pazienti</a>
+                    <a class="nav-link" href="/Ambulacare/Amministratore/gestione_appuntamenti">Gestione appuntamenti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Recensioni</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Profilo Personale</a>
+                    <a class="nav-link" href="/Ambulacare/Amministratore/gestione_recensioni">Recensioni</a>
                 </li>
             </ul>
         </div>
