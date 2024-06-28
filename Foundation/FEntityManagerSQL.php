@@ -16,7 +16,7 @@ class FEntityManagerSQL{
 
         //global $host, $database, $username, $password;
 		$host = "127.0.0.1"; //localhost
-		$database = "ambulaCare";
+		$database = "ambulacare";
 		$username = "root";
 		$password = "";
 

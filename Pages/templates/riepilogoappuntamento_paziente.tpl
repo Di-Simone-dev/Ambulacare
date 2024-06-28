@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Riepilogo Dettagli Appuntamento</h2>
+                <h2>Riepilogo Appuntamento</h2>
                 <br>
                 <h3>Esame: {$nomeEsame}</h3>
                 <br>

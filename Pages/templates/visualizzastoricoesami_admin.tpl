@@ -9,7 +9,7 @@
                 <form action="#">
                     <div class="form-group">
                         <h2>Storico Esami Pazienti</h2>
-                        <select name="tipologia" id="tipologia" class="form-select">
+                        <select name="tipologia" id="tipologia" class="form-select-m">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.id}">{$tipologia.nome}</option>
                             {/foreach}

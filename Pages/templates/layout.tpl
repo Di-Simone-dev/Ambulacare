@@ -107,9 +107,9 @@
                     <h5 class="mb-lg-4 mb-3">SOCIAL MEDIA</h5>
 
                     <ul class="social-icon">
-                        <li><a href="https://www.facebook.com/" class="social-icon-link bi-facebook"></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61561622310874" class="social-icon-link bi-facebook"></a></li>
 
-                        <li><a href="https://www.instagram.com/" class="social-icon-link bi-instagram"></a></li>
+                        <li><a href="https://www.instagram.com/ambulacare/" class="social-icon-link bi-instagram"></a></li>
                     </ul>
                 </div>
 

@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <h2>Agenda</h2>
                         <br>
-                        <input type="date" id="dataprenot" name="dataprenot" />
+                        <input type="date" id="dataapp" name="dataapp" />
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
