@@ -595,7 +595,9 @@ public static function logout()
 
             $Idmedico = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
-            $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
+            $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);  
+/*             $immagine = $datimedico["propic"];
+            var_dump($immagine); */
             $view->profileCli($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
@@ -618,15 +620,28 @@ public static function logout()
     public static function setInfoMedico(){
         if(CUtente::isLogged()){
             $IdMedico = USession::getInstance()->getSessionElement('id');
-            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico = FMedico::getObj($IdMedico)[0];
             $medico->setNome(UHTTPMethods::post('Nome'));
             $medico->setCognome(UHTTPMethods::post('Cognome'));
             //$medico->setEmail(UHTTPMethods::post('Email')); //credenziale di accesso  CONTROLLO PER L'UNIVOCITà NECESSARIO
-            $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso 
+            /* $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso  */
             $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
                                                             //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
             
             FPersistentManager::getInstance()->updateinfomedico($medico);
+            $view = new VMedico();
+            $view->messaggio("Operazione effettuata!");
+        }
+    }
+
+    public static function formEmailMedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            /* $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);   */  
+            $view->formmodificaemail();  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
 
@@ -642,18 +657,17 @@ public static function logout()
             $medico = FMedico::getObj($IdMedico)[0];
             
             if($medico->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
-                $view->
+                $view->messaggio("La mail deve essere diversa da quella precedente");
             }else{
                 if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('Email')) == false)
                 {
                     $medico->setEmail(UHTTPMethods::post('Email'));
                     FPersistentManager::getInstance()->updatemailmedico($medico);
-                    header('Location: /medico/profilopersonale');
+                    $view->messaggio("Operazione avvenuta con successo");
                 }else
                 {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
-                    $view = new VMedico();
                     //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
-                    $view->usernameError($userAndPropic , true);  //EMAIL ERROR
+                    $view->formmodificaemail("Errore con la mail!");  //EMAIL ERROR
                 }
             }
         }
@@ -666,12 +680,35 @@ public static function logout()
     public static function setPasswordMedico(){
         if(CUtente::isLogged()){
             $IdMedico = USession::getInstance()->getSessionElement('id');
-            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico = FMedico::getObj($IdMedico)[0];
             $newPass = UHTTPMethods::post('password');
-            $medico->setPassword($newPass);
+            $medico->setPassword(password_hash($newPass,PASSWORD_DEFAULT));
             FPersistentManager::getInstance()->updatePasswordmedico($medico);
 
-            header('Location: /medico/profilopersonale');
+            $view = new VPaziente();
+            $view->messaggio("Operazione effettuata con successo");
+        }
+    }
+
+    public static function formPasswordMedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            /* $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);   */  
+            $view->formmodificapassw();  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+
+    public static function formImgMedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            /* $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);   */  
+            $view->formImg();  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
 
@@ -682,7 +719,7 @@ public static function logout()
     public static function setProPicMedico(){
         if(CUtente::isLogged()){
             $IdMedico = USession::getInstance()->getSessionElement('id');
-            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico = FMedico::getObj($IdMedico)[0];
             
             if(UHTTPMethods::files('imageFile','size') > 0){  //MMH
                 $uploadedImage = UHTTPMethods::files('imageFile');

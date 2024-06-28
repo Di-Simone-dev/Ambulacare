@@ -2,7 +2,8 @@
 
 {block name=content}
 
-    <form method="post" action="/Ambulcare/Medico/setEmailMedico" style="width: 600px;">
+    formEmailMedico
+    <form method="post" action="/Ambulacare/Medico/setEmailMedico" style="width: 600px;">
         {if $error}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {$error}

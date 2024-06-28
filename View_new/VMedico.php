@@ -40,6 +40,7 @@ class VMedico
 
 	public function profileCli($medico) {
 		$this->smarty->assign('medico',$medico);
+/* 		$this->smarty->assign('immagine',$immagine); */
 		$this->smarty->display('profilo_medico.tpl');
 	}
 
@@ -65,7 +66,7 @@ class VMedico
 
 	public function formmodificapassw($error = false) {
 		if($error) $this->smarty->assign('error',$error);
-		$this->smarty->display('reimpostapassword_medico.tpl');
+		$this->smarty->display('reimppassword_medico.tpl');
 	}
 
 	public function formmodificaemail($error = false) {
@@ -192,6 +193,10 @@ class VMedico
 	public function listaPazienti($pazienti){
 		$this->smarty->assign('pazienti',$pazienti);
 		$this->smarty->display("visualizzastoricoesamiperpaziente_medico.tpl");
+	}
+
+	public function formImg(){
+		$this->smarty->display("immagine_medico.tpl");
 	}
 
 }
