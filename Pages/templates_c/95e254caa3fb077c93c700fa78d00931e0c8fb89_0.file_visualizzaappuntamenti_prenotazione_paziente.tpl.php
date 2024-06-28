@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-26 19:00:03
+/* Smarty version 5.3.0, created on 2024-06-28 17:23:11
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667c4913d0c771_28076528',
+  'unifunc' => 'content_667ed55f8922c2_70518181',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95e254caa3fb077c93c700fa78d00931e0c8fb89' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719421200,
+      1 => 1719585363,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667c4913d0c771_28076528 (\Smarty\Template $_smarty_tpl) {
+function content_667ed55f8922c2_70518181 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_322718606667c4913c459b0_55822684', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1427551813667ed55f7fc157_60286322', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_322718606667c4913c459b0_55822684 extends \Smarty\Runtime\Block
+class Block_1427551813667ed55f7fc157_60286322 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -43,9 +43,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                 <form action="/Ambulacare/Paziente/ricercaesame" method="post">
                     <div class="form-group">
                         <br><br>
-                        <h2><label>Prenotazione esami</label></h2>
+                        <h2><label>Prenotazione Appuntamenti</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select-m">
+                        <select name="tipologia" class="form-select-m">
                             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('tipologie'), 'tipologia');
 $foreach0DoElse = true;

@@ -431,7 +431,7 @@ class FEntityManagerSQL{
                       WHERE IdMedico = '" . $IdMedico . "'AND CURDATE()>=data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti nell'agenda di un medico
             if($rowNum > 0){
@@ -762,7 +762,7 @@ class FEntityManagerSQL{
             }
            
             $stmt = self::$db->prepare($query);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){

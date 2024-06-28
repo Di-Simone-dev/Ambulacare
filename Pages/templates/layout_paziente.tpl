@@ -24,7 +24,9 @@
     <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link rel="stylesheet" href="logregstyle.css">
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -42,14 +44,14 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="" >Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Prenota appuntamento</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Paziente/" >Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Elenco appuntamenti</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/avviaprenotazione">Prenota appuntamento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Paziente/visualizza_appuntamenti_prenotati">Elenco appuntamenti</a>
                 </li>
 
                 <div class="navbar-brand d-none d-lg-block">
@@ -58,13 +60,9 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">Storico Esami</a>
-                </li>
-		<li class="nav-item">
-                    <a class="nav-link" href="">Le mie recensioni</a>
-                </li>
+                    <a class="nav-link" href="/Ambulacare/Paziente/visualizza_appuntamenti_effettuati">Storico Esami</a>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Profilo Personale</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/settingspaziente">Profilo Personale</a>
                 </li>
             </ul>
         </div>
@@ -128,9 +126,9 @@
             </div>
     </footer>
 	<!-- JAVASCRIPT FILES -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/scrollspy.min.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"></script>
+        <script src="/Ambulacare/Pages/js/custom.js"></script>
+        <script src="/Ambulacare/Pages/js/jquery.min.js"></script>
+        <script src="/Ambulacare/Pages/js/owl.carousel.min.js"></script>
+        <script src="/Ambulacare/Pages/js/scrollspy.min.js"></script>
 {/block}

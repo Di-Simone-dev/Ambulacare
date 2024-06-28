@@ -66,7 +66,9 @@ class FReferto {
                 //come si mette il paziente? (FOREIGN KEY)
                 //DA TESTARE
                 $immagine = FImmagine::getObj($queryResult[$i]['IdImmagine']);  //il campo IdPaziente è proprio l'id
-                $referto->setIdImmagine($immagine[0]->getIdImmagine());
+                if(isset($immagine)){
+                    $referto->setIdImmagine($immagine[0]->getIdImmagine());
+                }
 
                 //ispirazione presa da FReport
                 //come si mette il medico? (FOREIGN KEY)

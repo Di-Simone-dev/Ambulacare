@@ -397,7 +397,7 @@ class FPersistentManager{
     if($check[0]){
         
         //create new Image Obj ad perist it
-        $immagine = new EImmagine($file['nome'], $file['dimensione'], $file['tipo'], file_get_contents($file['tmp_name']));
+        $immagine = new EImmagine($file['name'], $file['size'], $file['type'], file_get_contents($file['tmp_name']));
         return $immagine;                                                            //????????????????????????????????
     }else{
         return $check[1];
@@ -459,7 +459,7 @@ class FPersistentManager{
      */
     //I DATI DA AGGIORNARE DEL MEDICO SONO COSTO ED IMMAGINE
     public static function updateinfomedico($medico){
-        $field = [['costo', $medico->getCosto()],['IdImmagine', $medico->getIdImmagine()]];
+        $field = [['costo', $medico->getCosto()],['IdImmagine', $medico->getIdImmagine()],['nome', $medico->getNome()],['cognome', $medico->getCognome()]];
         $result = FMedico::saveObj($medico, $field);
 
         return $result;
