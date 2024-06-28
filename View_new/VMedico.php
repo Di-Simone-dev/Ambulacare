@@ -39,10 +39,7 @@ class VMedico
 
 
 	public function profileCli($medico) {
-		$this->smarty->assign('nome',$medico->getNome());
-		$this->smarty->assign('cognome',$medico->getCognome());
-		$this->smarty->assign('email',$medico->getEmail());
-		$this->smarty->assign('costo',$medico->getCosto());
+		$this->smarty->assign('medico',$medico);
 		$this->smarty->display('profilo_medico.tpl');
 	}
 
@@ -62,8 +59,7 @@ class VMedico
 	 */
 	public function formmodificacli($medico, $error = false) {
 		if($error) $this->smarty->assign('error',$error);
-		$this->smarty->assign('email',$medico->getEmail());
-		$this->smarty->assign('costo',$medico->getCosto());
+		$this->smarty->assign('medico',$medico);
 		$this->smarty->display('modificadati_medico.tpl');
 	}
 

@@ -38,7 +38,7 @@ class FPersistentManager{
      */
     public static function retrieveObj($class, $id){
        
-        $foundClass = "F" . substr($class, 1);
+        $foundClass = "F" . substr($class, 0);
         $staticMethod = "getObj";    //il metodo della classe si deve chiamare così
 
         $result = call_user_func([$foundClass, $staticMethod], $id);
@@ -155,7 +155,7 @@ class FPersistentManager{
             foreach($arraymedici as $u){
                 $proPic = FImmagine::getObj($u->getIdImmagine());  //da ogni medico mi prendo l'id dell'immagine
                 //associative array (hash table)
-                $mediciProfilePic[$u->getId()] = $proPic;
+                $mediciProfilePic[$u->getIdMedico()] = $proPic;
             }
         }
         return $mediciProfilePic;
@@ -250,12 +250,12 @@ class FPersistentManager{
 
     public static function retrieveinfomedico($IdMedico){
         //prende tutte le info del Medico (per la visualizzazione della schermata di profilo)
-        $medico = FEntityManagerSQL::getInstance()->retrieveObj(FMedico::getTable(), 'IdMedico', $IdMedico);
+        $medico = FMedico::getObj($IdMedico);
         $infomedico = array();
         $infomedico['nome'] = $medico[0]->getNome();
         $infomedico['cognome'] = $medico[0]->getCognome();
         $infomedico['email'] = $medico[0]->getEmail();
-        $infomedico['costo'] = $medico[0]->getCodiceFiscale();
+        $infomedico['costo'] = $medico[0]->getCosto();
         $infomedico['propic'] = self::retrievemedicipropic($medico);
         //oppure 
         //$infomedico['propic'] = $medico[0]->getImmaginefromid();
