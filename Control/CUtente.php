@@ -38,7 +38,7 @@ class CUtente{
         switch ($tipo_utente) {
             case "paziente":
                 $user = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $ID);
-                if(!($user->getAttivo())){
+                if(!($user[0]->getAttivo())){
                     $view = new VPaziente();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
                     USession::unsetSession();
                     USession::destroySession();
@@ -46,12 +46,12 @@ class CUtente{
                 }
                 break;
             case "medico":
-                $user = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $ID);
-                if(!($user->getAttivo())){
+                $user = FPersistentManager::getInstance()->retrieveObj(FMedico::getTable(), $ID);
+                if(!($user[0]->getAttivo())){
                     $view = new VMedico();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
                     USession::unsetSession();
                     USession::destroySession();
-                    $view->loginBan();
+                    $view->showFormLogin(false,"Medico bannato!");
                 }
                 break;
             case "admin":

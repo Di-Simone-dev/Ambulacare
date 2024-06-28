@@ -616,13 +616,11 @@ public static function logout()
                                                             //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
             
             FPersistentManager::getInstance()->updateinfomedico($medico);
-
-            header('Location: /medico/profilopersonale');
         }
     }
 
 
-    /**
+    /* *
      * QUESTO VA APPLICATO PER UN CAMBIO MAIL DEL MEDICO
      * Take the compiled form, use the data to check if the username alredy exist and if not update the user Username
      */
