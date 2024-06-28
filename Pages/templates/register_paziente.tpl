@@ -1,4 +1,4 @@
-{extends file="layout_paziente.tpl"}
+{extends file="layout.tpl"}
 
 {block name=content}
 

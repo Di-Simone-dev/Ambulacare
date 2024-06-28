@@ -179,4 +179,9 @@ class VAmministratore
 		$this->smarty->assign('pazienti', $pazienti);
 		$this->smarty->display('moderazioneaccountpaz_admin.tpl');
 	}
+
+	public function registrazionemedico($tipologie){
+		$this->smarty->assign('tipologie', $tipologie);
+		$this->smarty->display('registermedico_admin.tpl');
+	}
 }

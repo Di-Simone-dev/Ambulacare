@@ -24,7 +24,7 @@ class VMedico
 	public function showFormLogin($email = false, $error = false){
 		if ($email) $this->smarty->assign('email', $email);
 		if ($error) $this->smarty->assign('error', $error);
-		$this->smarty->display('loginmedico.tpl');
+		$this->smarty->display('login_medico.tpl');
 	}
 
 	/**

@@ -189,9 +189,9 @@ class FEntityManagerSQL{
     {
         try{
             $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValues();
-            /* var_dump($query); */
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt, $obj);
+            var_dump($stmt);
             $stmt->execute();
             $id = self::$db->lastInsertId();
             return $id;

@@ -32,9 +32,9 @@
 </head>
 
 <body style="background-color: #9fc2fa;" id="top">
-    <form method="post" action="login.php" style="width: 600px;">
+    <form method="post" action="/Ambulacare/Medico/checkLogin" style="width: 600px;">
         <h1 style="font-size: 34px;">ACCESSO</h1>
-        {if($error)}
+        {if $error}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {$error}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -43,7 +43,7 @@
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Email</label>
         <input type="email" id="email" name="email" required value="{$email}">
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Password</label>
-        <input type="password" id="Password" name="password" required>
+        <input type="password" id="password" name="password" required>
         <br>
         <button type="submit" name="login" style="width: 100px;">ACCEDI</button>
     </form>

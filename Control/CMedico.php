@@ -546,47 +546,43 @@ public static function modifica_appuntamento(){  //DA FARE
    /*  }  */
 }
 
-//FUNZIONI DI CONTROL AGGIUNTIVE
+public static function login()
+{
+    $view = new VMedico();
+    $view->showFormLogin();
+}
 
-    /**
-     * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
-     * the User is redirected in the homepage
-     */
-    public static function checkLoginMedico(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
-        $view = new VMedico();
-        //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
-        $exist = FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email'));  
-        //SE ESISTE NEL DB ALLORA CONTINUO                                          
-        if($exist)
-        {
-            $medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('username'));  
-            //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
-            //password_verify è una funzione NATIVA DI PHP
-            if(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()))  
-            {
-                if(!($medico[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
-                {
-                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
-                }
-                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
-                {
-                    USession::getInstance();
-                    USession::setSessionElement('tipo_utente', 'medico');
-                    USession::setSessionElement('id', $medico[0]->getIdMedico());
-                    header('Location: /Ambulacare');
-                }
-            }
-            else
-            {
-                $view->loginError();
-            }
+public static function checkLogin()
+{   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+    $view = new VMedico();
+    //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
+    $medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('email'));
+    //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
+    //password_verify è una funzione NATIVA DI PHP
+    /* var_dump($medico); */
+    if ($medico != null && $medico[0]->getAttivo()!=0) {
+        var_dump(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()));
+        if (password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword())) {
+            USession::getSessionStatus() == PHP_SESSION_NONE;   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+            USession::getInstance();
+            USession::setSessionElement('tipo_utente', 'medico');
+            USession::setSessionElement('id', $medico[0]->getIdMedico());
+            $view->loginOk();
+        } else {
+            $view->showFormLogin(UHTTPMethods::post('email'), "Username o password errate!");
         }
-        else
-        {
-            $view->loginError();
-        }
+    } else {
+        $view->showFormLogin(UHTTPMethods::post('email'), "Username o password errate!");
     }
+}
 
+public static function logout()
+{
+    USession::getInstance();
+    USession::unsetSession();
+    USession::destroySession();
+    header('Location: /Ambulacare');
+}
 
 
    /**
@@ -600,7 +596,7 @@ public static function modifica_appuntamento(){  //DA FARE
             $Idmedico = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
             $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
-            $view->settings($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+            $view->profileCli($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
 

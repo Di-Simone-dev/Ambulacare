@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 27, 2024 alle 20:01
+-- Creato il: Giu 28, 2024 alle 12:55
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -42,56 +42,7 @@ CREATE TABLE `amministratore` (
 --
 
 INSERT INTO `amministratore` (`IdAdmin`, `nome`, `cognome`, `email`, `password`) VALUES
-(1, 'Jennie', 'Kerluke', 'Elyssa_Ward@example.org', 'QuUjxmc5bzs8sof'),
-(2, 'Zena', 'Bergnaum', 'Dina16@example.net', '0tGqgGwLxR0Y2pt'),
-(3, 'Noel', 'Price', 'Hoyt_Stokes72@example.net', 'Py8xusI_kUaOKnf'),
-(4, 'Rosina', 'Cassin', 'Fredrick94@example.net', 'l81dNbFliDQkALj'),
-(5, 'Gwen', 'Prosacco', 'Morgan.Breitenberg@example.org', 'LUe0SyPO634nzWt'),
-(6, 'Henri', 'Lowe', 'Nikolas_Lakin@example.com', 'uB0SyBAZzirUrkA'),
-(7, 'Madyson', 'Pfeffer', 'Jenifer.Shanahan59@example.org', 'C_hVhtwviFqPJTe'),
-(8, 'Orrin', 'Ledner', 'Diamond_Connelly@example.org', 'wJGgkeMPNbZtJec'),
-(9, 'Rachael', 'Rutherford', 'Zena.Haag84@example.com', 'bdE9DhjYDXes6mH'),
-(10, 'Tracey', 'Runte', 'Eldora.Wisozk19@example.org', 'T9a4AIlVeuWqDUZ'),
-(11, 'Manuel', 'Gutmann', 'Billie.Kshlerin@example.net', 'b2TLBKQIeXYDNQ8'),
-(12, 'Anita', 'Hermann', 'Brendan38@example.net', 'j8DSRcyyVY4OhKC'),
-(13, 'Brando', 'Maggio', 'Stanford_Hansen0@example.com', 'PFMvA1bYrXv469o'),
-(14, 'Maritza', 'Bayer', 'Ezekiel.Harvey30@example.net', 'grhXWc3nvvGL4P3'),
-(15, 'Coby', 'Heathcote', 'Lily2@example.net', 'g0Rvuzvyhq31xFS'),
-(16, 'Jennie', 'Kassulke', 'Oceane_Smith3@example.org', 'WeVnY5hoW_WeMdl'),
-(17, 'Nora', 'Boehm', 'Martina59@example.com', 'tgWbVYAaFhF4wHx'),
-(18, 'Savanah', 'Wolf', 'Ludwig57@example.org', '6HpYEpxl0a6_iUY'),
-(19, 'Tommie', 'Larkin', 'Eleanora67@example.org', 'H_yZdHnX0nmxvyR'),
-(20, 'Heath', 'Hodkiewicz', 'Violet_Rosenbaum@example.com', 'abhkjqGafsX_hLE'),
-(21, 'Sabryna', 'VonRueden', 'Cecil_Littel@example.net', 'HZyek5e0oY4OsfD'),
-(22, 'Jaida', 'Hickle', 'Cristopher39@example.net', 'VF6xQz7y7uYycAL'),
-(23, 'Judson', 'Robel', 'Xzavier.Thompson@example.com', 'Hdo0YNaUKmVXPTW'),
-(24, 'Elwin', 'Dare', 'Darrin_Boyer@example.org', 'Lrk36p15ZNQH6uG'),
-(25, 'Freddie', 'Reilly', 'Lizzie_Borer@example.com', 'pZT6AJOjfmEMo5V'),
-(26, 'Robyn', 'Cremin', 'Oswald39@example.org', 'nX67d_jxnNWEALt'),
-(27, 'Christy', 'Kiehn', 'Graciela_Kerluke@example.org', 'gBq5Ht7v3t43OJE'),
-(28, 'Gussie', 'Friesen', 'Fanny97@example.org', 'FmoQGD2q9YbUi9d'),
-(29, 'Maynard', 'Erdman', 'Charlotte56@example.org', 'ySbESknQgfAdeN3'),
-(30, 'Alford', 'Lockman', 'Flavio.Wilkinson7@example.net', 'J1IPWvhkKIcw7e3'),
-(31, 'Lauryn', 'Schumm', 'Susanna99@example.com', '15Ue5ARglVl5wSU'),
-(32, 'Cedrick', 'Abshire', 'Gino.Klein@example.net', 'ab4GCieNTLlI0ja'),
-(33, 'Stefan', 'Wehner', 'Joshua_Hickle47@example.com', 'wpPUO45LFjWeCrQ'),
-(34, 'Westley', 'Berge', 'Payton.Donnelly@example.net', 'pqZnzW35CMFbmRf'),
-(35, 'Alverta', 'Jacobi', 'Wilbert5@example.net', 'uscgJY4bkzbcSn0'),
-(36, 'Crawford', 'Shields', 'Dandre_Erdman35@example.net', 'IbAde3TglLSmIAn'),
-(37, 'Zachariah', 'Terry', 'Jake_Rippin99@example.org', 'iz2l8KDcVPAPjCh'),
-(38, 'Cole', 'Emmerich', 'Breanna.Waelchi63@example.net', 'O95rNX8ichIR_wS'),
-(39, 'Betty', 'MacGyver', 'Corene.Bahringer@example.org', 'V4P0mq9ghPn_Gbk'),
-(40, 'Branson', 'Mayer', 'Brannon_Keebler@example.com', 'PpuRl_xxfDK2cpw'),
-(41, 'Idella', 'Ryan', 'Ericka_Denesik3@example.com', 'AYYwA99p1P5VZSi'),
-(42, 'Barton', 'Purdy', 'Amparo.Blick36@example.net', 'Vq49Vmg8CqyWJL8'),
-(43, 'Darius', 'Rogahn', 'Arno_Beier@example.org', 'bgttEf2Kg3VNMin'),
-(44, 'Donnell', 'Medhurst', 'Linnie.McDermott6@example.net', '4b5nqGB7tWHgRj7'),
-(45, 'Brennon', 'Harber', 'Janelle.Rau@example.org', 'KmFsAQF5qFhkodR'),
-(46, 'Sadye', 'Thompson', 'Ethelyn_Kessler30@example.net', 'v2JuUJhsRDdhNgJ'),
-(47, 'Reuben', 'Buckridge', 'Pablo.Dicki@example.com', 'Q5GS38ACtE8_MTB'),
-(48, 'Reese', 'Wisozk', 'Madalyn88@example.net', 'jPqUJCxjbl3ID36'),
-(49, 'Melvina', 'Rath', 'Victoria83@example.org', 'MBfWKGg_a0QSPHs'),
-(50, 'Marcelle', 'Kutch', 'Monroe10@example.com', 'a1uxOG2Um_Wrs8x');
+(51, 'Gerry', 'Scotti', 'gerryscotti@admin.it', '$2y$10$q//D6VfMgE2FDfhxU.u/AOpA/w/FY1VHYOnNq6S/we8JQ55aGqwC.');
 
 -- --------------------------------------------------------
 
@@ -111,7 +62,7 @@ CREATE TABLE `appuntamento` (
 --
 
 INSERT INTO `appuntamento` (`IdAppuntamento`, `costo`, `IdPaziente`, `IdFasciaOraria`) VALUES
-(13, 30, 3, 2),
+(13, 30, 3, 3),
 (14, 30, 3, 11),
 (15, 40, 3, 10);
 
@@ -206,7 +157,10 @@ CREATE TABLE `medico` (
 
 INSERT INTO `medico` (`IdMedico`, `nome`, `cognome`, `email`, `password`, `attivo`, `costo`, `IdTipologia`, `IdImmagine`) VALUES
 (3, 'Luca', 'Laurenti', 'lucalaurenti@mediaset.it', '', '1', 30, 2, 2),
-(4, 'Paolo', 'Bonolis', 'paolobonlis@mediaset.it', '', '1', 90, 1, 1);
+(4, 'Paolo', 'Bonolis', 'paolobonlis@mediaset.it', '', '1', 90, 1, 1),
+(5, 'Paolo', 'Brosio', 'paolobrosio@gmail.com', 'AmbulaCareLudopatia', '1', 10, 2, 1),
+(6, 'Paolo', 'Brosio', 'paolobrosio1@gmail.com', '$2y$10$q//D6VfMgE2FDfhxU.u/AOpA/w/FY1VHYOnNq6S/we8JQ55aGqwC.', '1', 10, 2, 1),
+(7, 'Paolo', 'Brosio', 'paolobrosio2@gmail.com', '$2y$10$OenHjVQsGudG71MKAmaYfuwG8uIp1AGpVnnCLI80J8tyzFFgluR7C', '1', 10, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -260,8 +214,7 @@ CREATE TABLE `recensione` (
 --
 
 INSERT INTO `recensione` (`IdRecensione`, `titolo`, `contenuto`, `valutazione`, `data_creazione`, `IdMedico`, `IdPaziente`) VALUES
-(1, 'bello', 'bello', 2, '2024-06-26 00:00:00', 3, 3),
-(2, 'bello', 'bello', 3, '2024-06-26 19:11:54', 3, 2);
+(1, 'bello', 'bello', 2, '2024-06-26 00:00:00', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -407,7 +360,7 @@ ALTER TABLE `tipologia`
 -- AUTO_INCREMENT per la tabella `amministratore`
 --
 ALTER TABLE `amministratore`
-  MODIFY `IdAdmin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `IdAdmin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT per la tabella `appuntamento`
@@ -437,7 +390,7 @@ ALTER TABLE `immagine`
 -- AUTO_INCREMENT per la tabella `medico`
 --
 ALTER TABLE `medico`
-  MODIFY `IdMedico` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IdMedico` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `paziente`

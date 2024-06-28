@@ -62,9 +62,9 @@ class FMedico  {
         $stmt->bindValue(':cognome',$cli->getCognome(), PDO::PARAM_STR);
         $stmt->bindValue(':email',$cli->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(':password',$cli->getPassword(), PDO::PARAM_STR);
-        $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_BOOL);
+        $stmt->bindValue(':attivo',$cli->getAttivo(), PDO::PARAM_STR);
         $stmt->bindValue(':costo',$cli->getCosto(), PDO::PARAM_STR);
-        $stmt->bindValue(':tipologia',$cli->getTipologia()->getIdTipologia(), PDO::PARAM_STR); //LA FK VA MESSA NEL BIND
+        $stmt->bindValue(':IdTipologia',$cli->getTipologia()->getIdTipologia(), PDO::PARAM_STR); //LA FK VA MESSA NEL BIND
         $stmt->bindValue(':IdImmagine',$cli->getIdImmagine(), PDO::PARAM_STR);
     }
 
@@ -164,11 +164,11 @@ class FMedico  {
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FMedico::getClass(), $medico);
                 if($savePersonAndLastInsertedID !== null){
-                    $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $medico, $savePersonAndLastInsertedID);
-                    FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if($saveUser){
+/*                     $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $medico, $savePersonAndLastInsertedID);
+ */                    FEntityManagerSQL::getInstance()->getDb()->commit();
+/*                     if($saveUser){ */
                         return $savePersonAndLastInsertedID;
-                    }
+                    /* } */
                 }else{
                     return false;
                 }

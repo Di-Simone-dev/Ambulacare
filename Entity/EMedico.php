@@ -27,7 +27,7 @@ class EMedico
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->email=$email;
-        $this->password=$password;
+        $this->password= $password;
         $this->attivo=$attivo;
         $this->costo=$costo;
         //$this->tipologia=$tipologia; FOREIGN KEY=> NON VA MESSA NEL COSTRUTTORE

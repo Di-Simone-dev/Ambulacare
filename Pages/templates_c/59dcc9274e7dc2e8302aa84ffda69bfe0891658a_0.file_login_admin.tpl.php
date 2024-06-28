@@ -1,4 +1,28 @@
-<!doctype html>
+<?php
+/* Smarty version 5.3.0, created on 2024-06-28 12:04:51
+  from 'file:login_admin.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_667e8ac38691c5_84468545',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '59dcc9274e7dc2e8302aa84ffda69bfe0891658a' => 
+    array (
+      0 => 'login_admin.tpl',
+      1 => 1719569081,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_667e8ac38691c5_84468545 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
+?><!doctype html>
 <html lang="en">
 
 <head>
@@ -34,25 +58,38 @@
 <body style="background-color: #9fc2fa;" id="top">
     <form method="post" action="/Ambulacare/Amministratore/checkLogin" style="width: 600px;">
         <h1 style="font-size: 34px;">ACCESSO</h1>
-        {if $error}
+        <?php if ($_smarty_tpl->getValue('error')) {?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {$error}
+                <?php echo $_smarty_tpl->getValue('error');?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        {/if}
+        <?php }?>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Email</label>
-        <input type="email" id="email" name="email" required value="{$email}">
+        <input type="email" id="email" name="email" required value="<?php echo $_smarty_tpl->getValue('email');?>
+">
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Password</label>
         <input type="password" id="Password" name="password" required>
         <br>
         <button type="submit" name="login" style="width: 100px;">ACCEDI</button>
     </form>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/scrollspy.min.js"></script>
-    <script src="js/custom.js"></script>
+    <?php echo '<script'; ?>
+ src="js/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/scrollspy.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/custom.js"><?php echo '</script'; ?>
+>
 </body>
 
-</html>
+</html><?php }
+}
