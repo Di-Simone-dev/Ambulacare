@@ -327,12 +327,12 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["nominativomedico"]= "Pippo Baudo";
         $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
         $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
-        /*if(isset($immagine[0])){
-            
-        }*/
-        UPdf::crea_scarica_pdf($arrayreferto);
-        //var_dump($arrayreferto);
-   /*  }  */
+        if(isset($immagine)){
+            UPdf::crea_scarica_pdf_conimg($arrayreferto);
+        }
+        else{
+            UPdf::crea_scarica_pdf_noimg($arrayreferto);
+        }
 }
 
 //[medico]caso d'uso 7 "visualizzare esami complessivi e guadagni in un periodo di tempo
