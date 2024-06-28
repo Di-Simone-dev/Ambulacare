@@ -5,18 +5,18 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="" method="post">
+                <form action="/Ambulacare/Amministratore/ricerca_appuntamenti" method="post">
                     <div class="form-group">
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select-m">
+                        <select name="IdTipologia" id="categ" class="form-select-m">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" name="dataprenot" />
+                        <input type="date" id="data" name="data" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
@@ -42,7 +42,7 @@
                         <td>{$appuntamento.data}</td>
                         <td>{$appuntamento.nominativomedico}</td>
                         <td>{$appuntamento.costo}€</td>
-                        <td><a href="/Ambulacare/Admin/dettagli_appuntamento_modifica/{$appuntamento.IdAppuntamento}"><button
+                        <td><a href="/Ambulacare/Amministratore/dettagli_appuntamento_modifica/{$appuntamento.IdAppuntamento}"><button
                                     class="btn btn-primary">Modifica</button></a></td>
                     </tr>
                 {/foreach}

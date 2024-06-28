@@ -521,7 +521,6 @@ public static function modifica_appuntamento(){  //DA FARE
         $IdMedico = 3/* USession::getSessionElement('id') */;
         //CONVIENE RIGETTARE l'ID DEL MEDICO usando l'id dell'appuntamento già prenotato
         $exist = is_int(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-        var_dump($exist);
         if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data);
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj

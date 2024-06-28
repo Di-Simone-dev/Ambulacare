@@ -170,7 +170,7 @@ class FEntityManagerSQL{
         try{
             $query = "UPDATE " . $table . " SET ". $field. " = '" . $fieldValue . "' WHERE " . $cond . " = '" . $condValue . "';";
             $stmt = self::$db->prepare($query);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             return true;
         }catch(Exception $e){
@@ -905,6 +905,7 @@ class FEntityManagerSQL{
 
     public static function ricercaappuntamenti($data = null,$IdTipologia = null){ 
         
+        $data = new DateTime($data);
         $anno = $data->format('o'); //anno attuale (es 2024)
         $mese = $data->format('n'); //numero del mese senza zeri
         $giorno = $data->format('j'); //numero del giorno senza zeri
@@ -913,26 +914,29 @@ class FEntityManagerSQL{
             $query = "SELECT * ";
             $params = [];
 
-            $query .= " FROM Appuntamento,Fascia_oraria,Calendario,Medico";
+            $query .= " FROM appuntamento 
+            INNER JOIN fascia_oraria ON appuntamento.IdFasciaOraria=fascia_oraria.IdFasciaOraria
+            INNER JOIN calendario on calendario.IdCalendario=fascia_oraria.IdCalendario
+            INNER JOIN medico ON medico.IdMedico = calendario.IdMedico";
             $query .= " WHERE 1=1"; //completo la query
 
             if (isset($data)) {
-                $query .= " AND YEAR(data) = :anno";
-                $params[':anno'] = $anno;
-                $query .= " AND MONTH(data) = :mese";
-                $params[':mese'] = $mese;
-                $query .= " AND DAY(data) = :giorno";
-                $params[':giorno'] = $giorno;
+                $query .= " AND YEAR(data) = $anno";
+                /* $params[':anno'] = $anno; */
+                $query .= " AND MONTH(data) = $mese";
+                /* $params[':mese'] = $mese; */
+                $query .= " AND DAY(data) = $giorno";
+                /* $params[':giorno'] = $giorno; */
             }
 
             if (isset($IdTipologia)) {
-                $query .= " AND IdTipologia = :IdTipologia";
-                $params[':IdTipologia'] = $IdTipologia;
+                $query .= " AND IdTipologia = $IdTipologia";
+                /* $params[':IdTipologia'] = $IdTipologia; */
             }
 
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
-            $stmt->execute($params);
+            /* var_dump($stmt); */
+            $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){
                 $result = array();

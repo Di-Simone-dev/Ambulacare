@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-21 16:16:46
+/* Smarty version 5.3.0, created on 2024-06-28 10:03:57
   from 'file:modificaappuntamento_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66758b4e971bd6_63289405',
+  'unifunc' => 'content_667e6e6d0731f5_04060034',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcdae442896da42438f9fdec2e4a0505334d37d8' => 
     array (
       0 => 'modificaappuntamento_admin.tpl',
-      1 => 1718979404,
+      1 => 1719561833,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66758b4e971bd6_63289405 (\Smarty\Template $_smarty_tpl) {
+function content_667e6e6d0731f5_04060034 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_22860554066758b4e931fa8_08095307', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_941135034667e6e6d040806_03530084', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_22860554066758b4e931fa8_08095307 extends \Smarty\Runtime\Block
+class Block_941135034667e6e6d040806_03530084 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -42,102 +42,91 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="/Ambulacre/Admin/" method="post">
-                    <input type="hidden" value="<?php echo $_smarty_tpl->getValue('esame')['id'];?>
-" name="idesame">
+                <form action="/Ambulacare/Amministratore/modifica_appuntamento" method="post">
                     <div class="form-group">
                         <div class="col-9" id="elenco">
-                            <h2>Esame: <?php echo $_smarty_tpl->getValue('esame')['nome'];?>
+                            <h3>Esame: <?php echo $_smarty_tpl->getValue('esame')['nometipologia'];?>
 &ensp;&ensp;&ensp;&ensp;Costo: <?php echo $_smarty_tpl->getValue('esame')['costo'];?>
-€</h2>
-                            <h2>Medico: <?php echo $_smarty_tpl->getValue('esame')['medico']['nome'];?>
-&ensp;&ensp;&ensp;Data Odierna: <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')(time(),'%d/%m/%Y');?>
-</h2>
-                            <h2>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità Orari del Medico</h2>
+€</h3>
+                            <h3>Medico: <?php echo $_smarty_tpl->getValue('esame')['nome'];?>
+ <?php echo $_smarty_tpl->getValue('esame')['cognome'];?>
+&ensp;&ensp;&ensp;Data Odierna:
+                                <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')(time(),'%d/%m/%Y');?>
+</h3>
+                            <h3>Disponibilità Orari del Medico</h3>
                             <br>
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
                                     <tr>
-                                    <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasceorarie'), 'fasciaoraria');
-$foreach0DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('fasciaoraria')->value) {
-$foreach0DoElse = false;
-?>
-                                        <th scope="col"><?php echo $_smarty_tpl->getValue('fasciaoraria')['giorno'];?>
+                                        <th scope="col">Lunedì <?php echo $_smarty_tpl->getValue('giorno')[0];?>
 </th>
-                                    <?php
-}
-$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                                        <th scope="col">Martedì <?php echo $_smarty_tpl->getValue('giorno')[1];?>
+</th>
+                                        <th scope="col">Mercoledì <?php echo $_smarty_tpl->getValue('giorno')[2];?>
+</th>
+                                        <th scope="col">Giovedì <?php echo $_smarty_tpl->getValue('giorno')[3];?>
+</th>
+                                        <th scope="col">Venerdì <?php echo $_smarty_tpl->getValue('giorno')[4];?>
+</th>
+                                        <th scope="col">Sabato <?php echo $_smarty_tpl->getValue('giorno')[5];?>
+</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
+$_smarty_tpl->assign('j', null);
+$_smarty_tpl->tpl_vars['j']->value = 1;
+if ($_smarty_tpl->getValue('j') < 6) {
+for ($_foo=true;$_smarty_tpl->getValue('j') < 6; $_smarty_tpl->tpl_vars['j']->value++) {
+?>
+                                        <tr>
+                                            <?php
 $_smarty_tpl->assign('i', null);
-$_smarty_tpl->tpl_vars['i']->value = 0;
-if ($_smarty_tpl->getValue('i') < $_smarty_tpl->getValue('maxdim')) {
-for ($_foo=true;$_smarty_tpl->getValue('i') < $_smarty_tpl->getValue('maxdim'); $_smarty_tpl->tpl_vars['i']->value++) {
+$_smarty_tpl->tpl_vars['i']->value = 1;
+if ($_smarty_tpl->getValue('i') < 7) {
+for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-                                    <tr>
-                                        <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasceorarie'), 'fasciaoraria');
-$foreach1DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('fasciaoraria')->value) {
-$foreach1DoElse = false;
-?>
-                                            <td <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('fasciaoraria')['orari']) > $_smarty_tpl->getValue('i')) {?>
-                                                style="border: 1px solid;background-color: rgb(105, 200, 255);"><?php echo $_smarty_tpl->getValue('fasciaoraria')['orari'][$_smarty_tpl->getValue('i')];?>
-
-                                            <?php } else { ?>
-                                                style="border: 1px solid;background-color: red">
-                                            <?php }?>
-                                            </td>
-                                        <?php
+                                                <?php if ($_smarty_tpl->getValue('fasceorarie')[$_smarty_tpl->getValue('i')][$_smarty_tpl->getValue('j')]) {?>
+                                                    <td style="border: 1px solid;background-color: rgb(105, 200, 255);">
+                                                        <?php echo 13+$_smarty_tpl->getValue('j');?>
+:30</td>
+                                                <?php } else { ?>
+                                                    <td style="border: 1px solid;background-color: red"><?php echo 13+$_smarty_tpl->getValue('j');?>
+:30</td>
+                                                <?php }?>
+                                            <?php }
 }
-$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-                                    </tr>
-                                <?php }
+?>
+                                        </tr>
+                                    <?php }
 }
 ?>
                                 </tbody>
                             </table>
                             <br>
                             <div>
-                            <label for="data">Seleziona una nuova data e ora</label>
-                            <select name="data" id="data">
-                                <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasceorarie'), 'fasciaoraria');
-$foreach2DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('fasciaoraria')->value) {
-$foreach2DoElse = false;
-?>
-                                    <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('fasciaoraria')['orari'], 'ora');
-$foreach3DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('ora')->value) {
-$foreach3DoElse = false;
-?>
-                                    <option value="<?php echo $_smarty_tpl->getValue('fasciaoraria')['giorno'];?>
- <?php echo $_smarty_tpl->getValue('ora');?>
-"><?php echo $_smarty_tpl->getValue('fasciaoraria')['giorno'];?>
- - <?php echo $_smarty_tpl->getValue('ora');?>
-</option>
-                                    <?php
-}
-$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-                                <?php
-}
-$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-                            </select>
-                            <input type="hidden" value="" name="idpaz">
+                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata"
+                                        name="data" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
+                                        <?php echo $_smarty_tpl->getValue('esame')['data'];?>
+</label></h4>
+                                <label for="data">Seleziona una nuova data e ora</label>
+                                <select name="nslot" id="orario" class="form-select-m">
+                                    <option value="1">14:30</option>
+                                    <option value="2">15:30</option>
+                                    <option value="3">16:30</option>
+                                    <option value="4">17:30</option>
+                                    <option value="5">18:30</option>
+                                </select>
+                                <input type="hidden" name="IdAppuntamento" value="<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
+">
                             </div>
                         </div>
                     </div>
                     <br>
-                    <div style="left: 550px;">
-                        <a href="/Ambulacare/Admin/visualizzaapp" class="btn btn-primary" style="width: 140px;height: 35px;">Annulla</a>
+                    <div>
+                        <a href="/Ambulacare/Admin/" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <button type="submit" class="btn btn-primary" style="width: 140px;height: 35px;">Conferma</button>
+                        <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>
                 </form>
             </div>
