@@ -50,14 +50,14 @@ class CPaziente{
             /* var_dump($medici); */
             //ci devo aggiungere la tipologia per ogni medico
             for($i=0;$i<$nmedici;$i++){
-                $arraymedici[$i]["IdMedico"] = $medici[$i][0]->getIdMedico();
-                $arraymedici[$i]["nome"] = $medici[$i][0]->getNome();
-                $arraymedici[$i]["cognome"] = $medici[$i][0]->getCognome();
-                $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i][0]->getIdMedico());
-                $arraymedici[$i]["costo"] = $medici[$i][0]->getCosto();
-                $arraymedici[$i]["nometipologia"] = $medici[$i][0]->getTipologia()[0]->getNometipologia(); 
-                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]->getTipo(); 
-                $arraymedici[$i]["img"] = base64_encode(FImmagine::getObj($medici[$i][0]->getIdImmagine())[0]->getDati());
+                $arraymedici[$i]["IdMedico"] = $medici[$i]->getIdMedico();
+                $arraymedici[$i]["nome"] = $medici[$i]->getNome();
+                $arraymedici[$i]["cognome"] = $medici[$i]->getCognome();
+                $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico());
+                $arraymedici[$i]["costo"] = $medici[$i]->getCosto();
+                $arraymedici[$i]["nometipologia"] = $medici[$i]->getTipologia()[0]->getNometipologia(); 
+                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(); 
+                $arraymedici[$i]["img"] = base64_encode(FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati());
                 isset($arraymedici[$i]['valutazione']["IdMedico"]) ? : $arraymedici[$i]["valutazione"]["IdMedico"] = false;
             }
             
