@@ -1,7 +1,5 @@
 <?php
-
 class CPaziente{
-
 //QUI PARTO CON I METODI PRESI DALL'SSD
 
     //[paziente]caso d'uso 1 "prenotazione esame"
