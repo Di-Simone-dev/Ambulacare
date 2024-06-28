@@ -69,7 +69,7 @@ class FEntityManagerSQL{
             $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
             $stmt = self::$db->prepare($query);
             $stmt->execute();
-            /* var_dump($stmt); */
+            //var_dump($stmt);
             $rowNum = $stmt->rowCount();
             if($rowNum > 0){
                 $result = array();
