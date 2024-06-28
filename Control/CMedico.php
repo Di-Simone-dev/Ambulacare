@@ -627,7 +627,7 @@ public static function logout()
             /* $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso  */
             $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
                                                             //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
-            
+            /* var_dump($medico); */
             FPersistentManager::getInstance()->updateinfomedico($medico);
             $view = new VMedico();
             $view->messaggio("Operazione effettuata!");
