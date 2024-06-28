@@ -24,7 +24,9 @@
     <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link rel="stylesheet" href="logregstyle.css">
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -124,9 +126,9 @@
             </div>
     </footer>
 	<!-- JAVASCRIPT FILES -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/scrollspy.min.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"></script>
+        <script src="/Ambulacare/Pages/js/custom.js"></script>
+        <script src="/Ambulacare/Pages/js/jquery.min.js"></script>
+        <script src="/Ambulacare/Pages/js/owl.carousel.min.js"></script>
+        <script src="/Ambulacare/Pages/js/scrollspy.min.js"></script>
 {/block}

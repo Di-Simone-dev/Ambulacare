@@ -27,7 +27,6 @@
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Img</th>
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
@@ -38,9 +37,8 @@
             <tbody style="text-align: center;">
                 {foreach $medici as $medico}
                     <tr>
-                        <td><img class="rounded-circle ml-3" width="60" height="60"
-                                src="data:{$medico.tipoimmagine};base64,{$medico.img}" alt="profile picture" /></td>
-                        <td>{$medico.nome} {$medico.cognome}</td>
+                        <td><img style="padding:2px" class="rounded-circle ml-3" width="60" height="60"
+                                src="data:{$medico.tipoimmagine};base64,{$medico.img}" alt="profile picture" />{$medico.nome} {$medico.cognome}</td>
                         <td>{$medico.nometipologia}</td>
                         <td>{$medico.costo}</td>
                         <td>{if $medico.valutazione.IdMedico}
