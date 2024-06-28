@@ -334,20 +334,9 @@ public static function visualizza_referto($IdReferto){
         }
         $arrayreferto["nominativopaziente"]= "Gerry Scotti";
         $arrayreferto["nominativomedico"]= "Pippo Baudo";
-<<<<<<< HEAD
-        $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
-        $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
-        if(isset($immagine)){
-            UPdf::crea_scarica_pdf_conimg($arrayreferto);
-        }
-        else{
-            UPdf::crea_scarica_pdf_noimg($arrayreferto);
-        }
-}}
-=======
         UPdf::crea_scarica_pdf($arrayreferto,$img);
+    }
 }
->>>>>>> 64381a3 (modifiche grafiche e creazione pdf)
 
 //[medico]caso d'uso 7 "visualizzare esami complessivi e guadagni in un periodo di tempo
 
