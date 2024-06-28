@@ -3,7 +3,7 @@
 {block name=content}
     
     <br><br><br>
-    <form method="post" action="" style="width: 600px;">
+    <form method="post" action="/Ambulacare/Medico/setInfoMedico" style="width: 600px;">
     <h1 style="font-size: 34px;">MODIFICA DATI</h1>
     <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">nome</label>
     <input type="text" id="nome" name="nome" required value="{$medico.nome}">

@@ -600,6 +600,17 @@ public static function logout()
         }
     }
 
+    public static function formSetInfoMedico(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged()){
+            $view = new VMedico();
+
+            $Idmedico = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);    
+            $view->formmodificacli($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+
     /**
      * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
@@ -626,11 +637,12 @@ public static function logout()
      */
     public static function setEmailMedico(){
         if(CUtente::isLogged()){
+            $view = new VMedico();
             $IdMedico = USession::getInstance()->getSessionElement('id');
-            $medico = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $IdMedico);
+            $medico = FMedico::getObj($IdMedico)[0];
             
             if($medico->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
-                header('Location: /medico/profilopersonale');
+                $view->
             }else{
                 if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('Email')) == false)
                 {

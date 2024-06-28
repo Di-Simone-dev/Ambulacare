@@ -67,6 +67,11 @@ class VMedico
 		if($error) $this->smarty->assign('error',$error);
 		$this->smarty->display('reimpostapassword_medico.tpl');
 	}
+
+	public function formmodificaemail($error = false) {
+		if($error) $this->smarty->assign('error',$error);
+		$this->smarty->display('modificamail_medico.tpl');
+	}
 	/**
 	 * Funzione che permette di visualizzare lo storico degli esami svolti dal medico (serve per gestione referti)
 	 * @param $app array di appuntamenti
