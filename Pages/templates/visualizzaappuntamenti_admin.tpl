@@ -10,13 +10,13 @@
                         <br><br>
                         <h2><label>Gestione Appuntamenti</label></h2>
                         <br>
-                        <select name="IdTipologia" id="categ" class="form-select-m">
+                        <select name="IdTipologia" class="form-select-m">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="data" name="data" required>
+                        <input type="date" id="dataapp" name="dataapp" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>

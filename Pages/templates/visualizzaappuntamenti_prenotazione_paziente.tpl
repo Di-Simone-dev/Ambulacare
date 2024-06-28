@@ -7,9 +7,9 @@
                 <form action="/Ambulacare/Paziente/ricercaesame" method="post">
                     <div class="form-group">
                         <br><br>
-                        <h2><label>Prenotazione esami</label></h2>
+                        <h2><label>Prenotazione Appuntamenti</label></h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select-m">
+                        <select name="tipologia" class="form-select-m">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}" {if $tipologia.IdTipologia == $Idtipologia}
                                     selected="selected" {/if}>{$tipologia.nome_tipologia}</option>

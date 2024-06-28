@@ -8,15 +8,15 @@
             <div class="col">
                 <form action="#">
                     <div class="form-group">
-                        <h2><label for="storico">Elenco Appuntamenti</label></h2>
+                        <h2>Elenco Appuntamenti</h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select">
+                        <select name="tipologia" class="form-select-m">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br>
-                        <input type="date" id="dataprenot" name="data" required>
+                        <input type="date" id="dataapp" name="dataapp" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>

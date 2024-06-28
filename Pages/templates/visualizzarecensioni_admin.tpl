@@ -8,7 +8,7 @@
             <div class="col">
                 <form action="/Ambulacare/Amministratore/ricerca_recensioni" method="post">
                     <div class="form-group">
-                        <h2>Visualizza recensioni</h2>
+                        <h2>Elenco Recensioni</h2>
                         <br>
                         <input type="text" id="nomemedico" placeholder="Nome Medico" name="nomemedico" />
                         <br><br>

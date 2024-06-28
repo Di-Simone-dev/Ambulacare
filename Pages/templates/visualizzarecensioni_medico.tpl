@@ -10,11 +10,11 @@
                     <div class="form-group" >
                         <h2>Recensioni</h2>
                         <br>
-                            <input type="date" id="dataprenot" name="dataprenot" required/>
+                            <input type="date" id="dataapp" name="dataapp" required/>
                             <br><br>
                             <button type="submit" class="btn btn-primary">Effettua ricerca</button>
                             <br><br>
-                            <select name="recensioni" id="categ" class="form-select-m" required>
+                            <select name="recensioni" class="form-select-m" required>
                                 <option value="">Ordina per</option>
                                 <option value="nome">Nome</option>
                                 <option value="cognome">Cognome</option>
