@@ -319,7 +319,7 @@ public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRA
         $valutazione = UHTTPMethods::post('voto');     //PRENDO I VALORI DAL FORM
         $data_creazione = new DateTime(); //data del momento della creazione
         $dataOraStringa = $data_creazione->format('Y-m-d');
-        $IdPaziente = 3; /* USession::getSessionElement('id'); */ //l'id del paziente per la creazione della recensione
+        $IdPaziente =  USession::getSessionElement('id'); //l'id del paziente per la creazione della recensione
         $paziente = FPaziente::getObj($IdPaziente);
 
         $recensione = new ERecensione($titolo,$contenuto,$valutazione,$dataOraStringa);

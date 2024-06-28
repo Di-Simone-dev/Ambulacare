@@ -38,7 +38,7 @@ class EAmministratore
 
     public function setIdAdmin($IdAdm)
     {
-        $this->IdAdm = $IdAdm;
+        $this->IdAdmin = $IdAdm;
 
     }
 
