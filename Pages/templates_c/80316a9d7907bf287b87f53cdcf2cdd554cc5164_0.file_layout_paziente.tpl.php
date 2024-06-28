@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 17:23:35
+/* Smarty version 5.3.0, created on 2024-06-28 19:48:33
   from 'file:layout_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ed577a44968_52973981',
+  'unifunc' => 'content_667ef7714550d9_25342784',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '80316a9d7907bf287b87f53cdcf2cdd554cc5164' => 
     array (
       0 => 'layout_paziente.tpl',
-      1 => 1719588213,
+      1 => 1719595010,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ed577a44968_52973981 (\Smarty\Template $_smarty_tpl) {
+function content_667ef7714550d9_25342784 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_992079100667ed577a37ef6_03109162', 'head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1382049489667ef771446c70_27239167', 'head');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_356924647667ed577a41cf7_43928305', 'nav');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2018029086667ef771453c35_67497398', 'nav');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1893326358667ed577a436b5_64183362', 'footer');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_686795342667ef771454826_43055176', 'footer');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "structure.tpl", $_smarty_current_dir);
 }
 /* {block 'head'} */
-class Block_992079100667ed577a37ef6_03109162 extends \Smarty\Runtime\Block
+class Block_1382049489667ef771446c70_27239167 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -70,13 +70,15 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
     <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link rel="stylesheet" href="logregstyle.css">
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 <?php
 }
 }
 /* {/block 'head'} */
 /* {block 'nav'} */
-class Block_356924647667ed577a41cf7_43928305 extends \Smarty\Runtime\Block
+class Block_2018029086667ef771453c35_67497398 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -127,7 +129,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'nav'} */
 /* {block 'footer'} */
-class Block_1893326358667ed577a436b5_64183362 extends \Smarty\Runtime\Block
+class Block_686795342667ef771454826_43055176 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -187,19 +189,19 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
     </footer>
 	<!-- JAVASCRIPT FILES -->
         <?php echo '<script'; ?>
- src="js/jquery.min.js"><?php echo '</script'; ?>
+ src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
         <?php echo '<script'; ?>
- src="js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+ src="/Ambulacare/Pages/js/custom.js"><?php echo '</script'; ?>
 >
         <?php echo '<script'; ?>
- src="js/owl.carousel.min.js"><?php echo '</script'; ?>
+ src="/Ambulacare/Pages/js/jquery.min.js"><?php echo '</script'; ?>
 >
         <?php echo '<script'; ?>
- src="js/scrollspy.min.js"><?php echo '</script'; ?>
+ src="/Ambulacare/Pages/js/owl.carousel.min.js"><?php echo '</script'; ?>
 >
         <?php echo '<script'; ?>
- src="js/custom.js"><?php echo '</script'; ?>
+ src="/Ambulacare/Pages/js/scrollspy.min.js"><?php echo '</script'; ?>
 >
 <?php
 }
