@@ -25,10 +25,10 @@ class VPaziente
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
 	 * @throws SmartyException
 	 */
-	public function showFormLogin(){
-		if (isset($_POST['login']))
-			$this->smarty->assign('email',$_POST['login']);
-		$this->smarty->display('login.tpl');
+	public function showFormLogin($error = false){
+		if ($error)
+			$this->smarty->assign('error',$error);
+		$this->smarty->display('login_paziente.tpl');
 	}
 
 	/**

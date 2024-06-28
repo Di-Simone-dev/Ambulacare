@@ -486,50 +486,55 @@ public static function modifica_appuntamento(){  //DA FARE
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
                 FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
                 
-                $view->showLoginForm();   //DA FARE CON LA VIEW E SMARTY
+                $view->messaggio("Registrazione effettuata!");   //DA FARE CON LA VIEW E SMARTY
         }else
         {
-            $view->registrationError(); //DA FARE CON LA VIEW E SMARTY
+            $view->messaggio("errore!"); //DA FARE CON LA VIEW E SMARTY
         }
     }
 
+    public static function login(){
+        $view = new VPaziente();
+        $view->showFormLogin();
+    }
 
+    public static function logout()
+    {
+        USession::getInstance();
+        USession::unsetSession();
+        USession::destroySession();
+        header('Location: /Ambulacare');
+    }
     /**
      * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
      * the User is redirected in the homepage
      */
-    public static function checkLoginPaziente(){   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
+    public static function checkLoginPaziente()
+    {   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
         $view = new VPaziente();
         //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
-        $exist = FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email'));  
+        $exist = FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email'));
         //SE ESISTE NEL DB ALLORA CONTINUO                                          
-        if($exist)
-        {
-            $paziente = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('username'));  
+        if ($exist) {
+            $paziente = FPersistentManager::getInstance()->retrievepazientefromemail(UHTTPMethods::post('email'));
             //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
             //password_verify è una funzione NATIVA DI PHP
-            if(password_verify(UHTTPMethods::post('password'), $paziente[0]->getPassword()))  
-            {
-                if(!($paziente[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
+            if (password_verify(UHTTPMethods::post('password'), $paziente[0]->getPassword())) {
+                if (!($paziente[0]->getAttivo()))  //PRIMA DI FARLO ACCEDERE EFFETTIVAMENTE CONTROLLIAMO SE è BANNATO
                 {
-                    $view->loginBan(); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
-                }
-                elseif(USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
+                    $view->showFormLogin("Utente Bannato"); //LO MANDIAMO ALLA SCHERMATA DI UTENTE BANNATO
+                } elseif (USession::getSessionStatus() == PHP_SESSION_NONE)   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
                 {
                     USession::getInstance();
                     USession::setSessionElement('tipo_utente', 'paziente');
                     USession::setSessionElement('id', $paziente[0]->getIdPaziente());
-                    header('Location: /Ambulacare');
+                    $view->messaggio("Login effettuato");
                 }
+            } else {
+                $view->showFormLogin("Errore !");
             }
-            else
-            {
-                $view->loginError();
-            }
-        }
-        else
-        {
-            $view->loginError();
+        } else {
+            $view->showFormLogin("Errore!");
         }
     }
 
