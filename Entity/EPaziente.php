@@ -82,7 +82,7 @@ class EPaziente
 
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     public function getCodiceFiscale()
@@ -100,7 +100,7 @@ class EPaziente
         return $this->data_nascita;
     }
 
-    public function setDataNascita(DateTime $data_nascita)
+    public function setDataNascita($data_nascita)
     {
         $this->data_nascita = $data_nascita;
     }

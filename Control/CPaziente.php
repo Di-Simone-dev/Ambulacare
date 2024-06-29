@@ -553,11 +553,11 @@ public static function modifica_appuntamento(){  //DA FARE
     public static function settingspaziente(){  //POTREBBE ESSERE RINOMINATO
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $view = new VPaziente();
-
             $userId = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal paziente
             $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($userId);    
-            $view->settings($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+            var_dump($datipaziente);
+            $view->formmodificacli($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
 
@@ -580,9 +580,14 @@ public static function modifica_appuntamento(){  //DA FARE
             $paziente[0]->setNumerotelefono(UHTTPMethods::post('Numerotelefono'));
             
             FPersistentManager::getInstance()->updateinfopaziente($paziente[0]);
-
-            header('Location: /paziente/profilopersonale');
+            $view = new VPaziente();
+            $view->messaggio("Modifiche avvenute con successo!");
         }
+    }
+
+    public static function formEmail(){
+        $view = new VPaziente();
+        $view->formmodificaemail();
     }
 
         /**
@@ -591,22 +596,23 @@ public static function modifica_appuntamento(){  //DA FARE
      */
     public static function setEmailPaziente(){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
+            $view = new VPaziente();
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             
             if($paziente->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
-                header('Location: /paziente/profilopersonale');
+                $view->formmodificaemail("Errore!");
             }else{
                 if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('Email')) == false)
                 {
                     $paziente->setEmail(UHTTPMethods::post('Email'));
                     FPersistentManager::getInstance()->updatemailpaziente($paziente);
-                    header('Location: /paziente/profilopersonale');
+                    $view->messaggio("Modifica email avvenuta");
                 }else
                 {   //QUESTO NEL CASO SIA STATA INSERITA UNA MAIL ATTUALMENTE IN USO DA UN ALTRO UTENTE QUINDI VA MESSA UNA SCHERMATA DI ERRORE
                     $view = new VPaziente();
                     //$userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
-                    $view->usernameError($userAndPropic , true);
+                    $view->formmodificaemail("Errore!");
                 }
             }
         }
@@ -616,7 +622,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL PAZIENTE
      * Take the compiled form and update the user password
      */
-    public static function setPasswordPaziente(){
+/*     public static function setPasswordPaziente(){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
@@ -626,7 +632,7 @@ public static function modifica_appuntamento(){  //DA FARE
 
             header('Location: /paziente/profilopersonale');
         }
-    }
+    } */
 
 
 
