@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/home">Home</a>
                     </li>
 
 
@@ -57,10 +57,10 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="register.html">Registrati</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sceltalogin.html">Accedi</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>
                     </li>
                 </ul>
             </div>

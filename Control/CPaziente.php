@@ -1,5 +1,12 @@
 <?php
 class CPaziente{
+
+    public static function home(){
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente") {
+            $view = new VPaziente(); //servirebbe una cosa del genere
+            $view->Home();
+        }
+    }
 //QUI PARTO CON I METODI PRESI DALL'SSD
 
     //[paziente]caso d'uso 1 "prenotazione esame"

@@ -80,7 +80,7 @@ class VAmministratore
 		$this->smarty->display('reimpostapassword_admin.tpl');
 	}
 
-	public function HomeAdmin()
+	public function Home()
 	{
 		$this->smarty->display('index_admin.tpl');
 	}
