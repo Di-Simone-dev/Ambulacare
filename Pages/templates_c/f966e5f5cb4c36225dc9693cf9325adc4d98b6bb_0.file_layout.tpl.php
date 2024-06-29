@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-16 19:13:22
+/* Smarty version 5.3.0, created on 2024-06-29 11:12:26
   from 'file:layout.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_666f1d32632da8_65552400',
+  'unifunc' => 'content_667fcffa61fdd4_83220746',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f966e5f5cb4c36225dc9693cf9325adc4d98b6bb' => 
     array (
       0 => 'layout.tpl',
-      1 => 1718557840,
+      1 => 1719652343,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_666f1d32632da8_65552400 (\Smarty\Template $_smarty_tpl) {
+function content_667fcffa61fdd4_83220746 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_225985703666f1d3262f0a4_62676339', 'head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_847717399667fcffa616b85_53870561', 'head');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_142343137666f1d32630a59_96974336', 'nav');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_530215911667fcffa61df79_64259107', 'nav');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1111052197666f1d32631e79_75140384', 'footer');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_677411054667fcffa61ef08_25943170', 'footer');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "structure.tpl", $_smarty_current_dir);
 }
 /* {block 'head'} */
-class Block_225985703666f1d3262f0a4_62676339 extends \Smarty\Runtime\Block
+class Block_847717399667fcffa616b85_53870561 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -61,22 +61,24 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet">
-    <link href="font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Ambulacare/Pages/logregstyle.css">
+    <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 <?php
 }
 }
 /* {/block 'head'} */
 /* {block 'nav'} */
-class Block_142343137666f1d32630a59_96974336 extends \Smarty\Runtime\Block
+class Block_530215911667fcffa61df79_64259107 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -98,10 +100,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">APPUNTAMENTO</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/home">Home</a>
                     </li>
 
 
@@ -112,10 +111,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="register.html">Registrati</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sceltalogin.html">Accedi</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>
                     </li>
                 </ul>
             </div>
@@ -128,7 +127,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'nav'} */
 /* {block 'footer'} */
-class Block_1111052197666f1d32631e79_75140384 extends \Smarty\Runtime\Block
+class Block_677411054667fcffa61ef08_25943170 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -142,18 +141,13 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <h5 class="mb-lg-4 mb-3">ORARI DI APERTURA</h5>
 
                     <ul class="list-group list-group-flush">
+
                         <li class="list-group-item d-flex">
+                            LUNEDI' - SABATO
+                        <span>14:30 - 19:30</span>
+			<li class="list-group-item d-flex">
                             DOMENICA : CHIUSO
                         </li>
-
-                        <li class="list-group-item d-flex">
-                            LUNEDI' - MARTEDI' - VENERDI'
-                        <span>8:00 - 15:30</span>
-                    </li>
-
-                    <li class="list-group-item d-flex">
-                        SABATO
-                        <span>10:30 - 17:30</span>
                     </li>
                 </ul>
             </div>
@@ -176,9 +170,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <h5 class="mb-lg-4 mb-3">SOCIAL MEDIA</h5>
 
                     <ul class="social-icon">
-                        <li><a href="https://www.facebook.com/" class="social-icon-link bi-facebook"></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61561622310874" class="social-icon-link bi-facebook"></a></li>
 
-                        <li><a href="https://www.instagram.com/" class="social-icon-link bi-instagram"></a></li>
+                        <li><a href="https://www.instagram.com/ambulacare/" class="social-icon-link bi-instagram"></a></li>
                     </ul>
                 </div>
 
@@ -193,6 +187,22 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 
             </div>
     </footer>
+	<!-- JAVASCRIPT FILES -->
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/custom.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/jquery.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="/Ambulacare/Pages/js/scrollspy.min.js"><?php echo '</script'; ?>
+>
 <?php
 }
 }

@@ -119,13 +119,13 @@ class CUtente{
      *
      */
     public static function home(){  
-        if(!CUtente::isLogged())
-        {
+/*         if(!CUtente::isLogged())
+        { */
 
            
             $view = new VUtente();
             $view->Home();
-        }  
+/*         }   */
     }
 
 }
