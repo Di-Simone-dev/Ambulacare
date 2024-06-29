@@ -2,7 +2,7 @@
 
 {block name=content}
 
-    <div style="padding:5px;"> <br><br>
+    <div style="padding:35px;"> <br><br>
 	<h2> Profilo Personale - Dr. {$medico.nome} {$medico.cognome}</h2>
         <h4>Informazioni Personali</h4>
 	<img class='img' src="data:{$medico.tipoimmagine};base64,{$medico.img}" alt='Foto Profilo' style='width:300px;height:300px;border-radius:50%;float:right; margin-right:150px;'>

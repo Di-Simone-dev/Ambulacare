@@ -3,7 +3,7 @@
 {block name=content}
 
     <br><br>
-    <div style="padding:5px;">
+    <div style="padding:35px;">
         <h2>Profilo Personale - Amministratore - {$nome} {$cognome}</h2>
         <h4>Informazioni Personali</h4>
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
