@@ -44,7 +44,7 @@ class VMedico
 
 	public function profileCli($medico) {
 		$this->smarty->assign('medico',$medico);
-/* 		$this->smarty->assign('immagine',$immagine); */
+        //$this->smarty->assign('immagine',$immagine);
 		$this->smarty->display('profilo_medico.tpl');
 	}
 
