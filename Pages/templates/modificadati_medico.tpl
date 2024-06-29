@@ -3,7 +3,7 @@
 {block name=content}
     
     <br>
-    <form method="post" action="/Ambulacare/Medico/setInfoMedico" style="width: 600px;padding:35px;">
+    <form method="post" enctype="multipart/form-data" action="/Ambulacare/Medico/setInfoMedico" style="width: 600px;padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>
     <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">nome</label>
@@ -21,6 +21,7 @@
     <button type="submit" name="register" class="btn btn-primary">CONFERMA MODIFICHE</button>
 <br><br>
     <a href="/Ambulacare/Medico/formEmailMedico" class="btn btn-primary"> Modifica Email</a>
+<br>
     <a href="/Ambulacare/Medico/formPasswordMedico" class="btn btn-primary"> Modifica Password</a>
 </form>
 
