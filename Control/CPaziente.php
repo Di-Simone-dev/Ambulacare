@@ -54,20 +54,33 @@ class CPaziente{
             $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
             $arraymedici = array();
             $nmedici = count($medici);
-            /* var_dump($medici); */
+            //var_dump($medici[1]); 
             //ci devo aggiungere la tipologia per ogni medico
-            for($i=0;$i<$nmedici;$i++){
-                $arraymedici[$i]["IdMedico"] = $medici[$i]->getIdMedico();
-                $arraymedici[$i]["nome"] = $medici[$i]->getNome();
-                $arraymedici[$i]["cognome"] = $medici[$i]->getCognome();
-                $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico());
-                $arraymedici[$i]["costo"] = $medici[$i]->getCosto();
-                $arraymedici[$i]["nometipologia"] = $medici[$i]->getTipologia()[0]->getNometipologia(); 
-                $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(); 
-                $arraymedici[$i]["img"] = base64_encode(FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati());
-                isset($arraymedici[$i]['valutazione']["IdMedico"]) ? : $arraymedici[$i]["valutazione"]["IdMedico"] = false;
+            if($nmedici == 1){
+                $arraymedici[0]["IdMedico"] = $medici[0][0]->getIdMedico();
+                $arraymedici[0]["nome"] = $medici[0][0]->getNome();
+                $arraymedici[0]["cognome"] = $medici[0][0]->getCognome();
+                $arraymedici[0]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[0][0]->getIdMedico());
+                $arraymedici[0]["costo"] = $medici[0][0]->getCosto();
+                $arraymedici[0]["nometipologia"] = $medici[0][0]->getTipologia()[0]->getNometipologia(); 
+                $arraymedici[0]["tipoimmagine"] = FImmagine::getObj($medici[0][0]->getIdImmagine())[0]->getTipo(); 
+                $arraymedici[0]["img"] = base64_encode(FImmagine::getObj($medici[0][0]->getIdImmagine())[0]->getDati());
+                isset($arraymedici[0]['valutazione']["IdMedico"]) ? : $arraymedici[0]["valutazione"]["IdMedico"] = false;
             }
-            
+            else
+            {
+                for($i=0;$i<$nmedici;$i++){
+                    $arraymedici[$i]["IdMedico"] = $medici[$i]->getIdMedico();
+                    $arraymedici[$i]["nome"] = $medici[$i]->getNome();
+                    $arraymedici[$i]["cognome"] = $medici[$i]->getCognome();
+                    $arraymedici[$i]["valutazione"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medici[$i]->getIdMedico());
+                    $arraymedici[$i]["costo"] = $medici[$i]->getCosto();
+                    $arraymedici[$i]["nometipologia"] = $medici[$i]->getTipologia()[0]->getNometipologia(); 
+                    $arraymedici[$i]["tipoimmagine"] = FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getTipo(); 
+                    $arraymedici[$i]["img"] = base64_encode(FImmagine::getObj($medici[$i]->getIdImmagine())[0]->getDati());
+                    isset($arraymedici[$i]['valutazione']["IdMedico"]) ? : $arraymedici[$i]["valutazione"]["IdMedico"] = false;
+                }
+            }
             $tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $view = new VPaziente();
             $view->showEsami($tipologie,$arraymedici, $IdTipologia);
@@ -285,6 +298,7 @@ public static function visualizza_referto($IdReferto){
         $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
         $arrayreferto["nominativomedico"]= $medico[0]->getNome() . " " . $medico[0]->getCognome();
         UPdf::crea_scarica_pdf($arrayreferto,$withimg);
+
     } 
 }
 

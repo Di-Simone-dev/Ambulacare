@@ -10,7 +10,6 @@ class CAmministratore
     public static function visualizza_medici()
     {
         if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
-
             $medici = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
             //$pazienti = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
             $view = new VAmministratore(); //servirebbe una cosa del genere
@@ -47,7 +46,7 @@ class CAmministratore
 
             $medico = FMedico::getObj($IdMedico);
             //serve cambiare il campo "attivo" del medico e salvare la modifica sul db
-            var_dump($medico[0]->getAttivo());
+            //var_dump($medico[0]->getAttivo());
             $arraymodifica[0][0] = "attivo";
             if ($medico[0]->getAttivo()) {  //se è attivo lo disattiviamo altrimento lo riattiviamo
                 $arraymodifica[0][1] = "0";
@@ -336,8 +335,14 @@ class CAmministratore
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
                 $medico->setTipologia(FTipologia::getObj(UHTTPMethods::post('tipologia'))[0]);
                 $medico->setIdImmagine('1');
-                var_dump($medico);
-                FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
+                //var_dump($medico);
+                $IdMedico = FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
+                $medico->setIdMedico($IdMedico);
+                //necessità di creazione del calendario associato
+                $calendario = new ECalendario();
+                $calendario->setMedico($medico);
+                FPersistentManager::getInstance()->uploadObj($calendario);
+
 
                 $view->messaggio("Registrazione effettuata con successo!");   //DA FARE CON LA VIEW E SMARTY
             } else {
@@ -376,6 +381,8 @@ class CAmministratore
                 USession::getInstance();
                 USession::setSessionElement('tipo_utente', 'admin');
                 USession::setSessionElement('id', $admin[0]->getIdAdmin());
+                //var_dump(USession::getSessionStatus());
+                //var_dump(USession::getSessionElement('tipo_utente'));
                 $view->loginOk();
             } else {
                 $view->showFormLogin(UHTTPMethods::post('email'), true);

@@ -39,10 +39,11 @@ class FPersistentManager{
     public static function retrieveObj($class, $id){
        
         $foundClass = "F" . substr($class, 1);
+        //var_dump($foundClass);
         $staticMethod = "getObj";    //il metodo della classe si deve chiamare così
 
         $result = call_user_func([$foundClass, $staticMethod], $id);
-
+        //var_dump($result);
         return $result;
     }    //metodo molto potente, ma serve chiamare tutti i metodi "retrieveObj"
 
@@ -248,15 +249,20 @@ class FPersistentManager{
         return $result;
     }
 
+    /**
+     * metodo che ritorna le info del medico
+     */
+
     public static function retrieveinfomedico($IdMedico){
         //prende tutte le info del Medico (per la visualizzazione della schermata di profilo)
         $medico = FMedico::getObj($IdMedico);
+        //var_dump($medico);
         $infomedico = array();
         $infomedico['nome'] = $medico[0]->getNome();
         $infomedico['cognome'] = $medico[0]->getCognome();
         $infomedico['email'] = $medico[0]->getEmail();
         $infomedico['costo'] = $medico[0]->getCosto();
-        $infomedico['propic'] = self::retrievemedicipropic($medico);
+        $infomedico['img'] = base64_encode(FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati());
         //oppure 
         //$infomedico['propic'] = $medico[0]->getImmaginefromid();
         return $infomedico;

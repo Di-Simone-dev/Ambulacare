@@ -443,8 +443,8 @@ class FEntityManagerSQL{
             //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
-/*             var_dump($rowNum);
-            var_dump($query); */
+            //var_dump($rowNum);
+            //var_dump($query); 
             if($rowNum > 0){
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -762,7 +762,7 @@ class FEntityManagerSQL{
             //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
             
             $stmt = self::$db->prepare($query);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
             if($rowNum > 0){
@@ -807,7 +807,7 @@ class FEntityManagerSQL{
             }
 
             $stmt = self::$db->prepare($query);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){

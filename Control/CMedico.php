@@ -220,7 +220,7 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
             //$IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
             //$busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
             $fascia_oraria = new EFasciaoraria($data->format("Y-m-d H:i:s"));
-            var_dump($fascia_oraria);
+            //var_dump($fascia_oraria);
             $IdCalendario = FEntityManagerSQL::getInstance()->retrieveObj("calendario", "IdMedico" ,$IdMedico)[0]["IdCalendario"];
             $calendario = FCalendario::getObj($IdCalendario);
 
@@ -381,7 +381,7 @@ public static function calcola_statistiche(){
         $numappuntamenti = $statistiche_tot[0]["numappuntamenti"];
 
         $view = new VMedico(); //servirebbe una cosa del genere
-        var_dump($appuntamenti);
+        //var_dump($appuntamenti);
         $view->ShowStatistiche($appuntamenti,$data1,$data2,$sommacosti);
     } 
 }
@@ -573,12 +573,14 @@ public static function checkLogin()
     //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
     //password_verify è una funzione NATIVA DI PHP
     if ($medico != null && $medico[0]->getAttivo()!=0) {
-        var_dump(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()));
+        //var_dump(password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword()));
+        
         if (password_verify(UHTTPMethods::post('password'), $medico[0]->getPassword())) {
             USession::getSessionStatus() == PHP_SESSION_NONE;   //ALTRIMENTI SE LO STATO è NULLO LO SETTIAMO 
             USession::getInstance();
             USession::setSessionElement('tipo_utente', 'medico');
             USession::setSessionElement('id', $medico[0]->getIdMedico());
+            
             $view->loginOk();
         } else {
             $view->showFormLogin(UHTTPMethods::post('email'), "Username o password errate!");
@@ -596,7 +598,6 @@ public static function logout()
     header('Location: /Ambulacare');
 }
 
-
    /**
      * QUESTO VA USATO PER APRIRE LA SCHERMATA DELLE INFORMAZIONI PERSONALI DEL PAZIENTE (PROFILO PERSONALE)
      * load the settings page compiled with the user data
@@ -604,12 +605,13 @@ public static function logout()
     public static function settingsmedico(){  //POTREBBE ESSERE RINOMINATO
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){
             $view = new VMedico();
-
-            $Idmedico = USession::getInstance()->getSessionElement('id');
+            
+            $Idmedico = USession::getSessionElement('id');
+            //var_dump($Idmedico);
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
             $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);  
-/*             $immagine = $datimedico["propic"];
-            var_dump($immagine); */
+            //$immagine = $datimedico["propic"];
+            //var_dump($immagine); 
             $view->profileCli($datimedico);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }

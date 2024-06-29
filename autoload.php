@@ -1,13 +1,11 @@
 <?php
 
 function my_autoloader($className) {
-
         $firstLetter = $className[0];
         switch ($firstLetter) {
             case 'E':
                 include_once(__DIR__ . '/Entity/'. $className . '.php' );
                 break;
-
             case 'F':
                 include_once(__DIR__ . "/Foundation/" . $className . '.php' );
                 break;

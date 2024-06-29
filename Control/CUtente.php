@@ -12,7 +12,7 @@ class CUtente{
 
         if(UCookie::isSet('PHPSESSID')){   //se è settato ritorna true
             if(session_status() == PHP_SESSION_NONE){  //se non abbiamo lo stato di sessione 
-                USession::getInstance();  //getinstance() crea o getta la sessione (PATTERN SINGLETON) 
+                USession::getInstance();  //getinstance() crea o ritorna la sessione (PATTERN SINGLETON) 
             }
         }
         if(USession::isSetSessionElement('tipo_utente')){     //qui andrebbe cambiato a "paziente"
@@ -46,7 +46,7 @@ class CUtente{
                 }
                 break;
             case "medico":
-                $user = FPersistentManager::getInstance()->retrieveObj(FMedico::getTable(), $ID);
+                $user = FPersistentManager::getInstance()->retrieveObj(EMedico::getEntity(), $ID);
                 if(!($user[0]->getAttivo())){
                     $view = new VMedico();   //DA CONCONCORDARE CON LA VIEW PER IL RESTO
                     USession::unsetSession();
