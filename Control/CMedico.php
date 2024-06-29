@@ -46,6 +46,13 @@ public static function visualizza_storico_appuntamenti_medico(){
     } 
 }
 
+public static function home(){
+    if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico") {
+        $view = new VMedico(); //servirebbe una cosa del genere
+        $view->Home();
+    }
+}
+
 //4.2 ricerca_storico_esami(data)
 public static function ricerca_storico_appuntamenti_medico(){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   

@@ -119,17 +119,13 @@ class CUtente{
      *
      */
     public static function home(){  
-        if(CUtente::isLogged())
-        {   //questa obbligatorietò del login potrebbe essere tolta e messa nei punti cardine(creazione effettiva appuntamento)
-            //$view = new VPaziente();
-
-            $userId = USession::getInstance()->getSessionElement('user');
-            $userAndPropic = FPersistentManager::getInstance()->loadUsersAndImage($userId);
+/*         if(!CUtente::isLogged())
+        { */
 
            
-        
-            $view->home($userAndPropic, $postInHome,$arrayVipUserPropicFollowNumb);
-        }  
+            $view = new VUtente();
+            $view->Home();
+/*         }   */
     }
 
 }

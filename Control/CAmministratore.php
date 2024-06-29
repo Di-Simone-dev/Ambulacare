@@ -18,6 +18,13 @@ class CAmministratore
         }
     }
 
+    public static function home(){
+        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") {
+            $view = new VAmministratore(); //servirebbe una cosa del genere
+            $view->Home();
+        }
+    }
+
     //10.2)ricerca_utenti(nome,cognome, categoria) questa query potrebbe essere complessa e va realizzata ad hoc
     //deve essere possibile la ricerca anche per uno solo di questi input 
 

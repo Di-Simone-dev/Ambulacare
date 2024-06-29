@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
+                        <a class="nav-link" href="/Ambulacare/Medico/home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Ambulacare/Medico/visualizza_storico_appuntamenti_medico">Storico

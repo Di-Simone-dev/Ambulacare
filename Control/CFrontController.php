@@ -40,10 +40,10 @@ class CFrontController
                     else if ($num == 3) $controller::$method($param[0], $param[1], $param[2]);
                 }
             } else {
-                header("Location: /Ambulacare/Paziente/avviaprenotazione"); //temp
+                header("Location: /Ambulacare/Utente/home"); //temp
             }
         } else {
-            header("Location: /Ambulacare/Paziente/avviaprenotazione"); //temp
+            header("Location: /Ambulacare/Utente/home"); //temp
         }
     }
 }

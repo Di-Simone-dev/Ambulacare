@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Paziente/" >Home</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/home" >Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Paziente/avviaprenotazione">Prenota appuntamento</a>

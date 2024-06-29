@@ -21,6 +21,10 @@ class VPaziente
 		$this->smarty = smarty_class::startSmarty();
 	}
 
+	public function Home(){
+		$this->smarty->display('index_paziente.tpl');
+	}
+
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
 	 * @throws SmartyException

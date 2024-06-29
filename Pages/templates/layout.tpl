@@ -15,18 +15,18 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/owl.theme.default.min.css" rel="stylesheet">
 
-    <link href="css/templatemo-medic-care.css" rel="stylesheet">
-    <link rel="stylesheet" href="logregstyle.css">
-    <link href="font.css" rel="stylesheet">
-    <link href="responsive.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Ambulacare/Pages/logregstyle.css">
+    <link href="/Ambulacare/Pages/font.css" rel="stylesheet">
+    <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
 {block name=nav}
@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/home">Home</a>
                     </li>
 
 
@@ -57,10 +57,10 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="register.html">Registrati</a>
+                        <a class="nav-link" href="/Ambulacare/Utente/">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sceltalogin.html">Accedi</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>
                     </li>
                 </ul>
             </div>

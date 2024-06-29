@@ -17,6 +17,10 @@ class VMedico
 		$this->smarty = Smarty_class::startSmarty();
 	}
 
+	public function Home(){
+		$this->smarty->display('index_medico.tpl');
+	}
+
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
 	 * @throws SmartyException
