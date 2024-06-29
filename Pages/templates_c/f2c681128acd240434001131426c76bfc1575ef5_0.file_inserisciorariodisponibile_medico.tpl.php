@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 12:36:34
+/* Smarty version 5.3.0, created on 2024-06-29 23:55:44
   from 'file:inserisciorariodisponibile_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667d40b25f0349_84876072',
+  'unifunc' => 'content_668082e0f0c9b6_79283215',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f2c681128acd240434001131426c76bfc1575ef5' => 
     array (
       0 => 'inserisciorariodisponibile_medico.tpl',
-      1 => 1719484588,
+      1 => 1719698142,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667d40b25f0349_84876072 (\Smarty\Template $_smarty_tpl) {
+function content_668082e0f0c9b6_79283215 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_241308821667d40b25c5133_09111704', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1826885910668082e0d2d620_07081494', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_241308821667d40b25c5133_09111704 extends \Smarty\Runtime\Block
+class Block_1826885910668082e0d2d620_07081494 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -47,9 +47,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
                             <br>
-                            <a class="bottonitab">
-                                << /a>
-                                    <a class="bottonitab">></a>
+                            <a class="bottonitab"></a>
+                                    <a class="bottonitab"></a>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
                                         <thead style="background-color: rgb(230, 230, 230);text-align: center;">
@@ -118,7 +117,7 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                                     </div>
                         </div>
                     </div>
-                    <br><br><br>
+                    <br><br>
                     <div>
                         <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;

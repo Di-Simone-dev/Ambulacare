@@ -103,12 +103,15 @@ class CPaziente{
     public static function dettagli_prenotazione($IdMedico,$weekdisplacement = 0){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
+            //var_dump($weekdisplacement);//ok
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
             $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
             $anno = $data->format('o'); //anno attuale (es 2024)
             //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
             //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
-            $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
+            $orari_disponinibilità = FEntityManagerSQL::getInstance()
+                                    ->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
+            //var_dump($orari_disponinibilità);
             $medico = FMedico::getObj($IdMedico); //prendo il medico per prendere la tipologia
             $arraymedico = [
                     "IdMedico" => $medico[0]->getIdMedico(),
@@ -139,7 +142,7 @@ class CPaziente{
             }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
             $view = new VPaziente();
             $view->PrenotaEsame($arraymedico,$orari_disponinibilità,$giorno, ($weekdisplacement==1? true: false));
-        } 
+        }   
     }
 
     //1.4 conferma_appuntamento(orario_disponibilità)
@@ -341,8 +344,16 @@ public static function conferma_recensione(){  //POSSIBILE IMPLEMENTAZIONE ATTRA
         $titolo = UHTTPMethods::post('titolo');
         $contenuto = UHTTPMethods::post('contenuto');
         $valutazione = UHTTPMethods::post('voto');     //PRENDO I VALORI DAL FORM
-        $data_creazione = new DateTime(); //data del momento della creazione
-        $dataOraStringa = $data_creazione->format('Y-m-d');
+        $data_creazione = getdate(); //data del momento della creazione
+        $dataOraStringa = sprintf('%04d-%02d-%02d %02d:%02d:%02d',
+            $data_creazione['year'],
+            $data_creazione['mon'],
+            $data_creazione['mday'],
+            $data_creazione['hours'],
+            $data_creazione['minutes'],
+            $data_creazione['seconds']
+            );
+        //$dataOraStringa = $data_creazione->format('Y-m-d');
         $IdPaziente =  USession::getSessionElement('id'); //l'id del paziente per la creazione della recensione
         $paziente = FPaziente::getObj($IdPaziente);
 

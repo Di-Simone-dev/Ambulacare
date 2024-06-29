@@ -191,7 +191,7 @@ class FEntityManagerSQL{
             $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValues();
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt, $obj);
-            var_dump($stmt);
+            //var_dump($stmt);
             $stmt->execute();
             $id = self::$db->lastInsertId();
             return $id;
@@ -428,8 +428,9 @@ class FEntityManagerSQL{
         try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
             $query = "SELECT IdMedico,IdFasciaOraria,WEEK(fascia_oraria.data) AS numerosettimana, YEAR(fascia_oraria.data) AS anno,
                       DAYOFWEEK(fascia_oraria.data) AS giornosettimana,HOUR(data) AS ora 
-                      FROM calendario,fascia_oraria
-                      WHERE IdMedico = '" . $IdMedico . "'AND WEEK(fascia_oraria.data) = '" . $numerosettimana . "' AND YEAR(fascia_oraria.data) = '" . $anno ."'
+                      FROM calendario
+                      INNER JOIN fascia_oraria on calendario.IdCalendario = fascia_oraria.IdCalendario 
+                      WHERE IdMedico = '" . $IdMedico . "' AND WEEK(fascia_oraria.data) = '" . $numerosettimana . "' AND YEAR(fascia_oraria.data) = '" . $anno ."'
                       ORDER BY data;";//prendo solo l'ora per il controllo
             //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
             //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
@@ -445,7 +446,7 @@ class FEntityManagerSQL{
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
             //var_dump($rowNum);
             //var_dump($query); 
-            if($rowNum > 0){
+            if($rowNum >= 0){
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $stmt->fetch()){
@@ -462,6 +463,7 @@ class FEntityManagerSQL{
                     //NON ESISTE => true nell'array 
                     $appuntamento =  FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), "IdFasciaOraria",
                                      $result[$i]["IdFasciaOraria"]);
+                    //var_dump($appuntamento);
                     $exist = FEntityManagerSQL::getInstance()->existInDb($appuntamento);
                     //quindi ora nell'array ci devo mettere $disponibilità [$giorno della settimana][$numero slot orario]
                     //il giorno lo posso prendere facilmente dal db ma l'orario va probabilmente fatto con switch o con un for
@@ -527,7 +529,7 @@ class FEntityManagerSQL{
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $stmt->fetch()){
-                    $result[] = $row;  //aggiungiamo la row all'array result 
+                    $result[] = $row; 
                 }
                 //return $result;
                 return $result[0]["IdFasciaOraria"]; //contiene l'id della fascia oraria               

@@ -5,8 +5,6 @@ class CMedico{
 //[medico]caso d'uso 4 "caricare un referto"
 
 //4.1 visualizza_storico_esami()
-
-//per mostrare gli appuntamenti conclusi di un medico ci basta prendere il suo id dalla sessione
 public static function visualizza_storico_appuntamenti_medico(){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO
         
@@ -41,14 +39,14 @@ public static function visualizza_storico_appuntamenti_medico(){
         //per le recensioni servirebbe anche quello del medico (da vedere)
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
-        $view = new VMedico(); //servirebbe una cosa del genere
+        $view = new VMedico(); 
         $view->showAppHistory($arrayappuntamenti);
     } 
 }
 
 public static function home(){
     if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico") {
-        $view = new VMedico(); //servirebbe una cosa del genere
+        $view = new VMedico(); 
         $view->Home();
     }
 }
@@ -157,7 +155,6 @@ public static function caricamento_referto(){
 //5.1 mostra_orari()
 public static function mostra_orari_disponibilita($weekdisplacement=0){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //possiamo tenerlo o toglierlo
-        
         $IdMedico = USession::getSessionElement('id');
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
@@ -165,7 +162,8 @@ public static function mostra_orari_disponibilita($weekdisplacement=0){
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
-        $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
+        $orari_disponinibilità = FEntityManagerSQL::getInstance()
+                                ->getdisponibilitàsettimana($IdMedico,$numerosettimana-1+$weekdisplacement,$anno);
         //servirebbe anche la valutazione del medico
         if ($weekdisplacement == 0){
             $giorno[0] = date("d/m",strtotime('Monday this week'));
@@ -211,24 +209,28 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
             $IdMedico = USession::getSessionElement('id');
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
-            $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
-                    getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-            if(!$exist){ //se il medico non ha ancora creato la disponibilità la possiamo creare
+            //var_dump(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+            //ritorna un int se esiste, altrimenti un array usiamo empty()
+            $exist = empty(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
+            //var_dump($exist);
+            if($exist){ //se il medico non ha ancora creato la disponibilità la possiamo creare
 
-            //A questo punto si dovrebbe controllare se il medico ha già associato un calendario, probabilmente bisognerebbe metterne 
-            // la creazione, subito successivo alla creazione del medico, quindi assumiamo che ci sia già
-            //$IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
-            //$busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
-            $fascia_oraria = new EFasciaoraria($data->format("Y-m-d H:i:s"));
-            //var_dump($fascia_oraria);
-            $IdCalendario = FEntityManagerSQL::getInstance()->retrieveObj("calendario", "IdMedico" ,$IdMedico)[0]["IdCalendario"];
-            $calendario = FCalendario::getObj($IdCalendario);
-
-            $fascia_oraria->setCalendario($calendario[0]);
-            FFasciaOraria::saveObj($fascia_oraria);  //QUESTA OPERAZIONE VA CICLATA IN BASE AI VALORI PASSATI IN INPUT DALLE CHECKBOX
-            $messaggio = "Fasce caricate correttamente!";
-            
-        }
+                //A questo punto si dovrebbe controllare se il medico ha già associato un calendario, probabilmente bisognerebbe metterne 
+                // la creazione, subito successivo alla creazione del medico, quindi assumiamo che ci sia già
+                //$IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
+                //$busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
+                $fascia_oraria = new EFasciaoraria($data->format("Y-m-d H:i:s"));
+                //var_dump($fascia_oraria);
+                $IdCalendario = FEntityManagerSQL::getInstance()->retrieveObj("calendario", "IdMedico" ,$IdMedico)[0]["IdCalendario"];
+                $calendario = FCalendario::getObj($IdCalendario);
+                $fascia_oraria->setCalendario($calendario[0]);
+                FFasciaOraria::saveObj($fascia_oraria);  //QUESTA OPERAZIONE VA CICLATA IN BASE AI VALORI PASSATI IN INPUT DALLE CHECKBOX
+                $messaggio = "Fasce caricate correttamente!";
+            }
+            else
+            {
+                $messaggio = "Errore nel caricamento!";
+            }
         }
 
         $view = new VMedico(); //servirebbe una cosa del genere NON SO COSA PASSARE 
@@ -341,10 +343,10 @@ public static function visualizza_referto($IdReferto){
 
         }
         $paziente = $referto[0]->getAppuntamento()->getPaziente();
-        $arrayreferto["nominativopaziente"]= $paziente->getNome()+ " "+ $paziente->getCognome();
+        $arrayreferto["nominativopaziente"]= $paziente->getNome(). " " .$paziente->getCognome();
         $IdMedico =  FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento( $referto[0]->getAppuntamento()->getIdAppuntamento());
         $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
-        $arrayreferto["nominativomedico"]= $medico[0]->getNome() + " " + $medico[0]->getCognome();
+        $arrayreferto["nominativomedico"]= $medico[0]->getNome(). " " .$medico[0]->getCognome();
         UPdf::crea_scarica_pdf($arrayreferto,$withimg);
     }
 }
@@ -377,9 +379,12 @@ public static function calcola_statistiche(){
 
         $appuntamenti = FEntityManagerSQL::getInstance()->getstatistiche($IdMedico,$data1,$data2);
         $statistiche_tot = FEntityManagerSQL::getInstance()->getstatistichegenerali($IdMedico,$data1,$data2);
-        $sommacosti = $statistiche_tot[0]["sommacosti"];
-        $numappuntamenti = $statistiche_tot[0]["numappuntamenti"];
-
+        $sommacosti = 0;
+        $numappuntamenti = 0;
+        if(!empty($statistiche_tot)){
+            $sommacosti = $statistiche_tot[0]["sommacosti"];
+            $numappuntamenti = $statistiche_tot[0]["numappuntamenti"];
+        }
         $view = new VMedico(); //servirebbe una cosa del genere
         //var_dump($appuntamenti);
         $view->ShowStatistiche($appuntamenti,$data1,$data2,$sommacosti);
@@ -434,10 +439,20 @@ public static function inserisci_risposta(){
         
         $contenuto = UHTTPMethods::post("contenuto"); //contenuto della risposta
         $data = getdate();//data attuale
-
+        $data = sprintf('%04d-%02d-%02d %02d:%02d:%02d',
+            $data['year'],
+            $data['mon'],
+            $data['mday'],
+            $data['hours'],
+            $data['minutes'],
+            $data['seconds']
+            );
+        //$data[0]->format('Y-m-d H:i:s');
+        //var_dump($data);
+        //$data = date_format($data, 'Y-m-d H:i:s');
         $risposta = new ERisposta($contenuto,$data);
         $risposta->setMedico(FMedico::getObj($IdMedico)[0]);
-        $risposta->setRecensione(FRecensione::getObj($IdRecensione));
+        $risposta->setRecensione(FRecensione::getObj($IdRecensione)[0]);
         $idr = FRisposta::saveObj($risposta); //setto tutto e salvo la risposta del medico
         //$recensioni[0]["IdRecensione"] è l'id della prima recensione
         $messaggio = "Risposta caricata correttamente!";

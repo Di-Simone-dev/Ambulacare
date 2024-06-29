@@ -27,30 +27,31 @@ class UPdf{
             $imageBinary = $arrayreferto['datiimmagine'];
             $imageInfo = getimagesizefromstring($imageBinary);
             if ($imageInfo !== false) {
-                // Le informazioni sull'immagine sono state ottenute correttamente
-                $width = $imageInfo[0]/3.75;  // Larghezza dell'immagine
-                $height = $imageInfo[1]/3.75; // Altezza dell'immagine
-            }
+                $type = $arrayreferto['tipoimmagine'];
+                switch ($type){
+                    case 'image/jpg':
+                        $tempImage = 'immagine.jpg';
+                        break;
+                    case "image/jpeg":
+                        $tempImage = 'immagine.jpeg';
+                        break;
+                    case "image/png":
+                        $tempImage = 'immagine.png';
+                        break;
+                    default:
+                        echo "errore sul tipo dell'immagine";
+                }
             
-            $type = $arrayreferto['tipoimmagine'];
-            switch ($type) {
-                case 'image/jpg':
-                    $tempImage = 'immagine.jpg';
-                    break;
-                case "image/jpeg":
-                    $tempImage = 'immagine.jpeg';
-                    break;
-                case "image/png":
-                    $tempImage = 'immagine.png';
-                    break;
-                default:
-                    $tempImage = 'immagine.jpg';
-                    echo "errore sul tipo dell'immagine";
-            }
-            //var_dump($tempImage);
+            //$proportion = $imageInfo[1]/$imageInfo[0]; //altezza/base per conservare la proporzionalità
+            // a questo punto basta settare la base come larghezza max e settare di conseguenza l'altezza
+            $width = 190;  // Larghezza standard adatta per il file pdf
+            $height = 190*$imageInfo[1]/$imageInfo[0]; // Altezza dell'immagine
             file_put_contents($tempImage, $imageBinary);
             $pdf->AddPage();
             $pdf->Image($tempImage,10,10,$width,$height);
+            }
+            
+            
         }
         $pdf->Output('D', 'referto.pdf');
         if (file_exists($tempImage)) {
