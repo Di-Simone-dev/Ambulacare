@@ -598,7 +598,7 @@ public static function modifica_appuntamento(){  //DA FARE
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $view = new VPaziente();
             $IdPaziente = USession::getInstance()->getSessionElement('id');
-            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
+            $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente)[0];
             
             if($paziente->getEmail() == UHTTPMethods::post('Email')){  //LA MAIL INSERITA NON DEVE ESSERE UGUALE A QUELLA ESISTENTE
                 $view->formmodificaemail("Errore!");
