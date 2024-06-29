@@ -83,10 +83,10 @@ class FRisposta {
         if(count($queryResult) > 0){
             $risposte = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $risposta = new ERisposta($queryResult[$i]['contenuto']);
+                $risposta = new ERisposta($queryResult[$i]['contenuto'],$queryResult[$i]['data_creazione']);
                 $risposta->setIdRisposta($queryResult[$i]['IdRisposta']);
-                $data_creazione = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['data_creazione']);
-                $risposta->setData_creazione($data_creazione);
+                //$data_creazione = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['data_creazione']);
+                //$risposta->setData_creazione($data_creazione);
                 //metto la recensione (FOREIGN KEY)
                 //DA TESTARE
                 $recensione = FRecensione::getObj($queryResult[$i]['IdRecensione']);  //il campo calendario è proprio l'id

@@ -201,7 +201,7 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
             $data = new DateTime($dateTimeString);
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
-            $IdMedico = 3;/* USession::getSessionElement('id') */;
+            $IdMedico = USession::getSessionElement('id');
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $exist = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->
@@ -326,15 +326,19 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
-        $img=FALSE;
+        $withimg=FALSE;
         if(isset($immagine)){
-            $img=TRUE;
+            $withimg=TRUE;
             $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
             $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
+
         }
-        $arrayreferto["nominativopaziente"]= "Gerry Scotti";
-        $arrayreferto["nominativomedico"]= "Pippo Baudo";
-        UPdf::crea_scarica_pdf($arrayreferto,$img);
+        $paziente = $referto[0]->getAppuntamento()->getPaziente();
+        $arrayreferto["nominativopaziente"]= $paziente->getNome()+ " "+ $paziente->getCognome();
+        $IdMedico =  FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento( $referto[0]->getAppuntamento()->getIdAppuntamento());
+        $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
+        $arrayreferto["nominativomedico"]= $medico[0]->getNome() + " " + $medico[0]->getCognome();
+        UPdf::crea_scarica_pdf($arrayreferto,$withimg);
     }
 }
 
@@ -345,7 +349,6 @@ public static function visualizza_referto($IdReferto){
 public static function visualizza_statistiche(){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //BISOGNA TENERLO   
 
-        
         $view = new VMedico(); //servirebbe una cosa del genere
         $view->ShowDataStatistiche();
     } 
@@ -425,7 +428,7 @@ public static function inserisci_risposta(){
         $contenuto = UHTTPMethods::post("contenuto"); //contenuto della risposta
         $data = getdate();//data attuale
 
-        $risposta = new ERisposta($contenuto);
+        $risposta = new ERisposta($contenuto,$data);
         $risposta->setMedico(FMedico::getObj($IdMedico)[0]);
         $risposta->setRecensione(FRecensione::getObj($IdRecensione));
         $idr = FRisposta::saveObj($risposta); //setto tutto e salvo la risposta del medico

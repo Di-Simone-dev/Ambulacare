@@ -7,7 +7,7 @@ class CPaziente{
     //1.1 avvia_prenotazione
     //gli devo passare tutti i medici attivi per visualizzarli con i relativi dati da visualizzare
     //ma anche le tipologie in modo di metterle nella tendina la per la selezione e farmele passare nella prossima funzione
-    public static function avviaprenotazione(){  
+    public static function avviaprenotazione(){     
         $medici = FPersistentManager::getInstance()->retrievemediciattivi(); //è l'array dei medici attivi, ma deve essere raffinato
         
         $arraymedici = array();
@@ -145,7 +145,7 @@ class CPaziente{
             //METODO PER OTTENERE L'ID DELLA FASCIA ORARIA QUA
             //CON IDMEDICO + DATA E SLOT CI PRENDIAMO L'ID
             $messaggio = "Prenotazione non effettuata, l'orario risulta non disponibile";
-            $IdPaziente = 3; /* USession::getSessionElement('id'); */
+            $IdPaziente = USession::getSessionElement('id');
             $Paziente = FPaziente::getObj($IdPaziente);
             //$medico = FPersistentManager::getInstance()->retrievemedicofromId($IdMedico); //è l'array dei medici attivi, ma potrebbe essere raffinato
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();

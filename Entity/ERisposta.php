@@ -8,11 +8,11 @@ class ERisposta
     private $medico;  //FK SENZA ID
     private static $entity = ERisposta::class;
     //constructor
-    public function __construct($contenuto)
+    public function __construct($contenuto,$data_creazione)
     {
         //$this->IdRisposta=0; non va messo nel costruttore
         $this->contenuto=$contenuto;
-        $this->setDatacreazioneora();
+        $this->data_creazione=$data_creazione;
 
     }
     //metodi
