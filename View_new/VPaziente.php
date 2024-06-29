@@ -117,44 +117,24 @@ class VPaziente
 	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
 	 * @throws SmartyException
 	 */
-	public function formmodificacli($user,$error) {
-		switch ($error) {
-			case "errorEmail" :
-				$this->smarty->assign('errorEmail', "errore");
-				break;
-			case "errorPassw":
-				$this->smarty->assign('errorPassw', "errore");
-				break;
-		}
-		//$this->smarty->assign('userlogged',"loggato");
-		//$this->smarty->assign('pic64',$pic64);
-		$this->smarty->assign('nome',$user->getNome());
-		$this->smarty->assign('cognome',$user->getCognome());
-		$this->smarty->assign('email',$user->getEmail());
-		$this->smarty->assign('codice_fiscale',$user->getCodiceFiscale());
-		$this->smarty->assign('data_nascita',$user->getDataNascita());
-		$this->smarty->assign('luogo_nascita',$user->getLuogoNascita());
-		$this->smarty->assign('residenza',$user->getResidenza());
-		$this->smarty->assign('numero_telefono',$user->getNumeroTelefono());
-		$this->smarty->display('modifica_profilo_paziente.tpl');
+	public function formmodificacli($paziente) {
+		$this->smarty->assign('paziente',$paziente);
+		$this->smarty->display('modificadati_paziente.tpl');
 	}
+
+	public function formmodificaemail($error = false) {
+		if($error) $this->smarty->assign('error',$error);
+		$this->smarty->display('modificamail_paziente.tpl');
+	}
+	/**
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di modifica della password per il paziente
 	 * @param $passw password da modificare
 	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
 	 * @throws SmartyException
 	 */
-	public function formmodificapassw($passw,$error) {
-		switch ($error) {
-			case "errorEmail" :
-				$this->smarty->assign('errorEmail', "errore");
-				break;
-			case "errorPassw":
-				$this->smarty->assign('errorPassw', "errore");
-				break;
-		}
-		$this->smarty->assign('password',$passw->getPassword());
-		$this->smarty->display('modifica_password_paziente.tpl');
+	public function formmodificapassw() {
+		$this->smarty->display('formpassword_paziente.tpl');
 	}
 	/**
 	 * Funzione che permette di visualizzare la pagina per l'elenco di esami disponibili alla prenotazione

@@ -3,8 +3,8 @@
 {block name=content}
 
     <br><br>
-    <div>
-        <h2>Profilo Personale - Amministratore - Andrea Luca di Simone</h2>
+    <div style="padding:5px;">
+        <h2>Profilo Personale - Amministratore - {$nome} {$cognome}</h2>
         <h4>Informazioni Personali</h4>
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
         <p style='font-size:20px; font-family:monospace;'>{$nome}</p>
