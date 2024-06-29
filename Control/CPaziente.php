@@ -269,19 +269,22 @@ public static function visualizza_referto($IdReferto){
 
         $arrayreferto = array();
         $referto = FReferto::getObj($IdReferto);
-
-        /* var_dump($referto); */
         $arrayreferto["oggetto"] = $referto[0]->getOggetto();
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
-        
-        $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
-        $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
-
-        $view = new VPaziente();
-        $view->messaggio("Referto da visualizzare!!");
-
+        $withimg=FALSE;
+        if(isset($immagine)){
+            $withimg=TRUE;
+            $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
+            $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
+        }
+        $paziente = $referto[0]->getAppuntamento()->getPaziente();
+        $arrayreferto["nominativopaziente"]= $paziente->getNome() . " " . $paziente->getCognome();
+        $IdMedico =  FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento( $referto[0]->getAppuntamento()->getIdAppuntamento());
+        $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
+        $arrayreferto["nominativomedico"]= $medico[0]->getNome() . " " . $medico[0]->getCognome();
+        UPdf::crea_scarica_pdf($arrayreferto,$withimg);
     } 
 }
 

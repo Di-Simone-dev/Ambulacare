@@ -31,21 +31,41 @@ class UPdf{
                 $width = $imageInfo[0]/3.75;  // Larghezza dell'immagine
                 $height = $imageInfo[1]/3.75; // Altezza dell'immagine
             }
+            
             $type = $arrayreferto['tipoimmagine'];
             switch ($type) {
-                case "image/jpg":
+                case 'image/jpg':
                     $tempImage = 'immagine.jpg';
+                    break;
                 case "image/jpeg":
                     $tempImage = 'immagine.jpeg';
+                    break;
                 case "image/png":
                     $tempImage = 'immagine.png';
+                    break;
                 default:
-                  echo "errore sul tipo dell'immagine";
+                    $tempImage = 'immagine.jpg';
+                    echo "errore sul tipo dell'immagine";
+            }
+            //var_dump($tempImage);
             file_put_contents($tempImage, $imageBinary);
             $pdf->AddPage();
             $pdf->Image($tempImage,10,10,$width,$height);
-            }
+        }
         $pdf->Output('D', 'referto.pdf');
+        if (file_exists($tempImage)) {
+            // Attempt to delete the file
+            if (unlink($tempImage)) {
+                //echo "The file has been deleted successfully.";
+            } 
+            else
+            {
+                //echo "There was an error deleting the file.";
+            }
+        } 
+        else 
+        {
+            echo "The file does not exist.";
         }
     }
 }
