@@ -641,6 +641,18 @@ public static function logout()
             /* $medico->setPassword(UHTTPMethods::post('Password')); //credenziale di accesso  */
             $medico->setCosto(UHTTPMethods::post('Costo')); //ATTENZIONE A QUESTO PERCHè SI RIPERCUOTE ANCHE SU ALTRO COME LE STATISTICHE
                                                             //COMPRESI GLI APPUNTAMENTI GIà EFFETTUATI
+            
+            $check = UHTTPMethods::files('imgprofilo','error');                                       
+            if($check == 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
+            $immagineprofilo = UHTTPMethods::files('imgprofilo'); //EQUIVALENTE AD ACCEDERE A $_FILES['immagineref']
+            $check = FPersistentManager::getInstance()->manageImagepropic($immagineprofilo, $medico);
+            if($check){
+                //$view->uploadFileError($check);
+                $messaggio="Propic caricato correttamente!";
+            }
+            }//L'IMMAGINE VIENE CREATA E SALVATA IN FOUNDATION?
+                                                
+            
             /* var_dump($medico); */
             FPersistentManager::getInstance()->updateinfomedico($medico);
             $view = new VMedico();

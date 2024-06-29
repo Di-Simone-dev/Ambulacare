@@ -262,6 +262,7 @@ class FPersistentManager{
         $infomedico['cognome'] = $medico[0]->getCognome();
         $infomedico['email'] = $medico[0]->getEmail();
         $infomedico['costo'] = $medico[0]->getCosto();
+        $infomedico['tipoimmagine'] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
         $infomedico['img'] = base64_encode(FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati());
         //oppure 
         //$infomedico['propic'] = $medico[0]->getImmaginefromid();
@@ -376,6 +377,33 @@ class FPersistentManager{
         return $checkUploadImage;  //se c'è un errore ritorna l'errore
     }
     
+    public static function manageImagepropic($uploadedImage, $medico){
+        
+        $file = [
+        'name' => $uploadedImage['name'],
+        'type' => $uploadedImage['type'],
+        'tmpname' => $uploadedImage['tmp_name'], //questo va "serializzato" con file_get_contents
+        'size' => $uploadedImage['size'],
+        'error' => $uploadedImage['error']
+        ];
+        
+        //check if the uploaded image is ok 
+        $checkUploadImage = self::creaoggettoimmagine($file); 
+        if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
+        {
+            //self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
+        }
+        else
+        {
+            $IdImmmagine = FImmagine::saveObj($checkUploadImage); //DI CUI FACCIO RITORNARE L'ID perchè saveobj ritorna l'id
+            //dell'oggetto salvato
+            $arraymodifica[0][0] = "IdImmagine";
+            $arraymodifica[0][1] = $IdImmmagine;
+            $medico->setIdImmagine($IdImmmagine);
+            FMedico::saveObj($medico,$arraymodifica);//COMPLETO L'AGGIORNAMENTO DEL REFERTO CON L'AGGIUNTA DELLA PK DEL REFERTO
+        }
+        return $checkUploadImage;  //se c'è un errore ritorna l'errore
+    }
     /**
      * check if the uploaded image is ok and then create an Image Obj and return it
      */
