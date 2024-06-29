@@ -2,7 +2,8 @@
 
 {block name=content}
 
-    <div> <br><br>
+    <div style="padding:5px;"> <br><br>
+	<h2> Profilo Personale - Dr. {$medico.nome} {$medico.cognome}</h2>
         <h4>Informazioni Personali</h4>
 
         <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>

@@ -1,8 +1,8 @@
 {extends file="layout_paziente.tpl"}
 
 {block name=content}
-    <div>
-    <h2> Profilo Personale - Sig. Andrea Iannotti</h2>
+    <div style="padding:5px;">
+    <h2> Profilo Personale - Sig. {$nome} {$cognome}</h2>
     <h4>Informazioni Personali </h4>
                 <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
                 <p style='font-size:20px; font-family:monospace;'>{$nome}</p>
