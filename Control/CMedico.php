@@ -153,12 +153,12 @@ public static function caricamento_referto(){
 //[medico]caso d'uso 5 "inserimento orari di disponibilità"
 
 //5.1 mostra_orari()
-public static function mostra_orari_disponibilita($weekdisplacement=0){
+public static function mostra_orari_disponibilita($weekdisplacement = 0){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ //possiamo tenerlo o toglierlo
         $IdMedico = USession::getSessionElement('id');
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-        $numerosettimana = $data->format('W')+$weekdisplacement; //numero della settimana nell'anno (es 43)
+        $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
@@ -493,13 +493,12 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisp
         $nominativopaziente = $paziente[0]->getNome()." ".$paziente[0]->getCognome();
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-        $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+        $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
         $orari_disponinibilità = FEntityManagerSQL::getInstance()->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
         //DOVRO IMPLEMENTARE IL MODO DI CAMBIARE SETTIMANA DI VISUALIZZAZIONE
-        
         if ($weekdisplacement == 0){
             $giorno[0] = date("d/m",strtotime('Monday this week'));
             $giorno[1] = date("d/m",strtotime('Tuesday this week'));
@@ -523,7 +522,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento, $weekdisp
             "data" => $fasciaoraria[0]->getData(),
         ];
         $view = new VMedico(); //servirebbe anche la fascia oraria
-        $view->ModificaAppuntamento($app,$orari_disponinibilità,$giorno);
+        $view->ModificaAppuntamento($app,$orari_disponinibilità,$giorno,($weekdisplacement==1? true: false));
     } 
 }
 
