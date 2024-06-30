@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 14:19:34
+/* Smarty version 5.3.0, created on 2024-06-30 14:46:29
   from 'file:visualizzarecensioni_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66814d56ea2246_10102061',
+  'unifunc' => 'content_668153a5238f21_40911210',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0ea29e53f60c673784fb594652aa0232599fafe4' => 
     array (
       0 => 'visualizzarecensioni_medico.tpl',
-      1 => 1719749959,
+      1 => 1719751588,
       2 => 'file',
     ),
   ),
@@ -20,43 +20,29 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66814d56ea2246_10102061 (\Smarty\Template $_smarty_tpl) {
+function content_668153a5238f21_40911210 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_209317391166814d56e8ecb3_12117073', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1810029141668153a5222330_16454251', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_209317391166814d56e8ecb3_12117073 extends \Smarty\Runtime\Block
+class Block_1810029141668153a5222330_16454251 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
     
+    
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="/Ambulacare/Medico/ricerca_recensioni" method="post">
-                    <div class="form-group" >
-                        <h2>Recensioni</h2>
-                        <br>
-                            <input type="date" id="dataapp" name="dataapp" required/>
-                            <br><br>
-                            <button type="submit" class="btn btn-primary">Effettua ricerca</button>
-                            <br><br>
-                        </div>  
-                </form>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div>
+    <div style="padding:35px;">
+	<h2>Recensioni</h2>
+<br><br>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>

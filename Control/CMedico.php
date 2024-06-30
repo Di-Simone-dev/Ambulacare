@@ -412,23 +412,6 @@ public static function visualizza_recensioni(){
         $view->showRevPage($recensioni);
     } 
 }
-public static function  ricerca_recensioni()//DA IMPLEMENTARE
-    {
-        if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico") { //BISOGNA TENERLO   
-            //$nomemedico = UHTTPMethods::post('nomemedico');
-            //$cognomemedico = UHTTPMethods::post('cognomemedico');
-            $dataapp=UHTTPMethods::post('dataapp');
-            //var_dump($dataapp);
-            $recensioni = FEntityManagerSQL::getInstance()->ricercarecensioni($dataapp);
-            //var_dump($recensioni);
-            for ($i = 0; $i < count($recensioni); $i++) {
-                $recensioni[$i]["medico"] = FMedico::getObj($recensioni[$i]["IdMedico"])[0]->getData();
-                //var_dump($recensioni[$i]["medico"]);
-            }
-            $view = new VMedico();
-            $view->showRevPage($recensioni);
-        }
-    }
 
 //8.2) dettagli_recensione() nella schermata di dettaglio possiamo inserire la risposta alla recensione
 public static function dettagli_recensione($IdRecensione){
