@@ -169,7 +169,7 @@ class CAmministratore
             $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
             $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
             //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-            $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+            $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
             $anno = $data->format('o'); //anno attuale (es 2024)
             //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
             //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
@@ -208,7 +208,7 @@ class CAmministratore
             } else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
 
             $view = new VAmministratore(); //servirebbe anche la fascia oraria
-            $view->editApp($arraymedico, $giorno, $orari_disponinibilità);
+            $view->editApp($arraymedico, $giorno, $orari_disponinibilità,($weekdisplacement==1? true: false));
         }
     }
 
