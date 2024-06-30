@@ -10,7 +10,7 @@
                         <br><br>
                         <h2>Prenotazione Appuntamenti</h2>
                         <br>
-                        <select name="tipologia" class="form-select-m">
+                        <select name="tipologia" class="form-select">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}" {if $tipologia.IdTipologia == $Idtipologia}
                                     selected="selected" {/if}>{$tipologia.nome_tipologia}</option>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <br><br>
+    <br>
     <div>
         <table class="table">
             <thead style="text-align: center;">

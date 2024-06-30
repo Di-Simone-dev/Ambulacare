@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 15:11:44
+/* Smarty version 5.3.0, created on 2024-06-30 16:00:43
   from 'file:inseriscirecensione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668159904531d3_88581942',
+  'unifunc' => 'content_6681650bb18948_33333328',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6bbaf46a64f242307c9a36a81b4aede7577a55c4' => 
     array (
       0 => 'inseriscirecensione_paziente.tpl',
-      1 => 1719745141,
+      1 => 1719756040,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_668159904531d3_88581942 (\Smarty\Template $_smarty_tpl) {
+function content_6681650bb18948_33333328 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_9004309486681599044b677_15538867', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_20649106496681650bb0a868_34015087', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_9004309486681599044b677_15538867 extends \Smarty\Runtime\Block
+class Block_20649106496681650bb0a868_34015087 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -107,7 +107,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                     <div>
                     <input type="hidden" name="IdMedico" value="<?php echo $_smarty_tpl->getValue('medico')['IdMedico'];?>
 ">
-                        <a href="" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Paziente/visualizza_appuntamenti_effettuati" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

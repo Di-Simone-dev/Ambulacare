@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 13:05:49
+/* Smarty version 5.3.0, created on 2024-06-30 15:56:20
   from 'file:visualizzaappuntamentiprenotati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66813c0d9568d9_63036052',
+  'unifunc' => 'content_66816404d0ee71_40060147',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd8c02fe0a55e975a5dc204b01f458ec78ed16232' => 
     array (
       0 => 'visualizzaappuntamentiprenotati_paziente.tpl',
-      1 => 1719745051,
+      1 => 1719755779,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66813c0d9568d9_63036052 (\Smarty\Template $_smarty_tpl) {
+function content_66816404d0ee71_40060147 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_40609412966813c0d949853_87199187', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_195324690666816404cf4b30_10947446', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_40609412966813c0d949853_87199187 extends \Smarty\Runtime\Block
+class Block_195324690666816404cf4b30_10947446 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -46,7 +46,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                     <div class="form-group">
                         <h2>Elenco Appuntamenti</h2>
                         <br>
-                        <select name="tipologia" class="form-select-m">
+                        <select name="tipologia" class="form-select">
                             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('tipologie'), 'tipologia');
 $foreach0DoElse = true;
@@ -98,7 +98,7 @@ $foreach1DoElse = false;
 </td>
                 <td><?php echo $_smarty_tpl->getValue('esame')['costomedico'];?>
 </td>
-                    <td><a href="/Ambulcare/Paziente/dettagli_appuntamento_modifica/<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
+                    <td><a href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
 " class="btn btn-primary">Modifica</a></td>
                 </tr>
             <?php

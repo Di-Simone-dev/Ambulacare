@@ -65,7 +65,7 @@
                     <br><br><br>
                     <div>
                     <input type="hidden" name="IdMedico" value="{$medico.IdMedico}">
-                        <a href="" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Paziente/visualizza_appuntamenti_effettuati" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

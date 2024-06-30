@@ -42,11 +42,12 @@
                             </table>
                             <br>
                             <div>
-                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata"
-                                        name="data" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
-                                        {$esame.data}</label></h4>
-                                <label for="data">Seleziona una nuova data e ora</label>
-                                <select name="nslot" id="orario" class="form-select-m">
+                                <h4>Nuova Data :<input type="date" id="nuovadata"
+                                        name="data" /><br><br>Vecchia Data:
+                                        {$esame.data}</h4>
+<br>
+                                <h4>Seleziona una nuova data e ora</h4>
+                                <select name="nslot" id="orario" class="form-select">
                                 <option value="1">14:30</option>
                                 <option value="2">15:30</option>
                                 <option value="3">16:30</option>

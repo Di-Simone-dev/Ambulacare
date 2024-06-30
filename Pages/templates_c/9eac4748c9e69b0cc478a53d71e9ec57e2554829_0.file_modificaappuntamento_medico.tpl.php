@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 14:41:17
+/* Smarty version 5.3.0, created on 2024-06-30 16:04:42
   from 'file:modificaappuntamento_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6681526d9895b7_99239840',
+  'unifunc' => 'content_668165fa204997_12389913',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9eac4748c9e69b0cc478a53d71e9ec57e2554829' => 
     array (
       0 => 'modificaappuntamento_medico.tpl',
-      1 => 1719751275,
+      1 => 1719756281,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6681526d9895b7_99239840 (\Smarty\Template $_smarty_tpl) {
+function content_668165fa204997_12389913 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_8298220896681526d968063_03339854', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2084024889668165fa1e6e64_13338338', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_8298220896681526d968063_03339854 extends \Smarty\Runtime\Block
+class Block_2084024889668165fa1e6e64_13338338 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -102,12 +102,13 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                             </table>
                             <br>
                             <div>
-                                <h4><label>Nuova Data :</label><input type="date" id="nuovadata"
-                                        name="data" />&ensp;&ensp;&ensp;&ensp;&ensp;<label>Vecchia Data:
+                                <h4>Nuova Data :<input type="date" id="nuovadata"
+                                        name="data" /><br><br>Vecchia Data:
                                         <?php echo $_smarty_tpl->getValue('esame')['data'];?>
-</label></h4>
-                                <label for="data">Seleziona una nuova data e ora</label>
-                                <select name="nslot" id="orario" class="form-select-m">
+</h4>
+<br>
+                                <h4>Seleziona una nuova data e ora</h4>
+                                <select name="nslot" id="orario" class="form-select">
                                 <option value="1">14:30</option>
                                 <option value="2">15:30</option>
                                 <option value="3">16:30</option>

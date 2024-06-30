@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <h2>Elenco Appuntamenti</h2>
                         <br>
-                        <select name="tipologia" class="form-select-m">
+                        <select name="tipologia" class="form-select">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
@@ -43,7 +43,7 @@
                 <td>{$esame.nomemedico} {$esame.cognomemedico}</td>
                 <td>{$esame.nometipologiamedico}</td>
                 <td>{$esame.costomedico}</td>
-                    <td><a href="/Ambulcare/Paziente/dettagli_appuntamento_modifica/{$esame.IdAppuntamento}" class="btn btn-primary">Modifica</a></td>
+                    <td><a href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/{$esame.IdAppuntamento}" class="btn btn-primary">Modifica</a></td>
                 </tr>
             {/foreach}
             </tbody>
