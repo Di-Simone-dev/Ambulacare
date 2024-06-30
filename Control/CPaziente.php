@@ -330,7 +330,7 @@ public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();
         
         $view = new VPaziente();
-        $view->Recensione($arraymedico);
+        $view->visualizza_recensioni($medico);
 
     } 
 }
