@@ -829,7 +829,7 @@ class FEntityManagerSQL{
         try{
             
             $query = "SELECT * ";
-            $params = [];
+           
 
             $query .= " FROM appuntamento 
             INNER JOIN fascia_oraria ON appuntamento.IdFasciaOraria=fascia_oraria.IdFasciaOraria
@@ -839,15 +839,15 @@ class FEntityManagerSQL{
 
             if (isset($data)) {
                 $query .= " AND YEAR(data) = $anno";
-                /* $params[':anno'] = $anno; */
+                
                 $query .= " AND MONTH(data) = $mese";
-                /* $params[':mese'] = $mese; */
+                
                 $query .= " AND DAY(data) = $giorno";
-                /* $params[':giorno'] = $giorno; */
+                
             }
 
             if (isset($IdTipologia)) {
-                $query .= " AND IdTipologia = $IdTipologia";
+                $query .= " AND IdTipologia = $IdTipologia;";
                 /* $params[':IdTipologia'] = $IdTipologia; */
             }
 
