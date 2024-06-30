@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 13:45:52
+/* Smarty version 5.3.0, created on 2024-06-30 15:46:54
   from 'file:modificadati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66814570b17dd2_71690227',
+  'unifunc' => 'content_668161cec60eb4_04884581',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b60d878bdbd03691d1f5645e7e376cbe26170ff2' => 
     array (
       0 => 'modificadati_paziente.tpl',
-      1 => 1719745141,
+      1 => 1719755213,
       2 => 'file',
     ),
   ),
@@ -20,51 +20,51 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66814570b17dd2_71690227 (\Smarty\Template $_smarty_tpl) {
+function content_668161cec60eb4_04884581 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_44271413566814570b0a4c2_98251611', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1143440319668161cec52be4_88509031', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_44271413566814570b0a4c2_98251611 extends \Smarty\Runtime\Block
+class Block_1143440319668161cec52be4_88509031 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
     <br><br>
-    <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="width: 600px;padding:35px;">
+    <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
-    <input type="text" id="residenza" name="Nome" required value="<?php echo $_smarty_tpl->getValue('paziente')['nome'];?>
+    <h6>Nome</h6>
+    <input type="text" id="nome" name="Nome" required value="<?php echo $_smarty_tpl->getValue('paziente')['nome'];?>
 ">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Cognome</label>
-    <input type="text" id="residenza" name="Cognome" required value="<?php echo $_smarty_tpl->getValue('paziente')['cognome'];?>
+    <h6>Cognome</h6>
+    <input type="text" id="cognome" name="Cognome" required value="<?php echo $_smarty_tpl->getValue('paziente')['cognome'];?>
 ">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Residenza</label>
+    <h6>Residenza</h6>
     <input type="text" id="residenza" name="Residenza" required value="<?php echo $_smarty_tpl->getValue('paziente')['residenza'];?>
 ">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Luogo di Nascita</label>
-    <input type="text" id="residenza" name="LuogoNascita" required value="">
+    <h6>Luogo di Nascita</h6>
+    <input type="text" id="luogonascita" name="LuogoNascita" required value="">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Codice Fiscale</label>
-    <input type="text" id="residenza" name="CodiceFiscale" required value="<?php echo $_smarty_tpl->getValue('paziente')['codice_fiscale'];?>
+    <h6>Codice Fiscale</h6>
+    <input type="text" id="codicefiscale" name="CodiceFiscale" required value="<?php echo $_smarty_tpl->getValue('paziente')['codice_fiscale'];?>
 ">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Data Nascita</label>
-    <input type="date" id="residenza" name="DataNascita" required value="<?php echo $_smarty_tpl->getValue('paziente')['data_nascita'];?>
+    <h6>Data Nascita</h6>
+    <input type="date" id="datanascita" name="DataNascita" required value="<?php echo $_smarty_tpl->getValue('paziente')['data_nascita'];?>
 ">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Numero di telefono</label>
+    <h6>Numero di telefono</h6>
     <input type="tel" id="numerotelefono" name="Numerotelefono" required value="<?php echo $_smarty_tpl->getValue('paziente')['numero_telefono'];?>
 ">
 <br><br>

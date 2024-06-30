@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 15:24:43
-  from 'file:visualizzarecensioni_medico.tpl' */
+/* Smarty version 5.3.0, created on 2024-06-30 15:11:27
+  from 'file:visualizzarecensioni_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66815c9b1f3330_59391578',
+  'unifunc' => 'content_6681597f02cf72_30576614',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '0ea29e53f60c673784fb594652aa0232599fafe4' => 
+    'c2688d915b113c6f6ba05bfa27eaae183a6d2929' => 
     array (
-      0 => 'visualizzarecensioni_medico.tpl',
-      1 => 1719751888,
+      0 => 'visualizzarecensioni_paziente.tpl',
+      1 => 1719752867,
       2 => 'file',
     ),
   ),
@@ -20,34 +20,33 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66815c9b1f3330_59391578 (\Smarty\Template $_smarty_tpl) {
+function content_6681597f02cf72_30576614 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_179236463366815c9b1dc842_98440473', 'content');
-$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_9102604726681597f014cf2_41939683', 'content');
+$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_179236463366815c9b1dc842_98440473 extends \Smarty\Runtime\Block
+class Block_9102604726681597f014cf2_41939683 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
     
-    
     <br><br>
     <div style="padding:35px;">
-	<h2>Recensioni</h2>
+	<h2>Le mie Recensioni</h2>
 <br><br>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
-                    <th scope="col">Paziente</th>
-                    <th scope="col">Data</th>
+                    <th scope="col">Medico</th>
+                    <th scope="col">Data e Ora</th>
                     <th scope="col">Valutazione</th>
                     <th scope="col">Azione</th>
                 </tr>
@@ -60,13 +59,15 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('recensione')->value) {
 $foreach0DoElse = false;
 ?>
                 <tr>
-                    <td><?php echo $_smarty_tpl->getValue('recensione')['nominativopaziente'];?>
+                    <td><img style="padding:2px" class="rounded-circle ml-3" width="60" height="60" src="data:<?php echo $_smarty_tpl->getValue('medico')['tipoimmagine'];?>
+;base64,<?php echo $_smarty_tpl->getValue('medico')['img'];?>
+" alt="profile picture" /><?php echo $_smarty_tpl->getValue('recensione')['nominativomedico'];?>
 </td>
-                    <td><?php echo $_smarty_tpl->getValue('recensione')['data_creazione'];?>
+                    <td><?php echo $_smarty_tpl->getValue('recensione')['data_ora'];?>
 </td>
                     <td><?php echo $_smarty_tpl->getValue('recensione')['valutazione'];?>
 /5&#9733;</td>
-                    <td><a href="/Ambulacare/Medico/dettagli_recensione/<?php echo $_smarty_tpl->getValue('recensione')['IdRecensione'];?>
+                    <td><a href="/Ambulacare/Admin/recensione/<?php echo $_smarty_tpl->getValue('recensione')['id'];?>
 " class="btn btn-primary">Dettagli</a></td>
                 </tr>
             <?php

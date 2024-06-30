@@ -2,15 +2,15 @@
 
 {block name=content}
 <br><br>
-    <form method="post" action="" style="width: 600px;padding:35px;">
+    <form method="post" action="" style="padding:35px;">
         <h1>REIMPOSTAZIONE PASSWORD</h1>
-        {if($error)}
+        {if $error}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {$error}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {/if}
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nuova Password</label>
+        <h6>Nuova Password</h6>
         <input type="password" id="password" name="password" required>
         <button type="submit" name="register" class="btn btn-primary">Reimposta Password</button>
     </form>

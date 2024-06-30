@@ -1,8 +1,8 @@
-{extends file="layout.tpl"}
+{extends file="layout_paziente.tpl"}
 
 {block name=content}
 <br><br>
-    <form method="post" action="/Ambulacare/Paziente/registrazionepaziente" style="width: 600px;padding:35px;">
+    <form method="post" action="/Ambulacare/Paziente/registrazionepaziente" style="padding:35px;">
         <h1>REGISTRAZIONE PAZIENTE</h1>
 <br>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>

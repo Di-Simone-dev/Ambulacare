@@ -2,17 +2,17 @@
 
 {block name=content}
     <br><br><br>
-    <form method="post" action="/Ambulacare/Amministratore/registrazionemedico" style="width: 600px;">
-        <h1 style="font-size: 34px;">REGISTRAZIONE</h1>
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
+    <form method="post" action="/Ambulacare/Amministratore/registrazionemedico" >
+        <h1>REGISTRAZIONE</h1>
+        <h6>Nome</h6>
         <input type="text" id="nome" name="nome" required>
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Cognome</label>
+        <h6>Cognome</h6>
         <input type="text" id="cognome" name="cognome" required>
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Email</label>
+        <h6>Email</h6>
         <input type="email" id="email" name="email" required>
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Costo</label>
+        <h6>Costo</h6>
         <input type="number" id="email" name="costo" required>
-        <select name="tipologia" id="tipologia" class="form-select">
+        <select name="tipologia" id="tipologia" class="form-select-m">
             {foreach $tipologie as $tipologia}
                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
             {/foreach}

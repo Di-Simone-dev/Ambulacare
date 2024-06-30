@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 14:02:16
+/* Smarty version 5.3.0, created on 2024-06-30 15:24:13
   from 'file:inserisciorariodisponibile_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66814948e3cd85_37776645',
+  'unifunc' => 'content_66815c7d0f5222_25492342',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '861b2ea6806dba2aba3a6eed88592096b4f1154c' => 
     array (
       0 => 'inserisciorariodisponibile_medico.tpl',
-      1 => 1719748936,
+      1 => 1719753851,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66814948e3cd85_37776645 (\Smarty\Template $_smarty_tpl) {
+function content_66815c7d0f5222_25492342 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_201170898866814948e268c0_71031106', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_37240068466815c7d0e2824_08141233', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_201170898866814948e268c0_71031106 extends \Smarty\Runtime\Block
+class Block_37240068466815c7d0e2824_08141233 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -98,11 +98,12 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
 ?>
                                         </tbody>
                                     </table>
+<br>
                                     <div>
-                                        <label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp"
+                                        <h4>Disponibile in data : <h4>&ensp;<input type="date" id="datadisp"
                                             name="datadisp" />
                                         <br>
-                                        <label>Orario di Disponibilità: </label><br>
+                                        <h4>Orario di Disponibilità: </h4><br>
                                         <input type="checkbox" id="orariodisp" name="orariodisp[]"
                                             value="14:30" />14:30-15:30<br>
                                         <input type="checkbox" id="orariodisp" name="orariodisp[]"
@@ -117,7 +118,7 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                                     </div>
                         </div>
                     </div>
-                    <br><br>
+                    
                     <div>
                         <a type="submit" class="btn btn-primary" href="/Ambulacare/Medico/home" id="annulla">Indietro</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
