@@ -160,13 +160,15 @@ class VAmministratore
 	 * @param mixed $esame
 	 * @param mixed $giorno array di giorni [0] per lunedì, [1] per martedì ...
 	 * @param mixed $fasceorarie array di fasciaoraria
+	 * @param mixed $week settimana
 	 * @return [type]
 	 */
-	public function editApp($esame, $giorno, $fasceorarie)
+	public function editApp($esame, $giorno, $fasceorarie,$week=null)
 	{
 		$this->smarty->assign('esame', $esame);
 		$this->smarty->assign('giorno', $giorno);
 		$this->smarty->assign('fasceorarie', $fasceorarie);
+		$this->smarty->assign('week',$week);
 		$this->smarty->display('modificaappuntamento_admin.tpl');
 	}
 	/**
