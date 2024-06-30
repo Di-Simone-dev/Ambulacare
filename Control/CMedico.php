@@ -158,12 +158,12 @@ public static function mostra_orari_disponibilita($weekdisplacement=0){
         $IdMedico = USession::getSessionElement('id');
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-        $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+        $numerosettimana = $data->format('W')+$weekdisplacement; //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
         $orari_disponinibilità = FEntityManagerSQL::getInstance()
-                                ->getdisponibilitàsettimana($IdMedico,$numerosettimana-1+$weekdisplacement,$anno);
+                                ->getdisponibilitàsettimana($IdMedico,$numerosettimana-1,$anno);
         //servirebbe anche la valutazione del medico
         if ($weekdisplacement == 0){
             $giorno[0] = date("d/m",strtotime('Monday this week'));
@@ -182,7 +182,7 @@ public static function mostra_orari_disponibilita($weekdisplacement=0){
                 $giorno[5] = date("d/m",strtotime('Saturday next week'));
             }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
         $view = new VMedico(); //servirebbe una cosa del genere per il passaggio dei parametri
-        $view->ShowPageOrari($orari_disponinibilità,$giorno); //che poi id esame sarebbe quello che del medico
+        $view->ShowPageOrari($orari_disponinibilità,$giorno,($weekdisplacement==1? true: false)); //che poi id esame sarebbe quello che del medico
     } 
 }
 
