@@ -60,8 +60,11 @@
                         <a class="nav-link" href="/Ambulacare/Paziente/formregistrazione">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi (Paziente)</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Medico/login">Accedi (Medico)</a>
+                </li>
                 </ul>
             </div>
 
