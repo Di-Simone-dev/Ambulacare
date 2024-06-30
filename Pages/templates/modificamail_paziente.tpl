@@ -12,7 +12,7 @@
         {/if}
         <h1 >Modifica E-mail</h1>
 <br>
-        <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nuova Email</label>
+        <h6>Nuova Email</h6>
         <input type="email" id="email" name="Email" required>
 <br><br>
         <button type="submit" name="register" class="btn btn-primary">Conferma modifica</button>

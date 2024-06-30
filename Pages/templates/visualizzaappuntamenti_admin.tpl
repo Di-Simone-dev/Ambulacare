@@ -8,15 +8,15 @@
                 <form action="/Ambulacare/Amministratore/ricerca_appuntamenti" method="post">
                     <div class="form-group">
                         <br><br>
-                        <h2><label>Gestione Appuntamenti</label></h2>
+                        <h2>Gestione Appuntamenti</h2>
                         <br>
-                        <select name="IdTipologia" class="form-select-m">
+                        <select name="IdTipologia" class="form-select">
                             {foreach $tipologie as $tipologia}
                                 <option value="{$tipologia.IdTipologia}">{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
                         <br><br>
-                        <input type="date" id="dataapp" name="dataapp" required>
+                        <input type="date" id="dataapp" name="dataapp" >
                         <br><br>
                         <button type="submit" class="btn btn-primary">Filtra Risultati</button>
                     </div>
