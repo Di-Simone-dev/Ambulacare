@@ -11,7 +11,7 @@
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
                             {if $week}
-                                <a class="bottonitab" href="/Ambulacare/Medico/mostra_orari_disponibilita/"> < </a>
+                                <a class="bottonitab" href="/Ambulacare/Medico/mostra_orari_disponibilita"> < </a>
                               {else}
                                 <a class="bottonitab" href="/Ambulacare/Medico/mostra_orari_disponibilita/1"> > </a>
                                     {/if}

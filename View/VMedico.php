@@ -124,12 +124,14 @@ class VMedico
 	 * @param $app un appuntamento
 	 * @param $fasceorarie array di fasce orarie
 	 * @param $giorno un giorno
+	 * @param $week settimana
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($app, $fasceorarie, $giorno){
+	public function ModificaAppuntamento($app, $fasceorarie, $giorno,$week=null){
         $this->smarty->assign('esame',$app);
 		$this->smarty->assign('fasceorarie',$fasceorarie);
 		$this->smarty->assign('giorno',$giorno);
+		$this->smarty->assign('week',$week);
         $this->smarty->display('modificaappuntamento_medico.tpl');
     }
 	/**
