@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 17:39:55
+/* Smarty version 5.3.0, created on 2024-06-30 20:10:45
   from 'file:visualizzaagenda_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66817c4b8aa915_51885975',
+  'unifunc' => 'content_66819fa5744f96_99660425',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7ddaf9d76888fe4064e5b7715ec13c3ff956d08f' => 
     array (
       0 => 'visualizzaagenda_medico.tpl',
-      1 => 1719745059,
+      1 => 1719771044,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66817c4b8aa915_51885975 (\Smarty\Template $_smarty_tpl) {
+function content_66819fa5744f96_99660425 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_42871540866817c4b89ce31_07299109', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_75440530866819fa5729756_73074510', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_42871540866817c4b89ce31_07299109 extends \Smarty\Runtime\Block
+class Block_75440530866819fa5729756_73074510 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -39,23 +39,9 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
 
 
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="#">
-                    <div class="form-group">
-                        <h2>Agenda</h2>
-                        <br>
-                        <input type="date" id="dataapp" name="dataapp" />
-                        <br><br>
-                        <button type="submit" class="btn btn-primary">Filtra Risultati</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div>
+    <div style="padding:35px;">
+	<h2>Agenda</h2>
+<br>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>

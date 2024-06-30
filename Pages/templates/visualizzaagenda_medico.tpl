@@ -3,23 +3,9 @@
 {block name=content}
 
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="#">
-                    <div class="form-group">
-                        <h2>Agenda</h2>
-                        <br>
-                        <input type="date" id="dataapp" name="dataapp" />
-                        <br><br>
-                        <button type="submit" class="btn btn-primary">Filtra Risultati</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div>
+    <div style="padding:35px;">
+	<h2>Agenda</h2>
+<br>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>
