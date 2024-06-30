@@ -319,10 +319,10 @@ class CAmministratore
     {   //registrazione del medico usata (dall'admin)
         if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") {
             //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
-            $view = new VMedico();
+            $view = new VAmministratore();
             //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
             if (FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == false) { //false = mail non in uso  
-                //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
+                //QUI SI ISTANZIA UN MEDICO QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
                 $medico = new EMedico(
                     UHTTPMethods::post('nome'),
                     UHTTPMethods::post('cognome'),

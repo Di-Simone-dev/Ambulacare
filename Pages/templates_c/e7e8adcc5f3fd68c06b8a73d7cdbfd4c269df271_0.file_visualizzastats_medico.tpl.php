@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 18:04:16
+/* Smarty version 5.3.0, created on 2024-06-30 09:18:25
   from 'file:visualizzastats_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667edf00412f39_03791316',
+  'unifunc' => 'content_668106c14f7049_83248695',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e7e8adcc5f3fd68c06b8a73d7cdbfd4c269df271' => 
     array (
       0 => 'visualizzastats_medico.tpl',
-      1 => 1719585664,
+      1 => 1719731902,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667edf00412f39_03791316 (\Smarty\Template $_smarty_tpl) {
+function content_668106c14f7049_83248695 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1445840884667edf00407728_57876111', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_517092476668106c14e70b2_90456770', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1445840884667edf00407728_57876111 extends \Smarty\Runtime\Block
+class Block_517092476668106c14e70b2_90456770 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
 
-    <br><br><br><br><br>
+    <br>
     <div id="container" style="height: 500px;">
-        <h2>Statistiche nell'intervallo di tempo selezionato</h2>
+        <h2 style="margin-left:35px;">Statistiche nell'intervallo di tempo selezionato</h2>
     <br>
     <?php echo '<script'; ?>
 >
@@ -101,8 +101,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     </div>
     <br><br><br><br>
     <div>
-        <button class="btn btn-primary">Cambia intervallo di tempo</button>
+        <button class="btn btn-primary" style="margin-left:35px;">Cambia intervallo di tempo</button>
     </div>
+<br>
 
 <?php
 }

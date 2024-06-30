@@ -12,7 +12,7 @@
         {/if}
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nuova Password</label>
         <input type="password" id="password" name="password" required>
-        <button type="submit" name="register" class="btn btn-primary">REIMPOSTA</button>
+        <button type="submit" name="register" class="btn btn-primary">Reimposta Password</button>
     </form>
 
 {/block}

@@ -578,14 +578,23 @@ public static function modifica_appuntamento(){  //DA FARE
     public static function settingspaziente(){  //POTREBBE ESSERE RINOMINATO
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $view = new VPaziente();
-            $userId = USession::getInstance()->getSessionElement('id');
+            $IdPaziente = USession::getInstance()->getSessionElement('id');
             //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal paziente
-            $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($userId);    
-            var_dump($datipaziente);
+            $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($IdPaziente);    
+            //var_dump($datipaziente);
+            $view->profileCli($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+    public static function formSetInfoPaziente(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
+            $view = new VPaziente();
+
+            $Idpaziente = USession::getInstance()->getSessionElement('id');
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            $datipaziente = FPersistentManager::getInstance()->retrieveinfopaziente($Idpaziente);    
             $view->formmodificacli($datipaziente);  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
         }
     }
-
     /**
      * QUESTO VA USATO PER LA MODIFICA DELLE INFO DEL PROFILO DEL PAZIENTE
      * Take the compiled form and use the data for update the user info (Biography, Working, StudeiedAt, Hobby)
@@ -647,17 +656,28 @@ public static function modifica_appuntamento(){  //DA FARE
      * QUESTO VA APPLICATO PER UN CAMBIO PASSWORD DEL PAZIENTE
      * Take the compiled form and update the user password
      */
-/*     public static function setPasswordPaziente(){
+    public static function formPasswordPaziente(){  //POTREBBE ESSERE RINOMINATO
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
+            $view = new VPaziente();
+
+            /* $Idmedico = USession::getInstance()->getSessionElement('id'); */
+            //qui ho bisogno di un metodo nel persistent manager che passi un array con tutte le info visualizzabili dal medico compresa la propic
+            /* $datimedico = FPersistentManager::getInstance()->retrieveinfomedico($Idmedico);   */  
+            $view->formmodificapassw();  //PASSO A VIEW QUESTO ARRAY ASSOCIATIVO CON I DATI DELL'UTENTE PER VISUALIZZARLI
+        }
+    }
+    public static function setPasswordPaziente(){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $newPass = UHTTPMethods::post('password');
             $paziente->setPassword($newPass);
             FPersistentManager::getInstance()->updatePasswordpaziente($paziente);
-
-            header('Location: /paziente/profilopersonale');
+            $view = new VPaziente();
+            $view->messaggio("Operazione effettuata con successo");
+            //header('Location: /paziente/profilopersonale');
         }
-    } */
+    } 
 
 
 

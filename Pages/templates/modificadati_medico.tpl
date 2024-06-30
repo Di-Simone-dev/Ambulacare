@@ -21,7 +21,7 @@
     <button type="submit" name="register" class="btn btn-primary">CONFERMA MODIFICHE</button>
 <br><br>
     <a href="/Ambulacare/Medico/formEmailMedico" class="btn btn-primary"> Modifica Email</a>
-<br>
+<br><br>
     <a href="/Ambulacare/Medico/formPasswordMedico" class="btn btn-primary"> Modifica Password</a>
 </form>
 

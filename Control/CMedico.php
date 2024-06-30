@@ -726,7 +726,7 @@ public static function logout()
             $medico->setPassword(password_hash($newPass,PASSWORD_DEFAULT));
             FPersistentManager::getInstance()->updatePasswordmedico($medico);
 
-            $view = new VPaziente();
+            $view = new VMedico();
             $view->messaggio("Operazione effettuata con successo");
         }
     }

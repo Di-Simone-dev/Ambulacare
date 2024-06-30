@@ -18,7 +18,7 @@
                                 >{$tipologia.nome_tipologia}</option>
                             {/foreach}
                         </select>
-                        <br>
+                        <br><br>
                         <input type="date" id="dataapp" name="data" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>

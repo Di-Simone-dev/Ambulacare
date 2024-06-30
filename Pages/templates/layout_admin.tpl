@@ -47,6 +47,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/Ambulacare/Amministratore/home">Home</a>
                 </li>
+		<li class="nav-item active">
+                    <a class="nav-link" href="/Ambulacare/Amministratore/formregistrazione">Registrazione Medici</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/Ambulacare/Amministratore/visualizza_medici">Moderazione medici</a>
                 </li>
@@ -62,6 +65,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Amministratore/gestione_recensioni">Recensioni</a>
+                </li>
+		<li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Amministratore/logout">Logout</a>
                 </li>
             </ul>
         </div>

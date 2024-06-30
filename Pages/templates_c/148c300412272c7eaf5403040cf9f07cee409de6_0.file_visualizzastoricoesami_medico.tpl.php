@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 17:56:06
+/* Smarty version 5.3.0, created on 2024-06-30 09:12:35
   from 'file:visualizzastoricoesami_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667edd16b1fc46_72232420',
+  'unifunc' => 'content_66810563d7fe69_10797226',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '148c300412272c7eaf5403040cf9f07cee409de6' => 
     array (
       0 => 'visualizzastoricoesami_medico.tpl',
-      1 => 1719590164,
+      1 => 1719731555,
       2 => 'file',
     ),
   ),
@@ -20,26 +20,26 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667edd16b1fc46_72232420 (\Smarty\Template $_smarty_tpl) {
+function content_66810563d7fe69_10797226 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1089815234667edd16b03c37_81363864', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_147203386666810563d67766_84909976', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1089815234667edd16b03c37_81363864 extends \Smarty\Runtime\Block
+class Block_147203386666810563d67766_84909976 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
 
-    <br><br>
-    <div>
+    <br>
+    <div style="padding:35px;">
         <h2>Filtra per data</h2>
         <form action="/Ambulacare/Medico/ricerca_storico_appuntamenti_medico" method="post">
             <input type="date" name="data" required>

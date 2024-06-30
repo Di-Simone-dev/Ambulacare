@@ -2,9 +2,9 @@
 
 {block name=content}
 
-    <br><br><br><br><br>
+    <br>
     <div id="container" style="height: 500px;">
-        <h2>Statistiche nell'intervallo di tempo selezionato</h2>
+        <h2 style="margin-left:35px;">Statistiche nell'intervallo di tempo selezionato</h2>
     <br>
     <script>
         function getData() {
@@ -51,7 +51,8 @@
     </div>
     <br><br><br><br>
     <div>
-        <button class="btn btn-primary">Cambia intervallo di tempo</button>
+        <button class="btn btn-primary" style="margin-left:35px;">Cambia intervallo di tempo</button>
     </div>
+<br>
 
 {/block}

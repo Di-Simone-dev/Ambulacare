@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 18:00:32
+/* Smarty version 5.3.0, created on 2024-06-30 09:12:50
   from 'file:inserisciorariodisponibile_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ede20327b64_22945663',
+  'unifunc' => 'content_668105725c29a5_53296698',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '861b2ea6806dba2aba3a6eed88592096b4f1154c' => 
     array (
       0 => 'inserisciorariodisponibile_medico.tpl',
-      1 => 1719590431,
+      1 => 1719730588,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ede20327b64_22945663 (\Smarty\Template $_smarty_tpl) {
+function content_668105725c29a5_53296698 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_692440059667ede2031acb8_83495299', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1621682490668105725ae2b3_17661739', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_692440059667ede2031acb8_83495299 extends \Smarty\Runtime\Block
+class Block_1621682490668105725ae2b3_17661739 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -47,8 +47,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
                             <br>
-                            <a class="bottonitab"><</a>
-                                    <a class="bottonitab">></a>
+                            <a class="bottonitab"></a>
+                                    <a class="bottonitab"></a>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
                                         <thead style="background-color: rgb(230, 230, 230);text-align: center;">

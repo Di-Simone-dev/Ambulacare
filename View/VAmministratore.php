@@ -182,6 +182,6 @@ class VAmministratore
 
 	public function registrazionemedico($tipologie){
 		$this->smarty->assign('tipologie', $tipologie);
-		$this->smarty->display('registermedico_admin.tpl');
+		$this->smarty->display('register_medico.tpl');
 	}
 }

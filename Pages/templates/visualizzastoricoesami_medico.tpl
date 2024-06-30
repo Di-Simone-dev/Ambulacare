@@ -2,8 +2,8 @@
 
 {block name=content}
 
-    <br><br>
-    <div>
+    <br>
+    <div style="padding:35px;">
         <h2>Filtra per data</h2>
         <form action="/Ambulacare/Medico/ricerca_storico_appuntamenti_medico" method="post">
             <input type="date" name="data" required>

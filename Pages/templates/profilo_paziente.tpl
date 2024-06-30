@@ -2,26 +2,33 @@
 
 {block name=content}
     <div style="padding:35px;">
-    <h2> Profilo Personale - Sig. {$nome} {$cognome}</h2>
+    <h2> Profilo Personale - Sig. {$paziente.nome} {$paziente.cognome}</h2>
     <h4>Informazioni Personali </h4>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Nome:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$nome}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Cognome:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$cognome}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Email:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$email}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Codice Fiscale:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$codicefiscale}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Data di Nascita:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$data}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Luogo di Nascita:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$luogonascita}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Residenza:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$residenza}</p>
-                <p style='font-size:20px;font-family: monospace; font-weight:bold;'> Telefono:</p>
-                <p style='font-size:20px; font-family:monospace;'>{$telefono}</p>
-                <a href=''><button class='btn btn-primary' style='width:195px;'>Logout</button></a>
-                <a href=''><button class='btn btn-primary' style='width:195px;'>Modifica Dati</button></a>
-                <a href=''><button class='btn btn-primary' style='width:195px;'>Reimposta Password</button></a>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Nome:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.nome}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Cognome:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.cognome}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Email:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.email}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Codice Fiscale:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.codice_fiscale}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Data di Nascita:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.data_nascita}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Luogo di Nascita:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.luogo_nascita}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Residenza:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.residenza}</label>
+<br><br>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Telefono:</label>
+                <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.numero_telefono}</label>
+<br><br>
+                <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Paziente/logout">Logout</a>
+        <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Paziente/formSetInfoPaziente">Modifica Dati</a>
              </div>
 {/block}
