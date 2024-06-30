@@ -526,8 +526,10 @@ public static function modifica_appuntamento(){  //DA FARE
                 password_hash(UHTTPMethods::post('password'), PASSWORD_DEFAULT),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
                                 UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),'1');
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
-                FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
-                
+                $IdPaziente = FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
+                USession::getInstance();
+                USession::setSessionElement('tipo_utente', 'paziente');
+                USession::setSessionElement('id', $IdPaziente);
                 $view->messaggio("Registrazione effettuata!");   //DA FARE CON LA VIEW E SMARTY
         }else if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == TRUE )
         {
