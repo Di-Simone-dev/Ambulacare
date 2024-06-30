@@ -31,7 +31,7 @@ class FPersistentManager{
 
     //METODI DI BASE PER IL RETRIEVE E L'UPLOAD
     /**
-     * returna un oggetto dandone in input la classe e l'id
+     * ritorna un oggetto dandone in input la classe e l'id
      * @param string $class è la classe Entity dell'oggetto
      * @param int $id è l'id dell'oggetto
      * @return mixed
@@ -59,7 +59,7 @@ class FPersistentManager{
         $result = call_user_func([$foundClass, $staticMethod], $obj);
 
         return $result;
-    }   //metodo molto potente, ma serve chiamare tutti i metodi "saveObj"
+    } 
 
     //-----------------------------METODI RETRIEVE------------------------------
 
@@ -76,20 +76,11 @@ class FPersistentManager{
         return $result;
     }
 
-    /**
-     * ritorna un'array contenente tutti i pazienti della piattaforma (uso dell'admin)
-     */
-    public static function retrieveallpazienti(){
-        $result = FEntityManagerSQL::getInstance()->retrieveall(FPaziente::getTable());
-        //var_dump($queryResult);
-
-        return $result;
-    }
-
-    /**
+    /*
      * ritorna un'array contenente tutti gli appuntamenti della di un determinato paziente dando come argomento il suo Id
      * @param int $idUser Refrs to the user who follow
      */
+    /*
     public static function retrieveappuntamentifrompaziente($IdPaziente){
         //prende gli APPUNTAMENTI di IdPaziente (ottimo per caricare i propri appuntamenti da svolgere)
         $appuntamenti = FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), 'IdPaziente', $IdPaziente);
@@ -101,8 +92,14 @@ class FPersistentManager{
             }
         }
         return $appuntamentipaziente;
-    }
+    }*/
 
+    /**
+     * ritorna l'array $infopazientecontenente tutti gli appuntamenti della di un determinato paziente dando come argomento il suo Id
+     * @param int $idUser è l'id dell'utente id cui vogliamo ritornare le informazioni
+     * @return array
+     */
+    
     public static function retrieveinfopaziente($IdPaziente){
         //prende tutte le info del Paziente (per la visualizzazione della schermata di profilo)
         $paziente = FEntityManagerSQL::getInstance()->retrieveObj(FPaziente::getTable(), 'IdPaziente', $IdPaziente);
@@ -119,37 +116,41 @@ class FPersistentManager{
         return $infopaziente;
     }
 
+    /*
     public static function retrievepazientiattivi()
     {
         $result = FPaziente::getPazientinonBannati();
         return $result;
     }
-
+    */
 
     //MEDICO
 
-    /**
+    /*
      * ritorna un medico dando come argomento la sua mail (è una credenziale di accesso univoca)
      * @param string $email è la mail del medico
      */
+    /*
     public static function retrievemedicofromemail($email){
 
         $result = FMedico::getmedicofromemail($email);
         return $result;
-    }
+    }*/
 
-    /**
+    /*
      * ritorna un'array contenente tutti i medici della piattaforma (uso dell'admin)
      */
+    /*
     public static function retrieveallmedici(){
         $result = FEntityManagerSQL::getInstance()->retrieveall(FMedico::getTable());
         //var_dump($queryResult);
         return $result;
-    }
+    }*/
 
-    /**
+    /*
      * ritorna un'array contenente le propic dei medici contenuti nell'array inserito come argomento
      */
+    /*
     public static function retrievemedicipropic($arraymedici){
         $mediciProfilePic = array();
         if(count($arraymedici) > 0){
@@ -160,15 +161,16 @@ class FPersistentManager{
             }
         }
         return $mediciProfilePic;
-    }
+    }*/
 
-    /**
+    /*
      * $mediciInput è un'array di medici fornito come argomento e ritorniamo un'array contenente il medico con la relativa IdImmagine di propic
      * Method to load Users and their Profile Image
      * @param array | int $userInput 
      */
 
      //UTILIZZABILE PER LA LOAD DI MEDICI CON LE FOTO PRIFILO?
+     /*
      public static function retrievemedicieimmagini($mediciInput){
         $result = array();
         if(is_array($mediciInput)){
@@ -182,72 +184,77 @@ class FPersistentManager{
             $result[] = $arrayData;
         }
         return $result;
-    }
+    }*/
 
 
-    /**
+    /*
      * ritorna un'array di medici non bannati della tipologia inserita 
      * @param $IdTipologia è il campo della tabella tipologia ed fk nella tabella medico
      */
+    /*
     public static function retrievemediciattivifromTipologia($IdTipologia)
     {
         $result = FMedico::getMedicinonBannatifromTipologia($IdTipologia);
         return $result;
-    }
+    }*/
 
-    /**
+    /*
      * ritorna un'array di medici non bannati di tutte le tipologie
      */
+    /*
     public static function retrievemediciattivi()
     {
         $result = FMedico::getMedicinonBannati();
         return $result;
-    }
+    }*/
 
 
 
 
     
-    /**
+    /*
      * ritorna un'array contenenti tutti i medici della tipologia inserita come argomento (uso dell'admin)
      * @param string $keyword 
      */
+    /*
     public static function retrievemedicifromtipologia($IdTipologia){
         //ritorna una lista di post con settati gli utenti
         $result = FMedico::getmedicofromtipologia($IdTipologia);
 
         return $result;
-    }
+    }*/
 
-    /**
+    /*
      * ritorna la valutazione media (data dalle recensioni) di un medico il cui Id è fornito come argomento
      */
+    /*
     public static function retrieveaveragevalutazione($IdMedico)
     {
         $result = FMedico::getaveragevalutazione($IdMedico);
         //è un po' ridondato ma non fa niente
         return $result;
-    }
+    }*/
 
-    /** 
+    /*
      * ritorna il numero di recensioni di un medico il cui id è fornito come argomento del metodo
     */
+    /*
     public static function retrievenumerorecensionimedico($IdMedico){
         $result = FRecensione::getnumerorecensionimedico($IdMedico);
 
         return $result;
-    }
+    }*/
     
-    /**
+    /*
      * metodo che ritorna l'agenda (appuntamenti non scaduti) di un medico il cui Id è inserito come argomento
      */
-
+    /*
     //MI SERVE UN METODO PER MOSTRARE AL MEDICO GLI APPUNTAMENTI NELLA SUA AGENDA  //DA FINIRE
     public static function retrieveagendamedico($IdMedico){
         $result = FMedico::getagenda($IdMedico);
 
         return $result;
-    }
+    }*/
 
     /**
      * metodo che ritorna le info del medico
@@ -606,21 +613,6 @@ class FPersistentManager{
     }
 
 
-
-        //DA FARE SE NECESSARIO
-    /*
-     * Method to update a Cooment that have changed the ban attribute 
-     * @param \EComment $comment
-     */
-    /*
-    public static function updateCommentBan($comment){
-        $field = [['removed', $comment->isBanned()]];           //SERVE UN MECCANISMO SIMILE PER LE RECENSIONI
-        $result = FComment::saveObj($comment, $field);
-
-        return $result;
-
-    }
-    */
 //-----------------------------METODI PER LE CANCELLAZIONI------------------------------
 
     //MEDICO

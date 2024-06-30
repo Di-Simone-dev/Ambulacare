@@ -244,7 +244,8 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
 
 public static function visualizza_pazienti(){ 
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "medico"){ 
-    $pazienti = FPersistentManager::getInstance()->retrievepazientiattivi(); //è l'array dei pazienti attivi, ma deve essere raffinato
+    $pazienti = FPaziente::getPazientinonBannati();
+    //$pazienti = FPersistentManager::getInstance()->retrievepazientiattivi(); //è l'array dei pazienti attivi, ma deve essere raffinato
     
     $arraypazienti = array();
     //$nmedici = count($pazienti);
@@ -584,7 +585,8 @@ public static function checkLogin()
 {   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
     $view = new VMedico();
     //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
-    $medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('email'));
+    $medico = FMedico::getmedicofromemail(UHTTPMethods::post('email'));
+    //$medico = FPersistentManager::getInstance()->retrievemedicofromemail(UHTTPMethods::post('email'));
     //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
     //password_verify è una funzione NATIVA DI PHP
     if ($medico != null && $medico[0]->getAttivo()!=0) {

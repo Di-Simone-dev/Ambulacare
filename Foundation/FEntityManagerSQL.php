@@ -256,18 +256,14 @@ class FEntityManagerSQL{
     }
 
     /**
-     * Method to return rows from a SELECT FROM WHERE but attivo is = 1 (so it's not banned)
-     * @param $table Refers to the table of the Database
-     * @param $field  Refers to a field of the table
-     * @param mixed $id Refers to the value in the where clause
+     * Metodo che ritorna le righe di una select * dove attivo è = 1 (non bannato)
+     * @param $table Tabella del database dove facciamo la select
      * @return array
      */
     public static function retrieveattivi($table)
     {
         try{
-            //QUESTO DOVREBBE ESSERE RITOCCATO PERCHè 1 = ATTIVO E 0 = DISATTIVATO 
             $query = "SELECT * FROM " . $table . " e WHERE e.attivo = 1;";
-            //QUESTA QUERY DOVREBBE ESSERE CORRETTA
             $stmt = self::$db->prepare($query);
             $stmt->execute();
             $rowNum = $stmt->rowCount();
@@ -289,10 +285,10 @@ class FEntityManagerSQL{
     }
 
     /**
-     * Method to delete a row from the Database with query DELETE FROM WHERE
-     * @param $table Refers to the table of the Database
-     * @param $field  Refers to a field of the table
-     * @param mixed $id Refers to the value in the where clause
+     * Metodo che cancella un oggetto nel database
+     * @param $table Tabella del database dove andiamo ad effettuare le cancellazioni
+     * @param $field  Il campo con cui identifichiamo le righe da cancellare
+     * @param mixed $id Il valore del campo nelle righe da cancellare
      * @return boolean
      */
     public static function deleteObjInDb($table, $field, $id){
@@ -346,7 +342,6 @@ class FEntityManagerSQL{
     // query = SELECT IdMedico,IdFasciaOraria,IdAppuntamento FROM Calendario,Fasciaoraria,Appuntamento
     // WHERE IdMedico = '" . $IdMedico . "'AND GETDATE()<=Fasciaoraria.data ORDER BY data;
     public static function getagendamedico($IdMedico){
-        
         try{
             $query = "SELECT calendario.IdMedico, fascia_oraria.IdFasciaOraria,appuntamento.IdAppuntamento, appuntamento.IdPaziente, costo, appuntamento.IdPaziente
                       FROM calendario
@@ -362,19 +357,16 @@ class FEntityManagerSQL{
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $stmt->fetch()){
-                    $result[] = $row;  //aggiungiamo la row all'array result
+                    $result[] = $row; 
                 }
-                //return $result;
                 $agenda=array();
                 for($i=0;$i<$rowNum;$i++)
                 {
-                    //devo construire l'array da restituire
                     $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
                     $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
-                    
-                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome() . " ". $paziente[0]->getNome(); //da testare
-                    $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData();  //da testare 
-                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"];  //da testare
+                    $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome() . " ". $paziente[0]->getNome(); 
+                    $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData(); 
+                    $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"]; 
                     $agenda[$i]["costo"] = $result[$i]["costo"];
                     $agenda[$i]["IdPaziente"] = $result[$i]["IdPaziente"];
                     $agenda[$i]["IdFasciaOraria"] = $result[$i]["IdFasciaOraria"];    
@@ -382,9 +374,6 @@ class FEntityManagerSQL{
                 return $agenda;
                 //dovremmo avere un array associativo bidimensionale $result[0][IdAppuntamento]=l'id del primo appuntamento
                 //dovremmo ciclare $result[i][IdAppuntamento] su un getter degli appuntamenti e $result[i][IdFasciaOraria], 
-                //ma bisogna aggiungere la data e l'ora (data)
-                //UNA SOLUZIONE POTREBBE ESSERE QUELLA DI UTILIZZARE 2 ARRAY SINCRONIZZATI CON LO STESSO INDICE PER RESTITUIRE I DATI
-            
                 }else{
                 return array();
             }
@@ -398,9 +387,6 @@ class FEntityManagerSQL{
     //QUESTA CI SERVE PER NON VEDERE QUELLE DEI PAZIENTI BLOCCATI
     //DA CAPIRE BENE IN QUALE SITUAZIONE BISOGNA MOSTRARLE
     public static function getrecensionipazientiattivi($IdMedico){
-        
-        //MI SERVE PER TROVARE LA MEDIA DELLE RECENSIONI DI UN MEDICO
-        //SELECT AVG(valutazione),IdMedico FROM Recensioni where IdMedico = $idMedico group by IdMedico
         try{
             $query = "SELECT IdMedico,IdRecesione,titolo,contenuto,valutazione,data_creazione FROM Recensioni,Pazienti 
                         WHERE IdMedico = '" . $IdMedico . "'AND paziente.attivo=1;"
@@ -425,35 +411,23 @@ class FEntityManagerSQL{
     //poi questo array delle fasce orarie va usato per vedere se queste fasce orarie sono nella tabella degli appuntamenti
     public static function getdisponibilitàsettimana($IdMedico,$numerosettimana,$anno){
         
-        try{//GIORNO SETTIMANA è SBAGLIATO DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
+        try{//DOMENICA = 1 LUNEDI = 2 .. SABATO = 7 SERVE FARE -1
             $query = "SELECT IdMedico,IdFasciaOraria,WEEK(fascia_oraria.data) AS numerosettimana, YEAR(fascia_oraria.data) AS anno,
                       DAYOFWEEK(fascia_oraria.data) AS giornosettimana,HOUR(data) AS ora 
                       FROM calendario
                       INNER JOIN fascia_oraria on calendario.IdCalendario = fascia_oraria.IdCalendario 
                       WHERE IdMedico = '" . $IdMedico . "' AND WEEK(fascia_oraria.data) = '" . $numerosettimana . "' AND YEAR(fascia_oraria.data) = '" . $anno ."'
-                      ORDER BY data;";//prendo solo l'ora per il controllo
-            //con questa prendo tutte le fasce orarie di un medico in una determinata settimana in un anno dati in input
-            //adesso dovrei prendere un array monodimensionale contenente gli ID delle fasce orarie relative
-            //per poi fare un controllo sull'exist() nella tabella appuntamenti e mettere il valore booleano nell'array in output
-            //questo per controllare l'occupazione della fascia, ma per avere l'informazione della disponibilità del medico
-            //posso passarla implicitamente per esclusione
-            //conviene prima riempire un array subito con gli slot? se tengo l'id risulta facile il controllo ma ce l'ho già
-            //posso riempirlo una volta sola se lo faccio mentre controllo la presenza di un appuntamento nello slot orario
-            
+                      ORDER BY data;";
+   
             $stmt = self::$db->prepare($query);
-            //var_dump($stmt);
             $stmt->execute();
-            $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di slot orari disponibili nella settimana
-            //var_dump($rowNum);
-            //var_dump($query); 
+            $rowNum = $stmt->rowCount();
             if($rowNum >= 0){
                 $result = array();
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $stmt->fetch()){
                     $result[] = $row;  //aggiungiamo la row all'array result 
                 }
-                //return $result;
-                //$result[$i]["IdFasciaOraria"] contiene l'id della i-esima fascia oraria cui dobbiamo controllare l'esistenza in appuntamenti 
                 $prenotabili=array();
                 $slotorari = ["","14","15","16","17","18"]; //sono fissi
                 for($i=0;$i<$rowNum;$i++)
@@ -466,8 +440,6 @@ class FEntityManagerSQL{
                     //var_dump($appuntamento);
                     $exist = FEntityManagerSQL::getInstance()->existInDb($appuntamento);
                     //quindi ora nell'array ci devo mettere $disponibilità [$giorno della settimana][$numero slot orario]
-                    //il giorno lo posso prendere facilmente dal db ma l'orario va probabilmente fatto con switch o con un for
-                    
                     if(!$exist){
                         for($j=1;$j<6;$j++){ // $j ci indica il numero della fascia 
                             if($result[$i]["ora"] == $slotorari[$j]){

@@ -14,8 +14,9 @@ class CPaziente{
     //1.1 avvia_prenotazione
     //gli devo passare tutti i medici attivi per visualizzarli con i relativi dati da visualizzare
     //ma anche le tipologie in modo di metterle nella tendina la per la selezione e farmele passare nella prossima funzione
-    public static function avviaprenotazione(){     
-        $medici = FPersistentManager::getInstance()->retrievemediciattivi(); //è l'array dei medici attivi, ma deve essere raffinato
+    public static function avviaprenotazione(){
+        $medici = FMedico::getMedicinonBannati(); 
+        //$medici = FPersistentManager::getInstance()->retrievemediciattivi(); //è l'array dei medici attivi, ma deve essere raffinato
         
         $arraymedici = array();
         $nmedici = count($medici);
@@ -51,7 +52,8 @@ class CPaziente{
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             $IdTipologia = UHTTPMethods::post('tipologia');
             $nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
-            $medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
+            $medici = FMedico::getMedicinonBannatifromTipologia($IdTipologia);
+            //$medici = FPersistentManager::getInstance()->retrievemediciattivifromTipologia($IdTipologia); //è l'array dei medici attivi, ma potrebbe essere raffinato
             $arraymedici = array();
             $nmedici = count($medici);
             //var_dump($medici[1]); 

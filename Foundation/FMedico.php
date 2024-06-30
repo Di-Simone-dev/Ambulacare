@@ -164,11 +164,8 @@ class FMedico  {
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FMedico::getClass(), $medico);
                 if($savePersonAndLastInsertedID !== null){
-/*                     $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $medico, $savePersonAndLastInsertedID);
- */                    FEntityManagerSQL::getInstance()->getDb()->commit();
-/*                     if($saveUser){ */
-                        return $savePersonAndLastInsertedID;
-                    /* } */
+                    FEntityManagerSQL::getInstance()->getDb()->commit();
+                    return $savePersonAndLastInsertedID;
                 }else{
                     return false;
                 }
@@ -270,10 +267,11 @@ class FMedico  {
         return FEntityManagerSQL::getInstance()->existInDb($queryResult);
     }
 
+    /*
     public static function getagenda($IdMedico){ //PER AGGIUNGERLO ALLA CLASSE MEDICO
         $queryResult = FEntityManagerSQL::getInstance()->getagendamedico($IdMedico);
         return $queryResult;
-    }
+    }*/
 
 
 
