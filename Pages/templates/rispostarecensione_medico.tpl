@@ -14,11 +14,11 @@
                 <br>
                 <form action="/Ambulacare/Medico/inserisci_risposta" method="post">
                     <div class="form-group">
-                    <h4><label for="oggetto">Oggetto Risposta: </label>
+                    <h4>Oggetto Risposta: </h4>
                         <input type="text" id="oggetto" name="oggetto" placeholder="Oggetto"
                             style="width: 800px;height: 35px;">
-                        <br><br><label for="contenuto">Contenuto Risposta:</label>
-                    <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;"/>
+                        <br><br><h4>Contenuto Risposta:</h4>
+                    <input id="contenuto" name="contenuto" placeholder="Contenuto Risposta" style="width: 800px;height: 170px;"/>
                         <input type="hidden" name="IdRecensione" value="{$recensione.IdRecensione}">
                     </h4>
                     <br><br>

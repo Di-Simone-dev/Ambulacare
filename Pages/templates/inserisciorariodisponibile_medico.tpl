@@ -40,11 +40,12 @@
                                             {/for}
                                         </tbody>
                                     </table>
+<br>
                                     <div>
-                                        <label>Disponibile in data : </label>&ensp;<input type="date" id="datadisp"
+                                        <h4>Disponibile in data : <h4>&ensp;<input type="date" id="datadisp"
                                             name="datadisp" />
                                         <br>
-                                        <label>Orario di Disponibilità: </label><br>
+                                        <h4>Orario di Disponibilità: </h4><br>
                                         <input type="checkbox" id="orariodisp" name="orariodisp[]"
                                             value="14:30" />14:30-15:30<br>
                                         <input type="checkbox" id="orariodisp" name="orariodisp[]"
@@ -59,7 +60,7 @@
                                     </div>
                         </div>
                     </div>
-                    <br><br>
+                    
                     <div>
                         <a type="submit" class="btn btn-primary" href="/Ambulacare/Medico/home" id="annulla">Indietro</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;

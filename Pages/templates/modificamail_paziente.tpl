@@ -3,7 +3,7 @@
 {block name=content}
 <br><br>
 
-    <form method="post" action="/Ambulacare/Paziente/setEmailPaziente" style="width: 600px;padding:35px;">
+    <form method="post" action="/Ambulacare/Paziente/setEmailPaziente" style="padding:35px;">
         {if $error}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {$error}

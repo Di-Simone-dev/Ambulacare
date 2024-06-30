@@ -2,28 +2,28 @@
 
 {block name=content}
     <br><br>
-    <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="width: 600px;padding:35px;">
+    <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
-    <input type="text" id="residenza" name="Nome" required value="{$paziente.nome}">
+    <h6>Nome</h6>
+    <input type="text" id="nome" name="Nome" required value="{$paziente.nome}">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Cognome</label>
-    <input type="text" id="residenza" name="Cognome" required value="{$paziente.cognome}">
+    <h6>Cognome</h6>
+    <input type="text" id="cognome" name="Cognome" required value="{$paziente.cognome}">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Residenza</label>
+    <h6>Residenza</h6>
     <input type="text" id="residenza" name="Residenza" required value="{$paziente.residenza}">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Luogo di Nascita</label>
-    <input type="text" id="residenza" name="LuogoNascita" required value="">
+    <h6>Luogo di Nascita</h6>
+    <input type="text" id="luogonascita" name="LuogoNascita" required value="">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Codice Fiscale</label>
-    <input type="text" id="residenza" name="CodiceFiscale" required value="{$paziente.codice_fiscale}">
+    <h6>Codice Fiscale</h6>
+    <input type="text" id="codicefiscale" name="CodiceFiscale" required value="{$paziente.codice_fiscale}">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Data Nascita</label>
-    <input type="date" id="residenza" name="DataNascita" required value="{$paziente.data_nascita}">
+    <h6>Data Nascita</h6>
+    <input type="date" id="datanascita" name="DataNascita" required value="{$paziente.data_nascita}">
 <br><br>
-    <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Numero di telefono</label>
+    <h6>Numero di telefono</h6>
     <input type="tel" id="numerotelefono" name="Numerotelefono" required value="{$paziente.numero_telefono}">
 <br><br>
     <button type="submit" name="register" class="btn btn-primary">Conferma Modifiche</button>

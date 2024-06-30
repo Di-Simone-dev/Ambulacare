@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 14:05:33
+/* Smarty version 5.3.0, created on 2024-06-30 15:39:21
   from 'file:rispostarecensione_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66814a0dd16d09_22012558',
+  'unifunc' => 'content_668160093a5490_79120251',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30f4ab14567a5fa5203e89f3cb6844c6276d81f0' => 
     array (
       0 => 'rispostarecensione_medico.tpl',
-      1 => 1719749132,
+      1 => 1719754647,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66814a0dd16d09_22012558 (\Smarty\Template $_smarty_tpl) {
+function content_668160093a5490_79120251 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_25930492566814a0dd09ab2_38743529', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_70721011866816009397213_01284490', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_25930492566814a0dd09ab2_38743529 extends \Smarty\Runtime\Block
+class Block_70721011866816009397213_01284490 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -54,11 +54,11 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                 <br>
                 <form action="/Ambulacare/Medico/inserisci_risposta" method="post">
                     <div class="form-group">
-                    <h4><label for="oggetto">Oggetto Risposta: </label>
+                    <h4>Oggetto Risposta: </h4>
                         <input type="text" id="oggetto" name="oggetto" placeholder="Oggetto"
                             style="width: 800px;height: 35px;">
-                        <br><br><label for="contenuto">Contenuto Risposta:</label>
-                    <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;"/>
+                        <br><br><h4>Contenuto Risposta:</h4>
+                    <input id="contenuto" name="contenuto" placeholder="Contenuto Risposta" style="width: 800px;height: 170px;"/>
                         <input type="hidden" name="IdRecensione" value="<?php echo $_smarty_tpl->getValue('recensione')['IdRecensione'];?>
 ">
                     </h4>
