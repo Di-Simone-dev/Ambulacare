@@ -158,7 +158,7 @@ class VAmministratore
 	/**
 	 * visualizza la pagina per la modifica di un appuntamento
 	 * @param mixed $esame
-	 * @param mixed $giorno array di giorni [0] per lunedì, [1] per martedì ...
+	 * @param mixed $giorno array di giorni
 	 * @param mixed $fasceorarie array di fasciaoraria
 	 * @param mixed $week settimana
 	 * @return [type]

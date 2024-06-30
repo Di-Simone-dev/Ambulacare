@@ -14,9 +14,9 @@
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
                             <h3>Disponibilità Orari del Medico</h3>
 			{if $week}
-                                <a class="bottonitab" href="/Ambulacare/Amministratore/dettagli_appuntamento_modifica/{$medico.IdAppuntamento}"> < </a>
+                                <a class="bottonitab" href="/Ambulacare/Amministratore/dettagli_appuntamento_modifica/{$esame.IdAppuntamento}"> < </a>
                               {else}
-                                <a class="bottonitab" href="/Ambulacare/Amministratore/dettagli_appuntamento_modifica/{$medico.IdAppuntamento}/1"> > </a>
+                                <a class="bottonitab" href="/Ambulacare/Amministratore/dettagli_appuntamento_modifica/{$esame.IdAppuntamento}/1"> > </a>
                                     {/if}
                             <br>
                             <table class="table" id="orari" style="border: 1px solid;">
