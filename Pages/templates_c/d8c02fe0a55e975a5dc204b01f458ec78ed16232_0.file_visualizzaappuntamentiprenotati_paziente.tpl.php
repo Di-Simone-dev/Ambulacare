@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 09:07:16
+/* Smarty version 5.3.0, created on 2024-06-30 13:05:49
   from 'file:visualizzaappuntamentiprenotati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66810424d7e1b8_80438627',
+  'unifunc' => 'content_66813c0d9568d9_63036052',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd8c02fe0a55e975a5dc204b01f458ec78ed16232' => 
     array (
       0 => 'visualizzaappuntamentiprenotati_paziente.tpl',
-      1 => 1719731235,
+      1 => 1719745051,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66810424d7e1b8_80438627 (\Smarty\Template $_smarty_tpl) {
+function content_66813c0d9568d9_63036052 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_87825125966810424d64437_21157653', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_40609412966813c0d949853_87199187', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_87825125966810424d64437_21157653 extends \Smarty\Runtime\Block
+class Block_40609412966813c0d949853_87199187 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';

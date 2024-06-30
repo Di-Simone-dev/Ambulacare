@@ -1,6 +1,42 @@
-{extends file="layout.tpl"}
+<?php
+/* Smarty version 5.3.0, created on 2024-06-30 13:35:44
+  from 'file:register_paziente.tpl' */
 
-{block name=content}
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_668143105076d1_26012563',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'e3cd95f4395168d22ba6200a56dc1d297ffe9790' => 
+    array (
+      0 => 'register_paziente.tpl',
+      1 => 1719747343,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_668143105076d1_26012563 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+$_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
+?>
+
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_43438385866814310504d71_74562188', 'content');
+$_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout.tpl", $_smarty_current_dir);
+}
+/* {block 'content'} */
+class Block_43438385866814310504d71_74562188 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
+?>
+
 <br><br>
     <form method="post" action="/Ambulacare/Paziente/registrazionepaziente" style="width: 600px;padding:35px;">
         <h1>REGISTRAZIONE PAZIENTE</h1>
@@ -38,4 +74,8 @@
         <button type="submit" name="register" class="btn btn-primary">REGISTRATI</button>
     </form>
 
-{/block}
+<?php
+}
+}
+/* {/block 'content'} */
+}

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 12:30:43
+/* Smarty version 5.3.0, created on 2024-06-30 13:05:48
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668133d349bcc5_34963179',
+  'unifunc' => 'content_66813c0c86e155_37250256',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b16b9ea4ba19b0946b951ce4e02fc6cca48b0529' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719743442,
+      1 => 1719745141,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,24 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_668133d349bcc5_34963179 (\Smarty\Template $_smarty_tpl) {
+function content_66813c0c86e155_37250256 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_629734613668133d347ece1_49174567', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_52589941366813c0c84ed88_48134712', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_629734613668133d347ece1_49174567 extends \Smarty\Runtime\Block
+class Block_52589941366813c0c84ed88_48134712 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
+<br><br>
     <div class="container">
         <div class="row">
             <div class="col">

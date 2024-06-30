@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 10:50:13
+/* Smarty version 5.3.0, created on 2024-06-30 13:19:43
   from 'file:register_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66811c455dc801_74407507',
+  'unifunc' => 'content_66813f4fe60693_06109984',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4ec6d7633d2e600307e21256c567408e626ac57c' => 
     array (
       0 => 'register_medico.tpl',
-      1 => 1719737411,
+      1 => 1719745141,
       2 => 'file',
     ),
   ),
@@ -20,23 +20,24 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66811c455dc801_74407507 (\Smarty\Template $_smarty_tpl) {
+function content_66813f4fe60693_06109984 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_162948986866811c455c2621_81207334', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_135144825766813f4fe468a2_83512793', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_162948986866811c455c2621_81207334 extends \Smarty\Runtime\Block
+class Block_135144825766813f4fe468a2_83512793 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
+<br><br>
     <form method="post" action="/Ambulacare/Amministratore/registrazionemedico"  enctype="multipart/form-data" style="width: 600px;padding:35px;">
         <h1>REGISTRAZIONE MEDICO</h1>
 <br>
