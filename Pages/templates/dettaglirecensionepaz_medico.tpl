@@ -13,7 +13,7 @@
                             <h3>Contenuto: {$contenutoRecensione}</h3>
                             <br>
                             <div >
-                                <button type="submit" class="btn btn-primary" id="annulla">Indietro</button>
+                                <a href="" class="btn btn-primary" id="annulla">Indietro</a>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                                 <button type="submit" class="btn btn-primary" id="conferma">Rispondi</button>
                           

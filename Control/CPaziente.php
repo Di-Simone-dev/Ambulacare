@@ -682,8 +682,8 @@ public static function modifica_appuntamento(){  //DA FARE
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $newPass = UHTTPMethods::post('password');
-            $paziente->setPassword($newPass);
-            FPersistentManager::getInstance()->updatePasswordpaziente($paziente);
+            $paziente[0]->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordpaziente($paziente[0]);
             $view = new VPaziente();
             $view->messaggio("Operazione effettuata con successo");
             //header('Location: /paziente/profilopersonale');

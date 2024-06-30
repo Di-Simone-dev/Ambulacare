@@ -51,7 +51,7 @@
     </div>
     <br><br><br><br>
     <div>
-        <button class="btn btn-primary" style="margin-left:35px;">Cambia intervallo di tempo</button>
+        <a href="/Ambulacare/Medico/visualizza_statistiche" class="btn btn-primary" style="margin-left:35px;">Cambia intervallo di tempo</a>
     </div>
 <br>
 

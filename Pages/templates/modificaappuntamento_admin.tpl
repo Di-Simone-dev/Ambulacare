@@ -59,7 +59,7 @@
                     </div>
                     <br>
                     <div>
-                        <a href="/Ambulacare/Admin/" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Amministratore/gestione_appuntamenti" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

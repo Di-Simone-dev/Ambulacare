@@ -29,7 +29,7 @@
                     <br><br>
                     <div>
                         <input type="hidden" value="{$esame.IdAppuntamento}" name="IdAppuntamento">
-                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                        <a class="btn btn-primary" href="/Ambulacare/Medico/visualizza_storico_appuntamenti_medico" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

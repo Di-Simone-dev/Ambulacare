@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 09:54:20
+/* Smarty version 5.3.0, created on 2024-06-30 14:07:47
   from 'file:modificaappuntamento_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66810f2c5002b8_99517214',
+  'unifunc' => 'content_66814a935232c4_98785029',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ee1d8945a326e2d1c573b6b5c93939faacd2e16c' => 
     array (
       0 => 'modificaappuntamento_admin.tpl',
-      1 => 1719734059,
+      1 => 1719749265,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66810f2c5002b8_99517214 (\Smarty\Template $_smarty_tpl) {
+function content_66814a935232c4_98785029 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_181661794966810f2c4e8cb4_63597414', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_98014238366814a93500330_13404393', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_181661794966810f2c4e8cb4_63597414 extends \Smarty\Runtime\Block
+class Block_98014238366814a93500330_13404393 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -124,7 +124,7 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                     </div>
                     <br>
                     <div>
-                        <a href="/Ambulacare/Admin/" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Amministratore/gestione_appuntamenti" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

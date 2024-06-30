@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Medico/ricerca_recensioni" method="post">
                     <div class="form-group" >
                         <h2>Recensioni</h2>
                         <br>

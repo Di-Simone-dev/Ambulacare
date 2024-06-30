@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 13:05:13
+/* Smarty version 5.3.0, created on 2024-06-30 14:19:34
   from 'file:visualizzarecensioni_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66813be9a735b5_48323789',
+  'unifunc' => 'content_66814d56ea2246_10102061',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0ea29e53f60c673784fb594652aa0232599fafe4' => 
     array (
       0 => 'visualizzarecensioni_medico.tpl',
-      1 => 1719745042,
+      1 => 1719749959,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66813be9a735b5_48323789 (\Smarty\Template $_smarty_tpl) {
+function content_66814d56ea2246_10102061 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_148796736466813be9a5abd1_50656009', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_209317391166814d56e8ecb3_12117073', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_148796736466813be9a5abd1_50656009 extends \Smarty\Runtime\Block
+class Block_209317391166814d56e8ecb3_12117073 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -42,7 +42,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="#">
+                <form action="/Ambulacare/Medico/ricerca_recensioni" method="post">
                     <div class="form-group" >
                         <h2>Recensioni</h2>
                         <br>

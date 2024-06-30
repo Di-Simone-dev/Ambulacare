@@ -61,7 +61,7 @@
                     </div>
                     <br><br>
                     <div>
-                        <a type="submit" class="btn btn-primary" id="annulla">Annulla</a>
+                        <a type="submit" class="btn btn-primary" href="/Ambulacare/Medico/home" id="annulla">Indietro</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

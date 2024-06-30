@@ -367,7 +367,6 @@ class FPersistentManager{
         'size' => $uploadedImage['size'],
         'error' => $uploadedImage['error']
         ];
-        
         //check if the uploaded image is ok 
         $checkUploadImage = self::creaoggettoimmagine($file); 
         if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
