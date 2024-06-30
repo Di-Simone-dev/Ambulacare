@@ -149,7 +149,7 @@ class CPaziente{
     //prendiamo un orario di disponibilità ma in realtà abbiamo una data + uno slot orario
     //l'implementazione di un controllo aggiuntivo sull'esistenza della fascia oraria libera risulta necessario
     //PER LA CREAZIONE DELL'APPUNTAMENTO CI SERVE LA FASCIAORARIA E IL PAZIENTE (lo stato non serve)
-    public static function conferma_appuntamento(){  //DA FARE
+    public static function conferma_appuntamento(){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //possiamo tenerlo o toglierlo
             //serve controllare l'esistenza della fascia oraria relativa come libera per creare l'appuntamento 
             //$nometipologia = FTipologia::getObj($IdTipologia)[0]->getNometipologia();
@@ -174,8 +174,8 @@ class CPaziente{
             //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
             $IdFasciaOraria = (FEntityManagerSQL::getInstance()->
             getIdFasciaOrariafromIdMedicondata($IdMedico,$data));
-            $exist = is_int($IdFasciaOraria);
-            if($exist){ //se il medico ha creato la disponibilità
+            $exist = empty($IdFasciaOraria);
+            if(!$exist){ //se il medico ha creato la disponibilità
                 $FasciaOraria = FFasciaOraria::getObj($IdFasciaOraria);
                 $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj
                 (FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria)); 

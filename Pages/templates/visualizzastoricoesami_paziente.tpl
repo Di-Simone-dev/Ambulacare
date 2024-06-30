@@ -1,13 +1,13 @@
 {extends file="layout_paziente.tpl"}
 
 {block name=content}
-
+<br><br>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form action="/Ambulacare/Paziente/ricerca_appuntamenti_effettuati" method="post">
                     <div class="form-group">
-                        <h2><label for="storico">Storico Esami</label></h2>
+                        <h2>Storico Esami</h2>
                         <br>
                         <select name="IdTipologia" class="form-select-m" required>
                             {foreach $tipologie as $tipologia}

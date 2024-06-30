@@ -7,7 +7,7 @@
                 <form action="/Ambulacare/Paziente/ricercaesame" method="post">
                     <div class="form-group">
                         <br><br>
-                        <h2><label>Prenotazione Appuntamenti</label></h2>
+                        <h2>Prenotazione Appuntamenti</h2>
                         <br>
                         <select name="tipologia" class="form-select-m">
                             {foreach $tipologie as $tipologia}

@@ -1,28 +1,24 @@
 {extends file="layout_medico.tpl"}
 
 {block name=content}
-    <br>
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col">
                 <h2>Titolo Recensione: {$recensione.titolo}</h2>
                 <h3>Oggetto Recensione: {$recensione.contenuto}</h3>
-            </div>
-            <div class="col">
+		<h3>Paziente : {$recensione.nominativopaziente}</h3>
+                <h3>Data : {$recensione.data_creazione}</h3>
                 <br>
                 <h2>Risposta Recensione</h2>
                 <br>
-                <h3>Paziente : {$recensione.nominativopaziente}</h3>
-                <br>
-                <h3>Data : {$recensione.data_creazione}</h3>
-                <br>
                 <form action="/Ambulacare/Medico/inserisci_risposta" method="post">
-                    <div class="form-group"></div>
+                    <div class="form-group">
                     <h4><label for="oggetto">Oggetto Risposta: </label>
                         <input type="text" id="oggetto" name="oggetto" placeholder="Oggetto"
                             style="width: 800px;height: 35px;">
                         <br><br><label for="contenuto">Contenuto Risposta:</label>
-                        <textarea id="contenuto" name="contenuto" style="width: 800px;height: 170px;">Scrivi qua</textarea>
+                    <input id="contenuto" name="contenuto" placeholder="Scrivi qua" style="width: 800px;height: 170px;"/>
                         <input type="hidden" name="IdRecensione" value="{$recensione.IdRecensione}">
                     </h4>
                     <br><br>
