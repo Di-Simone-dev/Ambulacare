@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 17:02:43
+/* Smarty version 5.3.0, created on 2024-06-30 11:46:49
   from 'file:visualizzarecensioni_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667d7f139bb1f7_02640817',
+  'unifunc' => 'content_66812989bf9616_81576866',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '12dcc066862f22ea701895b419f329e74595732b' => 
     array (
       0 => 'visualizzarecensioni_medico.tpl',
-      1 => 1719500560,
+      1 => 1719740576,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667d7f139bb1f7_02640817 (\Smarty\Template $_smarty_tpl) {
+function content_66812989bf9616_81576866 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1201859538667d7f139a3a99_76647407', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_120867764566812989befbe3_69294435', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1201859538667d7f139a3a99_76647407 extends \Smarty\Runtime\Block
+class Block_120867764566812989befbe3_69294435 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -46,16 +46,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <div class="form-group" >
                         <h2>Recensioni</h2>
                         <br>
-                            <input type="date" id="dataprenot" name="dataprenot" required/>
+                            <input type="date" id="dataapp" name="dataapp" required/>
                             <br><br>
                             <button type="submit" class="btn btn-primary">Effettua ricerca</button>
                             <br><br>
-                            <select name="recensioni" id="categ" class="form-select-m" required>
-                                <option value="">Ordina per</option>
-                                <option value="nome">Nome</option>
-                                <option value="cognome">Cognome</option>
-                                <option value="dataapp">Data appuntamento</option>
-                            </select>
                         </div>  
                 </form>
             </div>

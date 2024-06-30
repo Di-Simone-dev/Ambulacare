@@ -66,7 +66,7 @@ class UPdf{
         } 
         else 
         {
-            echo "The file does not exist.";
+            echo "Il file non esiste";
         }
     }
 }

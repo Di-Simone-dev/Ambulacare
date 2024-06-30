@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 11:01:08
+/* Smarty version 5.3.0, created on 2024-06-30 11:48:18
   from 'file:profilo_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66811ed4327926_65347986',
+  'unifunc' => 'content_668129e2d22b90_60486128',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '815df59d6e34d5d0b3319d7c167325685cf31347' => 
     array (
       0 => 'profilo_medico.tpl',
-      1 => 1719737690,
+      1 => 1719740576,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66811ed4327926_65347986 (\Smarty\Template $_smarty_tpl) {
+function content_668129e2d22b90_60486128 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_212612194566811ed4323390_70829700', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_855624691668129e2d1dad5_95283366', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_212612194566811ed4323390_70829700 extends \Smarty\Runtime\Block
+class Block_855624691668129e2d1dad5_95283366 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -61,8 +61,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
         <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Costo:</label>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;"><?php echo $_smarty_tpl->getValue('medico')['costo'];?>
 €</label>
-<br><br>
-        <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Medico/logout">Logout</a>
 <br><br>
         <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Medico/formSetInfoMedico">Modifica Dati</a>
     </div>
