@@ -386,6 +386,7 @@ class FEntityManagerSQL{
 
     //QUESTA CI SERVE PER NON VEDERE QUELLE DEI PAZIENTI BLOCCATI
     //DA CAPIRE BENE IN QUALE SITUAZIONE BISOGNA MOSTRARLE
+    /*
     public static function getrecensionipazientiattivi($IdMedico){
         try{
             $query = "SELECT IdMedico,IdRecesione,titolo,contenuto,valutazione,data_creazione FROM Recensioni,Pazienti 
@@ -402,7 +403,7 @@ class FEntityManagerSQL{
             echo "ERROR: " . $e->getMessage();
             return false;
         }
-    }
+    }*/
 
 
 

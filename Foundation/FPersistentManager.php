@@ -372,7 +372,8 @@ class FPersistentManager{
         $checkUploadImage = self::creaoggettoimmagine($file); 
         if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
         {
-            self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
+            FReferto::eliminareferto($referto->getIdReferto());
+            //self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
         }
         else
         {
@@ -636,21 +637,22 @@ class FPersistentManager{
         
     }
 
-    /**
+    /*
      * Metodo che cancella una recensione dando in input il suo id
      * @param int $IdRecensione l'id della recensione da eliminare
      */
+    /*
     public static function cancellaRecensione($IdRecensione){
         //NON DOVREBBERO SERVIRE CONTROLLI QUI
         $result = FRecensione::eliminaRecensione($IdRecensione);
 
         return $result;
-    }
+    }*/
 
 
     /**
      * Metodo per cancellare un'immagine dal db dando il suo id
-     * @param int $IdImmagine è l'id dell'immagine da cancellare
+     * @param int $IdImmagine è l'id dell'immagine da cancellare DA CANCELLARE APPENA SI CONTROLLA CHE FUNZIONI
      */
     public static function cancellaImmagine($IdImmagine){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
         $result = FImmagine::eliminaimmagine($IdImmagine);
@@ -658,7 +660,7 @@ class FPersistentManager{
         return $result;
     }
 
-    public static function cancellaReferto($IdReferto){   //fare questa cancellazione toglie anche l'immagine come propic o nel referto
+    public static function cancellaReferto($IdReferto){   //DA CANCELLARE APPENA SI VERIFICA CHE FUNZIONI  
         $result = FReferto::eliminareferto($IdReferto);
         //tanto abbiamo l'effetto cascade per toglierla da referto o medico
         return $result;

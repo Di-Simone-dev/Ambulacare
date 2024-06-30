@@ -778,7 +778,8 @@ public static function logout()
                     $idImage = FPersistentManager::getInstance()->uploadObj($checkUploadImage);
                     if($medico->getIdImmagine() != 1)  //SE è DIVERSA DA QUELLA DI DEFAULT CANCELLIAMO QUELLA CHE AVEVA DAL DB
                     {
-                        if(FPersistentManager::getInstance()->cancellaImmagine($medico->getIdImmagine())){
+                        if(FImmagine::eliminaimmagine($medico->getIdImmagine())){
+                            //FPersistentManager::getInstance()->cancellaImmagine($medico->getIdImmagine() vecchia condizione
                             $medico->setIdImmagine($idImage);
                             FPersistentManager::getInstance()->updatemedicopropic($medico);
                         }

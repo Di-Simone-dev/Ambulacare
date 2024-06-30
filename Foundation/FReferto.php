@@ -157,7 +157,7 @@ class FReferto {
      * QUESTO SERVE PER CANCELLARE UNA RECENSIONE con La sua PK COME ARGOMENTO
      * POTREBBE ESSERE MODIFICATO IN MODO DA DARE IN INPUT DIRETTAMENTE LA RECENSIONE
      */
-    public static function eliminareferto($IdReferto){        
+    public static function eliminareferto($IdReferto){     
         $eliminareferto = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $IdReferto);
         if($eliminareferto !== null){
             return $eliminareferto;
