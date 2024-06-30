@@ -136,11 +136,13 @@ class VMedico
 	 * Funzione che permette di visualizzare la pagina per il caricamento di orari per appuntamenti
 	 * @param $fasceorarie array di fasce orarie
 	 * @param $giorno giorno
+	 * @param $week settimana
 	 * @throws SmartyException
 	 */
-	public function ShowPageOrari($fasceorarie,$giorno){
+	public function ShowPageOrari($fasceorarie,$giorno,$week=null){
         $this->smarty->assign('fasceorarie',$fasceorarie);
 		$this->smarty->assign('giorno',$giorno);
+		$this->smarty->assign('week',$week);
         $this->smarty->display('inserisciorariodisponibile_medico.tpl');
     }
 	/**
