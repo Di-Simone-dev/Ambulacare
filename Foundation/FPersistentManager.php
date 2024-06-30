@@ -401,6 +401,10 @@ class FPersistentManager{
         if($checkUploadImage == 'UPLOAD_ERROR_OK' || $checkUploadImage == 'TYPE_ERROR' || $checkUploadImage == 'SIZE_ERROR')
         {
             //self::cancellareferto($referto->getIdReferto());  //se abbiamo questo messaggio di errore cancelliamo
+            $arraymodifica[0][0] = "IdImmagine";
+            $arraymodifica[0][1] = "1";
+            //$medico->setIdImmagine($IdImmmagine);
+            FMedico::saveObj($medico,$arraymodifica);//COMPLETO L'AGGIORNAMENTO DEL REFERTO CON L'AGGIUNTA DELLA PK DEL REFERTO
         }
         else
         {

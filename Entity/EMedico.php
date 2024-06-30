@@ -14,7 +14,7 @@ class EMedico
 
     private $attivo;
 
-    private float $costo;    //Un int è più semplice ma possiamo tenere float
+    private $costo;    
 
     private $IdImmagine;  //FK CON ID
     private $Tipologia; //FK SENZA ID

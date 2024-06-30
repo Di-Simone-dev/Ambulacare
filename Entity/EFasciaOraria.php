@@ -1,6 +1,6 @@
 <?php
 
-class EFasciaoraria
+class EFasciaOraria
 {
 
     private $IdFascia_oraria;
@@ -10,7 +10,7 @@ class EFasciaoraria
 
     private $calendario;   //FK
 
-    private static $entity = EFasciaoraria::class;
+    private static $entity = EFasciaOraria::class;
     //costruttore
     public function __construct($data)
     {

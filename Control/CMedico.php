@@ -57,24 +57,19 @@ public static function ricerca_storico_appuntamenti_medico(){
         
         $dataform = UHTTPMethods::post('data');
         $IdMedico = USession::getSessionElement('id');
-        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico);
-        $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento  //se si toglie stato dal db FUNZIONA
-            ($app);
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusifromIdMedico($IdMedico,$dataform);
+        $appuntamenti_medico_conclusi = FAppuntamento::creaappuntamento($app);
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_medico_conclusi);$i++){
-            
             $paziente = $appuntamenti_medico_conclusi[$i]->getPaziente();
-
             $fasciaoraria = $appuntamenti_medico_conclusi[$i]->getFasciaoraria();
             $datastring = $fasciaoraria->getDatatostring();
             $arrayappuntamenti[$i]["IdAppuntamento"] = $appuntamenti_medico_conclusi[$i]->getIdAppuntamento();
             $arrayappuntamenti[$i]["dataeora"] = $datastring;
             $arrayappuntamenti[$i]["nomepaziente"] = $paziente->getNome();
             $arrayappuntamenti[$i]["cognomepaziente"] =$paziente->getCognome();
-            //$arrayappuntamenti[$i]["valutazionemedico"] = FEntityManagerSQL::getInstance()->getAveragevalutazione($medico[0]->getIdMedico());
             $arrayappuntamenti[$i]["costoappuntamento"] = $appuntamenti_medico_conclusi[$i]->getCosto();
             $app[$i]["IdReferto"]? $arrayappuntamenti[$i]["IdReferto"] = $app[$i]["IdReferto"] : $arrayappuntamenti[$i]["IdReferto"] = false;
-
         }
         $view = new VMedico(); //servirebbe una cosa del genere
         $view->showPazPage($arrayappuntamenti);
@@ -220,7 +215,7 @@ public static function conferma_orari_disponibilita(){  //questa funzione crea l
                 // la creazione, subito successivo alla creazione del medico, quindi assumiamo che ci sia già
                 //$IdFasciaOraria = FEntityManagerSQL::getInstance()->getfasciaorariafromIdMedicoanddata($IdMedico,$data);
                 //$busy = FEntityManagerSQL::getInstance()->existInDb(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria); 
-                $fascia_oraria = new EFasciaoraria($data->format("Y-m-d H:i:s"));
+                $fascia_oraria = new EFasciaOraria($data->format("Y-m-d H:i:s"));
                 //var_dump($fascia_oraria);
                 $IdCalendario = FEntityManagerSQL::getInstance()->retrieveObj("calendario", "IdMedico" ,$IdMedico)[0]["IdCalendario"];
                 $calendario = FCalendario::getObj($IdCalendario);

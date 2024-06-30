@@ -48,9 +48,9 @@ class FFasciaOraria{
     /**
     * Questo metodo lega gli attributi della Fascia Oraria da inserire con i parametri della INSERT
     * @param PDOStatement $stmt 
-    * @param EFasciaoraria $fascor fascia oraria in cui i dati devono essere inseriti nel DB
+    * @param EFasciaOraria $fascor fascia oraria in cui i dati devono essere inseriti nel DB
     */
-    public static function bind($stmt,EFasciaoraria $fascor) {
+    public static function bind($stmt,EFasciaOraria $fascor) {
     	//$stmt->bindValue(':IdFasciaOraria',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':data', $fascor->getData(), PDO::PARAM_STR); 
         //$stmt->bindValue(':ora_inizio', $fascor->getOraInizio(), PDO::PARAM_STR); 
@@ -64,7 +64,7 @@ class FFasciaOraria{
         if(count($queryResult) > 0){
             $orario = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $fasciaoraria = new EFasciaoraria($queryResult[$i]['data']);
+                $fasciaoraria = new EFasciaOraria($queryResult[$i]['data']);
                 $fasciaoraria->setIdFasciaOraria($queryResult[$i]['IdFasciaOraria']);  //PER LA PK AUTOINCREMENT
                 //come si mette il calendario? (FOREIGN KEY)
                 //DA TESTARE
