@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-26 17:42:13
+/* Smarty version 5.3.0, created on 2024-06-30 11:03:30
   from 'file:visualizzastoricoesami_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667c36d582f981_87403913',
+  'unifunc' => 'content_66811f627a3264_58695255',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ed547a65f9676dec104335a495d1fb03f4464e5e' => 
     array (
       0 => 'visualizzastoricoesami_paziente.tpl',
-      1 => 1719416530,
+      1 => 1719737690,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667c36d582f981_87403913 (\Smarty\Template $_smarty_tpl) {
+function content_66811f627a3264_58695255 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_486011467667c36d5809db0_39115171', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_34606342166811f62786e19_23972695', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_486011467667c36d5809db0_39115171 extends \Smarty\Runtime\Block
+class Block_34606342166811f62786e19_23972695 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -45,7 +45,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
                     <div class="form-group">
                         <h2><label for="storico">Storico Esami</label></h2>
                         <br>
-                        <select name="IdTipologia" id="categ" class="form-select-m" required>
+                        <select name="IdTipologia" class="form-select-m" required>
                             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('tipologie'), 'tipologia');
 $foreach0DoElse = true;
@@ -63,8 +63,8 @@ $foreach0DoElse = false;
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
-                        <br>
-                        <input type="date" id="dataprenot" name="data" required>
+                        <br><br>
+                        <input type="date" id="dataapp" name="data" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
