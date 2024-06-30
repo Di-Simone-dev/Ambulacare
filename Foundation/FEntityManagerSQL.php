@@ -534,37 +534,39 @@ class FEntityManagerSQL{
 
     public static function getappuntamenticonclusipaziente($IdPaziente,$data = null,$IdTipologia = null){ 
         
-        //DOBBIAMO DISTINUGERE IL CASO DELLA RAFFINAZIONE DEL RISULTATO, LA QUERY DEVE ESSERE DIVERSA
-        //BISOGNA RISALIRE FINO A MEDICO
-        //CONTROLLO SULLA DATA????? POTREBBERO USCIRE APPUNTAMENTI NON CONCLUSI
+        $datac = new DateTime($data);
         $today = new DateTime();
-        $past = $today>$data; //controllo che la data inserita sia passata
+        $past = $today>$datac; //controllo che la data inserita sia passata
+        
         try{
-
-            if($data && $IdTipologia && $past){ //se passiamo anche questi la query include questi parametri
-                $query = "SELECT appuntamento.IdAppuntamento,IdPaziente, appuntamento.IdFasciaOraria,IdTipologia, medico.IdMedico, appuntamento.costo, referto.IdReferto
-                          FROM appuntamento 
-                          Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
-                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
-                          INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
-                          LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento
-                          WHERE IdPaziente = '" . $IdPaziente . "'AND CAST(data as DATE) = '" . $data . "' 
-                          AND IdTipologia = '" . $IdTipologia . "' ORDER BY data DESC;";
-            }
-            else
-            {   //l'id medico serve per la recensione in ogni caso
-                $query = "SELECT appuntamento.IdAppuntamento,IdPaziente,appuntamento.IdFasciaOraria, medico.IdMedico, appuntamento.costo, referto.IdReferto
-                          FROM appuntamento
-                          Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
-                          INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
-                          INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
-                          LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento
-                          WHERE IdPaziente = '" . $IdPaziente . "'AND CURDATE()>=data ORDER BY data DESC;";
-            }
+            $query = "SELECT appuntamento.IdAppuntamento,IdPaziente,
+                    appuntamento.IdFasciaOraria,IdTipologia, medico.IdMedico, appuntamento.costo, referto.IdReferto 
+                    FROM appuntamento 
+                    Inner Join fascia_oraria on appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
+                    INNER JOIN calendario ON calendario.IdCalendario = fascia_oraria.IdCalendario
+                    INNER JOIN medico ON medico.IdMedico = calendario.IdMedico
+                    LEFT OUTER JOIN referto ON referto.IdAppuntamento = appuntamento.IdAppuntamento";
            
+            $query .= " WHERE 1=1"; //completo la query
+
+            
+            $query .= " AND IdPaziente = '".$IdPaziente."'";
+               
+            
+            if (!empty($data) && $past) {
+                $query .= " AND CAST(data as DATE) = '".$data."'";
+            }else{
+                $query .= " AND CURDATE()>=data";
+            }
+
+            if (isset($IdTipologia)) {
+                $query .= " AND IdTipologia = '". $IdTipologia ."'";
+            }
+
+            $query .= " ORDER BY data DESC;";
             
             $stmt = self::$db->prepare($query);
-            /* var_dump($query); */
+            //var_dump($stmt);
             $stmt->execute();
             $rowNum = $stmt->rowCount(); //il numero di risultati della query ovvero il numero di appuntamenti conclusi di un dato paziente
             if($rowNum > 0){
