@@ -2,7 +2,7 @@
 
 {block name=content}
     <form method="post" action="/Ambulacare/Amministratore/registrazionemedico"  enctype="multipart/form-data" style="width: 600px;padding:35px;">
-        <h1>REGISTRAZIONE</h1>
+        <h1>REGISTRAZIONE MEDICO</h1>
 <br>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
         <input type="text" id="nome" name="nome" required>

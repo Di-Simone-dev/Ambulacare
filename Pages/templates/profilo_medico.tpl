@@ -18,8 +18,6 @@
         <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Costo:</label>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$medico.costo}€</label>
 <br><br>
-        <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Medico/logout">Logout</a>
-<br><br>
         <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Medico/formSetInfoMedico">Modifica Dati</a>
     </div>
 
