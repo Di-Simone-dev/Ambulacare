@@ -1,7 +1,7 @@
 {extends file="layout.tpl"}
 {block name=content}
 <div style="padding:35px;">
-    <form method="post" action="/Ambulacare/Paziente/checkLoginPaziente" >
+    <form method="post" action="/Ambulacare/Paziente/checkLogin" >
         <h1>ACCESSO PAZIENTE</h1>
         {if $error}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
