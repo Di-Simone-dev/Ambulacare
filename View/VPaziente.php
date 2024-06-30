@@ -151,12 +151,14 @@ class VPaziente
 	 * @param $medico medico
 	 * @param $foraria fascia oraria appuntamento
 	 * @param $giorno giorno appuntamento
+	 * @param $week settimana
 	 * @throws SmartyException
 	 */
-	public function ModificaAppuntamento($medico,$foraria,$giorno){
+	public function ModificaAppuntamento($medico,$foraria,$giorno,$week=null){
         $this->smarty->assign('medico',$medico);
 		$this->smarty->assign('fasceorarie',$foraria);
 		$this->smarty->assign('giorno',$giorno);
+		$this->smarty->assign('week',$week);
         $this->smarty->display('modificaappuntamento_paziente.tpl');
     }
 	/**

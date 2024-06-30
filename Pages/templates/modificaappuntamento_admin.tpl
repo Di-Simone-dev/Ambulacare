@@ -13,6 +13,9 @@
                             <h3>Medico: {$esame.nome} {$esame.cognome}&ensp;&ensp;&ensp;Data Odierna:
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h3>
                             <h3>Disponibilità Orari del Medico</h3>
+			<a class="bottonitab">
+                                < </a>
+                                    <a class="bottonitab"> > </a>
                             <br>
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">

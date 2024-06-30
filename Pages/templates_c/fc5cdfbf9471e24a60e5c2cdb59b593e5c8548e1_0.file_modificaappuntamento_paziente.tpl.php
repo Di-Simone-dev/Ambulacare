@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 16:38:36
+/* Smarty version 5.3.0, created on 2024-06-30 19:39:39
   from 'file:modificaappuntamento_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66816dec7c3899_31320511',
+  'unifunc' => 'content_6681985bc16d52_41843231',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fc5cdfbf9471e24a60e5c2cdb59b593e5c8548e1' => 
     array (
       0 => 'modificaappuntamento_paziente.tpl',
-      1 => 1719756333,
+      1 => 1719769177,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66816dec7c3899_31320511 (\Smarty\Template $_smarty_tpl) {
+function content_6681985bc16d52_41843231 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_87287482066816dec7a6b70_20823497', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_16767141016681985bc0a9f7_70699947', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_87287482066816dec7a6b70_20823497 extends \Smarty\Runtime\Block
+class Block_16767141016681985bc0a9f7_70699947 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -61,9 +61,14 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                                 <?php }?>/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
                                     Orari
                                     del Medico</h3>
-                            <a class="bottonitab">
-                                < </a>
-                                    <a class="bottonitab"> > </a>
+                            <?php if ($_smarty_tpl->getValue('week')) {?>
+                                <a class="bottonitab" href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/<?php echo $_smarty_tpl->getValue('medico')['IdAppuntamento'];?>
+"> < </a>
+                                    <?php } else { ?>
+                                        <a class="bottonitab"
+                                            href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/<?php echo $_smarty_tpl->getValue('medico')['IdAppuntamento'];?>
+/1"> > </a>
+                                    <?php }?>
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
                                         <thead style="background-color: rgb(230, 230, 230);text-align: center;">

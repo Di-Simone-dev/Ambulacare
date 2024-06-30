@@ -10,9 +10,13 @@
                     <div class="form-group">
                         <div class="col-9" id="elenco">
                             <h2>Disponibilità Orari Attuale</h2>
-                            <br>
-                            <a class="bottonitab"></a>
-                                    <a class="bottonitab"></a>
+                            {if $week}
+                                <a class="bottonitab" href="/Ambulacare/Medico/mostra_orari_disponibilita/{$medico.IdAppuntamento}">
+                                    < </a>
+                                    {else}
+                                        <a class="bottonitab"
+                                            href="/Ambulacare/Medico/mostra_orari_disponibilita/{$medico.IdAppuntamento}/1"> > </a>
+                                    {/if}
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
                                         <thead style="background-color: rgb(230, 230, 230);text-align: center;">

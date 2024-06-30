@@ -13,6 +13,9 @@
                             <h2>Data Odierna:
                                 {$smarty.now|date_format:'%d/%m/%Y'}</h2>
                             <h2>Orari disponibili</h2>
+			<a class="bottonitab">
+                                < </a>
+                                    <a class="bottonitab"> > </a>
                             <br>
                             <table class="table" id="orari" style="border: 1px solid;">
                                 <thead style="background-color: rgb(230, 230, 230);text-align: center;">
