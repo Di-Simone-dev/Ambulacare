@@ -16,13 +16,17 @@ class VMedico
 	public function __construct() {
 		$this->smarty = Smarty_class::startSmarty();
 	}
-
+	/**
+	 * visualizza la home page del medico
+	 */
 	public function Home(){
 		$this->smarty->display('index_medico.tpl');
 	}
 
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
+	 * @param $email email 
+	 * @param $error eventuale errore
 	 * @throws SmartyException
 	 */
 	public function showFormLogin($email = false, $error = false){
@@ -33,7 +37,6 @@ class VMedico
 
 	/**
 	 * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
-	 * //@param $array elenco di Anunci da visualizzare
 	 * @throws SmartyException
 	 */
 	public function loginOk() {
@@ -41,24 +44,27 @@ class VMedico
 	}
 
 
-
+	/**
+	 * visualizza la pagina di profilo del medico
+	 * @param mixed $medico medico
+	 */
 	public function profileCli($medico) {
 		$this->smarty->assign('medico',$medico);
-        //$this->smarty->assign('immagine',$immagine);
 		$this->smarty->display('profilo_medico.tpl');
 	}
-
-
-	public function registra_medico($error = false, $email = false) {
-		if ($error) $this->smarty->assign('error', $error);
-		if ($email) $this->smarty->assign('email', $email);
-		$this->smarty->display('registermedico.tpl');
-	}
-
 	/**
-	 * Funzione che si occupa di gestire la visualizzazione della form di modifica per il medico
-	 * @param $user informazioni sul medico che desidera modificare i suoi dati
-	 * @param $img immagine del medico
+	 * Funzione che si occupa di gestire il login in caso di ban del medico
+     * @throws SmartyException
+     */
+    public function loginBan() {
+        //$this->smarty->assign('error',false);
+        $this->smarty->assign('error',"le credenziali inserite sono associate a un account bannato, contatta l'amministratore");
+        //$this->smarty->assign('regErr',false);
+        $this->smarty->display('login_medico.tpl');
+    }
+	/**
+	 * Funzione che si occupa di gestire la visualizzazione della form di modifica dei dati per il medico
+	 * @param $medico medico
 	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
 	 * @throws SmartyException
 	 */
@@ -67,12 +73,20 @@ class VMedico
 		$this->smarty->assign('medico',$medico);
 		$this->smarty->display('modificadati_medico.tpl');
 	}
-
+	/**
+	 * Funzione che si occupa di gestire la visualizzazione della form di reimpostazione della password per il medico
+	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
+	 * @throws SmartyException
+	 */
 	public function formmodificapassw($error = false) {
 		if($error) $this->smarty->assign('error',$error);
 		$this->smarty->display('reimppassword_medico.tpl');
 	}
-
+	/**
+	 * Funzione che si occupa di gestire la visualizzazione della form di modifica della mail per il medico
+	 * @param $error tipo di errore nel caso in cui le modifiche siano sbagliate
+	 * @throws SmartyException
+	 */
 	public function formmodificaemail($error = false) {
 		if($error) $this->smarty->assign('error',$error);
 		$this->smarty->display('modificamail_medico.tpl');
@@ -108,6 +122,8 @@ class VMedico
 	/**
 	 * Funzione che permette di visualizzare la pagina per la modifica dell'appuntamento di un paziente
 	 * @param $app un appuntamento
+	 * @param $fasceorarie array di fasce orarie
+	 * @param $giorno un giorno
 	 * @throws SmartyException
 	 */
 	public function ModificaAppuntamento($app, $fasceorarie, $giorno){
@@ -118,6 +134,8 @@ class VMedico
     }
 	/**
 	 * Funzione che permette di visualizzare la pagina per il caricamento di orari per appuntamenti
+	 * @param $fasceorarie array di fasce orarie
+	 * @param $giorno giorno
 	 * @throws SmartyException
 	 */
 	public function ShowPageOrari($fasceorarie,$giorno){
@@ -136,6 +154,9 @@ class VMedico
 	/**
 	 * Funzione che permette di visualizzare la pagina per le statistiche del medico
 	 * @param $stat array di statistiche
+	 * @param $datainizio data inizio 
+	 * @param $datafine data fine
+	 * @param $guadagno guadagno
 	 * @throws SmartyException
 	 */
 	public function ShowStatistiche($stat, $datainizio, $datafine, $guadagno){
@@ -146,8 +167,8 @@ class VMedico
         $this->smarty->display('visualizzastats_medico.tpl');
     }
 	/**
-	 * Funzione che permette di visualizzare la lista dei pazienti presenti nel database
-	 * @param $paz array di pazienti
+	 * Funzione che permette di visualizzare lo storico degli esami 
+	 * @param $esami array di esami
 	 * @throws SmartyException
 	 */
 	public function showPazPage($esami){
@@ -156,6 +177,7 @@ class VMedico
     }
 	/**
 	 * Funzione che permette di visualizzare lo storico degli esami di un paziente
+	 * @param $paziente paziente
 	 * @param $app array di appuntamenti
 	 * @throws SmartyException
 	 */
@@ -182,23 +204,28 @@ class VMedico
         $this->smarty->assign('recensione',$rec);
         $this->smarty->display('rispostarecensione_medico.tpl'); //ancora implementata
     }
-
-	public function showAppHistory($app){
-        $this->smarty->assign('esami',$app);
-        $this->smarty->display('visualizzastoricoesami_medico.tpl');
-    }
-
+	/**
+	 * pagina per visualizzare i messaggi
+	 * @param mixed $messaggio messaggio da visualizzare
+	 * @return [type]
+	 */
 	public function messaggio($messaggio){
 		$this->smarty->assign('messaggio',$messaggio);
 		$this->smarty->display('messaggio_medico.tpl');
 	}
 
-
+	/**
+	 * visualizza la pagina con l'elenco dei pazienti(serve per visualizzare lo storico esami)
+	 * @param $pazienti array di pazienti
+	 * @throws SmartyException
+	 */
 	public function listaPazienti($pazienti){
 		$this->smarty->assign('pazienti',$pazienti);
 		$this->smarty->display("visualizzastoricoesamiperpaziente_medico.tpl");
 	}
-
+	/**
+	 * visualizza la pagina con il form per la modifica dell'immagine
+	 */
 	public function formImg(){
 		$this->smarty->display("immagine_medico.tpl");
 	}
