@@ -553,7 +553,7 @@ public static function modifica_appuntamento(){  //DA FARE
      * check if exist the Username inserted, and for this username check the password. If is everything correct the session is created and
      * the User is redirected in the homepage
      */
-    public static function checkLoginPaziente()
+    public static function checkLogin()
     {   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
         $view = new VPaziente();
         //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
