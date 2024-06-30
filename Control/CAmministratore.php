@@ -140,7 +140,7 @@ class CAmministratore
     {
         if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
 
-            $data = UHTTPMethods::post('data');
+            $data = UHTTPMethods::post('dataapp');
             $IdTipologia = UHTTPMethods::post('IdTipologia');
             $tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());
 
