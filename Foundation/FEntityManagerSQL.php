@@ -363,7 +363,7 @@ class FEntityManagerSQL{
                 for($i=0;$i<$rowNum;$i++)
                 {
                     $paziente = FPaziente::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETI CON 1 SOLO ELEMENTO
-                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdPaziente"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
+                    $fasciaoraria = FFasciaOraria::getObj($result[$i]["IdFasciaOraria"]);  //QUESTO è UN ARRAY DI OGGETTI CON 1 SOLO ELEMENTO
                     $agenda[$i]["nominativo_paziente"] = $paziente[0]->getCognome() . " ". $paziente[0]->getNome(); 
                     $agenda[$i]["data_ora_appuntamento"] = $fasciaoraria[0]->getData(); 
                     $agenda[$i]["IdAppuntamento"] = $result[$i]["IdAppuntamento"]; 

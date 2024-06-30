@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 19:48:33
+/* Smarty version 5.3.0, created on 2024-06-30 13:54:39
   from 'file:visualizzaappuntamenti_prenotazione_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ef7711efe71_27279008',
+  'unifunc' => 'content_6681477f0e6ff0_83744792',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95e254caa3fb077c93c700fa78d00931e0c8fb89' => 
     array (
       0 => 'visualizzaappuntamenti_prenotazione_paziente.tpl',
-      1 => 1719595010,
+      1 => 1719747652,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,31 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ef7711efe71_27279008 (\Smarty\Template $_smarty_tpl) {
+function content_6681477f0e6ff0_83744792 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_912202171667ef7711c2205_07995315', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_4216541576681477f027f38_86010459', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_912202171667ef7711c2205_07995315 extends \Smarty\Runtime\Block
+class Block_4216541576681477f027f38_86010459 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 ?>
 
+<br><br>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form action="/Ambulacare/Paziente/ricercaesame" method="post">
                     <div class="form-group">
                         <br><br>
-                        <h2><label>Prenotazione Appuntamenti</label></h2>
+                        <h2>Prenotazione Appuntamenti</h2>
                         <br>
                         <select name="tipologia" class="form-select-m">
                             <?php

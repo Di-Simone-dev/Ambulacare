@@ -370,7 +370,8 @@ class CAmministratore
     {   //FACCIAMO IL LOGIN DEL PAZIENTE oppure posso fare un metodo unico con gli switch
         $view = new VAmministratore();
         //ESEGUO UN CHECK SULL'ESISTENZA DELL'USERNAME NEL DB (CONTROLLO LA PRESENZA DELLA MAIL NELLA TABLE DEI PAZIENTI)
-        $admin = FPersistentManager::getInstance()->retrieveamministratorefromemail(UHTTPMethods::post('email'));
+        $admin = FAmministratore::getadminbyemail(UHTTPMethods::post('email'));
+        //$admin = FPersistentManager::getInstance()->retrieveamministratorefromemail(UHTTPMethods::post('email'));
         //CONTROLLO LA PASSWORD IMMESSA CON QUELLA HASHATA SUL DB
         //password_verify è una funzione NATIVA DI PHP
         //var_dump($admin);

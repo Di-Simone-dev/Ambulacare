@@ -271,8 +271,6 @@ class FPersistentManager{
         $infomedico['costo'] = $medico[0]->getCosto();
         $infomedico['tipoimmagine'] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getTipo(); 
         $infomedico['img'] = base64_encode(FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati());
-        //oppure 
-        //$infomedico['propic'] = $medico[0]->getImmaginefromid();
         return $infomedico;
     }
 
@@ -283,26 +281,27 @@ class FPersistentManager{
 
     //AMMINISTRATORE
 
-
-    /**
+    /*
      * ritorna un amministratore dandone in input la sua mail (è una credenziale di accesso univoca)
      * @param string $email è la mail del'admin
      */
+    /*
     public static function retrieveamministratorefromemail($email){
 
         $result = FAmministratore::getadminbyemail($email);
         return $result;
-    }
+    }*/
 
-    /**
+    /*
      * ritorna un'array contenente tutti gli appuntamenti della piattaforma (uso dell'admin)
      */
+    /*
     public static function getallappuntamenti(){
         $result = FEntityManagerSQL::getInstance()->retrieveall(FAppuntamento::getTable());
         //var_dump($queryResult);
 
         return $result;
-    }
+    }*/
 
 
 
@@ -313,6 +312,8 @@ class FPersistentManager{
      * verifica se esiste un paziente con la mail data in input
      * @param string $email
      */
+
+     //sostituibile dopo
     public static function verificaemailpaziente($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
         $result = FPaziente::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
 
@@ -323,6 +324,7 @@ class FPersistentManager{
      * verifica se esiste un medico con la mail in input
      * @param string $email
      */
+    //sostituibile dopo
     public static function verificaemailmedico($email){   //CI SERVE QUESTO CONTROLLO PER NON AVERE DUPLICATI
         $result = FMedico::verify('email', $email);       //possono esserci un medico ed un paziente con la stessa mail
 
@@ -455,7 +457,6 @@ class FPersistentManager{
     public static function updateinfopaziente($paziente){
         $field = [['residenza', $paziente->getResidenza()],['numero_telefono', $paziente->getNumerotelefono()]];
         $result = FPaziente::saveObj($paziente, $field);
-
         return $result;
     }
 
@@ -466,7 +467,6 @@ class FPersistentManager{
     public static function aggiornabanpaziente($paziente){
         $field = [['attivo', $paziente->getAttivo()]];
         $result = FMedico::saveObj($paziente, $field);
-
         return $result;
     }
 
@@ -477,7 +477,6 @@ class FPersistentManager{
     public static function updatemailpaziente($paziente){
         $field = [['email', $paziente->getEmail()]];
         $result = FPaziente::saveObj($paziente, $field);
-
         return $result;
     }
 
@@ -500,22 +499,22 @@ class FPersistentManager{
      */
     //I DATI DA AGGIORNARE DEL MEDICO SONO COSTO ED IMMAGINE
     public static function updateinfomedico($medico){
-        $field = [['costo', $medico->getCosto()],['IdImmagine', $medico->getIdImmagine()],['nome', $medico->getNome()],['cognome', $medico->getCognome()]];
+        $field = [['costo', $medico->getCosto()],['IdImmagine', $medico->getIdImmagine()],
+                  ['nome', $medico->getNome()],['cognome', $medico->getCognome()]];
         $result = FMedico::saveObj($medico, $field);
-
         return $result;
     }
 
-    /**
+    /*
      *  metodo che aggiorna l'attributo "attivo" di un medico per bannarlo o sbannarlo dando in input l'oggetto medico
      * @param \EMedico $medico
      */
+    /*
     public static function aggiornabanmedico($medico){
         $field = [['attivo', $medico->getAttivo()]];
         $result = FMedico::saveObj($medico, $field);
-
         return $result;
-    }
+    }*/
 
     /**
      * Metodo per aggiornare la mail di un medico dando in input l'oggetto medico
@@ -551,12 +550,13 @@ class FPersistentManager{
         return $result;
     }
 
-    /**
+    /*
      * Metodo che salva l'immagine nel db e come propic del medico (INSIEME)
      * @param \EImmagine $immagine l'oggetto dell'immagine della propic
      * @param \EMedico $medico l'oggetto medico a cui settiamo la propic
      * @return boolean
      */
+    /*
     public static function caricaimmaginemedico(EImmagine $immagine, EMedico $medico){
 
         $medico->setIdImmagine($immagine);
@@ -567,33 +567,33 @@ class FPersistentManager{
         $fieldarray[0] = "IdImmagine";
         $fieldarray[1] = $immagine->getIdImmagine(); 
         $updatemedico =FMedico::saveObj($medico,$fieldarray);  //dovrebbe funzionare
-
         if($uploadImmagine){
             return true;
         }else{
             return false;
         }
-    }
+    }*/
 
-    /**
+    /*
      * Metodo per aggiornare sul db il campo IdImmagine dando in pasto l'oggetto referto
      * @param \EReferto $referto 
      */
     //PER AGGIORNARE LE IMMAGINI DEI REFERTI
+    /*
     public static function updateimmaginereferto($referto){
         $field = [['IdImmagine', $referto->getIdImmagine()]];  //NON è DETTO CHE FUNZIONI
         $result = FReferto::saveObj($referto, $field);   //DA FIXARE L'UPDATE DEL REFERTO IN FREFERTO
 
         return $result;
-    }
+    }*/
 
-
-    /**
+    /*
      * Metodo che salva l'immagine nel db e come contenuto del referto (INSIEME)
      * @param \EImmagine $immagine l'oggetto immagine da mettere nel referto 
      * @param \EReferto $referto l'oggetto referto a cui vogliamo associare l'immagine
      * @return boolean
      */
+    /*
     public static function caricaimmaginereferto(EImmagine $immagine, EReferto $referto){
 
         $referto->setIdImmagine($immagine);
@@ -610,7 +610,7 @@ class FPersistentManager{
         }else{
             return false;
         }
-    }
+    }*/
 
 
 //-----------------------------METODI PER LE CANCELLAZIONI------------------------------

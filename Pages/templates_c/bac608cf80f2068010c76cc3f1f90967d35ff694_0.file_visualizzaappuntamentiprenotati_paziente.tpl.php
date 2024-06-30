@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-26 18:52:27
+/* Smarty version 5.3.0, created on 2024-06-30 13:54:38
   from 'file:visualizzaappuntamentiprenotati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667c474bd47c92_92652148',
+  'unifunc' => 'content_6681477e39c993_96335106',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bac608cf80f2068010c76cc3f1f90967d35ff694' => 
     array (
       0 => 'visualizzaappuntamentiprenotati_paziente.tpl',
-      1 => 1719420745,
+      1 => 1719737690,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667c474bd47c92_92652148 (\Smarty\Template $_smarty_tpl) {
+function content_6681477e39c993_96335106 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1098856092667c474bd19b08_72177455', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_4471042076681477e392d09_36436163', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1098856092667c474bd19b08_72177455 extends \Smarty\Runtime\Block
+class Block_4471042076681477e392d09_36436163 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -44,9 +44,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
             <div class="col">
                 <form action="#">
                     <div class="form-group">
-                        <h2><label for="storico">Elenco Appuntamenti</label></h2>
+                        <h2>Elenco Appuntamenti</h2>
                         <br>
-                        <select name="tipologia" id="categ" class="form-select">
+                        <select name="tipologia" class="form-select-m">
                             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('tipologie'), 'tipologia');
 $foreach0DoElse = true;
@@ -60,8 +60,8 @@ $foreach0DoElse = false;
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
-                        <br>
-                        <input type="date" id="dataprenot" name="data" required>
+                        <br><br>
+                        <input type="date" id="dataapp" name="dataapp" required>
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
