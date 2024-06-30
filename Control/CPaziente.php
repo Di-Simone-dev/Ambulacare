@@ -411,7 +411,7 @@ public static function visualizza_appuntamenti_prenotati(){
 //con questo accediamo alla schermata di modifica dell'appuntamento 
 //VISTO CHE NON ABBIAMO SCHERMATE INTERMEDIE QUA DEVO PRENDERE ANCHE IL RESTO DELLE INFORMAZIONI
 //va passato il medico
-public static function dettagli_appuntamento_modifica($IdAppuntamento){
+public static function dettagli_appuntamento_modifica($IdAppuntamento,$weekdisplacement = 0){
     if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){ //BISOGNA TENERLO
         //Dobbiamo mostrare dei dati del vecchio appuntamento ed anche gli orari di disponibilità del medico
         $appuntamento = FAppuntamento::getObj($IdAppuntamento); //per mostrare le vecchie data e slot orario
@@ -419,7 +419,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento){
         $medico = FMedico::getObj($IdMedico[0]["IdMedico"]);
         $data = new DateTime(); //DATA E ORA AL MOMENTO DELL'ESECUZIONE  //i mesi vanno ignorati
         //DA QUESTA SI RICAVA LA SETTIMANA CHE SI USA PER ESTRARRE I DATI DAL DB (QUINDI CONDIZIONE SU ANNO + SETTIMANA)
-        $numerosettimana = $data->format('W'); //numero della settimana nell'anno (es 43)
+        $numerosettimana = $data->format('W') + $weekdisplacement; //numero della settimana nell'anno (es 43)
         $anno = $data->format('o'); //anno attuale (es 2024)
         //$giornosettimana = $data->format('N'); //numero da 1 a 7 della settimana (1=lunedì) non è detto che serva qui
         //L'IDEA è quella di ciclare sul db e mettere true/false nell'array bidimensionale che rappresenta la settimana
@@ -437,13 +437,22 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento){
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati(); 
 
         $IdPaziente = USession::getSessionElement('id'); 
-        
-        $giorno[0] = date("d/m",strtotime('Monday this week'));
-        $giorno[1] = date("d/m",strtotime('Tuesday this week'));
-        $giorno[2] = date("d/m",strtotime('Wednesday this week'));
-        $giorno[3] = date("d/m",strtotime('Thursday this week'));
-        $giorno[4] = date("d/m",strtotime('Friday this week'));
-        $giorno[5] = date("d/m",strtotime('Saturday this week'));
+        if ($weekdisplacement == 0){
+            $giorno[0] = date("d/m",strtotime('Monday this week'));
+            $giorno[1] = date("d/m",strtotime('Tuesday this week'));
+            $giorno[2] = date("d/m",strtotime('Wednesday this week'));
+            $giorno[3] = date("d/m",strtotime('Thursday this week'));
+            $giorno[4] = date("d/m",strtotime('Friday this week'));
+            $giorno[5] = date("d/m",strtotime('Saturday this week'));
+        }
+        elseif ($weekdisplacement==1){
+            $giorno[0] = date("d/m",strtotime('Monday next week'));
+            $giorno[1] = date("d/m",strtotime('Tuesday next week'));
+            $giorno[2] = date("d/m",strtotime('Wednesday next week'));
+            $giorno[3] = date("d/m",strtotime('Thursday next week'));
+            $giorno[4] = date("d/m",strtotime('Friday next week'));
+            $giorno[5] = date("d/m",strtotime('Saturday next week'));
+        }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
         $view = new VPaziente();
         $view->ModificaAppuntamento($arraymedico, $orari_disponinibilità, $giorno);
     } 

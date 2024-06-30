@@ -40,7 +40,7 @@ public static function visualizza_storico_appuntamenti_medico(){
         //serve passare anche le tipologie
         //$tipologie = FEntityManagerSQL::retrieveall("tipologia");
         $view = new VMedico(); 
-        $view->showAppHistory($arrayappuntamenti);
+        $view->showPazPage($arrayappuntamenti);
     } 
 }
 
@@ -77,7 +77,7 @@ public static function ricerca_storico_appuntamenti_medico(){
 
         }
         $view = new VMedico(); //servirebbe una cosa del genere
-        $view->showAppHistory($arrayappuntamenti);
+        $view->showPazPage($arrayappuntamenti);
     } 
 }
 
