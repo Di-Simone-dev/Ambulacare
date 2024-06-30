@@ -57,7 +57,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Utente/">Registrati</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/formregistrazione">Registrati</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>

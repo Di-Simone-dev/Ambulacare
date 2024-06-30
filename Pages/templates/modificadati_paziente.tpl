@@ -1,7 +1,7 @@
 {extends file="layout_paziente.tpl"}
 
 {block name=content}
-    
+    <br><br>
     <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="width: 600px;padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>

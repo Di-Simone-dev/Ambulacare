@@ -1,7 +1,7 @@
 {extends file="layout_medico.tpl"}
 
 {block name=content}
-<br>
+<br><br>
 
     <form method="post" action="/Ambulacare/Medico/setEmailMedico" style="width: 600px;padding:35px;">
         {if $error}

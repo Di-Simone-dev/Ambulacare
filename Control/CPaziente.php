@@ -332,7 +332,7 @@ public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();
         
         $view = new VPaziente();
-        $view->visualizza_recensioni($medico);
+        $view->Recensione($medico);
 
     } 
 }
@@ -508,21 +508,30 @@ public static function modifica_appuntamento(){  //DA FARE
      * verify if the choosen username and email already exist, create the User Obj and set a default profile image 
      * @return void
      */
+    public static function formregistrazione()
+    {
+        //if (CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "admin") { //BISOGNA TENERLO   
+
+            $view = new VPaziente();
+            //$tipologie = FEntityManagerSQL::getInstance()->retrieveall(FTipologia::getTable());
+            $view->registra_paziente();
+        //}
+    }
     public static function registrazionepaziente()
     {   //registrazione del paziente
     //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
         $view = new VPaziente();  
         //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
-        if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == false ){ //false = mail non in uso  
+        if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == FALSE ){ //false = mail non in uso  
                 //QUI SI ISTANZIA UN PAZIENTE QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
                 $paziente = new EPaziente(UHTTPMethods::post('nome'), UHTTPMethods::post('cognome'),UHTTPMethods::post('email'),
-                                UHTTPMethods::post('password'),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
+                password_hash(UHTTPMethods::post('password'), PASSWORD_DEFAULT),UHTTPMethods::post('codice_fiscale'),UHTTPMethods::post('data_nascita'),
                                 UHTTPMethods::post('luogo_nascita'),UHTTPMethods::post('residenza'),UHTTPMethods::post('numero_telefono'),'1');
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
                 FPersistentManager::getInstance()->uploadObj($paziente);  //da sistemare il persistent manager
                 
                 $view->messaggio("Registrazione effettuata!");   //DA FARE CON LA VIEW E SMARTY
-        }else
+        }else if(FPersistentManager::getInstance()->verificaemailpaziente(UHTTPMethods::post('email')) == TRUE )
         {
             $view->messaggio("errore!"); //DA FARE CON LA VIEW E SMARTY
         }
@@ -563,13 +572,13 @@ public static function modifica_appuntamento(){  //DA FARE
                     USession::getInstance();
                     USession::setSessionElement('tipo_utente', 'paziente');
                     USession::setSessionElement('id', $paziente[0]->getIdPaziente());
-                    $view->messaggio("Login effettuato");
+                    $view->loginOk();
                 }
             } else {
-                $view->showFormLogin("Errore !");
+                $view->showFormLogin(UHTTPMethods::post('email'), "Username o password errate!");
             }
         } else {
-            $view->showFormLogin("Errore!");
+            $view->showFormLogin(UHTTPMethods::post('email'), "Username o password errate!");
         }
     }
 

@@ -29,7 +29,7 @@ class VPaziente
 	 * Funzione che si occupa di gestire la visualizzazione della form di login
 	 * @throws SmartyException
 	 */
-	public function showFormLogin($error = false){
+	public function showFormLogin($email = false, $error = false){
 		if ($error)
 			$this->smarty->assign('error',$error);
 		$this->smarty->display('login_paziente.tpl');
@@ -89,7 +89,7 @@ class VPaziente
 	 * @throws SmartyException
 	 */
 	public function registra_paziente() {
-		$this->smarty->display('registerpaziente.tpl');
+		$this->smarty->display('register_paziente.tpl');
 	}
 
 

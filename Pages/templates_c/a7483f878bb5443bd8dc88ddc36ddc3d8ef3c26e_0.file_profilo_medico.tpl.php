@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 12:28:08
+/* Smarty version 5.3.0, created on 2024-06-30 13:05:15
   from 'file:profilo_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66813338dbc4d1_53209926',
+  'unifunc' => 'content_66813beba3ba72_18207233',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7483f878bb5443bd8dc88ddc36ddc3d8ef3c26e' => 
     array (
       0 => 'profilo_medico.tpl',
-      1 => 1719737288,
+      1 => 1719745141,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,24 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66813338dbc4d1_53209926 (\Smarty\Template $_smarty_tpl) {
+function content_66813beba3ba72_18207233 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_111223310666813338db13a8_58252922', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_199702292166813beba2b653_49413526', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_111223310666813338db13a8_58252922 extends \Smarty\Runtime\Block
+class Block_199702292166813beba2b653_49413526 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
-
+<br><br>
     <div style="padding:35px;">
 	<h2> Profilo Personale - Dr. <?php echo $_smarty_tpl->getValue('medico')['nome'];?>
  <?php echo $_smarty_tpl->getValue('medico')['cognome'];?>

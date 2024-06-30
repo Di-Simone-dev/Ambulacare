@@ -2,7 +2,7 @@
 
 {block name=content}
     
-    <br>
+    <br><br>
     <form method="post" enctype="multipart/form-data" action="/Ambulacare/Medico/setInfoMedico" style="width: 600px;padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>

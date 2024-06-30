@@ -2,7 +2,7 @@
 
 {block name=content}
 
-    <br>
+    <br><br>
     <div id="container" style="height: 500px;">
         <h2 style="margin-left:35px;">Statistiche nell'intervallo di tempo selezionato</h2>
     <br>

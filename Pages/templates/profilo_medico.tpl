@@ -1,7 +1,7 @@
 {extends file="layout_medico.tpl"}
 
 {block name=content}
-
+<br><br>
     <div style="padding:35px;">
 	<h2> Profilo Personale - Dr. {$medico.nome} {$medico.cognome}</h2>
         <h4>Informazioni Personali</h4>
