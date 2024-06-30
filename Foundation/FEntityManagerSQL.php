@@ -303,7 +303,9 @@ class FEntityManagerSQL{
         }
     }
 
-
+    public static function isFloatInt($value) {
+        return is_float($value) && ($value == floor($value));
+    }
 
     //QUESTA CI SERVE NELLA PRATICA
     //metodo che dato in input un id di un medico ne restituisce la media delle recensioni
@@ -320,13 +322,19 @@ class FEntityManagerSQL{
             //BISOGNA FARE IL FETCH
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
-            $floatValue = $row;
-            $floatString = (string)$floatValue;
-            $parts = explode('.', $floatString);
-
-            // Mantieni solo le prime due cifre decimali
-            $truncatedValue = $parts[0] . '.' . substr($parts[1], 0, 1);
-            $row = $truncatedValue;
+            //var_dump();
+            if(!empty($row)){
+                if(!self::isFloatInt($row["valutazione"])){
+                    $floatValue = $row["valutazione"];
+                    //var_dump($floatValue);
+                    $floatString = (string)$floatValue;
+                    $parts = explode('.', $floatString);
+                    var_dump($parts);
+                    // Mantieni solo le prime due cifre decimali
+                    $truncatedValue = $parts[0] . '.' . substr($parts[1], 0, 2);
+                    $row["valutazione"] = $truncatedValue;
+                }
+            }
             
             return $row;  //DA TESTARE
         }catch(Exception $e){
