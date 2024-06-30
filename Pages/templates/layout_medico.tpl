@@ -27,7 +27,6 @@
     <link href="/Ambulacare/Pages/css/templatemo-medic-care.css" rel="stylesheet">
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
     <link href="/Ambulacare/Pages/font.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="logregstyle.css">
     <link href="/Ambulacare/Pages/responsive.css" rel="stylesheet">
 {/block}
 
