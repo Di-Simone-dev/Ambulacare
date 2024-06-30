@@ -19,7 +19,7 @@
                             {/foreach}
                         </select>
                         <br><br>
-                        <input type="date" id="dataapp" name="data" required>
+                        <input type="date" id="dataapp" name="data" >
                         <br><br>
                         <button type="submit" class="btn btn-primary">Effettua Ricerca</button>
                     </div>
