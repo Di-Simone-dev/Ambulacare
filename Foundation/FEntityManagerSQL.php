@@ -329,7 +329,7 @@ class FEntityManagerSQL{
                     //var_dump($floatValue);
                     $floatString = (string)$floatValue;
                     $parts = explode('.', $floatString);
-                    var_dump($parts);
+                    //var_dump($parts);
                     // Mantieni solo le prime due cifre decimali
                     $truncatedValue = $parts[0] . '.' . substr($parts[1], 0, 2);
                     $row["valutazione"] = $truncatedValue;
