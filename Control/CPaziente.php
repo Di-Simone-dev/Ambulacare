@@ -690,6 +690,68 @@ public static function modifica_appuntamento(){  //DA FARE
         }
     } 
 
+    //CASO D'USO AGGIUNTIVO VISUALIZZAZIONE RECENSIONI E RISPOSTE
+    public static function visualizza_recensioni(){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
+        
+        $IdPaziente = USession::getSessionElement('id');
+        $recensioni = FEntityManagerSQL::getInstance()->retrieveObj(FRecensione::getTable(),"IdPaziente",$IdPaziente);
+        $arrayrecensioni = array();
+        $nrecensioni = count($recensioni);
+        /* var_dump($medici[0]); */
+        //ci devo aggiungere la tipologia per ogni medico
+        for($i=0;$i<$nrecensioni; $i++){
+            /* $tipologia = FTipol */
+            $medico = FMedico::getObj($arrayrecensioni[$i]["IdMedico"]);
+            $immagine = FImmagine::getObj($medico[0]->getIdImmagine());
+            $recensione = [
+            "nominativomedico" => $medico[0]->getNome(). " ". $medico[0]->getCognome(),
+            "tipoimg" => $immagine[0]->getTipo(),
+            "datiimg" => base64_encode($immagine[0]->getDati()),
+            "data_ora" => $recensioni[$i]["data_creazione"],
+            "valutazione" => $recensioni[$i]["valutazione"],
+            "IdRecensione" => $recensioni[$i]["IdRecensione"]
+            ];
+            $arrayrecensioni[] = $recensione;
+           
+           
+        }
+        //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+        $view = new VPaziente();
+        $view->showEsami($arrayrecensioni);
+        }
+    }
+    public static function dettaglio_recensione_risposta($IdRecensione){
+        if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
+        $recensione = FRecensione::getObj($IdRecensione);
+        $IdPaziente = USession::getSessionElement('id');
+        $paziente = FPaziente::getObj($IdPaziente);
+        $arrayrecensione = array();
+        $arrayrecensione = [
+        "nominativopaziente" => $paziente[0]->getNome(). " ". $paziente[0]->getCognome(),
+        "titolo" => $recensione[0]->getTitolo(),
+        "contenuto" => $recensione[0]->getContenuto(),
+        "data_ora" =>$recensione[0]->getDatacreazione(),
+        "valutazione" => $recensione[0]->getValutazione()
+        ];
+        $risposta = FEntityManagerSQL::getInstance()->retrieveObj(FRisposta::getTable(),"IdRecensione",$IdRecensione);
+        if(!empty($risposta)){
+            $risposta = FRisposta::getObj($risposta[0]["IdRisposta"]);
+            $medico = $recensione[0]->getMedico();
+            $arrayrecensione = [
+            "nominativomedico" => $medico[0]->getNome(). " ". $medico[0]->getCognome(),
+            "contenutorisposta" => $risposta[0]->getContenuto(),
+            "data_ora" =>$risposta[0]->getDatacreazione()
+            ];
+        }
+      
+        //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
+        $view = new VPaziente();
+        $view->showEsami($arrayrecensione);
+        }
+    }
+
+
 
 
 }

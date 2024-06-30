@@ -320,6 +320,14 @@ class FEntityManagerSQL{
             //BISOGNA FARE IL FETCH
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $row = $stmt->fetch();  //IL RISULTATO DOVREBBE ESSERE QUI  e dovremmo prendere il primo elemento per avere il valore della media
+            $floatValue = $row;
+            $floatString = (string)$floatValue;
+            $parts = explode('.', $floatString);
+
+            // Mantieni solo le prime due cifre decimali
+            $truncatedValue = $parts[0] . '.' . substr($parts[1], 0, 1);
+            $row = $truncatedValue;
+            
             return $row;  //DA TESTARE
         }catch(Exception $e){
             echo "ERROR: " . $e->getMessage();
@@ -895,8 +903,7 @@ class FEntityManagerSQL{
         }
     }
 
-
-
+  
 
 
 }

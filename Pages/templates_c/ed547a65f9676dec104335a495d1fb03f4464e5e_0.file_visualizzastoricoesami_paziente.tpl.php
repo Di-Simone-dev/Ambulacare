@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 11:03:30
+/* Smarty version 5.3.0, created on 2024-06-30 14:59:28
   from 'file:visualizzastoricoesami_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66811f627a3264_58695255',
+  'unifunc' => 'content_668156b08e1f31_30254718',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ed547a65f9676dec104335a495d1fb03f4464e5e' => 
     array (
       0 => 'visualizzastoricoesami_paziente.tpl',
-      1 => 1719737690,
+      1 => 1719744695,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,30 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66811f627a3264_58695255 (\Smarty\Template $_smarty_tpl) {
+function content_668156b08e1f31_30254718 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_34606342166811f62786e19_23972695', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1624615290668156b08cc218_81630146', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_34606342166811f62786e19_23972695 extends \Smarty\Runtime\Block
+class Block_1624615290668156b08cc218_81630146 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 ?>
 
-
+<br><br>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form action="/Ambulacare/Paziente/ricerca_appuntamenti_effettuati" method="post">
                     <div class="form-group">
-                        <h2><label for="storico">Storico Esami</label></h2>
+                        <h2>Storico Esami</h2>
                         <br>
                         <select name="IdTipologia" class="form-select-m" required>
                             <?php

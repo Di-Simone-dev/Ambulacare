@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 13:21:44
+/* Smarty version 5.3.0, created on 2024-06-30 15:15:55
   from 'file:layout.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66813fc84e6648_49619163',
+  'unifunc' => 'content_66815a8bdb9d84_95549474',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f966e5f5cb4c36225dc9693cf9325adc4d98b6bb' => 
     array (
       0 => 'layout.tpl',
-      1 => 1719744695,
+      1 => 1719747652,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66813fc84e6648_49619163 (\Smarty\Template $_smarty_tpl) {
+function content_66815a8bdb9d84_95549474 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_145605658866813fc843b272_63632835', 'head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_19110396566815a8bdb6394_45651609', 'head');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_65002261166813fc84e59b3_57743883', 'nav');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_70643775866815a8bdb9155_28955566', 'nav');
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_72717876866813fc84e60e7_86617553', 'footer');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_139642423566815a8bdb97d9_50485675', 'footer');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "structure.tpl", $_smarty_current_dir);
 }
 /* {block 'head'} */
-class Block_145605658866813fc843b272_63632835 extends \Smarty\Runtime\Block
+class Block_19110396566815a8bdb6394_45651609 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -78,7 +78,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'head'} */
 /* {block 'nav'} */
-class Block_65002261166813fc84e59b3_57743883 extends \Smarty\Runtime\Block
+class Block_70643775866815a8bdb9155_28955566 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
@@ -111,7 +111,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/Ambulacare/Utente/">Registrati</a>
+                        <a class="nav-link" href="/Ambulacare/Paziente/formregistrazione">Registrati</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Ambulacare/Paziente/login">Accedi</a>
@@ -127,7 +127,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
 }
 /* {/block 'nav'} */
 /* {block 'footer'} */
-class Block_72717876866813fc84e60e7_86617553 extends \Smarty\Runtime\Block
+class Block_139642423566815a8bdb97d9_50485675 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Ambulacare\\Pages\\templates';
