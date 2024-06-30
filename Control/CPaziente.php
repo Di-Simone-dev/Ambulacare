@@ -454,7 +454,7 @@ public static function dettagli_appuntamento_modifica($IdAppuntamento,$weekdispl
             $giorno[5] = date("d/m",strtotime('Saturday next week'));
         }else header("Location: /Ambulacare/Pages/templates/pagenotfound.tpl");
         $view = new VPaziente();
-        $view->ModificaAppuntamento($arraymedico, $orari_disponinibilità, $giorno);
+        $view->ModificaAppuntamento($arraymedico, $orari_disponinibilità, $giorno,($weekdisplacement==1? true: false));
     } 
 }
 

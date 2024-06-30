@@ -363,7 +363,7 @@ class FEntityManagerSQL{
                       FROM calendario
                       INNER JOIN fascia_oraria ON calendario.IdCalendario = fascia_oraria.IdCalendario
                       INNER JOIN appuntamento ON appuntamento.IdFasciaOraria = fascia_oraria.IdFasciaOraria
-                      WHERE IdMedico = '" . $IdMedico . "'AND CURDATE()>=data ORDER BY data;";
+                      WHERE IdMedico = '" . $IdMedico . "'AND CURDATE()<=data ORDER BY data;";
                       
             $stmt = self::$db->prepare($query);
             //var_dump($stmt);
