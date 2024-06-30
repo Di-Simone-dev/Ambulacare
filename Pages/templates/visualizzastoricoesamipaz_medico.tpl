@@ -1,4 +1,4 @@
-{extends file="layout_admin.tpl"}
+{extends file="layout_medico.tpl"}
 
 {block name=content}
 
