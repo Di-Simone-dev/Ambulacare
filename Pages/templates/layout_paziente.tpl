@@ -62,7 +62,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Paziente/visualizza_appuntamenti_effettuati">Storico Esami</a>
 		<li class="nav-item">
-                    <a class="nav-link" href="/Ambulacare/Paziente/accedi_schermata_recensioni">Recensioni</a>
+                    <a class="nav-link" href="/Ambulacare/Paziente/visualizza_recensioni">Recensioni</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Paziente/settingspaziente">Profilo Personale</a>

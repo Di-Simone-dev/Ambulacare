@@ -211,6 +211,12 @@ class VPaziente
         $this->smarty->assign('recensioni',$rec);
         $this->smarty->display('visualizzarecensioni_paziente.tpl');
     }
+	public function showDettaglioRecRispPaziente($rec,$risp,$withrisp){
+        $this->smarty->assign('recensione',$rec);
+		$this->smarty->assign('risposta',$risp);
+		$this->smarty->assign('crisposta',$withrisp);
+        $this->smarty->display('dettaglio_recensione_risposta_paziente.tpl');
+    }
 	public function showEsami($tipologie, $medici, $Idtipologia = false){
 		$this->smarty->assign('tipologie', $tipologie);
 		$this->smarty->assign('medici',$medici);

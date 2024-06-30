@@ -249,13 +249,12 @@ public static function ricerca_appuntamenti_effettuati(){
         $IdTipologia = UHTTPMethods::post('IdTipologia');
 
         $IdPaziente = USession::getSessionElement('id'); 
-        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente);
-        $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento
-            ($app);
+        $app = FEntityManagerSQL::getInstance()->getappuntamenticonclusipaziente($IdPaziente,$dataform,$IdTipologia);
+        $appuntamenti_paziente_conclusi = FAppuntamento::creaappuntamento($app);
         $arrayappuntamenti = array();
         for($i=0;$i<count($appuntamenti_paziente_conclusi); $i++){
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento
-                        ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento())[0]["IdMedico"];
+            ($appuntamenti_paziente_conclusi[$i]->getIdAppuntamento())[0]["IdMedico"];
             $medico = FMedico::getObj($IdMedico);
             $fasciaoraria = $appuntamenti_paziente_conclusi[$i]->getFasciaoraria();
             $datastring = $fasciaoraria->getDatatostring();
@@ -701,7 +700,7 @@ public static function modifica_appuntamento(){  //DA FARE
         //ci devo aggiungere la tipologia per ogni medico
         for($i=0;$i<$nrecensioni; $i++){
             /* $tipologia = FTipol */
-            $medico = FMedico::getObj($arrayrecensioni[$i]["IdMedico"]);
+            $medico = FMedico::getObj($recensioni[$i]["IdMedico"]);
             $immagine = FImmagine::getObj($medico[0]->getIdImmagine());
             $recensione = [
             "nominativomedico" => $medico[0]->getNome(). " ". $medico[0]->getCognome(),
@@ -712,17 +711,16 @@ public static function modifica_appuntamento(){  //DA FARE
             "IdRecensione" => $recensioni[$i]["IdRecensione"]
             ];
             $arrayrecensioni[] = $recensione;
-           
-           
         }
         //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
         $view = new VPaziente();
-        $view->showEsami($arrayrecensioni);
+        $view->showRevPage($arrayrecensioni);
         }
     }
     public static function dettaglio_recensione_risposta($IdRecensione){
         if(CUtente::isLogged() && USession::getSessionElement('tipo_utente') == "paziente"){
         $recensione = FRecensione::getObj($IdRecensione);
+        //var_dump($recensione);
         $IdPaziente = USession::getSessionElement('id');
         $paziente = FPaziente::getObj($IdPaziente);
         $arrayrecensione = array();
@@ -733,20 +731,26 @@ public static function modifica_appuntamento(){  //DA FARE
         "data_ora" =>$recensione[0]->getDatacreazione(),
         "valutazione" => $recensione[0]->getValutazione()
         ];
+        //$recensione=$arrayrecensione;
+        //var_dump($arrayrecensione);
         $risposta = FEntityManagerSQL::getInstance()->retrieveObj(FRisposta::getTable(),"IdRecensione",$IdRecensione);
+        $withrisposta=false;
+        $arrayrisposta=array();
         if(!empty($risposta)){
+            $withrisposta=true;
             $risposta = FRisposta::getObj($risposta[0]["IdRisposta"]);
             $medico = $recensione[0]->getMedico();
-            $arrayrecensione = [
+            $arrayrisposta = [
             "nominativomedico" => $medico[0]->getNome(). " ". $medico[0]->getCognome(),
             "contenutorisposta" => $risposta[0]->getContenuto(),
             "data_ora" =>$risposta[0]->getDatacreazione()
             ];
+            //var_dump($risposta);
         }
       
         //$tipologie = FPersistentManager::getInstance()->retrievealltipologie();
         $view = new VPaziente();
-        $view->showEsami($arrayrecensione);
+        $view->showDettaglioRecRispPaziente($arrayrecensione,$arrayrisposta,$withrisposta);
         }
     }
 
