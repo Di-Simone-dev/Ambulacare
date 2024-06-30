@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 18:11:39
+/* Smarty version 5.3.0, created on 2024-06-30 14:41:17
   from 'file:modificaappuntamento_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ee0bb1c7738_37696859',
+  'unifunc' => 'content_6681526d9895b7_99239840',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9eac4748c9e69b0cc478a53d71e9ec57e2554829' => 
     array (
       0 => 'modificaappuntamento_medico.tpl',
-      1 => 1719585664,
+      1 => 1719751275,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ee0bb1c7738_37696859 (\Smarty\Template $_smarty_tpl) {
+function content_6681526d9895b7_99239840 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_863291984667ee0bb1adbd0_37040323', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_8298220896681526d968063_03339854', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_863291984667ee0bb1adbd0_37040323 extends \Smarty\Runtime\Block
+class Block_8298220896681526d968063_03339854 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -121,7 +121,7 @@ for ($_foo=true;$_smarty_tpl->getValue('i') < 7; $_smarty_tpl->tpl_vars['i']->va
                     </div>
                     <br>
                     <div>
-                        <button type="submit" class="btn btn-primary" id="annulla">Annulla</button>
+                        <a href="/Ambulacare/Medico/visualizza_agenda" class="btn btn-primary" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

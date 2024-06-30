@@ -316,7 +316,7 @@ public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
         //BISOGNERà PASSARE L'Id del medico a cui attribuire la recensione perchè serve nello step successivo per la creazione
         //quindi va tenuto, possibilmente anche in sessione se serve
         //SERVE PASSARE TUTTI I DATI RELATIVI AL MEDICO A CUI METTIAMO LA RECENSIONE
-        
+        //SERVE FIXARLO
         $medico = FMedico::getObj($IdMedico);
         
         $costoapp = FAppuntamento::getObj($IdAppuntamento)[0]->getCosto(); //questo non dipende più dal medico
@@ -332,7 +332,7 @@ public static function accedi_schermata_recensioni($IdMedico,$IdAppuntamento){
         $arraymedico["datiimmagine"] = FImmagine::getObj($medico[0]->getIdImmagine())[0]->getDati();
         
         $view = new VPaziente();
-        $view->Recensione($medico);
+        $view->showRevPage($medico);
 
     } 
 }
@@ -682,8 +682,8 @@ public static function modifica_appuntamento(){  //DA FARE
             $IdPaziente = USession::getInstance()->getSessionElement('id');
             $paziente = FPersistentManager::getInstance()->retrieveObj(EPaziente::getEntity(), $IdPaziente);
             $newPass = UHTTPMethods::post('password');
-            $paziente->setPassword($newPass);
-            FPersistentManager::getInstance()->updatePasswordpaziente($paziente);
+            $paziente[0]->setPassword($newPass);
+            FPersistentManager::getInstance()->updatePasswordpaziente($paziente[0]);
             $view = new VPaziente();
             $view->messaggio("Operazione effettuata con successo");
             //header('Location: /paziente/profilopersonale');

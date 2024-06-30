@@ -2,25 +2,11 @@
 
 {block name=content}
     
+    
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="#">
-                    <div class="form-group" >
-                        <h2>Recensioni</h2>
-                        <br>
-                            <input type="date" id="dataapp" name="dataapp" required/>
-                            <br><br>
-                            <button type="submit" class="btn btn-primary">Effettua ricerca</button>
-                            <br><br>
-                        </div>  
-                </form>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div>
+    <div style="padding:35px;">
+	<h2>Recensioni</h2>
+<br><br>
         <table class="table">
             <thead style="text-align: center;">
                 <tr>

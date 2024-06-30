@@ -23,7 +23,7 @@
                     </h4>
                     <br><br>
                     <div>
-                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Medico/visualizza_recensioni" class="btn btn-primary" id="annulla">Annulla</a>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                             <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

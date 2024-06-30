@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 12:28:01
+/* Smarty version 5.3.0, created on 2024-06-30 14:05:33
   from 'file:rispostarecensione_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66813331c2b2b0_06336966',
+  'unifunc' => 'content_66814a0dd16d09_22012558',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30f4ab14567a5fa5203e89f3cb6844c6276d81f0' => 
     array (
       0 => 'rispostarecensione_medico.tpl',
-      1 => 1719743280,
+      1 => 1719749132,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66813331c2b2b0_06336966 (\Smarty\Template $_smarty_tpl) {
+function content_66814a0dd16d09_22012558 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1606810666813331c25b23_13821288', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_25930492566814a0dd09ab2_38743529', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1606810666813331c25b23_13821288 extends \Smarty\Runtime\Block
+class Block_25930492566814a0dd09ab2_38743529 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
@@ -64,7 +64,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                     </h4>
                     <br><br>
                     <div>
-                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                        <a href="/Ambulacare/Medico/visualizza_recensioni" class="btn btn-primary" id="annulla">Annulla</a>
                             &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                             <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

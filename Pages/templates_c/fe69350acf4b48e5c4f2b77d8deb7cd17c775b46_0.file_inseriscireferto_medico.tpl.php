@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 17:58:57
+/* Smarty version 5.3.0, created on 2024-06-30 13:43:44
   from 'file:inseriscireferto_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667eddc1adbce1_44395274',
+  'unifunc' => 'content_668144f0a26059_00123011',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fe69350acf4b48e5c4f2b77d8deb7cd17c775b46' => 
     array (
       0 => 'inseriscireferto_medico.tpl',
-      1 => 1719585664,
+      1 => 1719747821,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,25 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667eddc1adbce1_44395274 (\Smarty\Template $_smarty_tpl) {
+function content_668144f0a26059_00123011 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1735885794667eddc1acf978_72077657', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1448710070668144f0a149e8_29419242', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_medico.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1735885794667eddc1acf978_72077657 extends \Smarty\Runtime\Block
+class Block_1448710070668144f0a149e8_29419242 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
 
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -69,7 +70,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/t
                     <div>
                         <input type="hidden" value="<?php echo $_smarty_tpl->getValue('esame')['IdAppuntamento'];?>
 " name="IdAppuntamento">
-                        <a class="btn btn-primary" id="annulla">Annulla</a>
+                        <a class="btn btn-primary" href="/Ambulacare/Medico/visualizza_storico_appuntamenti_medico" id="annulla">Annulla</a>
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                         <button type="submit" class="btn btn-primary" id="conferma">Conferma</button>
                     </div>

@@ -31,7 +31,7 @@
                     <th scope="col">Medico</th>
                     <th scope="col">Tipologia</th>
                     <th scope="col">Costo</th>
-                    <th scope="col">Recensioni</th>
+                    <th scope="col">Valutazione</th>
                     <th scope="col">Azione</th>
                 </tr>
             </thead>

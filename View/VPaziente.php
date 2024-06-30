@@ -202,7 +202,15 @@ class VPaziente
         $this->smarty->assign('medico',$medico);
         $this->smarty->display('inseriscirecensione_paziente.tpl');
     }
-
+	/**
+	 * Funzione che permette di visualizzare la lista delle recensioni presenti nel database del paziente
+	 * @param $rec array di recensioni
+	 * @throws SmartyException
+	 */
+    public function showRevPage($rec){
+        $this->smarty->assign('recensioni',$rec);
+        $this->smarty->display('visualizzarecensioni_paziente.tpl');
+    }
 	public function showEsami($tipologie, $medici, $Idtipologia = false){
 		$this->smarty->assign('tipologie', $tipologie);
 		$this->smarty->assign('medici',$medici);

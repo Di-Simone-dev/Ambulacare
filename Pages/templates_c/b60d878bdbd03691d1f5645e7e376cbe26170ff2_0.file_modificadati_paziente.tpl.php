@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 09:44:34
+/* Smarty version 5.3.0, created on 2024-06-30 13:45:52
   from 'file:modificadati_paziente.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66810ce23139d5_04273662',
+  'unifunc' => 'content_66814570b17dd2_71690227',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b60d878bdbd03691d1f5645e7e376cbe26170ff2' => 
     array (
       0 => 'modificadati_paziente.tpl',
-      1 => 1719733471,
+      1 => 1719745141,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,24 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66810ce23139d5_04273662 (\Smarty\Template $_smarty_tpl) {
+function content_66814570b17dd2_71690227 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_167237324866810ce230ce03_02852005', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_44271413566814570b0a4c2_98251611', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_paziente.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_167237324866810ce230ce03_02852005 extends \Smarty\Runtime\Block
+class Block_44271413566814570b0a4c2_98251611 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
-    
+    <br><br>
     <form method="post" action="/Ambulacare/Paziente/setInfoPaziente" style="width: 600px;padding:35px;">
     <h1>MODIFICA DATI</h1>
 <br>
