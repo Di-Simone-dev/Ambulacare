@@ -321,13 +321,13 @@ class CAmministratore
             //construct($nome,$cognome,$email, $password, $codice_fiscale,$data_nascita,$luogo_nascita,$residenza,$numero_telefono,$attivo)
             $view = new VAmministratore();
             //BASTA VERIFICARE CHE LA MAIL NON SIA GIà IN USO
-            if (FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == false) { //false = mail non in uso  
+            if (FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == FALSE) { //false = mail non in uso  
                 //QUI SI ISTANZIA UN MEDICO QUINDI SERVONO I CORRETTI ARGOMENTI DA PASSARGLI
                 $medico = new EMedico(
                     UHTTPMethods::post('nome'),
                     UHTTPMethods::post('cognome'),
                     UHTTPMethods::post('email'),
-                    password_hash("AmbulaCare", PASSWORD_DEFAULT),
+                    password_hash(UHTTPMethods::post('password'), PASSWORD_DEFAULT),
                     '1',
                     UHTTPMethods::post('costo')
                 );
@@ -342,10 +342,9 @@ class CAmministratore
                 $calendario = new ECalendario();
                 $calendario->setMedico($medico);
                 FPersistentManager::getInstance()->uploadObj($calendario);
-
-
                 $view->messaggio("Registrazione effettuata con successo!");   //DA FARE CON LA VIEW E SMARTY
-            } else {
+            } 
+            else if(FPersistentManager::getInstance()->verificaemailmedico(UHTTPMethods::post('email')) == TRUE) {
                 $view->messaggio("Errore con la registrazione del medico"); //DA FARE CON LA VIEW E SMARTY
             }
         }

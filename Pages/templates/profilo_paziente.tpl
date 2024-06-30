@@ -28,7 +28,7 @@
                 <label style="font-style: 'Open Sans', sans-serif;font-size: 20px;font-weight: bold;"> Telefono:</label>
                 <label style="font-style: 'Open Sans', sans-serif;font-size: 18px;">{$paziente.numero_telefono}</label>
 <br><br>
-                <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Paziente/logout">Logout</a>
+
         <a class='btn btn-primary' style='width:195px;' href="/Ambulacare/Paziente/formSetInfoPaziente">Modifica Dati</a>
              </div>
 {/block}

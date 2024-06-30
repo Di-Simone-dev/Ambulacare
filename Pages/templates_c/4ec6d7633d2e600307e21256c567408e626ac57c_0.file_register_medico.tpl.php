@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-30 10:15:46
+/* Smarty version 5.3.0, created on 2024-06-30 10:50:13
   from 'file:register_medico.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668114327feb09_41057038',
+  'unifunc' => 'content_66811c455dc801_74407507',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4ec6d7633d2e600307e21256c567408e626ac57c' => 
     array (
       0 => 'register_medico.tpl',
-      1 => 1719735345,
+      1 => 1719737411,
       2 => 'file',
     ),
   ),
@@ -20,25 +20,25 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_668114327feb09_41057038 (\Smarty\Template $_smarty_tpl) {
+function content_66811c455dc801_74407507 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1249239282668114327ebea0_32512541', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_162948986866811c455c2621_81207334', 'content');
 $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "layout_admin.tpl", $_smarty_current_dir);
 }
 /* {block 'content'} */
-class Block_1249239282668114327ebea0_32512541 extends \Smarty\Runtime\Block
+class Block_162948986866811c455c2621_81207334 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Ambulacare/Pages/templates';
 ?>
 
     <form method="post" action="/Ambulacare/Amministratore/registrazionemedico"  enctype="multipart/form-data" style="width: 600px;padding:35px;">
-        <h1>REGISTRAZIONE</h1>
+        <h1>REGISTRAZIONE MEDICO</h1>
 <br>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>
         <input type="text" id="nome" name="nome" required>

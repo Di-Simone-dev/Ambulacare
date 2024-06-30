@@ -64,6 +64,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Ambulacare/Paziente/settingspaziente">Profilo Personale</a>
                 </li>
+		<li class="nav-item">
+                    <a class="nav-link" href="/Ambulacare/Paziente/Logout">Logout</a>
+                </li>
             </ul>
         </div>
 
