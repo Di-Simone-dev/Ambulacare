@@ -483,7 +483,7 @@ public static function modifica_appuntamento(){  //DA FARE
         $IdFasciaOraria = (FEntityManagerSQL::getInstance()->
         getIdFasciaOrariafromIdMedicondata($IdMedico[0]["IdMedico"],$data));
         $messaggio = "L'orario scelto non è disponibile!";
-        $exist = is_int($IdFasciaOraria);
+        $exist = !empty($IdFasciaOraria);
         
         if($exist && $data>getdate()){ //se il medico ha creato la disponibilità e la data inserita è futura
             $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj

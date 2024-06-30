@@ -237,7 +237,7 @@ class CAmministratore
             $IdMedico = FEntityManagerSQL::getInstance()->getIdMedicofromIdAppuntamento($IdAppuntamento);
             $IdMedico = $IdMedico[0]["IdMedico"];
 
-            $exist = is_int(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico, $data));
+            $exist = !empty(FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico, $data));
             if ($exist && $data > getdate()) { //se il medico ha creato la disponibilità e la data inserita è futura
                 $IdFasciaOraria = FEntityManagerSQL::getInstance()->getIdFasciaOrariafromIdMedicondata($IdMedico, $data);
                 $busy = FEntityManagerSQL::getInstance()->existInDb(FEntityManagerSQL::getInstance()->retrieveObj(FAppuntamento::getTable(), "IdFasciaOraria", $IdFasciaOraria));
@@ -334,7 +334,7 @@ class CAmministratore
                 //imposto la propic di default che avrà id=1
                 //$user->setIdImage(1);  //i pazienti non hanno la propic MA PER IL MEDICO AVREBBE COMPLETAMENTE SENSO METTERE PROPIC DI DEF
                 $medico->setTipologia(FTipologia::getObj(UHTTPMethods::post('tipologia'))[0]);
-                $medico->setIdImmagine('1');
+                $medico->setIdImmagine('0');
                 //var_dump($medico);
                 $IdMedico = FPersistentManager::getInstance()->uploadObj($medico);  //da sistemare il persistent manager
                 $medico->setIdMedico($IdMedico);
