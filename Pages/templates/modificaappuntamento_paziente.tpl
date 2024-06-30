@@ -19,9 +19,12 @@
                                 {/if}/5&#9733;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Disponibilità
                                     Orari
                                     del Medico</h3>
-                            <a class="bottonitab">
-                                < </a>
-                                    <a class="bottonitab"> > </a>
+                            {if $week}
+                                <a class="bottonitab" href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/{$medico.IdAppuntamento}"> < </a>
+                                    {else}
+                                        <a class="bottonitab"
+                                            href="/Ambulacare/Paziente/dettagli_appuntamento_modifica/{$medico.IdAppuntamento}/1"> > </a>
+                                    {/if}
                                     <br>
                                     <table class="table" id="orari" style="border: 1px solid;">
                                         <thead style="background-color: rgb(230, 230, 230);text-align: center;">
