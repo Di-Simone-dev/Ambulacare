@@ -1,7 +1,7 @@
 {extends file="layout.tpl"}
 
 {block name=content}
-
+<br><br>
     <form method="post" action="register.php" style="width: 600px;">
         <h1 style="font-size: 34px;">REGISTRAZIONE</h1>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nome</label>

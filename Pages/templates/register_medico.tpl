@@ -1,6 +1,7 @@
 {extends file="layout_admin.tpl"}
 
 {block name=content}
+<br><br>
     <form method="post" action="/Ambulacare/Amministratore/registrazionemedico"  enctype="multipart/form-data" style="width: 600px;padding:35px;">
         <h1>REGISTRAZIONE MEDICO</h1>
 <br>

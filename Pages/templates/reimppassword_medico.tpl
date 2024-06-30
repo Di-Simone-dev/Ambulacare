@@ -2,7 +2,7 @@
 
 {block name=content}
 
-    <br>
+    <br><br>
     <form method="post" action="/Ambulacare/Medico/setPasswordMedico" style="width: 600px;padding:35px;">
         <h1>REIMPOSTAZIONE PASSWORD</h1>
         <label style="font-style: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;">Nuova Password</label>

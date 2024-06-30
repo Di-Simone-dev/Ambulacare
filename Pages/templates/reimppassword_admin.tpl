@@ -1,7 +1,7 @@
 {extends file="layout_admin.tpl"}
 
 {block name=content}
-
+<br><br>
     <form method="post" action="" style="width: 600px;padding:35px;">
         <h1>REIMPOSTAZIONE PASSWORD</h1>
         {if($error)}

@@ -1,6 +1,7 @@
 {extends file="layout_paziente.tpl"}
 
 {block name=content}
+<br><br>
     <div style="padding:35px;">
     <h2> Profilo Personale - Sig. {$paziente.nome} {$paziente.cognome}</h2>
     <h4>Informazioni Personali </h4>

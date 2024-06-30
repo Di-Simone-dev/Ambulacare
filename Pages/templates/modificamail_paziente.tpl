@@ -1,7 +1,7 @@
 {extends file="layout_paziente.tpl"}
 
 {block name=content}
-<br>
+<br><br>
 
     <form method="post" action="/Ambulacare/Paziente/setEmailPaziente" style="width: 600px;padding:35px;">
         {if $error}
