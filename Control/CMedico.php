@@ -125,7 +125,8 @@ public static function caricamento_referto(){
         //SE C'è ANCHE L'IMMAGINE DEVO MODIFICARLO AL VOLO
 
         //MANCA ANCHE SALVARE L'IMMAGINE NEL DB SE PRESENTE
-        $check = UHTTPMethods::files('immagineref','error');                                       
+        $check = UHTTPMethods::files('immagineref','error');
+        //var_dump($check);         int = 0 per ok mentre int !=0 per no immagine             
         if($check == 0){ //CONTROLLANDO CHE SIA STATO PRESO IL CAMPO IMMAGINE
             $immaginereferto = UHTTPMethods::files('immagineref'); //EQUIVALENTE AD ACCEDERE A $_FILES['immagineref']
             $check = FPersistentManager::getInstance()->manageImages($immaginereferto, $referto);
@@ -133,11 +134,10 @@ public static function caricamento_referto(){
                 //$view->uploadFileError($check);
                 $messaggio="Referto caricato correttamente!";
             }
-        }//L'IMMAGINE VIENE CREATA E SALVATA IN FOUNDATION?
-
-       
-        //$referto->setIdImmagine();  //DA FARE
-        //FReferto::saveObj($referto); //LO SALVO NEL DB
+            
+        }else{
+            $messaggio="Referto caricato correttamente!";
+        }
 
         $view = new VMedico(); //servirebbe una cosa del genere
         $view->messaggio($messaggio);
@@ -332,8 +332,9 @@ public static function visualizza_referto($IdReferto){
         $arrayreferto["contenuto"] = $referto[0]->getContenuto();     
         //servirebbe passare alla view anche l'immagine associata
         $immagine = FImmagine::getObj($referto[0]->getIdImmagine()); //questa è molto comoda per instanziare l'immagine
+        //var_dump($immagine);
         $withimg=FALSE;
-        if(isset($immagine)){
+        if(!empty($referto[0]->getIdImmagine())){
             $withimg=TRUE;
             $arrayreferto["tipoimmagine"] = $immagine[0]->getTipo();
             $arrayreferto["datiimmagine"] = $immagine[0]->getDati();
