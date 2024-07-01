@@ -4,7 +4,7 @@ class ERecensione
     private $IdRecensione;
     private $titolo;
     private $contenuto;
-    private float $valutazione;
+    private $valutazione;
     private $data_creazione;
 
     private $medico;  //FK senza id
@@ -59,7 +59,7 @@ class ERecensione
         return $this->valutazione;
     }
 
-    public function setValutazione(float $valutazione)
+    public function setValutazione( $valutazione)
     {
         $this->valutazione = $valutazione;
     }

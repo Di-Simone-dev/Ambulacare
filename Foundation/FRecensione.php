@@ -54,7 +54,7 @@ class FRecensione {
     	//$stmt->bindValue(':IdRecensione',NULL, PDO::PARAM_INT); //l'id è posto a NULL poichè viene dato automaticamente dal DBMS (AUTOINCREMENT_ID)
         $stmt->bindValue(':titolo', $rec->getTitolo(), PDO::PARAM_STR); 
         $stmt->bindValue(':contenuto', $rec->getContenuto(), PDO::PARAM_STR);
-        $stmt->bindValue(':valutazione', $rec->getValutazione(), PDO::PARAM_STR); //float o INT
+        $stmt->bindValue(':valutazione', $rec->getValutazione(), PDO::PARAM_STR); 
         $stmt->bindValue(':data_creazione', $rec->getDatacreazione(), PDO::PARAM_STR); // DA CONTROLLARE
         $stmt->bindValue(':IdMedico', $rec->getMedico()->getIdMedico(), PDO::PARAM_STR);  // FK
         $stmt->bindValue(':IdPaziente', $rec->getPaziente()->getIdPaziente(), PDO::PARAM_STR);  //FK

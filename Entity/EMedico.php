@@ -106,7 +106,7 @@ class EMedico
         return $this->costo;
     }
 
-    public function setCosto(float $costo)
+    public function setCosto($costo)
     {
         $this->costo = $costo;
     }
